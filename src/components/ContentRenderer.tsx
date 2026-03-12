@@ -1,6 +1,7 @@
 "use client";
 
 import CodeBlock from "./CodeBlock";
+import ScrollFadeIn from "./ScrollFadeIn";
 
 interface ContentRendererProps {
   content: string;
@@ -10,14 +11,16 @@ export default function ContentRenderer({ content }: ContentRendererProps) {
   const parts = parseContent(content);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       {parts.map((part, index) =>
         part.type === "code" ? (
-          <CodeBlock key={index} code={part.text} />
+          <ScrollFadeIn key={index}>
+            <CodeBlock code={part.text} />
+          </ScrollFadeIn>
         ) : (
           <div
             key={index}
-            className="whitespace-pre-line text-sm leading-relaxed text-gray-700 dark:text-gray-300"
+            className="whitespace-pre-line text-sm leading-relaxed text-(--text-1)"
           >
             {part.text}
           </div>
@@ -52,9 +55,6 @@ function parseContent(content: string): Part[] {
   };
 
   for (const line of lines) {
-    // Only detect as code if 3+ spaces followed by a command-like pattern:
-    // - starts with a letter/digit/slash/dot/$/{/"/~ (typical command chars)
-    // - but NOT "- " (sub-list item) or Korean/Japanese/CJK text
     const isCodeLine =
       /^ {3,}\S/.test(line) &&
       /^ {3,}[a-zA-Z0-9/.~${">{]/.test(line);

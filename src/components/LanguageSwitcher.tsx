@@ -2,11 +2,13 @@
 
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { EASE_APPLE, DURATION } from "@/lib/motion";
 
 const languages = [
-  { code: "ko", label: "한국어", flag: "🇰🇷" },
-  { code: "en", label: "English", flag: "🇺🇸" },
-  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ko", label: "한국어" },
+  { code: "en", label: "EN" },
+  { code: "ja", label: "日本語" },
 ];
 
 export default function LanguageSwitcher() {
@@ -20,19 +22,29 @@ export default function LanguageSwitcher() {
     router.push(segments.join("/"));
   };
 
+  const activeIndex = languages.findIndex((l) => l.code === locale);
+
   return (
-    <div className="flex items-center gap-1">
+    <div className="relative flex items-center rounded-xl bg-(--surface) p-1 border border-(--border)">
+      {/* Sliding indicator */}
+      <motion.div
+        className="absolute top-1 bottom-1 rounded-lg bg-(--primary)"
+        animate={{
+          left: `calc(${activeIndex} * 33.333% + 4px)`,
+          width: "calc(33.333% - 8px)",
+        }}
+        transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
+      />
       {languages.map((lang) => (
         <button
           key={lang.code}
           onClick={() => switchLocale(lang.code)}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+          className={`relative z-10 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
             locale === lang.code
-              ? "bg-blue-600 text-white"
-              : "text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+              ? "text-white"
+              : "text-(--text-2) hover:text-(--text-1)"
           }`}
         >
-          <span className="mr-1">{lang.flag}</span>
           {lang.label}
         </button>
       ))}
