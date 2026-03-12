@@ -176,7 +176,7 @@
       "flowTitle": "Claude Code コアワークフロー",
       "flow": [
         { "label": "計画", "color": "bg-blue-600" },
-        { "label": "コーディング", "color": "bg-purple-600" },
+        { "label": "コーディング", "color": "bg-blue-600" },
         { "label": "検証", "color": "bg-green-600" },
         { "label": "デプロイ", "color": "bg-orange-500" }
       ],
@@ -556,7 +556,7 @@
       "subtitle": "トークンコストを理解し、コンテキストウィンドウを効率的に管理します",
       "modelsTitle": "Claude モデル比較",
       "models": [
-        { "name": "Opus 4.6", "speed": "速度：普通", "cost": "コスト：高い", "best": "複雑なアーキテクチャ設計、マルチステップタスク", "color": "border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-900/20" },
+        { "name": "Opus 4.6", "speed": "速度：普通", "cost": "コスト：高い", "best": "複雑なアーキテクチャ設計、マルチステップタスク", "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20" },
         { "name": "Sonnet 4.6", "speed": "速度：速い", "cost": "コスト：中程度", "best": "一般的なコーディング、コードレビュー、リファクタリング", "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20" },
         { "name": "Haiku 4.5", "speed": "速度：非常に速い", "cost": "コスト：低い", "best": "簡単な質問、コード検索、説明", "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" }
       ],

@@ -34,7 +34,7 @@ const sectionIcons: Record<string, React.ReactNode> = {
 const sectionColors: Record<string, string> = {
   contextWindow: "from-blue-500 to-cyan-400",
   reduceTokens: "from-green-500 to-emerald-400",
-  teamCosts: "from-purple-500 to-indigo-500",
+  teamCosts: "from-blue-500 to-cyan-500",
   costTips: "from-amber-500 to-yellow-400",
 };
 

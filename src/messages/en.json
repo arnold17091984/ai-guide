@@ -176,7 +176,7 @@
       "flowTitle": "Claude Code Core Workflow",
       "flow": [
         { "label": "Plan", "color": "bg-blue-600" },
-        { "label": "Code", "color": "bg-purple-600" },
+        { "label": "Code", "color": "bg-blue-600" },
         { "label": "Verify", "color": "bg-green-600" },
         { "label": "Deploy", "color": "bg-orange-500" }
       ],
@@ -556,7 +556,7 @@
       "subtitle": "Understand token costs and manage the context window efficiently",
       "modelsTitle": "Claude Model Comparison",
       "models": [
-        { "name": "Opus 4.6", "speed": "Speed: Moderate", "cost": "Cost: High", "best": "Complex architecture, multi-step tasks", "color": "border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-900/20" },
+        { "name": "Opus 4.6", "speed": "Speed: Moderate", "cost": "Cost: High", "best": "Complex architecture, multi-step tasks", "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20" },
         { "name": "Sonnet 4.6", "speed": "Speed: Fast", "cost": "Cost: Medium", "best": "General coding, code review, refactoring", "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20" },
         { "name": "Haiku 4.5", "speed": "Speed: Very Fast", "cost": "Cost: Low", "best": "Simple questions, code search, explanations", "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" }
       ],

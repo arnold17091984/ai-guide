@@ -40,7 +40,7 @@ const sectionIcons: Record<string, React.ReactNode> = {
 const sectionColors: Record<string, string> = {
   overview: "from-teal-500 to-cyan-400",
   claudeMd: "from-blue-500 to-indigo-500",
-  claudeMdContent: "from-purple-500 to-violet-400",
+  claudeMdContent: "from-blue-500 to-cyan-400",
   autoMemory: "from-green-500 to-emerald-400",
   rules: "from-orange-500 to-amber-400",
 };

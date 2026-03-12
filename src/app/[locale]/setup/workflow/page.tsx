@@ -40,7 +40,7 @@ const sectionIcons: Record<string, React.ReactNode> = {
 
 const sectionColors: Record<string, string> = {
   planMode: "from-blue-500 to-cyan-400",
-  subagent: "from-purple-500 to-indigo-500",
+  subagent: "from-blue-500 to-cyan-500",
   verification: "from-green-500 to-emerald-400",
   taskManagement: "from-orange-500 to-amber-400",
   corePrinciples: "from-rose-500 to-pink-400",

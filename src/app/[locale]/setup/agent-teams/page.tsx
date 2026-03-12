@@ -84,7 +84,7 @@ const sectionIcons: Record<string, React.ReactNode> = {
 
 const sectionColors: Record<string, string> = {
   overview: "from-blue-500 to-cyan-400",
-  vsSubagents: "from-purple-500 to-indigo-500",
+  vsSubagents: "from-blue-500 to-cyan-500",
   enable: "from-gray-600 to-gray-500",
   start: "from-green-500 to-emerald-400",
   displayModes: "from-sky-500 to-blue-400",
@@ -94,7 +94,7 @@ const sectionColors: Record<string, string> = {
   monitoring: "from-cyan-500 to-blue-400",
   troubleshooting: "from-yellow-500 to-orange-400",
   limitations: "from-red-500 to-orange-400",
-  nextSteps: "from-indigo-500 to-violet-400",
+  nextSteps: "from-cyan-500 to-blue-400",
 };
 
 export default function AgentTeamsPage() {

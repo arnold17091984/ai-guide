@@ -37,7 +37,7 @@ const featureIcons: Record<string, React.ReactNode> = {
 
 const featureColors: Record<string, string> = {
   visualMonitoring: "from-cyan-500 to-blue-400",
-  customization: "from-purple-500 to-violet-400",
+  customization: "from-blue-500 to-cyan-400",
   subAgents: "from-green-500 to-emerald-400",
   security: "from-orange-500 to-amber-400",
 };

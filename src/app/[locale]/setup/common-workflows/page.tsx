@@ -40,7 +40,7 @@ const sectionColors: Record<string, string> = {
   codebaseExplore: "from-blue-500 to-indigo-500",
   bugFix: "from-red-500 to-orange-400",
   testing: "from-green-500 to-emerald-400",
-  prCreation: "from-purple-500 to-violet-400",
+  prCreation: "from-blue-500 to-cyan-400",
   sessionResume: "from-cyan-500 to-teal-400",
 };
 

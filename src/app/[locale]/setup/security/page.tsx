@@ -44,7 +44,7 @@ const sectionIcons: Record<string, React.ReactNode> = {
 
 const sectionColors: Record<string, string> = {
   permissionBasics: "from-blue-500 to-indigo-500",
-  permissionModes: "from-purple-500 to-violet-400",
+  permissionModes: "from-blue-500 to-cyan-400",
   bypassPermissions: "from-red-500 to-rose-400",
   allowRules: "from-emerald-500 to-green-400",
   sandboxing: "from-green-500 to-teal-400",

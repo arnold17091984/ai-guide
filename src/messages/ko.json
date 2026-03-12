@@ -176,7 +176,7 @@
       "flowTitle": "Claude Code 핵심 워크플로우",
       "flow": [
         { "label": "계획 수립", "color": "bg-blue-600" },
-        { "label": "코드 작성", "color": "bg-purple-600" },
+        { "label": "코드 작성", "color": "bg-blue-600" },
         { "label": "검증", "color": "bg-green-600" },
         { "label": "배포", "color": "bg-orange-500" }
       ],
@@ -556,7 +556,7 @@
       "subtitle": "토큰 비용을 이해하고 컨텍스트 윈도우를 효율적으로 관리합니다",
       "modelsTitle": "Claude 모델 비교",
       "models": [
-        { "name": "Opus 4.6", "speed": "속도: 보통", "cost": "비용: 높음", "best": "복잡한 아키텍처 설계, 멀티스텝 작업", "color": "border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-900/20" },
+        { "name": "Opus 4.6", "speed": "속도: 보통", "cost": "비용: 높음", "best": "복잡한 아키텍처 설계, 멀티스텝 작업", "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20" },
         { "name": "Sonnet 4.6", "speed": "속도: 빠름", "cost": "비용: 중간", "best": "일반 코딩, 코드리뷰, 리팩토링", "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20" },
         { "name": "Haiku 4.5", "speed": "속도: 매우 빠름", "cost": "비용: 낮음", "best": "간단한 질문, 코드 검색, 설명", "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" }
       ],

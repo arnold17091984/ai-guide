@@ -43,7 +43,7 @@ const cardGroups: CardGroup[] = [
       {
         key: "claudeCode",
         href: "/setup/claude-code",
-        gradient: "from-purple-500 to-indigo-600",
+        gradient: "from-blue-500 to-cyan-600",
         badge: "beginner",
         icon: (
           <svg className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
@@ -130,7 +130,7 @@ const cardGroups: CardGroup[] = [
       {
         key: "agentTeams",
         href: "/setup/agent-teams",
-        gradient: "from-violet-500 to-purple-500",
+        gradient: "from-cyan-500 to-blue-500",
         badge: "experimental",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -166,8 +166,8 @@ const badgeStyles: Record<string, { bg: string; text: string; label: string }> =
     label: "Intermediate",
   },
   advanced: {
-    bg: "bg-purple-100 dark:bg-purple-900/30",
-    text: "text-purple-700 dark:text-purple-400",
+    bg: "bg-teal-100 dark:bg-teal-900/30",
+    text: "text-teal-700 dark:text-teal-400",
     label: "Advanced",
   },
   experimental: {
