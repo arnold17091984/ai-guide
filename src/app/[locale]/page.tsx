@@ -1,5 +1,7 @@
 import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
+import HeroSection from "@/components/HeroSection";
+import GlassCard from "@/components/GlassCard";
+import ScrollFadeIn from "@/components/ScrollFadeIn";
 
 interface GuideCard {
   key: string;
@@ -180,67 +182,49 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
-          {t("welcome")}
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
-          {t("description")}
-        </p>
-      </div>
+      <HeroSection
+        title={t("welcome")}
+        description={t("description")}
+        ctaText={t("getStarted")}
+        ctaHref={`/${locale}/setup/vscode`}
+      />
 
       {cardGroups.map((group, groupIndex) => (
-        <div key={group.labelKey} className={groupIndex > 0 ? "mt-10" : ""}>
-          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">
+        <ScrollFadeIn key={group.labelKey} className={groupIndex > 0 ? "mt-16" : ""}>
+          <h2 className="mb-6 text-xl font-semibold text-(--text-1)">
             {tc(group.labelKey)}
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {group.cards.map((card) => (
-              <Link
-                key={card.key}
-                href={`/${locale}${card.href}`}
-                className="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${card.gradient} text-white`}
-                  >
-                    {card.icon}
+            {group.cards.map((card, cardIndex) => (
+              <ScrollFadeIn key={card.key} delay={cardIndex * 0.1}>
+                <GlassCard href={`/${locale}${card.href}`}>
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-linear-to-br ${card.gradient} text-white`}>
+                      {card.icon}
+                    </div>
+                    {card.badge && (
+                      <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}>
+                        {tc(`badges.${card.badge}`)}
+                      </span>
+                    )}
                   </div>
-                  {card.badge && (
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}
-                    >
-                      {tc(`badges.${card.badge}`)}
-                    </span>
-                  )}
-                </div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-900 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                  {t(`guides.${card.key}.title`)}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {t(`guides.${card.key}.description`)}
-                </p>
-                <div className="mt-4 flex items-center text-sm font-medium text-blue-600 dark:text-blue-400">
-                  {t("getStarted")}
-                  <svg
-                    className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-              </Link>
+                  <h3 className="mb-2 text-xl font-semibold text-(--text-1) group-hover:text-(--primary)">
+                    {t(`guides.${card.key}.title`)}
+                  </h3>
+                  <p className="text-sm text-(--text-2)">
+                    {t(`guides.${card.key}.description`)}
+                  </p>
+                  <div className="mt-4 flex items-center text-sm font-medium text-(--primary)">
+                    {t("getStarted")}
+                    <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </GlassCard>
+              </ScrollFadeIn>
             ))}
           </div>
-        </div>
+        </ScrollFadeIn>
       ))}
     </div>
   );
