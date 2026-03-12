@@ -17,22 +17,31 @@ const ALL_PAGES = [
   "/setup/pixel-agents",
 ];
 
+const EMPTY: string[] = [];
 let listeners: Array<() => void> = [];
+let cachedSnapshot: string[] = EMPTY;
 
-function getSnapshot(): string[] {
+function readStorage(): string[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    return stored ? JSON.parse(stored) : EMPTY;
   } catch {
-    return [];
+    return EMPTY;
   }
 }
 
+function getSnapshot(): string[] {
+  return cachedSnapshot;
+}
+
 function getServerSnapshot(): string[] {
-  return [];
+  return EMPTY;
 }
 
 function subscribe(listener: () => void) {
+  if (listeners.length === 0) {
+    cachedSnapshot = readStorage();
+  }
   listeners = [...listeners, listener];
   return () => {
     listeners = listeners.filter((l) => l !== listener);
@@ -40,10 +49,11 @@ function subscribe(listener: () => void) {
 }
 
 function addVisited(page: string) {
-  const current = getSnapshot();
+  const current = cachedSnapshot;
   if (current.includes(page)) return;
   const updated = [...current, page];
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  cachedSnapshot = updated;
   listeners.forEach((l) => l());
 }
 

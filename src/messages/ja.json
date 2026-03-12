@@ -31,7 +31,14 @@
       "intermediate": "中級",
       "advanced": "上級",
       "experimental": "実験的"
-    }
+    },
+    "categoryPlatform": "プラットフォーム",
+    "navKnowledge": "ナレッジベース",
+    "navSkills": "スキル",
+    "navClaudeMd": "CLAUDE.md",
+    "navCommunity": "コミュニティ",
+    "navTrending": "トレンド",
+    "navDigest": "週刊ダイジェスト"
   },
   "home": {
     "welcome": "AI活用ガイドへようこそ",
@@ -182,10 +189,22 @@
       "subtitle": "Claude Code を効率的に活用するための基本原則とワークフロー",
       "flowTitle": "Claude Code コアワークフロー",
       "flow": [
-        { "label": "計画", "color": "bg-blue-600" },
-        { "label": "コーディング", "color": "bg-blue-600" },
-        { "label": "検証", "color": "bg-green-600" },
-        { "label": "デプロイ", "color": "bg-orange-500" }
+        {
+          "label": "計画",
+          "color": "bg-blue-600"
+        },
+        {
+          "label": "コーディング",
+          "color": "bg-blue-600"
+        },
+        {
+          "label": "検証",
+          "color": "bg-green-600"
+        },
+        {
+          "label": "デプロイ",
+          "color": "bg-orange-500"
+        }
       ],
       "flowTip": "すべてのタスクは「計画→実行→検証」のサイクルに従います。大きなタスクほど計画段階に時間を投資しましょう。",
       "sections": {
@@ -563,9 +582,27 @@
       "subtitle": "トークンコストを理解し、コンテキストウィンドウを効率的に管理します",
       "modelsTitle": "Claude モデル比較",
       "models": [
-        { "name": "Opus 4.6", "speed": "速度：普通", "cost": "コスト：高い", "best": "複雑なアーキテクチャ設計、マルチステップタスク", "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20" },
-        { "name": "Sonnet 4.6", "speed": "速度：速い", "cost": "コスト：中程度", "best": "一般的なコーディング、コードレビュー、リファクタリング", "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20" },
-        { "name": "Haiku 4.5", "speed": "速度：非常に速い", "cost": "コスト：低い", "best": "簡単な質問、コード検索、説明", "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" }
+        {
+          "name": "Opus 4.6",
+          "speed": "速度：普通",
+          "cost": "コスト：高い",
+          "best": "複雑なアーキテクチャ設計、マルチステップタスク",
+          "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20"
+        },
+        {
+          "name": "Sonnet 4.6",
+          "speed": "速度：速い",
+          "cost": "コスト：中程度",
+          "best": "一般的なコーディング、コードレビュー、リファクタリング",
+          "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20"
+        },
+        {
+          "name": "Haiku 4.5",
+          "speed": "速度：非常に速い",
+          "cost": "コスト：低い",
+          "best": "簡単な質問、コード検索、説明",
+          "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20"
+        }
       ],
       "modelsTip": "/model コマンドでモデルを切り替えられます。簡単なタスクには Haiku、複雑なタスクには Opus を使うとコストを節約できます。",
       "sections": {
@@ -726,12 +763,30 @@
       "shortcutsAction": "操作",
       "shortcutsKey": "キー / 操作方法",
       "shortcuts": [
-        { "action": "新しいClaude Codeターミナルを作成", "key": "+ Agentボタンをクリック" },
-        { "action": "キャラクター選択 & 座席配置", "key": "キャラクターをクリック → 座席をクリック" },
-        { "action": "オフィスエディターを開く", "key": "Layoutボタンをクリック" },
-        { "action": "レイアウト変更を元に戻す", "key": "Ctrl+Z" },
-        { "action": "レイアウト変更をやり直す", "key": "Ctrl+Y" },
-        { "action": "Quick Openからインストール", "key": "Ctrl+P → ext install pablodelucca.pixel-agents" }
+        {
+          "action": "新しいClaude Codeターミナルを作成",
+          "key": "+ Agentボタンをクリック"
+        },
+        {
+          "action": "キャラクター選択 & 座席配置",
+          "key": "キャラクターをクリック → 座席をクリック"
+        },
+        {
+          "action": "オフィスエディターを開く",
+          "key": "Layoutボタンをクリック"
+        },
+        {
+          "action": "レイアウト変更を元に戻す",
+          "key": "Ctrl+Z"
+        },
+        {
+          "action": "レイアウト変更をやり直す",
+          "key": "Ctrl+Y"
+        },
+        {
+          "action": "Quick Openからインストール",
+          "key": "Ctrl+P → ext install pablodelucca.pixel-agents"
+        }
       ],
       "featuresTitle": "主な機能",
       "features": {
@@ -784,5 +839,401 @@
         "完全な家具カタログを使用するにはDonargのOffice Interior Tileset（$2）が必要です。無料アセットは近日追加予定です。"
       ]
     }
+  },
+  "profile": {
+    "title": "マイプロフィール",
+    "subtitle": "アカウント情報と設定を管理します",
+    "editProfile": "プロフィール編集",
+    "saveChanges": "変更を保存",
+    "saving": "保存中...",
+    "cancel": "キャンセル",
+    "verified": "認証済み",
+    "memberSince": "登録日",
+    "reputation": "レピュテーション",
+    "editSuccess": "プロフィールを更新しました。",
+    "roles": {
+      "admin": "管理者",
+      "moderator": "モデレーター",
+      "contributor": "コントリビューター",
+      "viewer": "ビューアー"
+    },
+    "fields": {
+      "displayName": "表示名",
+      "bio": "自己紹介",
+      "bioPlaceholder": "自己紹介を入力してください...",
+      "language": "言語",
+      "websiteUrl": "ウェブサイト"
+    },
+    "errors": {
+      "unauthenticated": "プロフィールを更新するにはログインが必要です。",
+      "displayNameTooLong": "表示名は100文字以内にしてください。",
+      "bioTooLong": "自己紹介は500文字以内にしてください。",
+      "invalidLocale": "有効な言語を選択してください。",
+      "invalidWebsiteUrl": "有効なURLを入力してください（https://で始まる）。",
+      "serverError": "エラーが発生しました。もう一度お試しください。"
+    }
+  },
+  "knowledge": {
+    "title": "ナレッジベース",
+    "subtitle": "コミュニティが厳選した記事、ヒント、チュートリアル、ワークフローを探索しましょう",
+    "searchPlaceholder": "ナレッジベースを検索...",
+    "noResults": "該当するエントリが見つかりません。検索条件やフィルターを変更してお試しください。",
+    "categories": {
+      "all": "すべてのカテゴリ"
+    },
+    "difficulty": {
+      "all": "すべてのレベル",
+      "beginner": "初級",
+      "intermediate": "中級",
+      "advanced": "上級"
+    },
+    "pagination": {
+      "prev": "前へ",
+      "next": "次へ",
+      "page": "ページ"
+    },
+    "breadcrumb": {
+      "home": "ホーム",
+      "knowledgeBase": "ナレッジベース"
+    },
+    "detail": {
+      "minuteRead": "分で読める",
+      "noContent": "このロケールのコンテンツは利用できません。",
+      "author": "著者",
+      "unknownAuthor": "不明",
+      "info": "情報",
+      "category": "カテゴリ",
+      "difficulty": "難易度",
+      "published": "公開日",
+      "updated": "更新日",
+      "readTime": "読了時間",
+      "minutes": "分",
+      "tags": "タグ",
+      "actions": "アクション",
+      "versionHistory": "バージョン履歴",
+      "edit": "編集",
+      "suggestEdit": "編集を提案"
+    },
+    "history": {
+      "title": "バージョン履歴",
+      "noVersions": "このエントリのバージョン履歴が見つかりません。",
+      "latest": "最新",
+      "viewVersion": "表示",
+      "unknownAuthor": "不明",
+      "backToEntry": "記事に戻る"
+    }
+  },
+  "claudeMd": {
+    "title": "CLAUDE.md アナライザー",
+    "subtitle": "CLAUDE.mdファイルを貼り付けるかアップロードして、即座に品質分析、競合検出、改善提案を受け取りましょう。",
+    "modePaste": "内容を貼り付け",
+    "modeUpload": "ファイルをアップロード",
+    "pasteLabel": "CLAUDE.mdの内容を貼り付け",
+    "pastePlaceholder": "# ワークフロー オーケストレーション\n\n- 複雑なタスクにプランモードを使用...",
+    "uploadLabel": "CLAUDE.mdファイルをアップロード",
+    "uploadCta": ".mdまたは.txtファイルをクリックしてアップロード",
+    "uploadHint": ".mdおよび.txtファイルに対応",
+    "uploadLoaded": "ファイル読み込み完了",
+    "lines": "行",
+    "analyze": "CLAUDE.mdを分析",
+    "analyzing": "分析中...",
+    "resultsHeading": "分析結果",
+    "errorEmpty": "分析前にCLAUDE.mdの内容を貼り付けるかアップロードしてください。",
+    "errorGeneric": "分析中にエラーが発生しました。もう一度お試しください。",
+    "results": {
+      "scores": "スコア",
+      "completeness": "完成度",
+      "quality": "品質",
+      "sections": "検出されたセクション",
+      "missingSections": "不足セクション",
+      "noMissingSections": "推奨セクションはすべて揃っています。",
+      "conflicts": "検出された競合",
+      "noConflicts": "競合するルールは検出されませんでした。",
+      "rules": "抽出されたルール",
+      "noRules": "ルールが抽出されませんでした。",
+      "template": "テンプレート比較",
+      "templateMatch": "一致",
+      "templateMissing": "テンプレートから不足",
+      "templateExtra": "追加セクション",
+      "improvements": "改善提案",
+      "noImprovements": "CLAUDE.mdは素晴らしい — 改善は不要です。",
+      "line": "行",
+      "conflictExplanation": "説明",
+      "conflictResolution": "解決策",
+      "exampleContent": "例を表示"
+    }
+  },
+  "skills": {
+    "title": "スキルレジストリ",
+    "subtitle": "コミュニティ製のClaude Codeスキルを見つけてインストールし、ワークフローを強化しましょう",
+    "searchPlaceholder": "名前または説明でスキルを検索...",
+    "noResults": "スキルが見つかりません。検索条件やフィルターを変更してみてください。",
+    "resultsCount": "件のスキルが見つかりました",
+    "categories": {
+      "all": "すべてのカテゴリ",
+      "workflow": "ワークフロー",
+      "codeGeneration": "コード生成",
+      "testing": "テスト",
+      "documentation": "ドキュメント",
+      "security": "セキュリティ",
+      "devops": "DevOps",
+      "refactoring": "リファクタリング",
+      "debugging": "デバッグ",
+      "review": "コードレビュー",
+      "other": "その他"
+    },
+    "pagination": {
+      "prev": "前へ",
+      "next": "次へ",
+      "page": "ページ"
+    },
+    "breadcrumb": {
+      "home": "ホーム",
+      "skillRegistry": "スキルレジストリ"
+    },
+    "detail": {
+      "author": "作成者",
+      "info": "情報",
+      "version": "バージョン",
+      "license": "ライセンス",
+      "downloads": "ダウンロード",
+      "stars": "スター",
+      "published": "公開日",
+      "updated": "更新日",
+      "homepage": "ホームページ",
+      "triggers": "トリガー",
+      "dependencies": "依存関係",
+      "optional": "任意",
+      "install": "インストール",
+      "copyCommand": "コマンドをコピー",
+      "copied": "コピーしました!",
+      "compatibility": "互換性マトリックス",
+      "compatibilityRange": "互換範囲:",
+      "latest": "最新",
+      "securityScan": "セキュリティスキャン",
+      "securityPassed": "合格",
+      "securityFailed": "不合格",
+      "riskScore": "リスクスコア:",
+      "scannedAt": "スキャン日時",
+      "noFindings": "セキュリティの問題は検出されませんでした。",
+      "lines": "行:",
+      "suggestion": "提案",
+      "versionHistory": "バージョン履歴",
+      "yanked": "取り下げ済み"
+    },
+    "upload": {
+      "title": "スキルをアップロード",
+      "subtitle": "Claude Codeスキルをコミュニティと共有しましょう。公開前にスキルが検証されます。",
+      "formatGuide": {
+        "heading": "スキルファイル形式",
+        "intro": "スキルファイルはYAMLフロントマターブロックを持つMarkdownドキュメントです。",
+        "rule1": "ファイルは --- フロントマター区切り文字で始まる必要があります",
+        "rule2": "name, description, version, author, category, triggers は必須フィールドです",
+        "rule3": "version は有効なsemver形式である必要があります (例: 1.0.0)",
+        "rule4": "category は次のいずれかである必要があります: workflow, code-generation, testing, documentation, security, devops, refactoring, debugging, review, other"
+      }
+    },
+    "validate": {
+      "title": "スキルを検証",
+      "subtitle": "アカウント不要でスキルファイルのエラー、警告、セキュリティ問題を即座に確認できます。",
+      "explainer": "以下にスキルコンテンツを貼り付けるか、.mdファイルをアップロードしてください。何も保存・公開されません。",
+      "features": {
+        "noAuth": "アカウント不要",
+        "noSave": "保存なし",
+        "instant": "即時結果"
+      }
+    }
+  },
+  "users": {
+    "publicProfile": {
+      "title": "ユーザープロフィール",
+      "memberSince": "登録日",
+      "editProfile": "プロフィール編集"
+    },
+    "stats": {
+      "entries": "記事",
+      "comments": "コメント",
+      "votesReceived": "獲得した投票",
+      "skillsStarred": "スキルスター",
+      "rank": "ランク"
+    },
+    "recentActivity": "最近のアクティビティ",
+    "achievementShowcase": "実績ショーケース",
+    "viewAll": "すべて見る",
+    "notFound": "ユーザーが見つかりません。お探しのプロフィールは存在しません。"
+  },
+  "notifications": {
+    "title": "通知",
+    "subtitle": "アクティビティの最新情報を確認しましょう",
+    "markAllRead": "すべて既読にする",
+    "noNotifications": "まだ通知はありません",
+    "unread": "未読",
+    "deleteConfirm": "この通知を削除しますか？",
+    "viewAll": "すべての通知を見る",
+    "filterAll": "すべて",
+    "filterUnread": "未読",
+    "types": {
+      "vote_received": "投票を受信",
+      "comment_reply": "コメントへの返信",
+      "achievement_unlocked": "実績を解除",
+      "edit_approved": "編集が承認されました",
+      "edit_rejected": "編集が却下されました",
+      "mention": "メンション",
+      "system": "システム"
+    }
+  },
+  "activity": {
+    "title": "アクティビティフィード",
+    "subtitle": "コミュニティで起きていることを確認しましょう",
+    "filters": {
+      "all": "すべて",
+      "entries": "記事",
+      "skills": "スキル",
+      "social": "ソーシャル"
+    },
+    "loadMore": "もっと見る",
+    "noActivity": "まだアクティビティはありません",
+    "actions": {
+      "published_entry": "記事を公開しました",
+      "published_skill": "スキルを公開しました",
+      "commented": "にコメントしました",
+      "voted": "に投票しました",
+      "earned_achievement": "実績を獲得しました",
+      "reached_level": "新しいレベルに到達しました",
+      "edited_entry": "を編集しました"
+    }
+  },
+  "community": {
+    "title": "コミュニティ",
+    "subtitle": "トップコントリビューターを発見し、実績を獲得しましょう",
+    "leaderboard": "トップコントリビューター",
+    "risingStars": "ライジングスター",
+    "achievementShowcase": "実績",
+    "empty": "まだコントリビューターがいません。最初の一人になりましょう！",
+    "nav": {
+      "leaderboard": "リーダーボード",
+      "activity": "アクティビティ",
+      "achievements": "実績"
+    },
+    "stats": {
+      "entries": "公開した記事",
+      "comments": "投稿したコメント",
+      "votesReceived": "獲得した投票",
+      "editsApproved": "承認された編集",
+      "skills": "公開したスキル"
+    },
+    "achievements": {
+      "title": "実績ギャラリー",
+      "subtitle": "獲得可能なすべてのバッジを確認し、進捗を追跡しましょう",
+      "locked": "ロック中",
+      "unlocked": "解除済み",
+      "secret": "シークレット実績 — 貢献を続けると発見できます！",
+      "progress": "進捗",
+      "empty": "まだ実績が定義されていません。",
+      "categoryContribution": "貢献",
+      "categoryQuality": "品質",
+      "categorySocial": "ソーシャル",
+      "categoryMilestone": "マイルストーン",
+      "tierBronze": "ブロンズ",
+      "tierSilver": "シルバー",
+      "tierGold": "ゴールド",
+      "tierPlatinum": "プラチナ",
+      "badge": {
+        "firstEntry": "初投稿",
+        "firstEntryDesc": "最初のナレッジ記事を公開する",
+        "helpful": "お役立ち",
+        "helpfulDesc": "コンテンツに10件の高評価を受ける",
+        "prolificWriter": "多作ライター",
+        "prolificWriterDesc": "ナレッジ記事を10件公開する",
+        "communityBuilder": "コミュニティビルダー",
+        "communityBuilderDesc": "コメントを50件投稿する",
+        "risingStar": "ライジングスター",
+        "risingStarDesc": "レピュテーション200ポイントに到達する",
+        "skillMaster": "スキルマスター",
+        "skillMasterDesc": "スキルを20件公開する",
+        "editor": "エディター",
+        "editorDesc": "編集提案が5件承認される",
+        "sage": "セージ",
+        "sageDesc": "レピュテーション2500ポイントに到達する"
+      }
+    }
+  },
+  "trending": {
+    "title": "AIトレンド",
+    "subtitle": "AIエコシステム全体の厳選コンテンツ",
+    "sources": {
+      "all": "すべて",
+      "github": "GitHub",
+      "hackernews": "Hacker News",
+      "reddit": "Reddit",
+      "twitter": "X / Twitter",
+      "producthunt": "Product Hunt"
+    },
+    "sort": {
+      "hot": "人気",
+      "new": "最新"
+    },
+    "bookmarks": {
+      "title": "ブックマーク",
+      "subtitle": "保存したトレンドアイテム",
+      "empty": "まだブックマークがありません",
+      "remove": "ブックマークを削除"
+    },
+    "card": {
+      "comments": "コメント",
+      "points": "pt",
+      "bookmark": "ブックマーク",
+      "bookmarked": "ブックマーク済み"
+    },
+    "loadMore": "もっと見る",
+    "noResults": "トレンドアイテムが見つかりません",
+    "lastUpdated": "最終更新"
+  },
+  "digest": {
+    "title": "週刊ダイジェスト",
+    "subtitle": "今週のプラットフォームハイライト",
+    "topEntries": "人気ナレッジ記事",
+    "topSkills": "人気スキル",
+    "topContributors": "トップ貢献者",
+    "platformStats": "プラットフォーム統計",
+    "thisWeek": "今週",
+    "previousWeek": "先週",
+    "nextWeek": "来週",
+    "stats": {
+      "newEntries": "新規記事",
+      "newSkills": "新規スキル",
+      "newUsers": "新規ユーザー",
+      "totalVotes": "総投票数",
+      "totalComments": "総コメント数"
+    }
+  },
+  "dashboard": {
+    "heroStats": {
+      "entries": "総記事数",
+      "skills": "総スキル数",
+      "contributors": "貢献者",
+      "discussions": "ディスカッション"
+    },
+    "recentKnowledge": "最近のナレッジ",
+    "popularSkills": "人気スキル",
+    "activeDiscussions": "活発なディスカッション",
+    "viewAll": "すべて表示",
+    "thisWeek": "今週のダイジェスト",
+    "thisWeekDescription": "人気記事、スキル、貢献者をチェック"
+  },
+  "search": {
+    "title": "検索",
+    "subtitle": "ナレッジ、スキル、コントリビューターを探す",
+    "placeholder": "検索...",
+    "filters": {
+      "all": "すべて",
+      "knowledge": "ナレッジ",
+      "skills": "スキル",
+      "users": "ユーザー"
+    },
+    "noResults": "検索結果がありません",
+    "viewAllResults": "すべての結果を表示",
+    "resultCount": "{count}件の結果",
+    "shortcut": "\u2318K"
   }
 }

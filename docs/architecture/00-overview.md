@@ -1,0 +1,141 @@
+# Data Architecture Overview
+
+## Platform: AI Coding Knowledge Platform (Next.js 16)
+
+This document is the entry point for the data architecture suite.
+All referenced files are in `docs/architecture/` and `src/lib/db/`.
+
+---
+
+## Architecture at a Glance
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                        Next.js 16 App                           │
+│                    (Vercel Serverless)                           │
+│                                                                  │
+│  ┌────────────────────┐      ┌──────────────────────────────┐   │
+│  │  React Server       │      │  Client Components            │   │
+│  │  Components         │      │  (votes, comments, realtime) │   │
+│  └────────┬───────────┘      └────────────┬─────────────────┘   │
+│           │  Server Actions / Route Handlers                     │
+│           │                               │ Supabase JS SDK      │
+└───────────┼───────────────────────────────┼─────────────────────┘
+            │                               │
+            ▼                               ▼
+┌───────────────────────────────────────────────────────────────┐
+│                    Supabase                                    │
+│                                                                │
+│  ┌────────────────┐  ┌────────────────┐  ┌─────────────────┐ │
+│  │  PostgreSQL 16  │  │  Auth (GoTrue) │  │  Storage (S3)   │ │
+│  │                 │  │                │  │  - avatars      │ │
+│  │  Drizzle ORM    │  │  - email/OAuth │  │  - case study   │ │
+│  │  Row Level Sec  │  │  - JWT / SSR   │  │    attachments  │ │
+│  │  pgvector       │  │                │  │  - skill pkgs   │ │
+│  │  pg_trgm        │  └────────────────┘  └─────────────────┘ │
+│  │  GIN indexes    │                                           │
+│  │  tsvector FTS   │  ┌─────────────────────────────────────┐ │
+│  │  Partitioned    │  │  Realtime (Logical Replication)      │ │
+│  │  analytics      │  │  - vote count broadcasts             │ │
+│  └────────────────┘  │  - edit suggestion notifications     │ │
+│                       │  - trending content updates          │ │
+│                       └─────────────────────────────────────┘ │
+└───────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Document Index
+
+| # | File | Contents |
+|---|------|----------|
+| 01 | `01-database-selection.md` | Database comparison and Supabase + Drizzle justification |
+| 02 | `02-erd.md` | Complete text-based ERD for all 30+ entities |
+| 03 | `03-knowledge-graph.md` | Content relations, skill deps, learning paths, recommendation engine |
+| 04 | `04-versioning.md` | Full-snapshot versioning, optimistic locking, rollback, conflict resolution |
+| 05 | `05-search-discovery.md` | FTS, faceted search, autocomplete, trending score formula |
+| 06 | `06-analytics.md` | Raw events, daily aggregates, team analytics, skill adoption |
+| 07 | `07-migration-strategy.md` | Static TSX to database migration plan, seeding script, rollback |
+
+---
+
+## Schema Files
+
+All Drizzle ORM schema files live in `src/lib/db/schema/`:
+
+| File | Tables |
+|------|--------|
+| `users.ts` | `users` |
+| `taxonomy.ts` | `categories`, `tags` |
+| `knowledge.ts` | `knowledge_entries`, `knowledge_entry_tags` |
+| `skills.ts` | `skills`, `skill_versions`, `skill_dependencies`, `skill_security_findings` |
+| `case-studies.ts` | `case_studies`, `case_study_tags` |
+| `claude-configs.ts` | `claude_configs`, `claude_config_sections`, `claude_config_tags` |
+| `social.ts` | `votes`, `comments`, `edit_suggestions`, `bookmarks` |
+| `graph.ts` | `content_relations`, `learning_paths`, `learning_path_steps`, `user_learning_progress`, `content_embeddings`, `user_content_interactions`, `recommendation_cache` |
+| `versioning.ts` | `content_versions` |
+| `analytics.ts` | `trending_content`, `content_scores`, `analytics_events`, `analytics_daily_content`, `analytics_contributions`, `teams`, `team_members`, `team_skill_snapshots`, `analytics_skill_adoption` |
+
+---
+
+## Migration Files
+
+Raw SQL migrations in `src/lib/db/migrations/`:
+
+| File | Purpose |
+|------|---------|
+| `0001_extensions.sql` | Enable pgvector, pg_trgm, uuid-ossp |
+| `0002–0010` | Generated by `npx drizzle-kit generate` |
+| `0011_rls_policies.sql` | Row Level Security for all tables |
+| `0012_indexes.sql` | GIN/tsvector generated columns, HNSW vector index, partitioning |
+| `0013_materialized_views.sql` | search_facets, skill_dep_closure, dashboard_kpis |
+| `0014_seed_taxonomy.sql` | Initial categories and tags |
+
+---
+
+## Entity Count Summary
+
+| Domain | Tables |
+|--------|--------|
+| Identity | 1 (users) |
+| Taxonomy | 2 (categories, tags) |
+| Content | 9 (4 content types + 4 tag junctions + config sections) |
+| Skills | 4 (skills + versions + deps + findings) |
+| Social | 4 (votes, comments, edit_suggestions, bookmarks) |
+| Graph | 7 (relations, paths, steps, progress, embeddings, interactions, reco cache) |
+| Versioning | 1 (content_versions) |
+| Analytics | 9 (events, scores, daily, contributions, teams, members, snapshots, trending, skill adoption) |
+| **Total** | **37** |
+
+---
+
+## Key Design Decisions
+
+### 1. All content types share a single versioning table
+`content_versions` uses `(content_type, content_id)` polymorphic keys.
+This avoids 4 separate history tables with identical structure.
+
+### 2. Generated tsvector columns, not triggers
+Postgres 12+ supports `GENERATED ALWAYS AS` for stored columns.
+No trigger maintenance. FTS vectors update atomically with content writes.
+
+### 3. Multilingual content stored as sibling columns (not JSON)
+`title_ko`, `title_en`, `title_ja` as separate nullable columns.
+- Simpler queries: `WHERE title_en LIKE ...`
+- Generated tsvector per locale with correct dictionary
+- Avoids JSONB path traversal performance penalty on search
+
+### 4. pgvector for semantic search, not Pinecone
+Keeps the entire search stack inside Supabase.
+HNSW index handles up to ~1M vectors without performance degradation.
+Avoids vendor lock-in to a separate vector database.
+
+### 5. Hybrid versioning (full snapshot + cached diff)
+Full snapshots = O(1) rollback.
+Cached unified diffs = fast diff display without reconstruction.
+TOAST compression handles repeated content efficiently.
+
+### 6. Analytics partitioned by month
+`analytics_events` is partitioned by `created_at`.
+Old partitions can be archived to cold storage without affecting queries on recent data.
+Partition pruning keeps query plans efficient as data accumulates.

@@ -31,7 +31,14 @@
       "intermediate": "중급",
       "advanced": "고급",
       "experimental": "실험적"
-    }
+    },
+    "categoryPlatform": "플랫폼",
+    "navKnowledge": "지식 베이스",
+    "navSkills": "스킬",
+    "navClaudeMd": "CLAUDE.md",
+    "navCommunity": "커뮤니티",
+    "navTrending": "트렌딩",
+    "navDigest": "주간 다이제스트"
   },
   "home": {
     "welcome": "AI 활용 가이드에 오신 것을 환영합니다",
@@ -182,10 +189,22 @@
       "subtitle": "Claude Code를 효율적으로 활용하기 위한 핵심 원칙과 워크플로우",
       "flowTitle": "Claude Code 핵심 워크플로우",
       "flow": [
-        { "label": "계획 수립", "color": "bg-blue-600" },
-        { "label": "코드 작성", "color": "bg-blue-600" },
-        { "label": "검증", "color": "bg-green-600" },
-        { "label": "배포", "color": "bg-orange-500" }
+        {
+          "label": "계획 수립",
+          "color": "bg-blue-600"
+        },
+        {
+          "label": "코드 작성",
+          "color": "bg-blue-600"
+        },
+        {
+          "label": "검증",
+          "color": "bg-green-600"
+        },
+        {
+          "label": "배포",
+          "color": "bg-orange-500"
+        }
       ],
       "flowTip": "모든 작업은 '계획 → 실행 → 검증' 사이클을 따릅니다. 큰 작업일수록 계획 단계에 시간을 투자하세요.",
       "sections": {
@@ -563,9 +582,27 @@
       "subtitle": "토큰 비용을 이해하고 컨텍스트 윈도우를 효율적으로 관리합니다",
       "modelsTitle": "Claude 모델 비교",
       "models": [
-        { "name": "Opus 4.6", "speed": "속도: 보통", "cost": "비용: 높음", "best": "복잡한 아키텍처 설계, 멀티스텝 작업", "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20" },
-        { "name": "Sonnet 4.6", "speed": "속도: 빠름", "cost": "비용: 중간", "best": "일반 코딩, 코드리뷰, 리팩토링", "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20" },
-        { "name": "Haiku 4.5", "speed": "속도: 매우 빠름", "cost": "비용: 낮음", "best": "간단한 질문, 코드 검색, 설명", "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" }
+        {
+          "name": "Opus 4.6",
+          "speed": "속도: 보통",
+          "cost": "비용: 높음",
+          "best": "복잡한 아키텍처 설계, 멀티스텝 작업",
+          "color": "border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-900/20"
+        },
+        {
+          "name": "Sonnet 4.6",
+          "speed": "속도: 빠름",
+          "cost": "비용: 중간",
+          "best": "일반 코딩, 코드리뷰, 리팩토링",
+          "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20"
+        },
+        {
+          "name": "Haiku 4.5",
+          "speed": "속도: 매우 빠름",
+          "cost": "비용: 낮음",
+          "best": "간단한 질문, 코드 검색, 설명",
+          "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20"
+        }
       ],
       "modelsTip": "/model 명령어로 모델을 전환할 수 있습니다. 간단한 작업은 Haiku, 복잡한 작업은 Opus를 사용하면 비용을 절약할 수 있습니다.",
       "sections": {
@@ -726,12 +763,30 @@
       "shortcutsAction": "동작",
       "shortcutsKey": "키 / 조작",
       "shortcuts": [
-        { "action": "새 Claude Code 터미널 생성", "key": "+ Agent 버튼 클릭" },
-        { "action": "캐릭터 선택 & 좌석 배치", "key": "캐릭터 클릭 → 좌석 클릭" },
-        { "action": "오피스 에디터 열기", "key": "Layout 버튼 클릭" },
-        { "action": "레이아웃 변경 취소", "key": "Ctrl+Z" },
-        { "action": "레이아웃 변경 다시 실행", "key": "Ctrl+Y" },
-        { "action": "Quick Open에서 설치", "key": "Ctrl+P → ext install pablodelucca.pixel-agents" }
+        {
+          "action": "새 Claude Code 터미널 생성",
+          "key": "+ Agent 버튼 클릭"
+        },
+        {
+          "action": "캐릭터 선택 & 좌석 배치",
+          "key": "캐릭터 클릭 → 좌석 클릭"
+        },
+        {
+          "action": "오피스 에디터 열기",
+          "key": "Layout 버튼 클릭"
+        },
+        {
+          "action": "레이아웃 변경 취소",
+          "key": "Ctrl+Z"
+        },
+        {
+          "action": "레이아웃 변경 다시 실행",
+          "key": "Ctrl+Y"
+        },
+        {
+          "action": "Quick Open에서 설치",
+          "key": "Ctrl+P → ext install pablodelucca.pixel-agents"
+        }
       ],
       "featuresTitle": "주요 기능",
       "features": {
@@ -784,5 +839,401 @@
         "전체 가구 카탈로그를 사용하려면 Donarg의 Office Interior Tileset($2)이 필요합니다. 무료 에셋은 곧 추가 예정입니다."
       ]
     }
+  },
+  "profile": {
+    "title": "내 프로필",
+    "subtitle": "계정 정보 및 설정을 관리하세요",
+    "editProfile": "프로필 편집",
+    "saveChanges": "변경사항 저장",
+    "saving": "저장 중...",
+    "cancel": "취소",
+    "verified": "인증됨",
+    "memberSince": "가입일",
+    "reputation": "평판",
+    "editSuccess": "프로필이 성공적으로 업데이트되었습니다.",
+    "roles": {
+      "admin": "관리자",
+      "moderator": "모더레이터",
+      "contributor": "기여자",
+      "viewer": "뷰어"
+    },
+    "fields": {
+      "displayName": "표시 이름",
+      "bio": "소개",
+      "bioPlaceholder": "자신을 간략히 소개해 주세요...",
+      "language": "언어",
+      "websiteUrl": "웹사이트"
+    },
+    "errors": {
+      "unauthenticated": "프로필을 업데이트하려면 로그인해야 합니다.",
+      "displayNameTooLong": "표시 이름은 100자 이하여야 합니다.",
+      "bioTooLong": "소개는 500자 이하여야 합니다.",
+      "invalidLocale": "올바른 언어를 선택해 주세요.",
+      "invalidWebsiteUrl": "올바른 URL을 입력해 주세요 (https://로 시작).",
+      "serverError": "오류가 발생했습니다. 다시 시도해 주세요."
+    }
+  },
+  "knowledge": {
+    "title": "지식 베이스",
+    "subtitle": "커뮤니티가 엄선한 아티클, 팁, 튜토리얼, 워크플로우를 탐색하세요",
+    "searchPlaceholder": "지식 베이스 검색...",
+    "noResults": "검색 결과가 없습니다. 검색어 또는 필터를 조정해 보세요.",
+    "categories": {
+      "all": "전체 카테고리"
+    },
+    "difficulty": {
+      "all": "전체 수준",
+      "beginner": "초급",
+      "intermediate": "중급",
+      "advanced": "고급"
+    },
+    "pagination": {
+      "prev": "이전",
+      "next": "다음",
+      "page": "페이지"
+    },
+    "breadcrumb": {
+      "home": "홈",
+      "knowledgeBase": "지식 베이스"
+    },
+    "detail": {
+      "minuteRead": "분 읽기",
+      "noContent": "이 언어로 제공되는 콘텐츠가 없습니다.",
+      "author": "작성자",
+      "unknownAuthor": "알 수 없음",
+      "info": "정보",
+      "category": "카테고리",
+      "difficulty": "난이도",
+      "published": "게시일",
+      "updated": "수정일",
+      "readTime": "읽는 시간",
+      "minutes": "분",
+      "tags": "태그",
+      "actions": "작업",
+      "versionHistory": "버전 히스토리",
+      "edit": "편집",
+      "suggestEdit": "수정 제안"
+    },
+    "history": {
+      "title": "버전 히스토리",
+      "noVersions": "이 항목의 버전 히스토리를 찾을 수 없습니다.",
+      "latest": "최신",
+      "viewVersion": "보기",
+      "unknownAuthor": "알 수 없음",
+      "backToEntry": "아티클로 돌아가기"
+    }
+  },
+  "claudeMd": {
+    "title": "CLAUDE.md 분석기",
+    "subtitle": "CLAUDE.md 파일을 붙여넣거나 업로드하여 즉각적인 품질 분석, 충돌 감지, 개선 제안을 받아보세요.",
+    "modePaste": "내용 붙여넣기",
+    "modeUpload": "파일 업로드",
+    "pasteLabel": "CLAUDE.md 내용 붙여넣기",
+    "pastePlaceholder": "# 워크플로우 오케스트레이션\n\n- 복잡한 작업에 계획 모드 활성화...",
+    "uploadLabel": "CLAUDE.md 파일 업로드",
+    "uploadCta": ".md 또는 .txt 파일을 클릭하여 업로드",
+    "uploadHint": ".md 및 .txt 파일 지원",
+    "uploadLoaded": "파일 로드 완료",
+    "lines": "줄",
+    "analyze": "CLAUDE.md 분석",
+    "analyzing": "분석 중...",
+    "resultsHeading": "분석 결과",
+    "errorEmpty": "분석 전에 CLAUDE.md 내용을 붙여넣거나 업로드해 주세요.",
+    "errorGeneric": "분석 중 오류가 발생했습니다. 다시 시도해 주세요.",
+    "results": {
+      "scores": "점수",
+      "completeness": "완성도",
+      "quality": "품질",
+      "sections": "발견된 섹션",
+      "missingSections": "누락된 섹션",
+      "noMissingSections": "권장 섹션이 모두 있습니다.",
+      "conflicts": "감지된 충돌",
+      "noConflicts": "충돌하는 규칙이 없습니다.",
+      "rules": "추출된 규칙",
+      "noRules": "추출된 규칙이 없습니다.",
+      "template": "템플릿 비교",
+      "templateMatch": "일치",
+      "templateMissing": "템플릿에서 누락",
+      "templateExtra": "추가 섹션",
+      "improvements": "개선 제안",
+      "noImprovements": "CLAUDE.md가 훌륭합니다 — 개선이 필요 없습니다.",
+      "line": "줄",
+      "conflictExplanation": "설명",
+      "conflictResolution": "해결 방법",
+      "exampleContent": "예시 보기"
+    }
+  },
+  "skills": {
+    "title": "스킬 레지스트리",
+    "subtitle": "커뮤니티가 만든 Claude Code 스킬을 찾아 설치하여 워크플로우를 강화하세요",
+    "searchPlaceholder": "이름 또는 설명으로 스킬 검색...",
+    "noResults": "스킬을 찾을 수 없습니다. 검색어 또는 필터를 조정해 보세요.",
+    "resultsCount": "개의 스킬을 찾았습니다",
+    "categories": {
+      "all": "전체 카테고리",
+      "workflow": "워크플로우",
+      "codeGeneration": "코드 생성",
+      "testing": "테스트",
+      "documentation": "문서화",
+      "security": "보안",
+      "devops": "DevOps",
+      "refactoring": "리팩토링",
+      "debugging": "디버깅",
+      "review": "코드 리뷰",
+      "other": "기타"
+    },
+    "pagination": {
+      "prev": "이전",
+      "next": "다음",
+      "page": "페이지"
+    },
+    "breadcrumb": {
+      "home": "홈",
+      "skillRegistry": "스킬 레지스트리"
+    },
+    "detail": {
+      "author": "작성자",
+      "info": "정보",
+      "version": "버전",
+      "license": "라이선스",
+      "downloads": "다운로드",
+      "stars": "별",
+      "published": "게시일",
+      "updated": "수정일",
+      "homepage": "홈페이지",
+      "triggers": "트리거",
+      "dependencies": "의존성",
+      "optional": "선택 사항",
+      "install": "설치",
+      "copyCommand": "명령어 복사",
+      "copied": "복사됨!",
+      "compatibility": "호환성 매트릭스",
+      "compatibilityRange": "호환 범위:",
+      "latest": "최신",
+      "securityScan": "보안 스캔",
+      "securityPassed": "통과",
+      "securityFailed": "실패",
+      "riskScore": "위험 점수:",
+      "scannedAt": "스캔 날짜",
+      "noFindings": "보안 문제가 감지되지 않았습니다.",
+      "lines": "줄:",
+      "suggestion": "제안",
+      "versionHistory": "버전 기록",
+      "yanked": "제거됨"
+    },
+    "upload": {
+      "title": "스킬 업로드",
+      "subtitle": "커뮤니티와 Claude Code 스킬을 공유하세요. 게시 전에 스킬이 검증됩니다.",
+      "formatGuide": {
+        "heading": "스킬 파일 형식",
+        "intro": "스킬 파일은 YAML 프런트매터 블록이 있는 Markdown 문서입니다.",
+        "rule1": "파일은 --- 프런트매터 구분자로 시작해야 합니다",
+        "rule2": "name, description, version, author, category, triggers는 필수 항목입니다",
+        "rule3": "version은 유효한 semver 형식이어야 합니다 (예: 1.0.0)",
+        "rule4": "category는 다음 중 하나여야 합니다: workflow, code-generation, testing, documentation, security, devops, refactoring, debugging, review, other"
+      }
+    },
+    "validate": {
+      "title": "스킬 검증",
+      "subtitle": "계정 없이 스킬 파일의 오류, 경고, 보안 문제를 즉시 확인하세요.",
+      "explainer": "아래에 스킬 내용을 붙여넣거나 .md 파일을 업로드하세요. 아무것도 저장되거나 게시되지 않습니다.",
+      "features": {
+        "noAuth": "계정 불필요",
+        "noSave": "저장 없음",
+        "instant": "즉시 결과"
+      }
+    }
+  },
+  "users": {
+    "publicProfile": {
+      "title": "사용자 프로필",
+      "memberSince": "가입일",
+      "editProfile": "프로필 편집"
+    },
+    "stats": {
+      "entries": "게시물",
+      "comments": "댓글",
+      "votesReceived": "받은 투표",
+      "skillsStarred": "스킬 스타",
+      "rank": "순위"
+    },
+    "recentActivity": "최근 활동",
+    "achievementShowcase": "업적 쇼케이스",
+    "viewAll": "모두 보기",
+    "notFound": "사용자를 찾을 수 없습니다. 찾고 계신 프로필이 존재하지 않습니다."
+  },
+  "notifications": {
+    "title": "알림",
+    "subtitle": "활동 소식을 확인하세요",
+    "markAllRead": "모두 읽음 표시",
+    "noNotifications": "아직 알림이 없습니다",
+    "unread": "읽지 않음",
+    "deleteConfirm": "이 알림을 삭제하시겠습니까?",
+    "viewAll": "모든 알림 보기",
+    "filterAll": "전체",
+    "filterUnread": "읽지 않음",
+    "types": {
+      "vote_received": "투표 받음",
+      "comment_reply": "댓글 답변",
+      "achievement_unlocked": "업적 달성",
+      "edit_approved": "편집 승인됨",
+      "edit_rejected": "편집 거절됨",
+      "mention": "멘션",
+      "system": "시스템"
+    }
+  },
+  "activity": {
+    "title": "활동 피드",
+    "subtitle": "커뮤니티에서 일어나는 일을 확인하세요",
+    "filters": {
+      "all": "전체",
+      "entries": "아티클",
+      "skills": "스킬",
+      "social": "소셜"
+    },
+    "loadMore": "더 보기",
+    "noActivity": "아직 활동이 없습니다",
+    "actions": {
+      "published_entry": "아티클을 게시했습니다",
+      "published_skill": "스킬을 게시했습니다",
+      "commented": "에 댓글을 남겼습니다",
+      "voted": "에 투표했습니다",
+      "earned_achievement": "업적을 달성했습니다",
+      "reached_level": "새로운 레벨에 도달했습니다",
+      "edited_entry": "을(를) 편집했습니다"
+    }
+  },
+  "community": {
+    "title": "커뮤니티",
+    "subtitle": "최고의 기여자를 만나고 업적을 달성하세요",
+    "leaderboard": "최고 기여자",
+    "risingStars": "떠오르는 스타",
+    "achievementShowcase": "업적",
+    "empty": "아직 기여자가 없습니다. 첫 번째가 되어보세요!",
+    "nav": {
+      "leaderboard": "리더보드",
+      "activity": "활동",
+      "achievements": "업적"
+    },
+    "stats": {
+      "entries": "게시한 항목",
+      "comments": "작성한 댓글",
+      "votesReceived": "받은 투표",
+      "editsApproved": "승인된 편집",
+      "skills": "게시한 스킬"
+    },
+    "achievements": {
+      "title": "업적 갤러리",
+      "subtitle": "획득 가능한 모든 배지를 탐색하고 진행 상황을 추적하세요",
+      "locked": "잠김",
+      "unlocked": "해제됨",
+      "secret": "비밀 업적 — 계속 기여하면 발견할 수 있어요!",
+      "progress": "진행률",
+      "empty": "아직 정의된 업적이 없습니다.",
+      "categoryContribution": "기여",
+      "categoryQuality": "품질",
+      "categorySocial": "소셜",
+      "categoryMilestone": "마일스톤",
+      "tierBronze": "브론즈",
+      "tierSilver": "실버",
+      "tierGold": "골드",
+      "tierPlatinum": "플래티넘",
+      "badge": {
+        "firstEntry": "첫 게시물",
+        "firstEntryDesc": "첫 번째 지식 항목을 게시하세요",
+        "helpful": "도움이 되는 사람",
+        "helpfulDesc": "콘텐츠에 10개의 추천을 받으세요",
+        "prolificWriter": "다작 작가",
+        "prolificWriterDesc": "지식 항목 10개를 게시하세요",
+        "communityBuilder": "커뮤니티 빌더",
+        "communityBuilderDesc": "댓글 50개를 작성하세요",
+        "risingStar": "떠오르는 스타",
+        "risingStarDesc": "평판 200점에 도달하세요",
+        "skillMaster": "스킬 마스터",
+        "skillMasterDesc": "스킬 20개를 게시하세요",
+        "editor": "에디터",
+        "editorDesc": "편집 제안 5개가 승인되세요",
+        "sage": "현자",
+        "sageDesc": "평판 2500점에 도달하세요"
+      }
+    }
+  },
+  "trending": {
+    "title": "AI 트렌딩",
+    "subtitle": "AI 생태계의 엄선된 콘텐츠",
+    "sources": {
+      "all": "전체",
+      "github": "GitHub",
+      "hackernews": "Hacker News",
+      "reddit": "Reddit",
+      "twitter": "X / Twitter",
+      "producthunt": "Product Hunt"
+    },
+    "sort": {
+      "hot": "인기",
+      "new": "최신"
+    },
+    "bookmarks": {
+      "title": "북마크",
+      "subtitle": "저장한 트렌딩 항목",
+      "empty": "아직 북마크가 없습니다",
+      "remove": "북마크 삭제"
+    },
+    "card": {
+      "comments": "댓글",
+      "points": "점",
+      "bookmark": "북마크",
+      "bookmarked": "북마크됨"
+    },
+    "loadMore": "더 보기",
+    "noResults": "트렌딩 항목이 없습니다",
+    "lastUpdated": "마지막 업데이트"
+  },
+  "digest": {
+    "title": "주간 다이제스트",
+    "subtitle": "이번 주 플랫폼 하이라이트",
+    "topEntries": "인기 지식 항목",
+    "topSkills": "인기 스킬",
+    "topContributors": "우수 기여자",
+    "platformStats": "플랫폼 통계",
+    "thisWeek": "이번 주",
+    "previousWeek": "이전 주",
+    "nextWeek": "다음 주",
+    "stats": {
+      "newEntries": "신규 항목",
+      "newSkills": "신규 스킬",
+      "newUsers": "신규 사용자",
+      "totalVotes": "총 투표",
+      "totalComments": "총 댓글"
+    }
+  },
+  "dashboard": {
+    "heroStats": {
+      "entries": "전체 항목",
+      "skills": "전체 스킬",
+      "contributors": "기여자",
+      "discussions": "토론"
+    },
+    "recentKnowledge": "최근 지식",
+    "popularSkills": "인기 스킬",
+    "activeDiscussions": "활발한 토론",
+    "viewAll": "전체 보기",
+    "thisWeek": "이번 주 다이제스트",
+    "thisWeekDescription": "인기 항목, 스킬, 기여자를 확인하세요"
+  },
+  "search": {
+    "title": "검색",
+    "subtitle": "지식, 스킬, 기여자를 찾아보세요",
+    "placeholder": "검색...",
+    "filters": {
+      "all": "전체",
+      "knowledge": "지식",
+      "skills": "스킬",
+      "users": "사용자"
+    },
+    "noResults": "검색 결과가 없습니다",
+    "viewAllResults": "모든 결과 보기",
+    "resultCount": "{count}개의 결과",
+    "shortcut": "\u2318K"
   }
 }

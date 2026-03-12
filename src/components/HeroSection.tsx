@@ -18,34 +18,34 @@ export default function HeroSection({
   ctaHref,
 }: HeroSectionProps) {
   return (
-    <section className="relative -mx-4 -mt-8 mb-16 overflow-hidden px-4 py-24 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <section className="relative -mx-4 -mt-8 mb-16 overflow-hidden px-4 py-28 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       {/* Mesh gradient background — 3 layered radial-gradients */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-600/20 via-cyan-500/15 to-emerald-400/10 dark:from-blue-600/30 dark:via-cyan-500/20 dark:to-emerald-400/10" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-500/40 via-cyan-400/30 to-teal-300/20 dark:from-blue-600/50 dark:via-cyan-500/35 dark:to-teal-400/20" />
         <motion.div
-          className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-500/20"
+          className="absolute top-1/4 left-1/6 h-96 w-96 rounded-full bg-blue-400/50 blur-3xl dark:bg-blue-500/40"
           animate={{
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-            opacity: [0.5, 0.8, 0.5],
+            x: [0, 40, 0],
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
           }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute top-1/3 right-1/4 h-48 w-48 rounded-full bg-cyan-400/20 blur-3xl dark:bg-cyan-500/20"
+          className="absolute top-1/3 right-1/6 h-72 w-72 rounded-full bg-cyan-400/45 blur-3xl dark:bg-cyan-500/35"
           animate={{
-            x: [0, -20, 0],
-            y: [0, 30, 0],
-            opacity: [0.4, 0.7, 0.4],
+            x: [0, -30, 0],
+            y: [0, 40, 0],
+            scale: [1, 1.15, 1],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-1/4 left-1/2 h-56 w-56 rounded-full bg-emerald-400/15 blur-3xl dark:bg-emerald-500/15"
+          className="absolute bottom-1/4 left-1/2 h-80 w-80 rounded-full bg-teal-300/35 blur-3xl dark:bg-teal-500/25"
           animate={{
-            x: [0, 15, 0],
-            y: [0, 15, 0],
-            opacity: [0.3, 0.6, 0.3],
+            x: [0, 20, 0],
+            y: [0, 20, 0],
+            scale: [1, 1.08, 1],
           }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -73,7 +73,7 @@ export default function HeroSection({
         <motion.div variants={heroBlurIn}>
           <Link
             href={ctaHref}
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-(--primary) px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/30"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-600 to-cyan-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-blue-500/50"
           >
             {ctaText}
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

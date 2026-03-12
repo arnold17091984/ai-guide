@@ -10,6 +10,8 @@ import { usePathname } from "next/navigation";
 interface MenuItem {
   key: string;
   href: string;
+  /** When set, use tc(commonKey) instead of t(`${key}.title`) */
+  commonKey?: string;
 }
 
 interface MenuGroup {
@@ -18,6 +20,17 @@ interface MenuGroup {
 }
 
 const menuGroups: MenuGroup[] = [
+  {
+    labelKey: "categoryPlatform",
+    items: [
+      { key: "knowledge", href: "/knowledge", commonKey: "navKnowledge" },
+      { key: "skills", href: "/skills", commonKey: "navSkills" },
+      { key: "claudeMdWorkshop", href: "/claude-md", commonKey: "navClaudeMd" },
+      { key: "community", href: "/community", commonKey: "navCommunity" },
+      { key: "trending", href: "/trending", commonKey: "navTrending" },
+      { key: "digest", href: "/digest", commonKey: "navDigest" },
+    ],
+  },
   {
     labelKey: "categoryGettingStarted",
     items: [
@@ -120,7 +133,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                           : "text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
                       }`}
                     >
-                      {t(`${item.key}.title`)}
+                      {item.commonKey ? tc(item.commonKey) : t(`${item.key}.title`)}
                     </Link>
                   );
                 })}

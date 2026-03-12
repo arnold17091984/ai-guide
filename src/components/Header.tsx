@@ -3,12 +3,17 @@
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import AuthButton from "./AuthButton";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileDrawer from "./MobileDrawer";
+import NotificationBell from "./NotificationBell";
+import SearchBar from "./SearchBar";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
   const t = useTranslations("common");
   const locale = useLocale();
+  const { user } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,10 +26,10 @@ export default function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-30 border-b border-(--border)/50 backdrop-blur-xl transition-all duration-300 ${
+        className={`sticky top-0 z-30 border-b border-white/20 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 dark:border-white/10 ${
           scrolled
-            ? "bg-(--bg)/85 py-3"
-            : "bg-(--bg)/60 py-4"
+            ? "bg-white/70 py-3 shadow-lg shadow-blue-500/5 dark:bg-slate-900/70"
+            : "bg-white/50 py-4 dark:bg-slate-900/50"
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -58,9 +63,9 @@ export default function Header() {
             <nav className="hidden items-center gap-1 md:flex">
               {[
                 { label: t("home"), href: `/${locale}` },
-                { label: "VS Code", href: `/${locale}/setup/vscode` },
-                { label: "Claude Web", href: `/${locale}/setup/claude-web` },
-                { label: "Claude Code", href: `/${locale}/setup/claude-code` },
+                { label: t("navKnowledge"), href: `/${locale}/knowledge` },
+                { label: t("navSkills"), href: `/${locale}/skills` },
+                { label: t("navClaudeMd"), href: `/${locale}/claude-md` },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -72,12 +77,16 @@ export default function Header() {
                 </Link>
               ))}
             </nav>
+            <SearchBar />
             <div className="h-6 w-px bg-(--border)" />
             <LanguageSwitcher />
+            <div className="h-6 w-px bg-(--border)" />
+            {user && <NotificationBell userId={user.id} />}
+            <AuthButton />
           </div>
         </div>
         {/* Gradient bottom border */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-(--primary)/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-blue-500/40 to-transparent" />
       </header>
 
       <MobileDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />

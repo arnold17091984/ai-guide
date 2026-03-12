@@ -8,6 +8,8 @@ import { useProgressLine } from "@/hooks/useProgressLine";
 interface MenuItem {
   key: string;
   href: string;
+  /** When set, use tc(commonKey) instead of t(`${key}.title`) */
+  commonKey?: string;
 }
 
 interface MenuGroup {
@@ -16,6 +18,17 @@ interface MenuGroup {
 }
 
 const menuGroups: MenuGroup[] = [
+  {
+    labelKey: "categoryPlatform",
+    items: [
+      { key: "knowledge", href: "/knowledge", commonKey: "navKnowledge" },
+      { key: "skills", href: "/skills", commonKey: "navSkills" },
+      { key: "claudeMdWorkshop", href: "/claude-md", commonKey: "navClaudeMd" },
+      { key: "community", href: "/community", commonKey: "navCommunity" },
+      { key: "trending", href: "/trending", commonKey: "navTrending" },
+      { key: "digest", href: "/digest", commonKey: "navDigest" },
+    ],
+  },
   {
     labelKey: "categoryGettingStarted",
     items: [
@@ -60,9 +73,9 @@ export default function Sidebar() {
             <span>{tc("progress")}</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-(--border)">
+          <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-blue-100 dark:bg-blue-950">
             <div
-              className="h-full rounded-full bg-linear-to-r from-blue-500 to-cyan-500 transition-all duration-500"
+              className="h-full rounded-full bg-linear-to-r from-blue-500 to-cyan-400 shadow-sm shadow-blue-500/50 transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -101,7 +114,7 @@ export default function Sidebar() {
                             : "bg-(--border)"
                       }`}
                     />
-                    {t(`${item.key}.title`)}
+                    {item.commonKey ? tc(item.commonKey) : t(`${item.key}.title`)}
                   </Link>
                 );
               })}
