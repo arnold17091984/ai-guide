@@ -16,15 +16,17 @@ export default function CodeBlock({ code }: CodeBlockProps) {
   };
 
   return (
-    <div className="group relative my-2 rounded-lg border border-gray-200 bg-gray-900 dark:border-gray-600">
+    <div className="group relative my-2 overflow-hidden rounded-xl border border-(--border) bg-[#0a0f1e]">
+      {/* Subtle left accent */}
+      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-blue-500 to-cyan-500" />
       <button
         onClick={handleCopy}
-        className="absolute right-2 top-2 rounded-md border border-gray-600 bg-gray-800 p-1.5 text-gray-400 opacity-0 transition-all hover:bg-gray-700 hover:text-white group-hover:opacity-100"
+        className="absolute right-3 top-3 rounded-lg border border-white/10 bg-white/5 p-1.5 text-gray-400 opacity-0 backdrop-blur-sm transition-all hover:bg-white/10 hover:text-white group-hover:opacity-100"
         title="Copy"
         aria-label={copied ? "Copied" : "Copy code"}
       >
         {copied ? (
-          <svg className="h-4 w-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         ) : (
@@ -33,7 +35,7 @@ export default function CodeBlock({ code }: CodeBlockProps) {
           </svg>
         )}
       </button>
-      <pre className="overflow-x-auto p-4 pr-12 text-sm leading-relaxed text-gray-100">
+      <pre className="overflow-x-auto p-4 pl-5 pr-12 text-sm leading-relaxed text-gray-300">
         <code>{code.trim()}</code>
       </pre>
     </div>
