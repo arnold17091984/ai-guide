@@ -1,0 +1,781 @@
+{
+  "common": {
+    "title": "AI Guide",
+    "subtitle": "Getting Started with Claude & VS Code",
+    "home": "Home",
+    "setup": "Setup Guide",
+    "categoryGettingStarted": "Getting Started",
+    "categoryCoreSkills": "Core Skills",
+    "categoryAdvanced": "Advanced",
+    "workflow": "Workflow",
+    "agentTeams": "Agent Teams",
+    "memory": "Memory & CLAUDE.md",
+    "bestPractices": "Best Practices",
+    "commonWorkflows": "Common Workflows",
+    "costs": "Cost Management",
+    "security": "Permissions & Security",
+    "language": "Language",
+    "os": "OS",
+    "windows": "Windows",
+    "macos": "macOS",
+    "step": "Step",
+    "next": "Next",
+    "prev": "Previous",
+    "tip": "Tip",
+    "warning": "Warning",
+    "command": "Command",
+    "terminal": "Terminal"
+  },
+  "home": {
+    "welcome": "Welcome to the AI Guide",
+    "description": "This guide is designed for those who are new to AI tools. Follow the step-by-step instructions to set up and use Claude and VS Code.",
+    "getStarted": "Get Started",
+    "guides": {
+      "vscode": {
+        "title": "VS Code Installation & Setup",
+        "description": "Learn how to install and configure the VS Code editor."
+      },
+      "claudeWeb": {
+        "title": "Using Claude Web",
+        "description": "Learn how to access claude.ai and chat with Claude AI."
+      },
+      "claudeCode": {
+        "title": "Claude Code Setup",
+        "description": "Learn how to install Claude Code via VS Code extension and terminal CLI."
+      },
+      "workflow": {
+        "title": "Workflow & Best Practices",
+        "description": "Learn efficient workflows and core principles for using Claude Code."
+      },
+      "agentTeams": {
+        "title": "Working with Multiple AIs as a Team",
+        "description": "Learn how multiple Claude Code instances collaborate like a team to handle complex tasks simultaneously. (Experimental)"
+      },
+      "memory": {
+        "title": "Teaching AI Your Project Rules",
+        "description": "Set up project instructions with CLAUDE.md so Claude automatically follows your rules every time."
+      },
+      "bestPractices": {
+        "title": "Effective AI Usage Tips",
+        "description": "Learn how to give good instructions to Claude Code and verify the results effectively."
+      },
+      "commonWorkflows": {
+        "title": "Hands-on Coding Tasks",
+        "description": "Follow along with real-world patterns: code exploration, bug fixing, testing, and PR creation."
+      },
+      "costs": {
+        "title": "Cost Management",
+        "description": "Understand tokens (conversation memory) and learn to manage them efficiently."
+      },
+      "security": {
+        "title": "Permissions & Security",
+        "description": "Learn how Claude Code's permission settings work when it modifies your files."
+      },
+      "pixelAgents": {
+        "title": "Pixel Agents Visualization",
+        "description": "A VS Code extension that lets you monitor AI agent activity in real-time as pixel art characters."
+      }
+    }
+  },
+  "setup": {
+    "vscode": {
+      "title": "VS Code Installation & Setup",
+      "subtitle": "Install the VS Code editor and configure the basic environment",
+      "steps": {
+        "download": {
+          "title": "Download VS Code",
+          "description": "Download VS Code from the official website.",
+          "windows": "1. Open your web browser and go to code.visualstudio.com.\n2. Click the 'Download for Windows' button.\n3. Run the downloaded installer file (VSCodeUserSetup-x64-*.exe).",
+          "macos": "1. Open your web browser and go to code.visualstudio.com.\n2. Click the 'Download for Mac' button.\n3. Double-click the downloaded ZIP file to extract it.",
+          "imageCaption": "code.visualstudio.com — Click the 'Download' button to download"
+        },
+        "install": {
+          "title": "Install VS Code",
+          "description": "Install VS Code using the downloaded file.",
+          "windows": "1. Run the installer and click 'Next'.\n2. Accept the license agreement.\n3. Confirm the installation location and click 'Next'.\n4. Check 'Create a desktop icon' and click 'Next'.\n5. Click 'Install' to complete the installation.",
+          "macos": "1. Find the extracted 'Visual Studio Code.app' file.\n2. Drag it to the 'Applications' folder.\n3. Double-click VS Code in the Applications folder to launch it.\n4. If a security dialog appears, click 'Open' to confirm."
+        },
+        "setup": {
+          "title": "Basic Setup",
+          "description": "Configure basic settings for a better VS Code experience.",
+          "content": "1. Launch VS Code.\n2. Click the Extensions icon (four squares) in the left sidebar.\n3. Search for any language pack you need (e.g., 'Japanese Language Pack').\n4. Click 'Install' on the desired language pack.\n5. Restart VS Code to apply the language change.",
+          "imageCaption": "Searching and installing a Language Pack extension in VS Code"
+        }
+      }
+    },
+    "claudeWeb": {
+      "title": "Using Claude Web",
+      "subtitle": "Learn how to chat with Claude AI on claude.ai",
+      "steps": {
+        "access": {
+          "title": "Access Claude Website",
+          "description": "Open Claude in your web browser.",
+          "content": "1. Open your web browser (Chrome, Edge, Safari, etc.).\n2. Type claude.ai in the address bar and press Enter.\n3. The sign-up page will appear on your first visit."
+        },
+        "signup": {
+          "title": "Create an Account",
+          "description": "Create an account to use Claude.",
+          "content": "1. Click the 'Sign Up' button.\n2. Enter your email address or sign up with Google.\n3. Enter the verification code sent to your email.\n4. Agree to the terms of service to complete registration."
+        },
+        "chat": {
+          "title": "Chat with Claude",
+          "description": "Learn how to ask questions and receive answers from Claude.",
+          "content": "1. After logging in, the chat interface will appear.\n2. Type your question or request in the input box at the bottom.\n3. Press Enter or click the send button.\n4. Wait a moment while Claude generates the response.\n5. Once the response appears, you can continue with follow-up questions."
+        },
+        "tips": {
+          "title": "Tips for Effective Use",
+          "description": "Learn how to use Claude more effectively.",
+          "content": "1. Be specific with your questions for better answers.\n2. You can chat in multiple languages including English, Korean, and Japanese.\n3. Ask for help with writing, coding, translation, summarization, and more.\n4. Your conversation history is saved in the left sidebar for later reference.\n5. Click 'New Chat' to start a conversation on a new topic."
+        }
+      }
+    },
+    "claudeCode": {
+      "title": "Claude Code Setup",
+      "subtitle": "Install and use Claude Code via VS Code extension and terminal CLI",
+      "steps": {
+        "install": {
+          "title": "Method 1: VS Code Extension",
+          "description": "Install Claude Code in VS Code.",
+          "content": "1. Launch VS Code.\n2. Click the Extensions icon in the left sidebar.\n3. Type 'Claude Code' in the search box.\n4. Find the 'Claude Code' extension and click 'Install'.\n5. After installation, the Claude icon will appear in the left sidebar.",
+          "imageCaption": "Claude Code extension installed in VS Code"
+        },
+        "cliPrereq": {
+          "title": "Method 2: Terminal CLI - Prerequisites",
+          "description": "Node.js (v18 or higher) is required. Check if it is installed first.",
+          "windows": "1. Open Command Prompt (cmd) or PowerShell.\n2. Type the following command to check the Node.js version:\n\n   node -v\n\n3. If not installed or below v18:\n   - Go to nodejs.org and download the LTS version.\n   - Run the downloaded installer.\n   - After installation, reopen Command Prompt and verify with node -v.",
+          "macos": "1. Open Terminal. (Search 'Terminal' in Spotlight, or go to Applications > Utilities > Terminal)\n2. Type the following command to check the Node.js version:\n\n   node -v\n\n3. If not installed or below v18, we recommend installing via Homebrew:\n\n   If Homebrew is not installed, install it first:\n   /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n\n   Then install Node.js:\n   brew install node\n\n4. Verify the installation with node -v."
+        },
+        "cliInstall": {
+          "title": "Install Claude Code via Terminal",
+          "description": "Install the Claude Code CLI using npm.",
+          "content": "1. Open Terminal (Mac) or Command Prompt (Windows).\n2. Run the following command to install Claude Code:\n\n   npm install -g @anthropic-ai/claude-code\n\n3. Verify the installation by checking the version:\n\n   claude --version\n\n   If a version number is displayed, the installation was successful.",
+          "imageCaption": "Welcome screen after running the claude command — if you see this, installation was successful"
+        },
+        "cliUsage": {
+          "title": "Start Claude Code from Terminal",
+          "description": "Learn how to run Claude Code from the terminal.",
+          "content": "1. Navigate to your project directory in the terminal:\n\n   cd /path/to/your/project\n\n2. Type the claude command to start:\n\n   claude\n\n3. On first launch, you will be asked to authenticate with your Anthropic account.\n   A browser will open automatically — just log in.\n4. Once authenticated, you can start chatting with Claude directly in the terminal.",
+          "imageCaption": "Claude Code dashboard after login — shows model info and Effort settings"
+        },
+        "login": {
+          "title": "Connect Claude Account (VS Code Extension)",
+          "description": "Link your Claude account to the VS Code extension.",
+          "content": "1. Click the Claude icon in the left sidebar.\n2. Click the 'Sign In' button.\n3. A web browser will open — log in with your Claude account.\n4. Approve the permission request to connect automatically to VS Code.\n5. Once connected, you can start chatting in the Claude Code panel."
+        },
+        "agentInstaller": {
+          "title": "Install Agent Installer (Optional)",
+          "description": "Install the Agent Installer to extend Claude Code's subagent capabilities.",
+          "content": "1. Open your terminal and run the following command:\n\n   curl -s https://raw.githubusercontent.com/VoltAgent/awesome-claude-code-subagents/main/categories/09-meta-orchestration/agent-installer.md -o ~/.claude/agents/agent-installer.md\n\n2. This command downloads the Agent Installer to Claude's agents folder.\n3. After installation, you can explore and install various subagents in Claude Code.",
+          "imageCaption": "Agent Installer running and guiding you through the setup"
+        }
+      }
+    },
+    "workflow": {
+      "title": "Workflow & Best Practices",
+      "subtitle": "Core principles and workflows for efficient use of Claude Code",
+      "flowTitle": "Claude Code Core Workflow",
+      "flow": [
+        { "label": "Plan", "color": "bg-blue-600" },
+        { "label": "Code", "color": "bg-purple-600" },
+        { "label": "Verify", "color": "bg-green-600" },
+        { "label": "Deploy", "color": "bg-orange-500" }
+      ],
+      "flowTip": "Every task follows the Plan → Execute → Verify cycle. The bigger the task, the more time you should invest in planning.",
+      "sections": {
+        "planMode": {
+          "title": "Plan Mode",
+          "description": "Build the habit of planning before starting work",
+          "items": [
+            "Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions).",
+            "If something goes sideways, STOP and re-plan immediately — don't keep pushing.",
+            "Use plan mode for verification steps, not just building.",
+            "Write detailed specs upfront to reduce ambiguity."
+          ]
+        },
+        "subagent": {
+          "title": "Subagent Strategy",
+          "description": "Use subagents to work efficiently",
+          "items": [
+            "Use subagents liberally to keep the main context window clean.",
+            "Offload research, exploration, and parallel analysis to subagents.",
+            "For complex problems, throw more compute at it via subagents.",
+            "One task per subagent for focused execution."
+          ]
+        },
+        "verification": {
+          "title": "Verification Before Done",
+          "description": "Always verify before declaring work complete",
+          "items": [
+            "Never mark a task complete without proving it works.",
+            "Diff behavior between main and your changes when relevant.",
+            "Ask yourself: 'Would a staff engineer approve this?'",
+            "Run tests, check logs, demonstrate correctness."
+          ]
+        },
+        "taskManagement": {
+          "title": "Task Management",
+          "description": "Improve efficiency with systematic task management",
+          "items": [
+            "Plan First: Write a plan with checkable items.",
+            "Verify Plan: Check in before starting implementation.",
+            "Track Progress: Mark items complete as you go.",
+            "Explain Changes: High-level summary at each step.",
+            "Document Results: Capture lessons learned from mistakes."
+          ]
+        },
+        "corePrinciples": {
+          "title": "Core Principles",
+          "description": "Fundamental principles for using Claude Code",
+          "items": [
+            "Simplicity First: Make every change as simple as possible. Minimize code impact.",
+            "No Laziness: Find root causes. No temporary fixes. Senior developer standards.",
+            "Minimal Impact: Changes should only touch what's necessary. Avoid introducing bugs."
+          ]
+        }
+      }
+    },
+    "agentTeams": {
+      "title": "Agent Teams",
+      "subtitle": "Coordinate multiple Claude Code instances to work together as a team on complex tasks",
+      "experimentalNote": "Agent Teams is an experimental feature and is disabled by default. Add CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS to your settings.json to enable it.",
+      "sections": {
+        "overview": {
+          "title": "What are Agent Teams?",
+          "description": "Understand the concept and use cases of agent teams",
+          "items": [
+            "Multiple Claude Code instances collaborate as a single team to perform tasks.",
+            "One session acts as the 'team leader' coordinating work, while others work independently as 'teammates'.",
+            "Unlike subagents, teammates can communicate directly with each other without going through the leader.",
+            "Best suited for research/review, new module development, competing hypothesis debugging, and cross-layer work."
+          ]
+        },
+        "vsSubagents": {
+          "title": "Difference from Subagents",
+          "description": "Understand the differences between agent teams and subagents",
+          "items": [
+            "Subagents: Report results only to the main agent. Best for focused single tasks.",
+            "Agent Teams: Teammates send messages directly to each other and coordinate via shared task lists.",
+            "Subagents have lower token costs; agent teams cost more as each teammate uses an independent context window.",
+            "Use agent teams when discussion and collaboration are needed; use subagents when you only need results."
+          ]
+        },
+        "enable": {
+          "title": "Enable Agent Teams",
+          "description": "Set the environment variable to activate the feature",
+          "items": [
+            "Add the following to your settings.json:\n\n   {\n     \"env\": {\n       \"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS\": \"1\"\n     }\n   }",
+            "You can also set it as a shell environment variable."
+          ]
+        },
+        "start": {
+          "title": "Start a Team",
+          "description": "Create a team and assign tasks using natural language",
+          "items": [
+            "Ask Claude to create an agent team and describe the tasks and team structure.",
+            "Example: 'Create an agent team to design a CLI tool. One for UX, one for technical architecture, one as devil's advocate.'",
+            "Claude may also propose creating a team if it determines your task benefits from parallel work. Teams are never created without your approval.",
+            "Claude will create a shared task list, spawn teammates, and coordinate the work.",
+            "Use Shift+Down to cycle between teammates and send direct messages."
+          ]
+        },
+        "displayModes": {
+          "title": "Display Modes",
+          "description": "Two modes for viewing teammate activity",
+          "items": [
+            "In-process mode: All teammates run within the main terminal. Switch with Shift+Down.",
+            "Split pane mode: Each teammate gets a separate pane. Requires tmux or iTerm2.",
+            "Default is 'auto' — uses split pane if running inside a tmux session, otherwise in-process.",
+            "To change: Set teammateMode to 'in-process' or 'tmux' in settings.json."
+          ]
+        },
+        "control": {
+          "title": "Control Teammates",
+          "description": "Assign tasks and manage teammates",
+          "items": [
+            "Specify models: 'Create 4 teammates. Use Sonnet for each.'",
+            "Require plan approval: 'Spawn a teammate to refactor the auth module. Require plan approval before changes.' The teammate works in read-only mode until the leader approves.",
+            "Direct messages: In in-process mode, use Shift+Down to select a teammate. Press Enter to view, Escape to interrupt, Ctrl+T to toggle task list.",
+            "Task assignment: The leader assigns explicitly, or teammates self-claim available tasks. Task dependencies are managed automatically.",
+            "Shutdown: Ask the leader to 'shut down the researcher teammate'.",
+            "Team cleanup: After work is done, ask the leader to 'clean up the team'. Always shut down all teammates first, then clean up through the leader."
+          ]
+        },
+        "useCases": {
+          "title": "Use Cases",
+          "description": "Practical examples of agent team usage",
+          "items": [
+            "Parallel code review: 3 reviewers simultaneously check security, performance, and test coverage on a PR.",
+            "Competing hypothesis debugging: 5 teammates investigate different hypotheses and challenge each other's theories.",
+            "Cross-layer work: Separate teammates handle frontend, backend, and tests respectively.",
+            "Research & exploration: Multiple teammates explore different aspects of a problem and share findings."
+          ]
+        },
+        "bestPractices": {
+          "title": "Best Practices",
+          "description": "Tips for effective agent team usage",
+          "items": [
+            "Provide teammates with sufficient context. The leader's conversation history is not shared. Include specific details in the spawn prompt.",
+            "Choose an appropriate team size. Usually 3-5 teammates is optimal. Token costs scale linearly with the number of teammates.",
+            "Assign 5-6 tasks per teammate to keep everyone productive.",
+            "Right-size your tasks: too small and coordination overhead exceeds the benefit, too large and teammates work too long without check-ins. Self-contained deliverables like a function, test file, or review work best.",
+            "Prevent file conflicts by ensuring each teammate works on different files.",
+            "If the leader starts implementing instead of delegating, tell it: 'Wait for your teammates to complete their tasks before proceeding.'",
+            "Start with research and review tasks to experience the value of parallel exploration before code writing."
+          ]
+        },
+        "monitoring": {
+          "title": "Monitoring & Management",
+          "description": "Check teammate progress and redirect when needed",
+          "items": [
+            "Check teammate progress regularly. Leaving them unattended too long increases the risk of wasted effort.",
+            "Redirect teammates immediately if you notice them going in the wrong direction.",
+            "Synthesize findings from each teammate as they come in to maintain the big picture.",
+            "CLAUDE.md files are automatically read by all teammates. Write project-specific guidelines there for effective coordination."
+          ]
+        },
+        "troubleshooting": {
+          "title": "Troubleshooting",
+          "description": "Common issues and how to resolve them",
+          "items": [
+            "Teammates not appearing: In in-process mode, they may already be running. Press Shift+Down to check. Also verify the task is complex enough to warrant a team.",
+            "Too many permission prompts: Teammate permission requests bubble up to the leader, causing interruptions. Pre-approve common operations in permission settings before spawning teammates.",
+            "Teammates stopping on errors: Check their output using Shift+Down, then either give additional instructions or spawn a replacement teammate to continue the work.",
+            "Leader shuts down early: Tell the leader to keep going. You can also instruct it upfront to wait for all teammates to finish before proceeding.",
+            "Task status lagging: Teammates sometimes fail to mark tasks as completed, blocking dependent tasks. Check if the work is actually done and update the status manually."
+          ]
+        },
+        "limitations": {
+          "title": "Limitations",
+          "description": "Current known limitations",
+          "items": [
+            "In-process teammates are not restored on session resume (/resume, /rewind). You'll need to spawn new teammates after resuming.",
+            "Only one team per session. Clean up the current team before starting a new one.",
+            "Teammates cannot create their own teams or teammates (no nesting).",
+            "The leader is fixed. You cannot promote a teammate to leader or transfer leadership.",
+            "All teammates start with the leader's permission mode. You can change individual modes after spawning, but not at spawn time.",
+            "Teammate shutdown can be slow as they finish their current request before stopping.",
+            "Split pane mode is not supported in VS Code integrated terminal or Windows Terminal."
+          ]
+        },
+        "nextSteps": {
+          "title": "Next Steps",
+          "description": "Related features and alternative approaches",
+          "items": [
+            "For lightweight delegation, use subagents. They're best for research or verification tasks that don't need inter-agent coordination.",
+            "For manual parallel work, use Git worktrees to run multiple Claude Code sessions independently.",
+            "Choose by task scale: simple research → subagents, collaboration needed → agent teams, independent work → Git worktrees."
+          ]
+        }
+      }
+    },
+    "memory": {
+      "title": "Memory & CLAUDE.md",
+      "subtitle": "Provide Claude with persistent project context using CLAUDE.md files and auto memory",
+      "fileStructureTitle": "CLAUDE.md File Location",
+      "fileStructure": "project/\n├── CLAUDE.md           ← Project rules (shared)\n├── .claude/\n│   ├── settings.json   ← Local settings\n│   └── commands/       ← Custom commands\n└── src/",
+      "fileStructureTip": "Place CLAUDE.md at the project root and Claude will read it automatically. Commit it to Git to share with your team.",
+      "sections": {
+        "overview": {
+          "title": "Memory System Overview",
+          "description": "Two ways Claude remembers your project",
+          "items": [
+            "CLAUDE.md files: Instructions you write directly. Includes coding standards, workflow rules, and more.",
+            "Auto memory: Notes Claude writes itself based on learnings. Stores build commands, debugging tips, code style, etc.",
+            "Both systems are automatically loaded at the start of every session to provide Claude with context.",
+            "CLAUDE.md can be shared with your team via Git, while auto memory is stored locally on your machine."
+          ]
+        },
+        "claudeMd": {
+          "title": "Writing CLAUDE.md",
+          "description": "Set up a CLAUDE.md file for your project",
+          "items": [
+            "Run /init to auto-generate a starter CLAUDE.md by analyzing your project structure.",
+            "Place it at the project root (./CLAUDE.md) to apply to all team members. Commit to Git to share.",
+            "Place it in your home folder (~/.claude/CLAUDE.md) for personal settings across all projects.",
+            "Keep it under 200 lines. If it's too long, Claude may miss important rules."
+          ]
+        },
+        "claudeMdContent": {
+          "title": "What to Include in CLAUDE.md",
+          "description": "Guide for writing effective CLAUDE.md content",
+          "items": [
+            "Include: Build/test commands Claude can't guess (e.g., npm run test:unit)",
+            "Include: Code style rules that differ from defaults (e.g., use ES modules, not CommonJS)",
+            "Include: Project-specific architecture decisions, branch naming conventions, PR practices",
+            "Exclude: Anything Claude can figure out by reading the code, standard language conventions",
+            "Exclude: Information that changes frequently, long explanations or tutorials"
+          ]
+        },
+        "autoMemory": {
+          "title": "Auto Memory",
+          "description": "Claude automatically saves learnings across sessions",
+          "items": [
+            "Auto memory is enabled by default. Use /memory to view and toggle it.",
+            "Stored per-project in ~/.claude/projects/<project>/memory/ directory.",
+            "The first 200 lines of MEMORY.md are loaded at the start of every session.",
+            "Saved files are plain markdown — you can edit or delete them directly.",
+            "Tell Claude 'always use pnpm' and it will automatically save this to memory."
+          ]
+        },
+        "rules": {
+          "title": "Managing Rules Files",
+          "description": "Organize instructions with .claude/rules/ directory",
+          "items": [
+            "Create topic-specific markdown files in .claude/rules/ (e.g., testing.md, api-design.md).",
+            "Use paths frontmatter to scope rules to specific files (e.g., src/api/**/*.ts).",
+            "Rules files are useful for providing more granular instructions than CLAUDE.md.",
+            "Import other files with @path/to/import syntax."
+          ]
+        }
+      }
+    },
+    "bestPractices": {
+      "title": "Best Practices",
+      "subtitle": "Core patterns and prompt techniques for effective Claude Code usage",
+      "compareTitle": "Prompt Writing Comparison",
+      "compareBad": "Fix the bug",
+      "compareGood": "Fix the login error on line 42 of auth.ts. The session is not being created when users log in with Google OAuth.",
+      "compareBadLabel": "Vague Request",
+      "compareGoodLabel": "Specific Request",
+      "sections": {
+        "verification": {
+          "title": "Provide Verification Criteria",
+          "description": "Let Claude verify its own work",
+          "items": [
+            "This is the single highest-leverage thing you can do. Include tests, screenshots, or expected outputs so Claude can check itself.",
+            "Bad: 'Create an email validation function' → Good: 'Write a validateEmail function and test it: user@example.com should be true, invalid should be false'",
+            "UI changes: Paste a screenshot and ask 'Implement this design and compare the result'.",
+            "Bug fixes: Paste the error message and ask 'Fix this error and verify the build succeeds'."
+          ]
+        },
+        "exploreFirst": {
+          "title": "Explore → Plan → Implement",
+          "description": "Don't jump straight to coding — approach step by step",
+          "items": [
+            "Step 1 Explore: In Plan Mode, read files and answer questions. Analyze code without making changes.",
+            "Step 2 Plan: Ask Claude for a detailed implementation plan. Press Ctrl+G to edit the plan directly.",
+            "Step 3 Implement: Switch to Normal Mode and write code following the plan.",
+            "Step 4 Commit: Ask Claude to commit with a descriptive message and create a PR.",
+            "However, for small tasks with clear scope (fixing typos, renaming variables), just do it directly."
+          ]
+        },
+        "specificPrompts": {
+          "title": "Write Specific Prompts",
+          "description": "More precise instructions mean fewer corrections",
+          "items": [
+            "Scope it: 'Add tests' → 'Write a test for foo.py covering the logged-out user edge case. No mocks.'",
+            "Point to sources: 'Why is this API weird?' → 'Check ExecutionFactory's git history and summarize how its API evolved'",
+            "Reference patterns: 'Add a widget' → 'Follow the pattern in HotDogWidget.php to implement a new calendar widget'",
+            "Use @ to reference files directly (e.g., @src/utils/auth.js). You can also paste images or provide URLs."
+          ]
+        },
+        "sessionManagement": {
+          "title": "Session Management",
+          "description": "Manage context efficiently",
+          "items": [
+            "Esc: Stop Claude immediately. Context is preserved.",
+            "Esc+Esc or /rewind: Restore conversation and code to a previous checkpoint.",
+            "/clear: Reset context between unrelated tasks. Prevents performance degradation.",
+            "/compact: Summarize and compress context. You can specify focus (e.g., /compact Focus on API changes).",
+            "If you've corrected the same issue twice, /clear and restart with a better prompt."
+          ]
+        },
+        "commonMistakes": {
+          "title": "Avoid Common Mistakes",
+          "description": "Common beginner mistakes and how to fix them",
+          "items": [
+            "Kitchen sink session: Working on unrelated tasks in one session. → Use /clear between tasks.",
+            "Repeated corrections: Fixing the same mistake over and over. → After two failures, /clear and start fresh.",
+            "Bloated CLAUDE.md: Files too long get ignored. → Remove rules Claude already follows correctly.",
+            "Trust without verification: Code that looks right but doesn't work. → Always include tests or verification.",
+            "Infinite exploration: Asking to 'investigate' without scope. → Use subagents to explore in a separate context."
+          ]
+        }
+      }
+    },
+    "commonWorkflows": {
+      "title": "Common Workflows",
+      "subtitle": "Practical everyday patterns from codebase exploration to PR creation",
+      "sections": {
+        "codebaseExplore": {
+          "title": "Codebase Exploration",
+          "description": "Quickly understand a new project",
+          "items": [
+            "Run claude from the project root and ask 'Give me an overview of this codebase'.",
+            "Dive deeper: 'What are the main architecture patterns?', 'What are the key data models?', 'How is authentication handled?'",
+            "Find specific files: 'Find the files that handle user authentication'.",
+            "Trace execution flow: 'Trace the login process from frontend to database'.",
+            "Ask Claude the questions you'd ask another engineer. It dramatically reduces onboarding time."
+          ]
+        },
+        "bugFix": {
+          "title": "Bug Fixing",
+          "description": "Efficiently diagnose and fix errors",
+          "items": [
+            "Share the error with Claude: 'I see an error when I run npm test'",
+            "Ask for fix suggestions: 'Suggest ways to fix the @ts-ignore in user.ts'",
+            "Apply the fix: 'Update user.ts to add the null check you suggested'",
+            "Including reproduction steps and stack traces enables more accurate diagnosis."
+          ]
+        },
+        "testing": {
+          "title": "Writing Tests",
+          "description": "Generate tests for your code",
+          "items": [
+            "Find untested code: 'Find functions in NotificationsService that are not covered by tests'",
+            "Generate tests: 'Add tests for the notification service'",
+            "Edge cases: 'Add test cases for edge conditions in the notification service'",
+            "Run and verify: 'Run the new tests and fix any failures'",
+            "Claude automatically detects the style and framework of existing test files for consistency."
+          ]
+        },
+        "prCreation": {
+          "title": "PR Creation",
+          "description": "Organize changes and create pull requests",
+          "items": [
+            "Simple way: Just ask 'Create a PR for my changes'.",
+            "Step by step: 'Summarize my changes to the auth module' → 'Create a PR' → 'Add security context to the PR description'",
+            "When you create a PR with gh pr create, the session is automatically linked to it.",
+            "Resume later with claude --from-pr <number>."
+          ]
+        },
+        "sessionResume": {
+          "title": "Session Management",
+          "description": "Save and resume conversations",
+          "items": [
+            "claude --continue: Resume the most recent conversation.",
+            "claude --resume: Select from recent sessions to resume.",
+            "Use /rename to give sessions descriptive names (e.g., /rename oauth-migration).",
+            "Treat sessions like branches: use separate sessions for different workstreams."
+          ]
+        }
+      }
+    },
+    "costs": {
+      "title": "Cost Management",
+      "subtitle": "Understand token costs and manage the context window efficiently",
+      "modelsTitle": "Claude Model Comparison",
+      "models": [
+        { "name": "Opus 4.6", "speed": "Speed: Moderate", "cost": "Cost: High", "best": "Complex architecture, multi-step tasks", "color": "border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-900/20" },
+        { "name": "Sonnet 4.6", "speed": "Speed: Fast", "cost": "Cost: Medium", "best": "General coding, code review, refactoring", "color": "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20" },
+        { "name": "Haiku 4.5", "speed": "Speed: Very Fast", "cost": "Cost: Low", "best": "Simple questions, code search, explanations", "color": "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" }
+      ],
+      "modelsTip": "Use /model to switch models. Use Haiku for simple tasks and Opus for complex ones to save costs.",
+      "sections": {
+        "contextWindow": {
+          "title": "Understanding the Context Window",
+          "description": "Claude Code's most important resource",
+          "items": [
+            "The context window holds your entire conversation: messages, file reads, and command outputs.",
+            "A single debugging session or codebase exploration can consume tens of thousands of tokens.",
+            "As context fills up, Claude's performance degrades. It may 'forget' earlier instructions or make more mistakes.",
+            "Monitoring and actively managing context usage is the most important thing you can do."
+          ]
+        },
+        "reduceTokens": {
+          "title": "Reducing Token Usage",
+          "description": "Practical ways to save costs",
+          "items": [
+            "/clear: Reset context entirely between unrelated tasks.",
+            "/compact: Summarize context to free up space. Auto-compaction also runs automatically near limits.",
+            "Use subagents: Delegate research to subagents to keep your main context clean.",
+            "/btw: Handle quick questions in a separate overlay without adding to conversation history.",
+            "Narrow your scope: 'Check only these 3 files' is more efficient than 'Investigate everything'."
+          ]
+        },
+        "teamCosts": {
+          "title": "Agent Team Costs",
+          "description": "Costs increase significantly with teams",
+          "items": [
+            "Agent team token costs scale linearly with the number of teammates.",
+            "Each teammate uses an independent context window, so a team of 5 consumes roughly 5x the tokens.",
+            "For research, review, and new features, the extra cost is usually worth it.",
+            "For routine tasks, a single session is more cost-effective.",
+            "Start with 3-5 teammates and scale up only when genuinely needed."
+          ]
+        },
+        "costTips": {
+          "title": "Cost-Saving Tips",
+          "description": "Everyday cost-saving practices",
+          "items": [
+            "Keep sessions short and focused. A /clear followed by a fresh prompt is more effective than a long session.",
+            "Keep CLAUDE.md concise. It's loaded every session, so unnecessary content wastes tokens.",
+            "Separate research into subagents to save main context tokens.",
+            "Use claude -p for non-interactive mode to quickly handle one-off tasks."
+          ]
+        }
+      }
+    },
+    "pixelAgents": {
+      "title": "Pixel Agents Setup",
+      "subtitle": "Monitor your AI agents as pixel art characters in real-time",
+      "overviewTitle": "What is Pixel Agents?",
+      "overviewDescription": "Pixel Agents is a VS Code extension that displays AI agents like Claude Code as pixel art characters in a virtual office. When multiple agents work simultaneously, you can see each one's status at a glance, making complex multi-agent workflows much more intuitive to monitor.",
+      "overviewTip": "Pixel Agents runs entirely locally and does not send any data externally. You can verify the source code on the GitHub repository.",
+      "bannerCaption": "Pixel Agents - 6 diverse pixel art characters",
+      "previewTitle": "Preview",
+      "previewCaption": "AI agents working at their desks in a virtual office",
+      "charactersCaption": "6 diverse characters - based on JIK-A-4's Metro City pixel art pack",
+      "stepsTitle": "Setup Guide",
+      "steps": {
+        "install": {
+          "title": "Install Pixel Agents Extension",
+          "description": "Install from the VS Code Marketplace",
+          "detail": "Open VS Code, go to the Extensions tab (Ctrl+Shift+X / Cmd+Shift+X), search for \"Pixel Agents\", and install it. You can also use Quick Open (Ctrl+P) with the command below.",
+          "command": "ext install pablodelucca.pixel-agents"
+        },
+        "claudeInstall": {
+          "title": "Install Claude Code CLI",
+          "description": "Run this in your terminal if not already installed"
+        },
+        "claudeRun": {
+          "title": "Run Claude in Terminal",
+          "description": "Start Claude from your terminal after installation"
+        },
+        "openTerminal": {
+          "title": "Run Claude in VS Code Terminal",
+          "description": "Start Claude from VS Code's integrated terminal",
+          "tip": "Open VS Code terminal with Ctrl+` (backtick). You must run Claude from VS Code's integrated terminal for Pixel Agents to detect it."
+        },
+        "showPanel": {
+          "title": "Open Pixel Agents Panel",
+          "description": "Activate the panel from the Command Palette",
+          "command": "Cmd+Shift+P → Type \"Pixel Agents: Show Panel\" → Enter",
+          "detail": "Once the panel opens, your Claude Code agent will appear as a pixel character. When the agent starts working, the character reacts in real-time."
+        }
+      },
+      "shortcutsTitle": "Keyboard Shortcuts & Controls",
+      "shortcutsAction": "Action",
+      "shortcutsKey": "Key / Control",
+      "shortcuts": [
+        { "action": "Spawn new Claude Code terminal", "key": "Click + Agent button" },
+        { "action": "Select & reassign character", "key": "Click character → Click seat" },
+        { "action": "Open office editor", "key": "Click Layout button" },
+        { "action": "Undo layout changes", "key": "Ctrl+Z" },
+        { "action": "Redo layout changes", "key": "Ctrl+Y" },
+        { "action": "Install from Quick Open", "key": "Ctrl+P → ext install pablodelucca.pixel-agents" }
+      ],
+      "featuresTitle": "Key Features",
+      "features": {
+        "visualMonitoring": {
+          "title": "Real-time Visual Monitoring",
+          "description": "Intuitively understand each agent's work status",
+          "items": [
+            "Each AI agent is displayed as a pixel art character, letting you check work status at a glance.",
+            "Characters animate based on actual activity: typing when writing code, reading when searching files, idle when waiting.",
+            "Speech bubbles appear when agents need input or permissions, so you can respond immediately.",
+            "Sound notifications chime when an agent finishes its task, so you know even without looking at the screen."
+          ]
+        },
+        "customization": {
+          "title": "Office Customization",
+          "description": "Freely customize your workspace and characters",
+          "items": [
+            "Click a character to select it, then click a seat to change its placement.",
+            "Open the office editor with the \"Layout\" button to customize floors, walls, and furniture.",
+            "Expand the grid up to 64x64 tiles by clicking ghost borders at the edges.",
+            "Export/import layouts as JSON to share office designs with teammates.",
+            "Office designs auto-save and persist across VS Code windows."
+          ]
+        },
+        "subAgents": {
+          "title": "Sub-agent Support",
+          "description": "Visually manage agent team workflows",
+          "items": [
+            "Sub-agents (Task tool) are displayed as separate characters linked to their parent agent.",
+            "Visually understand relationships and workflow between agents.",
+            "Track each agent's role and progress in complex multi-agent tasks."
+          ]
+        },
+        "security": {
+          "title": "Security & Privacy",
+          "description": "Safe to use with confidence",
+          "items": [
+            "All processing happens locally — no data is sent to external servers.",
+            "Source code is publicly available on GitHub for security verification.",
+            "Reads Claude Code's JSONL transcripts for status detection — does not modify Claude Code itself.",
+            "MIT licensed for free and open use."
+          ]
+        }
+      },
+      "limitationsTitle": "Known Limitations",
+      "limitations": [
+        "Primarily tested on Windows 11; macOS/Linux compatibility may be incomplete.",
+        "Agent-terminal synchronization can desync when terminals open/close rapidly.",
+        "Status detection uses heuristics, so agents may briefly show incorrect status.",
+        "Full furniture catalog requires Donarg's Office Interior Tileset ($2). Free assets coming soon."
+      ]
+    },
+    "security": {
+      "title": "Permissions & Security",
+      "subtitle": "Understand Claude Code permission settings and safe usage practices",
+      "sections": {
+        "permissionBasics": {
+          "title": "Permission Basics",
+          "description": "How Claude Code accesses your system",
+          "items": [
+            "By default, Claude Code asks permission before any system-modifying action: file writes, Bash commands, etc.",
+            "This is safe but can become tedious with repeated approvals.",
+            "You can pre-approve frequently used safe commands (e.g., npm run lint, git commit).",
+            "Use /permissions to manage which tools and commands are allowed."
+          ]
+        },
+        "permissionModes": {
+          "title": "Permission Modes",
+          "description": "Choose the right permission level for the situation",
+          "items": [
+            "Normal Mode: Default mode. Asks for approval on every modification.",
+            "Auto-Accept Mode (Shift+Tab): Auto-approves file edits. Useful for trusted tasks.",
+            "Plan Mode (Shift+Tab x2): Read-only mode. Analyzes code and creates plans without making changes.",
+            "--dangerously-skip-permissions: Skips all permission checks. Only use in sandboxed environments without internet."
+          ]
+        },
+        "bypassPermissions": {
+          "title": "Skip Permission Checks (Bypass Permissions)",
+          "description": "Let Claude work freely without asking for approval each time",
+          "items": [
+            "Method 1 - CLI flag: Use the --dangerously-skip-permissions flag in your terminal.\n   claude --dangerously-skip-permissions",
+            "Method 2 - Settings file: Set defaultMode in ~/.claude/settings.json.\n   {\n     \"permissions\": {\n       \"defaultMode\": \"bypassPermissions\"\n     }\n   }",
+            "Method 3 - Per-project: Add the same setting to .claude/settings.json in your project folder to apply only to that project.",
+            "Warning: This mode skips ALL permission checks. File deletions, dangerous commands, etc. will run without confirmation.",
+            "Strongly recommended to use only in safe environments (containers, VMs, or non-critical test projects).",
+            "Organization admins can block this mode by setting disableBypassPermissionsMode to \"disable\" in managed settings."
+          ]
+        },
+        "allowRules": {
+          "title": "Auto-Allow Specific Tools (Allow Rules)",
+          "description": "Instead of skipping all permissions, auto-approve only specific commands",
+          "items": [
+            "Safer alternative: Instead of bypassing all permissions, add only frequently used safe commands to an allow list.",
+            "Setup: Add to ~/.claude/settings.json (global) or .claude/settings.json (per-project).\n   {\n     \"permissions\": {\n       \"allow\": [\n         \"Bash(npm run *)\",\n         \"Bash(git commit *)\",\n         \"Bash(git diff *)\",\n         \"Edit\"\n       ]\n     }\n   }",
+            "Adding Edit to allow auto-approves file edits. Bash commands are specified with patterns.",
+            "Bash(npm run *): Allows all commands starting with npm run.",
+            "Dangerous commands can be blocked with a deny list.\n   \"deny\": [\"Bash(git push *)\", \"Bash(rm *)\"]",
+            "Use /permissions to view and manage your current allow/deny lists.",
+            "Another option - Accept Edits mode: Press Shift+Tab to switch to acceptEdits mode, which auto-approves file edits only. Command execution still requires confirmation."
+          ]
+        },
+        "sandboxing": {
+          "title": "Sandboxing",
+          "description": "Work safely with OS-level isolation",
+          "items": [
+            "Enable OS-level isolation with the /sandbox command.",
+            "Sandbox restricts filesystem and network access, keeping Claude within defined boundaries.",
+            "Sandboxing provides safer autonomy than skipping all permissions.",
+            "Especially useful for CI/CD pipelines and automated workflows."
+          ]
+        },
+        "safetyTips": {
+          "title": "Safe Usage Tips",
+          "description": "Minimize security risks",
+          "items": [
+            "Prompt injection: External content (web, files) may contain hidden instructions to manipulate Claude.",
+            "Sensitive data: Be careful not to commit files with secrets like .env or credentials.json.",
+            "Review commands: Check commands Claude wants to run, especially destructive ones like rm or git push --force.",
+            "Commit CLAUDE.md to Git so your entire team follows the same security rules."
+          ]
+        }
+      }
+    }
+  }
+}
