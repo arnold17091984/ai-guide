@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
 const STORAGE_KEY = "ai-guide-visited";
@@ -17,34 +17,47 @@ const ALL_PAGES = [
   "/setup/pixel-agents",
 ];
 
+let listeners: Array<() => void> = [];
+
+function getSnapshot(): string[] {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function getServerSnapshot(): string[] {
+  return [];
+}
+
+function subscribe(listener: () => void) {
+  listeners = [...listeners, listener];
+  return () => {
+    listeners = listeners.filter((l) => l !== listener);
+  };
+}
+
+function addVisited(page: string) {
+  const current = getSnapshot();
+  if (current.includes(page)) return;
+  const updated = [...current, page];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  listeners.forEach((l) => l());
+}
+
 export function useProgressLine() {
   const pathname = usePathname();
-  const [visited, setVisited] = useState<string[]>([]);
-
-  // Load visited pages from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) setVisited(JSON.parse(stored));
-    } catch {
-      // ignore parse errors
-    }
-  }, []);
+  const visited = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   // Track current page visit
-  useEffect(() => {
-    const pathWithoutLocale = "/" + pathname.split("/").slice(2).join("/");
-    if (ALL_PAGES.includes(pathWithoutLocale)) {
-      setVisited((prev) => {
-        if (prev.includes(pathWithoutLocale)) return prev;
-        const updated = [...prev, pathWithoutLocale];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        return updated;
-      });
-    }
-  }, [pathname]);
+  const pathWithoutLocale = "/" + pathname.split("/").slice(2).join("/");
+  if (typeof window !== "undefined" && ALL_PAGES.includes(pathWithoutLocale)) {
+    addVisited(pathWithoutLocale);
+  }
 
-  const isVisited = (href: string) => visited.includes(href);
+  const isVisited = useCallback((href: string) => visited.includes(href), [visited]);
   const progress = ALL_PAGES.length > 0 ? (visited.length / ALL_PAGES.length) * 100 : 0;
 
   return { isVisited, progress, visited };
