@@ -24,7 +24,13 @@
     "tip": "ヒント",
     "warning": "注意",
     "command": "コマンド",
-    "terminal": "ターミナル"
+    "terminal": "ターミナル",
+    "badges": {
+      "beginner": "初級",
+      "intermediate": "中級",
+      "advanced": "上級",
+      "experimental": "実験的"
+    }
   },
   "home": {
     "welcome": "AI活用ガイドへようこそ",

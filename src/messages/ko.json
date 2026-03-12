@@ -24,7 +24,13 @@
     "tip": "팁",
     "warning": "주의",
     "command": "명령어",
-    "terminal": "터미널"
+    "terminal": "터미널",
+    "badges": {
+      "beginner": "초급",
+      "intermediate": "중급",
+      "advanced": "고급",
+      "experimental": "실험적"
+    }
   },
   "home": {
     "welcome": "AI 활용 가이드에 오신 것을 환영합니다",

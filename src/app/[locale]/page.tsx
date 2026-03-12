@@ -154,26 +154,22 @@ const cardGroups: CardGroup[] = [
   },
 ];
 
-const badgeStyles: Record<string, { bg: string; text: string; label: string }> = {
+const badgeStyles: Record<string, { bg: string; text: string }> = {
   beginner: {
     bg: "bg-green-100 dark:bg-green-900/30",
     text: "text-green-700 dark:text-green-400",
-    label: "Beginner",
   },
   intermediate: {
     bg: "bg-blue-100 dark:bg-blue-900/30",
     text: "text-blue-700 dark:text-blue-400",
-    label: "Intermediate",
   },
   advanced: {
     bg: "bg-teal-100 dark:bg-teal-900/30",
     text: "text-teal-700 dark:text-teal-400",
-    label: "Advanced",
   },
   experimental: {
     bg: "bg-amber-100 dark:bg-amber-900/30",
     text: "text-amber-700 dark:text-amber-400",
-    label: "Experimental",
   },
 };
 
@@ -215,7 +211,7 @@ export default function HomePage() {
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-medium ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}
                     >
-                      {badgeStyles[card.badge].label}
+                      {tc(`badges.${card.badge}`)}
                     </span>
                   )}
                 </div>

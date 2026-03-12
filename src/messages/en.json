@@ -24,7 +24,13 @@
     "tip": "Tip",
     "warning": "Warning",
     "command": "Command",
-    "terminal": "Terminal"
+    "terminal": "Terminal",
+    "badges": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "experimental": "Experimental"
+    }
   },
   "home": {
     "welcome": "Welcome to the AI Guide",
