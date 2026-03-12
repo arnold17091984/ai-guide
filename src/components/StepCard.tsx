@@ -1,8 +1,11 @@
+import ScrollFadeIn from "@/components/ScrollFadeIn";
+
 interface StepCardProps {
   stepNumber: number;
   title: string;
   description: string;
   children: React.ReactNode;
+  isLast?: boolean;
 }
 
 export default function StepCard({
@@ -10,23 +13,30 @@ export default function StepCard({
   title,
   description,
   children,
+  isLast = false,
 }: StepCardProps) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-900">
-      <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">
+    <ScrollFadeIn>
+      <div className="relative flex gap-6 pb-8">
+        {/* Timeline line */}
+        {!isLast && (
+          <div className="absolute left-5 top-12 bottom-0 w-px bg-linear-to-b from-(--border) to-transparent" />
+        )}
+        {/* Step number */}
+        <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-cyan-500 text-sm font-bold text-white shadow-lg shadow-blue-500/20">
           {stepNumber}
         </div>
-        <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        {/* Content */}
+        <div className="flex-1 rounded-xl border border-(--border) bg-(--surface) p-6 shadow-sm transition-shadow hover:shadow-md">
+          <h3 className="text-lg font-semibold text-(--text-1)">
             {title}
           </h3>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-(--text-2)">
             {description}
           </p>
+          <div className="mt-4">{children}</div>
         </div>
       </div>
-      <div className="ml-14">{children}</div>
-    </div>
+    </ScrollFadeIn>
   );
 }
