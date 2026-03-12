@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import PageHeader from "@/components/PageHeader";
 import StepCard from "@/components/StepCard";
 import ContentRenderer from "@/components/ContentRenderer";
 
@@ -9,12 +10,11 @@ export default function ClaudeWebPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">{t("subtitle")}</p>
-      </div>
+      <PageHeader
+        title={t("title")}
+        subtitle={t("subtitle")}
+        gradient="from-rose-400 to-orange-400"
+      />
 
       <div className="space-y-6">
         {steps.map((step, index) => (

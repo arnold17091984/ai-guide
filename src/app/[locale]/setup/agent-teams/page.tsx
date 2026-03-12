@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import PageHeader from "@/components/PageHeader";
 
 const sectionKeys = [
   "overview",
@@ -102,16 +103,15 @@ export default function AgentTeamsPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">{t("subtitle")}</p>
-        <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/30">
-          <p className="text-sm text-amber-800 dark:text-amber-200">
-            {t("experimentalNote")}
-          </p>
-        </div>
+      <PageHeader
+        title={t("title")}
+        subtitle={t("subtitle")}
+        gradient="from-cyan-500 to-blue-500"
+      />
+      <div className="mb-8 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/30">
+        <p className="text-sm text-amber-800 dark:text-amber-200">
+          {t("experimentalNote")}
+        </p>
       </div>
 
       <div className="space-y-6">

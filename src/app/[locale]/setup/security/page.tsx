@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import PageHeader from "@/components/PageHeader";
 
 const sectionKeys = [
   "permissionBasics",
@@ -56,12 +57,11 @@ export default function SecurityPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">{t("subtitle")}</p>
-      </div>
+      <PageHeader
+        title={t("title")}
+        subtitle={t("subtitle")}
+        gradient="from-red-500 to-rose-400"
+      />
 
       <div className="space-y-6">
         {sectionKeys.map((key) => {

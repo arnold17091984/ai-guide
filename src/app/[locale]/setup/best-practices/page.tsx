@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import PageHeader from "@/components/PageHeader";
 import CompareBox from "@/components/CompareBox";
 
 const sectionKeys = [
@@ -50,12 +51,11 @@ export default function BestPracticesPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">{t("subtitle")}</p>
-      </div>
+      <PageHeader
+        title={t("title")}
+        subtitle={t("subtitle")}
+        gradient="from-green-500 to-emerald-400"
+      />
 
       <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
         <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
