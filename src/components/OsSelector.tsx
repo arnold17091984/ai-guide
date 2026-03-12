@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { EASE_APPLE, DURATION } from "@/lib/motion";
 import ContentRenderer from "./ContentRenderer";
 
 interface OsSelectorProps {
@@ -18,13 +20,20 @@ export default function OsSelector({
 
   return (
     <div>
-      <div className="mb-4 flex gap-2">
+      <div className="relative mb-4 inline-flex rounded-xl bg-(--surface) p-1 border border-(--border)">
+        {/* Sliding pill background */}
+        <motion.div
+          className="absolute top-1 bottom-1 rounded-lg bg-linear-to-r from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/20"
+          animate={{
+            left: os === "windows" ? "4px" : "50%",
+            right: os === "windows" ? "50%" : "4px",
+          }}
+          transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
+        />
         <button
           onClick={() => setOs("windows")}
-          className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${
-            os === "windows"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className={`relative z-10 flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+            os === "windows" ? "text-white" : "text-(--text-2) hover:text-(--text-1)"
           }`}
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -34,10 +43,8 @@ export default function OsSelector({
         </button>
         <button
           onClick={() => setOs("macos")}
-          className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${
-            os === "macos"
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className={`relative z-10 flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+            os === "macos" ? "text-white" : "text-(--text-2) hover:text-(--text-1)"
           }`}
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -46,7 +53,7 @@ export default function OsSelector({
           {t("macos")}
         </button>
       </div>
-      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+      <div className="rounded-xl border border-(--border) bg-(--surface) p-4">
         <ContentRenderer content={os === "windows" ? windowsContent : macosContent} />
       </div>
     </div>
