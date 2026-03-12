@@ -25,6 +25,7 @@
     "warning": "注意",
     "command": "コマンド",
     "terminal": "ターミナル",
+    "progress": "進捗",
     "badges": {
       "beginner": "初級",
       "intermediate": "中級",

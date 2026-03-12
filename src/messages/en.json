@@ -25,6 +25,7 @@
     "warning": "Warning",
     "command": "Command",
     "terminal": "Terminal",
+    "progress": "Progress",
     "badges": {
       "beginner": "Beginner",
       "intermediate": "Intermediate",

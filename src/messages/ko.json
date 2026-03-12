@@ -25,6 +25,7 @@
     "warning": "주의",
     "command": "명령어",
     "terminal": "터미널",
+    "progress": "진행률",
     "badges": {
       "beginner": "초급",
       "intermediate": "중급",
