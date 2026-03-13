@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
+import SkipToContent from "@/components/SkipToContent";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -29,12 +30,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${geist.variable} font-sans antialiased bg-(--bg) text-(--text-1)`}>
+        <SkipToContent />
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col overflow-x-hidden">
             <Header />
             <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-4 py-8 sm:px-6 lg:px-8">
               <Sidebar />
-              <main className="min-w-0 flex-1">{children}</main>
+              <main id="main-content" className="min-w-0 flex-1">{children}</main>
             </div>
           </div>
         </NextIntlClientProvider>

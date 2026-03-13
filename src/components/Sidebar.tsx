@@ -28,6 +28,7 @@ const menuGroups: MenuGroup[] = [
       { key: "claudeMdWorkshop", href: "/claude-md", commonKey: "navClaudeMd" },
       { key: "community", href: "/community", commonKey: "navCommunity" },
       { key: "teams", href: "/teams", commonKey: "navTeams" },
+      { key: "caseStudies", href: "/case-studies", commonKey: "navCaseStudies" },
       { key: "trending", href: "/trending", commonKey: "navTrending" },
       { key: "digest", href: "/digest", commonKey: "navDigest" },
     ],

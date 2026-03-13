@@ -41,7 +41,15 @@
     "navTrending": "トレンド",
     "navDigest": "週刊ダイジェスト",
     "navPackages": "パッケージ",
-    "navTeams": "チーム"
+    "navTeams": "チーム",
+    "navCaseStudies": "ケーススタディ",
+    "notFoundTitle": "ページが見つかりません",
+    "notFoundMessage": "お探しのページは存在しないか、移動しました。",
+    "backToHome": "ホームに戻る",
+    "errorTitle": "エラーが発生しました",
+    "errorMessage": "予期しないエラーが発生しました。もう一度お試しください。",
+    "tryAgain": "再試行",
+    "loading": "読み込み中..."
   },
   "home": {
     "welcome": "AI活用ガイドへようこそ",
@@ -1434,5 +1442,23 @@
     "deleteWarning": "この操作は元に戻せません。すべてのチームデータが完全に削除されます。",
     "confirmDelete": "はい、このチームを削除します",
     "back": "戻る"
+  },
+  "caseStudies": {
+    "title": "ケーススタディ",
+    "subtitle": "Claude Code で開発したチームと開発者の実際の事例",
+    "featured": "注目",
+    "categories": "全カテゴリ",
+    "industry": "業種",
+    "difficulty": "難易度",
+    "readTime": "読む時間",
+    "newCaseStudy": "ケーススタディを書く",
+    "noResults": "ケーススタディが見つかりません",
+    "searchPlaceholder": "ケーススタディを検索…",
+    "tableOfContents": "目次",
+    "relatedStudies": "関連ケーススタディ",
+    "beginner": "初級",
+    "intermediate": "中級",
+    "advanced": "上級",
+    "expert": "エキスパート"
   }
 }

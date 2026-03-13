@@ -41,7 +41,15 @@
     "navTrending": "Trending",
     "navDigest": "Weekly Digest",
     "navPackages": "Packages",
-    "navTeams": "Teams"
+    "navTeams": "Teams",
+    "navCaseStudies": "Case Studies",
+    "notFoundTitle": "Page Not Found",
+    "notFoundMessage": "The page you are looking for doesn't exist or has been moved.",
+    "backToHome": "Back to Home",
+    "errorTitle": "Something went wrong",
+    "errorMessage": "An unexpected error occurred. Please try again.",
+    "tryAgain": "Try Again",
+    "loading": "Loading..."
   },
   "home": {
     "welcome": "Welcome to the AI Guide",
@@ -1434,5 +1442,23 @@
     "deleteWarning": "This action cannot be undone. All team data will be permanently deleted.",
     "confirmDelete": "Yes, delete this team",
     "back": "Back"
+  },
+  "caseStudies": {
+    "title": "Case Studies",
+    "subtitle": "Real-world examples of teams and developers building with Claude Code",
+    "featured": "Featured",
+    "categories": "All Categories",
+    "industry": "Industry",
+    "difficulty": "Difficulty",
+    "readTime": "Read time",
+    "newCaseStudy": "New Case Study",
+    "noResults": "No case studies found",
+    "searchPlaceholder": "Search case studies…",
+    "tableOfContents": "Table of Contents",
+    "relatedStudies": "Related Case Studies",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert"
   }
 }
