@@ -224,6 +224,8 @@ function detectCategory(tags: string[]): string | null {
 // ---------------------------------------------------------------------------
 
 import InstallBlock from "./InstallBlock";
+import SkillAdoptButton from "@/components/SkillAdoptButton";
+import { getUserSkillStatus } from "@/lib/skills/user-skill-actions";
 
 // ---------------------------------------------------------------------------
 // Page
@@ -240,9 +242,10 @@ export default async function SkillDetailPage({ params }: PageProps) {
 
   if (!skill) notFound();
 
-  const [starred, rawComments] = await Promise.all([
+  const [starred, rawComments, adoptionStatus] = await Promise.all([
     user ? getSkillStarStatus(skill.id, user.id) : Promise.resolve(false),
     getComments("skill", skill.id),
+    getUserSkillStatus(skill.id),
   ]);
 
   const comments = rawComments as CommentWithAuthor[];
@@ -587,6 +590,19 @@ export default async function SkillDetailPage({ params }: PageProps) {
         {/* === Sidebar === */}
         <ScrollFadeIn delay={0.1}>
           <aside className="space-y-4 lg:sticky lg:top-8 lg:self-start">
+            {/* Skill adoption */}
+            {user && (
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
+                <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
+                  {t("adoption.register")}
+                </h3>
+                <SkillAdoptButton
+                  skillId={skill.id}
+                  initialStatus={adoptionStatus as "registered" | "in_progress" | "completed" | null}
+                />
+              </div>
+            )}
+
             {/* Author card */}
             <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">

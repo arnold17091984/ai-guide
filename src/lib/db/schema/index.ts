@@ -21,3 +21,4 @@ export * from "./digests";
 export * from "./skill-packages";
 export * from "./teams";
 export * from "./knowledge-debt";
+export * from "./user-skills";
