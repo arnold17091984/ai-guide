@@ -54,10 +54,13 @@ export default async function CreatePackagePage({ params, searchParams }: PagePr
 
   const t = await getTranslations("skillPackages");
 
-  // Load available skills for the selector
-  const { items: availableSkills } = await listSkills({
-    pageSize: 100,
-  });
+  // Load available skills for the selector (graceful fallback when DB is unavailable)
+  let availableSkills: Awaited<ReturnType<typeof listSkills>>["items"] = [];
+  try {
+    ({ items: availableSkills } = await listSkills({ pageSize: 100 }));
+  } catch {
+    // DB not available — empty skill list
+  }
 
   const skillOptions = availableSkills.map((s) => ({
     id: s.id,

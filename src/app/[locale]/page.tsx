@@ -186,7 +186,7 @@ export default function HomePage() {
     <div>
       <HeroSection
         title={t("welcome")}
-        description={t("description")}
+        subtitle={t("description")}
         ctaText={t("getStarted")}
         ctaHref={`/${locale}/setup/vscode`}
       />

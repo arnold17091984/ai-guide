@@ -338,14 +338,94 @@ export async function listPackages(params: {
 
   const whereClause = and(...conditions);
 
-  const [totalResult, rows] = await Promise.all([
-    db
-      .select({ total: count() })
-      .from(skillPackages)
-      .where(whereClause)
-      .then((r) => Number(r[0]?.total ?? 0)),
+  try {
+    const [totalResult, rows] = await Promise.all([
+      db
+        .select({ total: count() })
+        .from(skillPackages)
+        .where(whereClause)
+        .then((r) => Number(r[0]?.total ?? 0)),
 
-    db
+      db
+        .select({
+          id: skillPackages.id,
+          name: skillPackages.name,
+          slug: skillPackages.slug,
+          description: skillPackages.description,
+          iconName: skillPackages.iconName,
+          tags: skillPackages.tags,
+          isPublic: skillPackages.isPublic,
+          installCount: skillPackages.installCount,
+          starCount: skillPackages.starCount,
+          authorId: skillPackages.authorId,
+          authorName: users.displayName,
+          authorUsername: users.username,
+          createdAt: skillPackages.createdAt,
+          updatedAt: skillPackages.updatedAt,
+        })
+        .from(skillPackages)
+        .leftJoin(users, eq(skillPackages.authorId, users.id))
+        .where(whereClause)
+        .orderBy(desc(skillPackages.starCount), desc(skillPackages.installCount))
+        .limit(pageSize)
+        .offset(offset),
+    ]);
+
+    // Get skill counts for each package
+    const packageIds = rows.map((r) => r.id);
+    let skillCounts: Record<string, number> = {};
+
+    if (packageIds.length > 0) {
+      const countRows = await db
+        .select({
+          packageId: skillPackageItems.packageId,
+          count: count(),
+        })
+        .from(skillPackageItems)
+        .where(
+          sql`${skillPackageItems.packageId} IN ${packageIds}`,
+        )
+        .groupBy(skillPackageItems.packageId);
+
+      skillCounts = Object.fromEntries(
+        countRows.map((r) => [r.packageId, Number(r.count)]),
+      );
+    }
+
+    const items: PackageListItem[] = rows.map((r) => ({
+      id: r.id,
+      name: r.name,
+      slug: r.slug,
+      description: r.description,
+      iconName: r.iconName,
+      tags: r.tags as string[],
+      isPublic: r.isPublic,
+      installCount: r.installCount,
+      starCount: r.starCount,
+      skillCount: skillCounts[r.id] ?? 0,
+      authorId: r.authorId,
+      authorName: r.authorName,
+      authorUsername: r.authorUsername!,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+    }));
+
+    return { items, total: totalResult };
+  } catch {
+    return { items: [], total: 0 };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// getPackageBySlug
+// ---------------------------------------------------------------------------
+
+export async function getPackageBySlug(
+  slug: string,
+  currentUserId?: string,
+): Promise<PackageDetail | null> {
+  try {
+    const row = await db
       .select({
         id: skillPackages.id,
         name: skillPackages.name,
@@ -364,158 +444,86 @@ export async function listPackages(params: {
       })
       .from(skillPackages)
       .leftJoin(users, eq(skillPackages.authorId, users.id))
-      .where(whereClause)
-      .orderBy(desc(skillPackages.starCount), desc(skillPackages.installCount))
-      .limit(pageSize)
-      .offset(offset),
-  ]);
-
-  // Get skill counts for each package
-  const packageIds = rows.map((r) => r.id);
-  let skillCounts: Record<string, number> = {};
-
-  if (packageIds.length > 0) {
-    const countRows = await db
-      .select({
-        packageId: skillPackageItems.packageId,
-        count: count(),
-      })
-      .from(skillPackageItems)
-      .where(
-        sql`${skillPackageItems.packageId} IN ${packageIds}`,
-      )
-      .groupBy(skillPackageItems.packageId);
-
-    skillCounts = Object.fromEntries(
-      countRows.map((r) => [r.packageId, Number(r.count)]),
-    );
-  }
-
-  const items: PackageListItem[] = rows.map((r) => ({
-    id: r.id,
-    name: r.name,
-    slug: r.slug,
-    description: r.description,
-    iconName: r.iconName,
-    tags: r.tags as string[],
-    isPublic: r.isPublic,
-    installCount: r.installCount,
-    starCount: r.starCount,
-    skillCount: skillCounts[r.id] ?? 0,
-    authorId: r.authorId,
-    authorName: r.authorName,
-    authorUsername: r.authorUsername!,
-    createdAt: r.createdAt,
-    updatedAt: r.updatedAt,
-  }));
-
-  return { items, total: totalResult };
-}
-
-// ---------------------------------------------------------------------------
-// getPackageBySlug
-// ---------------------------------------------------------------------------
-
-export async function getPackageBySlug(
-  slug: string,
-  currentUserId?: string,
-): Promise<PackageDetail | null> {
-  const row = await db
-    .select({
-      id: skillPackages.id,
-      name: skillPackages.name,
-      slug: skillPackages.slug,
-      description: skillPackages.description,
-      iconName: skillPackages.iconName,
-      tags: skillPackages.tags,
-      isPublic: skillPackages.isPublic,
-      installCount: skillPackages.installCount,
-      starCount: skillPackages.starCount,
-      authorId: skillPackages.authorId,
-      authorName: users.displayName,
-      authorUsername: users.username,
-      createdAt: skillPackages.createdAt,
-      updatedAt: skillPackages.updatedAt,
-    })
-    .from(skillPackages)
-    .leftJoin(users, eq(skillPackages.authorId, users.id))
-    .where(eq(skillPackages.slug, slug))
-    .limit(1)
-    .then((r) => r[0] ?? null);
-
-  if (!row) return null;
-
-  // Fetch included skills with order
-  const packageSkills = await db
-    .select({
-      id: skills.id,
-      slug: skills.slug,
-      name: skills.name,
-      description: skills.description,
-      currentVersion: skills.currentVersion,
-      stars: skills.stars,
-      downloads: skills.downloads,
-      tags: skills.tags,
-      authorName: users.displayName,
-      authorUsername: users.username,
-      publishedAt: skills.publishedAt,
-      order: skillPackageItems.order,
-    })
-    .from(skillPackageItems)
-    .innerJoin(skills, eq(skillPackageItems.skillId, skills.id))
-    .leftJoin(users, eq(skills.authorId, users.id))
-    .where(eq(skillPackageItems.packageId, row.id))
-    .orderBy(asc(skillPackageItems.order));
-
-  // Check if current user has starred
-  let starred = false;
-  if (currentUserId) {
-    const starRow = await db
-      .select({ id: skillPackageStars.id })
-      .from(skillPackageStars)
-      .where(
-        and(
-          eq(skillPackageStars.packageId, row.id),
-          eq(skillPackageStars.userId, currentUserId),
-        ),
-      )
+      .where(eq(skillPackages.slug, slug))
       .limit(1)
       .then((r) => r[0] ?? null);
-    starred = !!starRow;
-  }
 
-  return {
-    id: row.id,
-    name: row.name,
-    slug: row.slug,
-    description: row.description,
-    iconName: row.iconName,
-    tags: row.tags as string[],
-    isPublic: row.isPublic,
-    installCount: row.installCount,
-    starCount: row.starCount,
-    skillCount: packageSkills.length,
-    authorId: row.authorId,
-    authorName: row.authorName,
-    authorUsername: row.authorUsername!,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
-    skills: packageSkills.map((s) => ({
-      id: s.id,
-      slug: s.slug,
-      name: s.name,
-      description: s.description,
-      currentVersion: s.currentVersion,
-      stars: s.stars,
-      downloads: s.downloads,
-      tags: s.tags,
-      authorName: s.authorName,
-      authorUsername: s.authorUsername!,
-      publishedAt: s.publishedAt,
-      order: s.order,
-    })),
-    starred,
-  };
+    if (!row) return null;
+
+    // Fetch included skills with order
+    const packageSkills = await db
+      .select({
+        id: skills.id,
+        slug: skills.slug,
+        name: skills.name,
+        description: skills.description,
+        currentVersion: skills.currentVersion,
+        stars: skills.stars,
+        downloads: skills.downloads,
+        tags: skills.tags,
+        authorName: users.displayName,
+        authorUsername: users.username,
+        publishedAt: skills.publishedAt,
+        order: skillPackageItems.order,
+      })
+      .from(skillPackageItems)
+      .innerJoin(skills, eq(skillPackageItems.skillId, skills.id))
+      .leftJoin(users, eq(skills.authorId, users.id))
+      .where(eq(skillPackageItems.packageId, row.id))
+      .orderBy(asc(skillPackageItems.order));
+
+    // Check if current user has starred
+    let starred = false;
+    if (currentUserId) {
+      const starRow = await db
+        .select({ id: skillPackageStars.id })
+        .from(skillPackageStars)
+        .where(
+          and(
+            eq(skillPackageStars.packageId, row.id),
+            eq(skillPackageStars.userId, currentUserId),
+          ),
+        )
+        .limit(1)
+        .then((r) => r[0] ?? null);
+      starred = !!starRow;
+    }
+
+    return {
+      id: row.id,
+      name: row.name,
+      slug: row.slug,
+      description: row.description,
+      iconName: row.iconName,
+      tags: row.tags as string[],
+      isPublic: row.isPublic,
+      installCount: row.installCount,
+      starCount: row.starCount,
+      skillCount: packageSkills.length,
+      authorId: row.authorId,
+      authorName: row.authorName,
+      authorUsername: row.authorUsername!,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
+      skills: packageSkills.map((s) => ({
+        id: s.id,
+        slug: s.slug,
+        name: s.name,
+        description: s.description,
+        currentVersion: s.currentVersion,
+        stars: s.stars,
+        downloads: s.downloads,
+        tags: s.tags,
+        authorName: s.authorName,
+        authorUsername: s.authorUsername!,
+        publishedAt: s.publishedAt,
+        order: s.order,
+      })),
+      starred,
+    };
+  } catch {
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -613,63 +621,67 @@ export async function installPackage(
 export async function getUserPackages(
   userId: string,
 ): Promise<PackageListItem[]> {
-  const rows = await db
-    .select({
-      id: skillPackages.id,
-      name: skillPackages.name,
-      slug: skillPackages.slug,
-      description: skillPackages.description,
-      iconName: skillPackages.iconName,
-      tags: skillPackages.tags,
-      isPublic: skillPackages.isPublic,
-      installCount: skillPackages.installCount,
-      starCount: skillPackages.starCount,
-      authorId: skillPackages.authorId,
-      authorName: users.displayName,
-      authorUsername: users.username,
-      createdAt: skillPackages.createdAt,
-      updatedAt: skillPackages.updatedAt,
-    })
-    .from(skillPackages)
-    .leftJoin(users, eq(skillPackages.authorId, users.id))
-    .where(eq(skillPackages.authorId, userId))
-    .orderBy(desc(skillPackages.updatedAt));
-
-  const packageIds = rows.map((r) => r.id);
-  let skillCounts: Record<string, number> = {};
-
-  if (packageIds.length > 0) {
-    const countRows = await db
+  try {
+    const rows = await db
       .select({
-        packageId: skillPackageItems.packageId,
-        count: count(),
+        id: skillPackages.id,
+        name: skillPackages.name,
+        slug: skillPackages.slug,
+        description: skillPackages.description,
+        iconName: skillPackages.iconName,
+        tags: skillPackages.tags,
+        isPublic: skillPackages.isPublic,
+        installCount: skillPackages.installCount,
+        starCount: skillPackages.starCount,
+        authorId: skillPackages.authorId,
+        authorName: users.displayName,
+        authorUsername: users.username,
+        createdAt: skillPackages.createdAt,
+        updatedAt: skillPackages.updatedAt,
       })
-      .from(skillPackageItems)
-      .where(sql`${skillPackageItems.packageId} IN ${packageIds}`)
-      .groupBy(skillPackageItems.packageId);
+      .from(skillPackages)
+      .leftJoin(users, eq(skillPackages.authorId, users.id))
+      .where(eq(skillPackages.authorId, userId))
+      .orderBy(desc(skillPackages.updatedAt));
 
-    skillCounts = Object.fromEntries(
-      countRows.map((r) => [r.packageId, Number(r.count)]),
-    );
+    const packageIds = rows.map((r) => r.id);
+    let skillCounts: Record<string, number> = {};
+
+    if (packageIds.length > 0) {
+      const countRows = await db
+        .select({
+          packageId: skillPackageItems.packageId,
+          count: count(),
+        })
+        .from(skillPackageItems)
+        .where(sql`${skillPackageItems.packageId} IN ${packageIds}`)
+        .groupBy(skillPackageItems.packageId);
+
+      skillCounts = Object.fromEntries(
+        countRows.map((r) => [r.packageId, Number(r.count)]),
+      );
+    }
+
+    return rows.map((r) => ({
+      id: r.id,
+      name: r.name,
+      slug: r.slug,
+      description: r.description,
+      iconName: r.iconName,
+      tags: r.tags as string[],
+      isPublic: r.isPublic,
+      installCount: r.installCount,
+      starCount: r.starCount,
+      skillCount: skillCounts[r.id] ?? 0,
+      authorId: r.authorId,
+      authorName: r.authorName,
+      authorUsername: r.authorUsername!,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+    }));
+  } catch {
+    return [];
   }
-
-  return rows.map((r) => ({
-    id: r.id,
-    name: r.name,
-    slug: r.slug,
-    description: r.description,
-    iconName: r.iconName,
-    tags: r.tags as string[],
-    isPublic: r.isPublic,
-    installCount: r.installCount,
-    starCount: r.starCount,
-    skillCount: skillCounts[r.id] ?? 0,
-    authorId: r.authorId,
-    authorName: r.authorName,
-    authorUsername: r.authorUsername!,
-    createdAt: r.createdAt,
-    updatedAt: r.updatedAt,
-  }));
 }
 
 // ---------------------------------------------------------------------------
@@ -679,64 +691,68 @@ export async function getUserPackages(
 export async function getFeaturedPackages(
   limit: number = 6,
 ): Promise<PackageListItem[]> {
-  const rows = await db
-    .select({
-      id: skillPackages.id,
-      name: skillPackages.name,
-      slug: skillPackages.slug,
-      description: skillPackages.description,
-      iconName: skillPackages.iconName,
-      tags: skillPackages.tags,
-      isPublic: skillPackages.isPublic,
-      installCount: skillPackages.installCount,
-      starCount: skillPackages.starCount,
-      authorId: skillPackages.authorId,
-      authorName: users.displayName,
-      authorUsername: users.username,
-      createdAt: skillPackages.createdAt,
-      updatedAt: skillPackages.updatedAt,
-    })
-    .from(skillPackages)
-    .leftJoin(users, eq(skillPackages.authorId, users.id))
-    .where(eq(skillPackages.isPublic, true))
-    .orderBy(
-      desc(sql`${skillPackages.starCount} + ${skillPackages.installCount}`),
-    )
-    .limit(limit);
-
-  const packageIds = rows.map((r) => r.id);
-  let skillCounts: Record<string, number> = {};
-
-  if (packageIds.length > 0) {
-    const countRows = await db
+  try {
+    const rows = await db
       .select({
-        packageId: skillPackageItems.packageId,
-        count: count(),
+        id: skillPackages.id,
+        name: skillPackages.name,
+        slug: skillPackages.slug,
+        description: skillPackages.description,
+        iconName: skillPackages.iconName,
+        tags: skillPackages.tags,
+        isPublic: skillPackages.isPublic,
+        installCount: skillPackages.installCount,
+        starCount: skillPackages.starCount,
+        authorId: skillPackages.authorId,
+        authorName: users.displayName,
+        authorUsername: users.username,
+        createdAt: skillPackages.createdAt,
+        updatedAt: skillPackages.updatedAt,
       })
-      .from(skillPackageItems)
-      .where(sql`${skillPackageItems.packageId} IN ${packageIds}`)
-      .groupBy(skillPackageItems.packageId);
+      .from(skillPackages)
+      .leftJoin(users, eq(skillPackages.authorId, users.id))
+      .where(eq(skillPackages.isPublic, true))
+      .orderBy(
+        desc(sql`${skillPackages.starCount} + ${skillPackages.installCount}`),
+      )
+      .limit(limit);
 
-    skillCounts = Object.fromEntries(
-      countRows.map((r) => [r.packageId, Number(r.count)]),
-    );
+    const packageIds = rows.map((r) => r.id);
+    let skillCounts: Record<string, number> = {};
+
+    if (packageIds.length > 0) {
+      const countRows = await db
+        .select({
+          packageId: skillPackageItems.packageId,
+          count: count(),
+        })
+        .from(skillPackageItems)
+        .where(sql`${skillPackageItems.packageId} IN ${packageIds}`)
+        .groupBy(skillPackageItems.packageId);
+
+      skillCounts = Object.fromEntries(
+        countRows.map((r) => [r.packageId, Number(r.count)]),
+      );
+    }
+
+    return rows.map((r) => ({
+      id: r.id,
+      name: r.name,
+      slug: r.slug,
+      description: r.description,
+      iconName: r.iconName,
+      tags: r.tags as string[],
+      isPublic: r.isPublic,
+      installCount: r.installCount,
+      starCount: r.starCount,
+      skillCount: skillCounts[r.id] ?? 0,
+      authorId: r.authorId,
+      authorName: r.authorName,
+      authorUsername: r.authorUsername!,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
+    }));
+  } catch {
+    return [];
   }
-
-  return rows.map((r) => ({
-    id: r.id,
-    name: r.name,
-    slug: r.slug,
-    description: r.description,
-    iconName: r.iconName,
-    tags: r.tags as string[],
-    isPublic: r.isPublic,
-    installCount: r.installCount,
-    starCount: r.starCount,
-    skillCount: skillCounts[r.id] ?? 0,
-    authorId: r.authorId,
-    authorName: r.authorName,
-    authorUsername: r.authorUsername!,
-    createdAt: r.createdAt,
-    updatedAt: r.updatedAt,
-  }));
 }

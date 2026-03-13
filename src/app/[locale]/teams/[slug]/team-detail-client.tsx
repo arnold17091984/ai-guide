@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { staggerContainer, heroBlurIn } from "@/lib/motion";
+import { staggerContainer, fadeUp } from "@/lib/motion";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import TeamMemberRow from "@/components/TeamMemberRow";
 import InviteModal from "@/components/InviteModal";
@@ -140,7 +140,7 @@ export default function TeamDetailClient({
       >
         <div className="absolute inset-0 bg-black/5 dark:bg-black/20" />
         <div className="relative">
-          <motion.div variants={heroBlurIn} className="flex items-center gap-5">
+          <motion.div variants={fadeUp} className="flex items-center gap-5">
             {team.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -164,7 +164,7 @@ export default function TeamDetailClient({
           </motion.div>
 
           <motion.div
-            variants={heroBlurIn}
+            variants={fadeUp}
             className="mt-5 flex flex-wrap items-center gap-4 text-sm text-white/70"
           >
             <span className="flex items-center gap-1.5">
@@ -199,7 +199,7 @@ export default function TeamDetailClient({
           </motion.div>
 
           {/* Action buttons */}
-          <motion.div variants={heroBlurIn} className="mt-6 flex flex-wrap gap-3">
+          <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-3">
             {canManage && (
               <>
                 <Link

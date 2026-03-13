@@ -141,33 +141,37 @@ export async function deleteTeam(teamId: string) {
 // ============================================================
 
 export async function getTeam(slug: string) {
-  const user = await getCurrentUser();
+  try {
+    const user = await getCurrentUser();
 
-  const team = await db
-    .select()
-    .from(teams)
-    .where(eq(teams.slug, slug))
-    .limit(1)
-    .then((rows) => rows[0] ?? null);
+    const team = await db
+      .select()
+      .from(teams)
+      .where(eq(teams.slug, slug))
+      .limit(1)
+      .then((rows) => rows[0] ?? null);
 
-  if (!team) return null;
+    if (!team) return null;
 
-  // Private teams visible only to members
-  if (!team.isPublic && user) {
-    const member = await db
-      .select({ id: teamMembers.id })
-      .from(teamMembers)
-      .where(
-        and(eq(teamMembers.teamId, team.id), eq(teamMembers.userId, user.id)),
-      )
-      .limit(1);
+    // Private teams visible only to members
+    if (!team.isPublic && user) {
+      const member = await db
+        .select({ id: teamMembers.id })
+        .from(teamMembers)
+        .where(
+          and(eq(teamMembers.teamId, team.id), eq(teamMembers.userId, user.id)),
+        )
+        .limit(1);
 
-    if (member.length === 0) return null;
+      if (member.length === 0) return null;
+    }
+
+    if (!team.isPublic && !user) return null;
+
+    return team;
+  } catch {
+    return null;
   }
-
-  if (!team.isPublic && !user) return null;
-
-  return team;
 }
 
 // ============================================================
@@ -175,22 +179,26 @@ export async function getTeam(slug: string) {
 // ============================================================
 
 export async function getUserTeams(userId?: string) {
-  const user = await getCurrentUser();
-  const targetUserId = userId ?? user?.id;
-  if (!targetUserId) return [];
+  try {
+    const user = await getCurrentUser();
+    const targetUserId = userId ?? user?.id;
+    if (!targetUserId) return [];
 
-  const rows = await db
-    .select({
-      team: teams,
-      role: teamMembers.role,
-      joinedAt: teamMembers.joinedAt,
-    })
-    .from(teamMembers)
-    .innerJoin(teams, eq(teamMembers.teamId, teams.id))
-    .where(eq(teamMembers.userId, targetUserId))
-    .orderBy(desc(teamMembers.joinedAt));
+    const rows = await db
+      .select({
+        team: teams,
+        role: teamMembers.role,
+        joinedAt: teamMembers.joinedAt,
+      })
+      .from(teamMembers)
+      .innerJoin(teams, eq(teamMembers.teamId, teams.id))
+      .where(eq(teamMembers.userId, targetUserId))
+      .orderBy(desc(teamMembers.joinedAt));
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -198,25 +206,29 @@ export async function getUserTeams(userId?: string) {
 // ============================================================
 
 export async function getTeamMembers(teamId: string) {
-  const rows = await db
-    .select({
-      memberId: teamMembers.id,
-      userId: teamMembers.userId,
-      role: teamMembers.role,
-      joinedAt: teamMembers.joinedAt,
-      username: users.username,
-      displayName: users.displayName,
-      avatarUrl: users.avatarUrl,
-      reputation: users.reputation,
-    })
-    .from(teamMembers)
-    .innerJoin(users, eq(teamMembers.userId, users.id))
-    .where(eq(teamMembers.teamId, teamId))
-    .orderBy(
-      sql`CASE ${teamMembers.role} WHEN 'owner' THEN 0 WHEN 'admin' THEN 1 ELSE 2 END`,
-    );
+  try {
+    const rows = await db
+      .select({
+        memberId: teamMembers.id,
+        userId: teamMembers.userId,
+        role: teamMembers.role,
+        joinedAt: teamMembers.joinedAt,
+        username: users.username,
+        displayName: users.displayName,
+        avatarUrl: users.avatarUrl,
+        reputation: users.reputation,
+      })
+      .from(teamMembers)
+      .innerJoin(users, eq(teamMembers.userId, users.id))
+      .where(eq(teamMembers.teamId, teamId))
+      .orderBy(
+        sql`CASE ${teamMembers.role} WHEN 'owner' THEN 0 WHEN 'admin' THEN 1 ELSE 2 END`,
+      );
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -224,12 +236,16 @@ export async function getTeamMembers(teamId: string) {
 // ============================================================
 
 export async function getTeamMemberCount(teamId: string) {
-  const [result] = await db
-    .select({ count: count() })
-    .from(teamMembers)
-    .where(eq(teamMembers.teamId, teamId));
+  try {
+    const [result] = await db
+      .select({ count: count() })
+      .from(teamMembers)
+      .where(eq(teamMembers.teamId, teamId));
 
-  return result?.count ?? 0;
+    return result?.count ?? 0;
+  } catch {
+    return 0;
+  }
 }
 
 // ============================================================
@@ -471,19 +487,23 @@ export async function getPublicTeams(search?: string) {
     );
   }
 
-  const rows = await db
-    .select({
-      team: teams,
-      memberCount: count(teamMembers.id),
-    })
-    .from(teams)
-    .leftJoin(teamMembers, eq(teams.id, teamMembers.teamId))
-    .where(and(...conditions))
-    .groupBy(teams.id)
-    .orderBy(desc(teams.createdAt))
-    .limit(50);
+  try {
+    const rows = await db
+      .select({
+        team: teams,
+        memberCount: count(teamMembers.id),
+      })
+      .from(teams)
+      .leftJoin(teamMembers, eq(teams.id, teamMembers.teamId))
+      .where(and(...conditions))
+      .groupBy(teams.id)
+      .orderBy(desc(teams.createdAt))
+      .limit(50);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -491,23 +511,27 @@ export async function getPublicTeams(search?: string) {
 // ============================================================
 
 export async function getTeamInviteByToken(token: string) {
-  const invite = await db
-    .select({
-      invite: teamInvites,
-      teamName: teams.name,
-      teamSlug: teams.slug,
-      teamAvatarUrl: teams.avatarUrl,
-      inviterUsername: users.username,
-      inviterDisplayName: users.displayName,
-    })
-    .from(teamInvites)
-    .innerJoin(teams, eq(teamInvites.teamId, teams.id))
-    .innerJoin(users, eq(teamInvites.inviterId, users.id))
-    .where(eq(teamInvites.token, token))
-    .limit(1)
-    .then((rows) => rows[0] ?? null);
+  try {
+    const invite = await db
+      .select({
+        invite: teamInvites,
+        teamName: teams.name,
+        teamSlug: teams.slug,
+        teamAvatarUrl: teams.avatarUrl,
+        inviterUsername: users.username,
+        inviterDisplayName: users.displayName,
+      })
+      .from(teamInvites)
+      .innerJoin(teams, eq(teamInvites.teamId, teams.id))
+      .innerJoin(users, eq(teamInvites.inviterId, users.id))
+      .where(eq(teamInvites.token, token))
+      .limit(1)
+      .then((rows) => rows[0] ?? null);
 
-  return invite;
+    return invite;
+  } catch {
+    return null;
+  }
 }
 
 // ============================================================
@@ -515,24 +539,28 @@ export async function getTeamInviteByToken(token: string) {
 // ============================================================
 
 export async function getPendingInvites(teamId: string) {
-  const user = await getCurrentUser();
-  if (!user) return [];
+  try {
+    const user = await getCurrentUser();
+    if (!user) return [];
 
-  const rows = await db
-    .select({
-      id: teamInvites.id,
-      email: teamInvites.inviteeEmail,
-      status: teamInvites.status,
-      createdAt: teamInvites.createdAt,
-      expiresAt: teamInvites.expiresAt,
-    })
-    .from(teamInvites)
-    .where(
-      and(eq(teamInvites.teamId, teamId), eq(teamInvites.status, "pending")),
-    )
-    .orderBy(desc(teamInvites.createdAt));
+    const rows = await db
+      .select({
+        id: teamInvites.id,
+        email: teamInvites.inviteeEmail,
+        status: teamInvites.status,
+        createdAt: teamInvites.createdAt,
+        expiresAt: teamInvites.expiresAt,
+      })
+      .from(teamInvites)
+      .where(
+        and(eq(teamInvites.teamId, teamId), eq(teamInvites.status, "pending")),
+      )
+      .orderBy(desc(teamInvites.createdAt));
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -574,12 +602,16 @@ export async function joinPublicTeam(teamId: string) {
 // ============================================================
 
 export async function isTeamMember(teamId: string, userId: string) {
-  const member = await db
-    .select({ role: teamMembers.role })
-    .from(teamMembers)
-    .where(and(eq(teamMembers.teamId, teamId), eq(teamMembers.userId, userId)))
-    .limit(1)
-    .then((rows) => rows[0] ?? null);
+  try {
+    const member = await db
+      .select({ role: teamMembers.role })
+      .from(teamMembers)
+      .where(and(eq(teamMembers.teamId, teamId), eq(teamMembers.userId, userId)))
+      .limit(1)
+      .then((rows) => rows[0] ?? null);
 
-  return member;
+    return member;
+  } catch {
+    return null;
+  }
 }

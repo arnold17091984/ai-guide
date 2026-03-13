@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { heroBlurIn, staggerContainer } from "@/lib/motion";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 interface PageHeaderProps {
   title: string;
@@ -27,20 +27,20 @@ export default function PageHeader({
       <div className="relative">
         {icon && (
           <motion.div
-            variants={heroBlurIn}
+            variants={fadeUp}
             className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 text-white backdrop-blur-sm"
           >
             {icon}
           </motion.div>
         )}
         <motion.h1
-          variants={heroBlurIn}
+          variants={fadeUp}
           className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
         >
           {title}
         </motion.h1>
         <motion.p
-          variants={heroBlurIn}
+          variants={fadeUp}
           className="mt-3 max-w-2xl text-lg text-white/80"
         >
           {subtitle}

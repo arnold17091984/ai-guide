@@ -1,85 +1,213 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { heroBlurIn, staggerContainer } from "@/lib/motion";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
-interface HeroSectionProps {
+// ============================================================
+// Terminal commands cycling data
+// ============================================================
+
+const COMMANDS = [
+  {
+    input: 'claude "プロジェクトのREADMEを書いて"',
+    output: ["README.md を生成しました", "プロジェクト構造を分析", "3つのセクションを作成"],
+  },
+  {
+    input: 'claude "このバグを修正して"',
+    output: ["エラーログを分析", "根本原因を特定", "パッチを適用"],
+  },
+  {
+    input: 'claude "/review-pr 42"',
+    output: ["PR #42 を取得", "変更差分を分析", "レビューコメントを作成"],
+  },
+];
+
+const CHAR_DELAY_MS = 40;
+const CYCLE_INTERVAL_MS = 8000;
+
+// ============================================================
+// TerminalWindow
+// ============================================================
+
+function TerminalWindow() {
+  const [commandIndex, setCommandIndex] = useState(0);
+  const [typedInput, setTypedInput] = useState("");
+  const [visibleOutputLines, setVisibleOutputLines] = useState<number>(0);
+  const [phase, setPhase] = useState<"typing" | "results" | "pause">("typing");
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearTimer = () => {
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    const command = COMMANDS[commandIndex];
+
+    if (phase === "typing") {
+      setTypedInput("");
+      setVisibleOutputLines(0);
+
+      let charIndex = 0;
+      const typeNext = () => {
+        charIndex += 1;
+        setTypedInput(command.input.slice(0, charIndex));
+        if (charIndex < command.input.length) {
+          timeoutRef.current = setTimeout(typeNext, CHAR_DELAY_MS);
+        } else {
+          // Typing done — show results after a short pause
+          timeoutRef.current = setTimeout(() => setPhase("results"), 300);
+        }
+      };
+      timeoutRef.current = setTimeout(typeNext, CHAR_DELAY_MS);
+    }
+
+    if (phase === "results") {
+      let lineIndex = 0;
+      const showNext = () => {
+        lineIndex += 1;
+        setVisibleOutputLines(lineIndex);
+        if (lineIndex < command.output.length) {
+          timeoutRef.current = setTimeout(showNext, 250);
+        } else {
+          // All results shown — pause before cycling
+          timeoutRef.current = setTimeout(() => setPhase("pause"), 2000);
+        }
+      };
+      timeoutRef.current = setTimeout(showNext, 150);
+    }
+
+    if (phase === "pause") {
+      timeoutRef.current = setTimeout(() => {
+        setCommandIndex((prev) => (prev + 1) % COMMANDS.length);
+        setPhase("typing");
+      }, CYCLE_INTERVAL_MS - command.input.length * CHAR_DELAY_MS - 2500);
+    }
+
+    return clearTimer;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, commandIndex]);
+
+  const command = COMMANDS[commandIndex];
+  const showCursor = phase === "typing" || (phase === "results" && visibleOutputLines === 0);
+
+  return (
+    <div className="w-full max-w-xl mx-auto">
+      {/* Title bar */}
+      <div className="bg-(--bg-elevated) rounded-t-lg border border-(--border) px-4 py-2 flex items-center gap-2">
+        <span className="h-3 w-3 rounded-full bg-red-500" />
+        <span className="h-3 w-3 rounded-full bg-yellow-500" />
+        <span className="h-3 w-3 rounded-full bg-green-500" />
+        <span className="ml-2 text-xs font-mono text-(--text-3)">claude</span>
+      </div>
+
+      {/* Terminal body */}
+      <div className="bg-(--bg-surface) rounded-b-lg border-x border-b border-(--border) p-4 font-mono text-sm min-h-50">
+        {/* Prompt + typed input */}
+        <div className="flex items-start gap-2">
+          <span className="text-(--accent) select-none shrink-0">&#x27E9;</span>
+          <span className="text-(--text-1) break-all">
+            {typedInput}
+            {(phase === "typing") && (
+              <span className="inline-block animate-pulse text-(--accent)">&#x2588;</span>
+            )}
+          </span>
+        </div>
+
+        {/* Output lines */}
+        <div className="mt-2 space-y-1">
+          {command.output.slice(0, visibleOutputLines).map((line, i) => (
+            <div key={i} className="flex items-start gap-2 text-(--text-2)">
+              <span className="text-(--accent) select-none shrink-0">&#x2713;</span>
+              <span>{line}</span>
+            </div>
+          ))}
+          {/* Blinking cursor after results */}
+          {phase !== "typing" && visibleOutputLines === command.output.length && (
+            <div className="flex items-start gap-2 mt-2">
+              <span className="text-(--accent) select-none shrink-0">&#x27E9;</span>
+              <span className="inline-block animate-pulse text-(--accent)">&#x2588;</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// HeroSection
+// ============================================================
+
+export interface HeroSectionProps {
   title: string;
-  description: string;
+  subtitle: string;
   ctaText: string;
   ctaHref: string;
+  exploreCta?: string;
+  exploreHref?: string;
 }
 
 export default function HeroSection({
   title,
-  description,
+  subtitle,
   ctaText,
   ctaHref,
+  exploreCta,
+  exploreHref,
 }: HeroSectionProps) {
   return (
-    <section className="relative -mx-4 -mt-8 mb-16 overflow-hidden px-4 py-28 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      {/* Mesh gradient background — 3 layered radial-gradients */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-500/40 via-cyan-400/30 to-teal-300/20 dark:from-blue-600/50 dark:via-cyan-500/35 dark:to-teal-400/20" />
-        <motion.div
-          className="absolute top-1/4 left-1/6 h-96 w-96 rounded-full bg-blue-400/50 blur-3xl dark:bg-blue-500/40"
-          animate={{
-            x: [0, 40, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute top-1/3 right-1/6 h-72 w-72 rounded-full bg-cyan-400/45 blur-3xl dark:bg-cyan-500/35"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 40, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 left-1/2 h-80 w-80 rounded-full bg-teal-300/35 blur-3xl dark:bg-teal-500/25"
-          animate={{
-            x: [0, 20, 0],
-            y: [0, 20, 0],
-            scale: [1, 1.08, 1],
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      {/* Content */}
+    <section className="relative -mx-4 -mt-8 mb-16 px-4 py-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
-        className="mx-auto max-w-3xl text-center"
+        className="mx-auto max-w-3xl"
       >
+        {/* Headline */}
         <motion.h1
-          variants={heroBlurIn}
-          className="text-5xl font-bold tracking-tight text-(--text-1) sm:text-6xl"
+          variants={fadeUp}
+          className="text-4xl font-bold tracking-tight text-(--text-1) sm:text-5xl text-center"
         >
           {title}
         </motion.h1>
+
+        {/* Subtitle */}
         <motion.p
-          variants={heroBlurIn}
-          className="mt-6 text-lg leading-relaxed text-(--text-2)"
+          variants={fadeUp}
+          className="mt-4 text-lg leading-relaxed text-(--text-2) text-center"
         >
-          {description}
+          {subtitle}
         </motion.p>
-        <motion.div variants={heroBlurIn}>
+
+        {/* Terminal window */}
+        <motion.div variants={fadeUp} className="mt-10">
+          <TerminalWindow />
+        </motion.div>
+
+        {/* CTA buttons */}
+        <motion.div
+          variants={fadeUp}
+          className="mt-8 flex flex-wrap items-center justify-center gap-3"
+        >
           <Link
             href={ctaHref}
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-600 to-cyan-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-blue-500/50"
+            className="inline-flex items-center gap-2 rounded-md bg-(--accent) text-black font-medium h-9 px-4 text-sm transition-colors hover:bg-(--accent-hover)"
           >
             {ctaText}
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
           </Link>
+          {exploreCta && exploreHref && (
+            <Link
+              href={exploreHref}
+              className="inline-flex items-center gap-2 rounded-md border border-(--border) text-(--text-1) h-9 px-4 text-sm transition-colors hover:bg-(--bg-elevated)"
+            >
+              {exploreCta}
+            </Link>
+          )}
         </motion.div>
       </motion.div>
     </section>

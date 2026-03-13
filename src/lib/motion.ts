@@ -13,7 +13,7 @@ export const fadeUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: DURATION.medium, ease: EASE_APPLE },
+    transition: { duration: DURATION.normal, ease: EASE_APPLE },
   },
 };
 
@@ -29,17 +29,17 @@ export const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.08,
     },
   },
 };
 
-export const heroBlurIn = {
-  hidden: { opacity: 0, y: 20, filter: "blur(10px)" },
+// Terminal typing animation helpers
+export const terminalLine = {
+  hidden: { opacity: 0, x: -4 },
   visible: {
     opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: DURATION.slow, ease: EASE_APPLE },
+    x: 0,
+    transition: { duration: DURATION.fast, ease: EASE_APPLE },
   },
 };

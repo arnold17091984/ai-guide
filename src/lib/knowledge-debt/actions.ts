@@ -481,40 +481,44 @@ export async function listDebtItems(params?: {
     .from(users)
     .as("assignee");
 
-  const rows = await db
-    .select({
-      id: knowledgeDebtItems.id,
-      title: knowledgeDebtItems.title,
-      description: knowledgeDebtItems.description,
-      category: knowledgeDebtItems.category,
-      priority: knowledgeDebtItems.priority,
-      status: knowledgeDebtItems.status,
-      tags: knowledgeDebtItems.tags,
-      createdAt: knowledgeDebtItems.createdAt,
-      updatedAt: knowledgeDebtItems.updatedAt,
-      reporterUsername: reporter.username,
-      reporterDisplayName: reporter.displayName,
-      reporterAvatar: reporter.avatarUrl,
-      assigneeUsername: assignee.username,
-      assigneeDisplayName: assignee.displayName,
-      assigneeAvatar: assignee.avatarUrl,
-      voteCount: sql<number>`COALESCE(${voteCountSq.voteCount}, 0)::int`,
-      commentCount: sql<number>`COALESCE(${commentCountSq.commentCount}, 0)::int`,
-    })
-    .from(knowledgeDebtItems)
-    .leftJoin(reporter, eq(knowledgeDebtItems.reporterId, reporter.id))
-    .leftJoin(assignee, eq(knowledgeDebtItems.assigneeId, assignee.id))
-    .leftJoin(voteCountSq, eq(knowledgeDebtItems.id, voteCountSq.debtItemId))
-    .leftJoin(
-      commentCountSq,
-      eq(knowledgeDebtItems.id, commentCountSq.debtItemId),
-    )
-    .where(whereClause)
-    .orderBy(orderByClause)
-    .limit(limit)
-    .offset(offset);
+  try {
+    const rows = await db
+      .select({
+        id: knowledgeDebtItems.id,
+        title: knowledgeDebtItems.title,
+        description: knowledgeDebtItems.description,
+        category: knowledgeDebtItems.category,
+        priority: knowledgeDebtItems.priority,
+        status: knowledgeDebtItems.status,
+        tags: knowledgeDebtItems.tags,
+        createdAt: knowledgeDebtItems.createdAt,
+        updatedAt: knowledgeDebtItems.updatedAt,
+        reporterUsername: reporter.username,
+        reporterDisplayName: reporter.displayName,
+        reporterAvatar: reporter.avatarUrl,
+        assigneeUsername: assignee.username,
+        assigneeDisplayName: assignee.displayName,
+        assigneeAvatar: assignee.avatarUrl,
+        voteCount: sql<number>`COALESCE(${voteCountSq.voteCount}, 0)::int`,
+        commentCount: sql<number>`COALESCE(${commentCountSq.commentCount}, 0)::int`,
+      })
+      .from(knowledgeDebtItems)
+      .leftJoin(reporter, eq(knowledgeDebtItems.reporterId, reporter.id))
+      .leftJoin(assignee, eq(knowledgeDebtItems.assigneeId, assignee.id))
+      .leftJoin(voteCountSq, eq(knowledgeDebtItems.id, voteCountSq.debtItemId))
+      .leftJoin(
+        commentCountSq,
+        eq(knowledgeDebtItems.id, commentCountSq.debtItemId),
+      )
+      .where(whereClause)
+      .orderBy(orderByClause)
+      .limit(limit)
+      .offset(offset);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -522,6 +526,7 @@ export async function listDebtItems(params?: {
 // ============================================================
 
 export async function getDebtItem(id: string) {
+  try {
   const reporter = db
     .select({
       id: users.id,
@@ -634,6 +639,9 @@ export async function getDebtItem(id: string) {
     relatedEntry,
     voteCount: votes.length,
   };
+  } catch {
+    return null;
+  }
 }
 
 // ============================================================
@@ -641,60 +649,70 @@ export async function getDebtItem(id: string) {
 // ============================================================
 
 export async function getDebtStats() {
-  const statusCounts = await db
-    .select({
-      status: knowledgeDebtItems.status,
-      count: count(),
-    })
-    .from(knowledgeDebtItems)
-    .groupBy(knowledgeDebtItems.status);
+  try {
+    const statusCounts = await db
+      .select({
+        status: knowledgeDebtItems.status,
+        count: count(),
+      })
+      .from(knowledgeDebtItems)
+      .groupBy(knowledgeDebtItems.status);
 
-  const categoryCounts = await db
-    .select({
-      category: knowledgeDebtItems.category,
-      count: count(),
-    })
-    .from(knowledgeDebtItems)
-    .groupBy(knowledgeDebtItems.category);
+    const categoryCounts = await db
+      .select({
+        category: knowledgeDebtItems.category,
+        count: count(),
+      })
+      .from(knowledgeDebtItems)
+      .groupBy(knowledgeDebtItems.category);
 
-  const priorityCounts = await db
-    .select({
-      priority: knowledgeDebtItems.priority,
-      count: count(),
-    })
-    .from(knowledgeDebtItems)
-    .groupBy(knowledgeDebtItems.priority);
+    const priorityCounts = await db
+      .select({
+        priority: knowledgeDebtItems.priority,
+        count: count(),
+      })
+      .from(knowledgeDebtItems)
+      .groupBy(knowledgeDebtItems.priority);
 
-  const byStatus: Record<string, number> = {};
-  for (const row of statusCounts) {
-    byStatus[row.status] = Number(row.count);
+    const byStatus: Record<string, number> = {};
+    for (const row of statusCounts) {
+      byStatus[row.status] = Number(row.count);
+    }
+
+    const byCategory: Record<string, number> = {};
+    for (const row of categoryCounts) {
+      byCategory[row.category] = Number(row.count);
+    }
+
+    const byPriority: Record<string, number> = {};
+    for (const row of priorityCounts) {
+      byPriority[row.priority] = Number(row.count);
+    }
+
+    const total =
+      (byStatus.open ?? 0) +
+      (byStatus.in_progress ?? 0) +
+      (byStatus.resolved ?? 0) +
+      (byStatus.wont_fix ?? 0);
+    const resolved = (byStatus.resolved ?? 0) + (byStatus.wont_fix ?? 0);
+    const resolutionRate = total > 0 ? Math.round((resolved / total) * 100) : 0;
+
+    return {
+      byStatus,
+      byCategory,
+      byPriority,
+      total,
+      resolutionRate,
+    };
+  } catch {
+    return {
+      byStatus: {},
+      byCategory: {},
+      byPriority: {},
+      total: 0,
+      resolutionRate: 0,
+    };
   }
-
-  const byCategory: Record<string, number> = {};
-  for (const row of categoryCounts) {
-    byCategory[row.category] = Number(row.count);
-  }
-
-  const byPriority: Record<string, number> = {};
-  for (const row of priorityCounts) {
-    byPriority[row.priority] = Number(row.count);
-  }
-
-  const total =
-    (byStatus.open ?? 0) +
-    (byStatus.in_progress ?? 0) +
-    (byStatus.resolved ?? 0) +
-    (byStatus.wont_fix ?? 0);
-  const resolved = (byStatus.resolved ?? 0) + (byStatus.wont_fix ?? 0);
-  const resolutionRate = total > 0 ? Math.round((resolved / total) * 100) : 0;
-
-  return {
-    byStatus,
-    byCategory,
-    byPriority,
-    total,
-    resolutionRate,
-  };
 }
 
 // ============================================================
@@ -702,34 +720,38 @@ export async function getDebtStats() {
 // ============================================================
 
 export async function getMyDebtItems(userId: string) {
-  const voteCountSq = db
-    .select({
-      debtItemId: debtVotes.debtItemId,
-      voteCount: count().as("vote_count"),
-    })
-    .from(debtVotes)
-    .groupBy(debtVotes.debtItemId)
-    .as("vote_counts");
+  try {
+    const voteCountSq = db
+      .select({
+        debtItemId: debtVotes.debtItemId,
+        voteCount: count().as("vote_count"),
+      })
+      .from(debtVotes)
+      .groupBy(debtVotes.debtItemId)
+      .as("vote_counts");
 
-  const rows = await db
-    .select({
-      id: knowledgeDebtItems.id,
-      title: knowledgeDebtItems.title,
-      category: knowledgeDebtItems.category,
-      priority: knowledgeDebtItems.priority,
-      status: knowledgeDebtItems.status,
-      createdAt: knowledgeDebtItems.createdAt,
-      voteCount: sql<number>`COALESCE(${voteCountSq.voteCount}, 0)::int`,
-    })
-    .from(knowledgeDebtItems)
-    .leftJoin(voteCountSq, eq(knowledgeDebtItems.id, voteCountSq.debtItemId))
-    .where(
-      or(
-        eq(knowledgeDebtItems.reporterId, userId),
-        eq(knowledgeDebtItems.assigneeId, userId),
-      ),
-    )
-    .orderBy(desc(knowledgeDebtItems.createdAt));
+    const rows = await db
+      .select({
+        id: knowledgeDebtItems.id,
+        title: knowledgeDebtItems.title,
+        category: knowledgeDebtItems.category,
+        priority: knowledgeDebtItems.priority,
+        status: knowledgeDebtItems.status,
+        createdAt: knowledgeDebtItems.createdAt,
+        voteCount: sql<number>`COALESCE(${voteCountSq.voteCount}, 0)::int`,
+      })
+      .from(knowledgeDebtItems)
+      .leftJoin(voteCountSq, eq(knowledgeDebtItems.id, voteCountSq.debtItemId))
+      .where(
+        or(
+          eq(knowledgeDebtItems.reporterId, userId),
+          eq(knowledgeDebtItems.assigneeId, userId),
+        ),
+      )
+      .orderBy(desc(knowledgeDebtItems.createdAt));
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }

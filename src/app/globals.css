@@ -1,38 +1,78 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Terminal Native Design System
+   Dark-first, class-based theming
+   ============================================================ */
+
 :root {
-  --bg: #f0f4ff;
-  --surface: rgba(255, 255, 255, 0.8);
-  --surface-hover: #e8eeff;
-  --primary: #0066ff;
-  --secondary: #06b6d4;
-  --accent: #10b981;
-  --text-1: #0f172a;
-  --text-2: #475569;
-  --border: #c7d2fe;
+  /* Background */
+  --bg-base: #0A0A0A;
+  --bg-surface: #141414;
+  --bg-elevated: #1C1C1C;
+  --bg-overlay: rgba(10, 10, 10, 0.8);
+
+  /* Border */
+  --border: #262626;
+  --border-hover: #404040;
+
+  /* Text */
+  --text-1: #FAFAFA;
+  --text-2: #A1A1AA;
+  --text-3: #52525B;
+
+  /* Accent (emerald) */
+  --accent: #10B981;
+  --accent-hover: #34D399;
+  --accent-muted: rgba(16, 185, 129, 0.12);
+
+  /* Semantic */
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+
+  /* Legacy aliases — keep temporarily for gradual migration */
+  --bg: var(--bg-base);
+  --surface: var(--bg-surface);
+  --surface-hover: var(--bg-elevated);
+  --primary: var(--accent);
+  --secondary: var(--accent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #060b18;
-    --surface: rgba(15, 23, 42, 0.8);
-    --surface-hover: #1a2236;
-    --primary: #3b82f6;
-    --secondary: #22d3ee;
-    --accent: #34d399;
-    --text-1: #f1f5f9;
-    --text-2: #94a3b8;
-    --border: #1e293b;
-  }
+.light {
+  --bg-base: #FAFAFA;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F4F4F5;
+  --bg-overlay: rgba(250, 250, 250, 0.8);
+  --border: #E4E4E7;
+  --border-hover: #D4D4D8;
+  --text-1: #09090B;
+  --text-2: #52525B;
+  --text-3: #A1A1AA;
+  --accent: #059669;
+  --accent-hover: #10B981;
+  --accent-muted: rgba(5, 150, 105, 0.10);
+  --danger: #DC2626;
+  --warning: #D97706;
+  --info: #2563EB;
+
+  /* Legacy aliases */
+  --bg: var(--bg-base);
+  --surface: var(--bg-surface);
+  --surface-hover: var(--bg-elevated);
+  --primary: var(--accent);
+  --secondary: var(--accent);
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg-base);
   color: var(--text-1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

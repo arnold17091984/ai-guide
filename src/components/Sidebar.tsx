@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -68,63 +70,106 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { isVisited, progress } = useProgressLine();
 
+  // All sections expanded by default
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+
+  function toggleSection(labelKey: string) {
+    setCollapsed((prev) => ({ ...prev, [labelKey]: !prev[labelKey] }));
+  }
+
   return (
-    <aside className="hidden w-64 shrink-0 lg:block">
-      <nav className="sticky top-20 space-y-1">
+    <aside className="hidden w-60 shrink-0 lg:block">
+      <nav className="sticky top-20 bg-(--bg-base) border-r border-(--border) py-4 px-3">
         {/* Progress bar */}
-        <div className="mb-4 px-3">
-          <div className="flex items-center justify-between text-xs text-(--text-2)">
+        <div className="mb-4 px-2">
+          <div className="flex items-center justify-between text-xs text-(--text-3) font-mono mb-1.5">
             <span>{tc("progress")}</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-blue-100 dark:bg-blue-950">
+          <div className="h-1 w-full rounded-full bg-(--bg-elevated)">
             <div
-              className="h-full rounded-full bg-linear-to-r from-blue-500 to-cyan-400 shadow-sm shadow-blue-500/50 transition-all duration-500"
+              className="h-1 rounded-full bg-(--accent) transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
-        {menuGroups.map((group, groupIndex) => (
-          <div key={group.labelKey} className={groupIndex > 0 ? "pt-4" : ""}>
-            <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
-              {tc(group.labelKey)}
-            </p>
-            <div className="relative ml-4 border-l border-(--border)">
-              {group.items.map((item) => {
-                const fullHref = `/${locale}${item.href}`;
-                const isActive = pathname === fullHref;
-                const visited = isVisited(item.href);
+        <div className="space-y-1">
+          {menuGroups.map((group) => {
+            const isCollapsed = collapsed[group.labelKey] === true;
 
-                return (
-                  <Link
-                    key={item.key}
-                    href={fullHref}
-                    className={`relative -ml-px flex items-center gap-3 border-l-2 py-2.5 pl-4 pr-3 text-sm font-medium transition-all duration-200 ${
-                      isActive
-                        ? "border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
-                        : visited
-                          ? "border-transparent text-(--text-1) hover:border-(--border) hover:bg-(--surface-hover)"
-                          : "border-transparent text-(--text-2) hover:border-(--border) hover:bg-(--surface-hover)"
+            return (
+              <div key={group.labelKey} className="pt-3 first:pt-0">
+                {/* Section header */}
+                <button
+                  type="button"
+                  onClick={() => toggleSection(group.labelKey)}
+                  className="flex w-full items-center justify-between px-2 py-1.5 cursor-pointer"
+                >
+                  <span className="text-xs font-mono uppercase tracking-wider text-(--text-3)">
+                    {tc(group.labelKey)}
+                  </span>
+                  <svg
+                    className={`h-3 w-3 text-(--text-3) transition-transform duration-200 ${
+                      isCollapsed ? "" : "rotate-90"
                     }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
                   >
-                    {/* Progress dot */}
-                    <span
-                      className={`absolute -left-1.25 h-2 w-2 rounded-full transition-all duration-200 ${
-                        isActive
-                          ? "bg-blue-500 shadow-[0_0_6px_rgba(0,113,227,0.5)]"
-                          : visited
-                            ? "bg-(--accent)"
-                            : "bg-(--border)"
-                      }`}
-                    />
-                    {item.commonKey ? tc(item.commonKey) : t(`${item.key}.title`)}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                {/* Collapsible items */}
+                <AnimatePresence initial={false}>
+                  {!isCollapsed && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div className="mt-0.5 space-y-0.5">
+                        {group.items.map((item) => {
+                          const fullHref = `/${locale}${item.href}`;
+                          const isActive = pathname === fullHref;
+                          const visited = isVisited(item.href);
+
+                          return (
+                            <Link
+                              key={item.key}
+                              href={fullHref}
+                              className={`flex items-center gap-2 h-8 px-2 rounded-md text-sm transition-colors duration-150 ${
+                                isActive
+                                  ? "bg-(--accent-muted) text-(--accent) font-medium border-l-2 border-(--accent)"
+                                  : "text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
+                              }`}
+                            >
+                              <span
+                                className={`shrink-0 text-xs font-mono w-3 text-center leading-none ${
+                                  visited ? "text-(--accent)" : "text-(--text-3)"
+                                }`}
+                              >
+                                {visited ? "✓" : "○"}
+                              </span>
+                              <span className="truncate">
+                                {item.commonKey ? tc(item.commonKey) : t(`${item.key}.title`)}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </nav>
     </aside>
   );
