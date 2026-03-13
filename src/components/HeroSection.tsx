@@ -113,7 +113,7 @@ function TerminalWindow() {
           <span className="text-(--text-1) break-all">
             {typedInput}
             {(phase === "typing") && (
-              <span className="inline-block animate-pulse text-(--accent)">&#x2588;</span>
+              <span className="inline-block animate-terminal-blink text-(--accent)">&#x2588;</span>
             )}
           </span>
         </div>
@@ -130,7 +130,7 @@ function TerminalWindow() {
           {phase !== "typing" && visibleOutputLines === command.output.length && (
             <div className="flex items-start gap-2 mt-2">
               <span className="text-(--accent) select-none shrink-0">&#x27E9;</span>
-              <span className="inline-block animate-pulse text-(--accent)">&#x2588;</span>
+              <span className="inline-block animate-terminal-blink text-(--accent)">&#x2588;</span>
             </div>
           )}
         </div>
@@ -161,7 +161,7 @@ export default function HeroSection({
   exploreHref,
 }: HeroSectionProps) {
   return (
-    <section className="relative -mx-4 -mt-8 mb-16 px-4 py-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <section className="relative -mx-4 -mt-8 mb-8 px-4 py-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <motion.div
         variants={staggerContainer}
         initial="hidden"

@@ -3,7 +3,12 @@ import { getTranslations, getLocale } from "next-intl/server";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import DashboardWidget from "@/components/DashboardWidget";
 import HeroStats from "@/components/HeroStats";
-import { getRecentEntries, getPopularSkills, getActiveDiscussions } from "@/lib/dashboard/actions";
+import {
+  getRecentEntries,
+  getPopularSkills,
+  getActiveDiscussions,
+  getDashboardStats,
+} from "@/lib/dashboard/actions";
 
 export default async function HomeDashboard() {
   const t = await getTranslations("dashboard");
@@ -12,17 +17,24 @@ export default async function HomeDashboard() {
   let recentEntries: Awaited<ReturnType<typeof getRecentEntries>> = [];
   let popularSkills: Awaited<ReturnType<typeof getPopularSkills>> = [];
   let activeDiscussions: Awaited<ReturnType<typeof getActiveDiscussions>> = [];
+  let stats: Awaited<ReturnType<typeof getDashboardStats>> = {
+    totalEntries: 0,
+    totalSkills: 0,
+    totalUsers: 0,
+    totalVotes: 0,
+  };
   try {
-    [recentEntries, popularSkills, activeDiscussions] = await Promise.all([
-      getRecentEntries(5),
-      getPopularSkills(5),
-      getActiveDiscussions(5),
-    ]);
+    [recentEntries, popularSkills, activeDiscussions, stats] =
+      await Promise.all([
+        getRecentEntries(5),
+        getPopularSkills(5),
+        getActiveDiscussions(5),
+        getDashboardStats(),
+      ]);
   } catch {
     // DB not available — render empty state
   }
 
-  // Helper to pick localized title
   function getLocalizedTitle(entry: {
     titleKo: string;
     titleEn: string | null;
@@ -33,14 +45,196 @@ export default async function HomeDashboard() {
     return entry.titleKo;
   }
 
+  function getLocalizedSummary(entry: {
+    summaryKo: string | null;
+    summaryEn: string | null;
+    summaryJa: string | null;
+  }) {
+    if (locale === "en" && entry.summaryEn) return entry.summaryEn;
+    if (locale === "ja" && entry.summaryJa) return entry.summaryJa;
+    return entry.summaryKo;
+  }
+
+  const featuredEntry = recentEntries[0] ?? null;
+  const subEntries = recentEntries.slice(1, 4);
+
   return (
-    <div className="mt-16 space-y-8">
+    <div className="mt-6 space-y-8">
+      {/* ============================================================
+          Weekly Digest — Magazine-style featured section
+          ============================================================ */}
+      <ScrollFadeIn>
+        <section>
+          {/* Section header */}
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="inline-block h-5 w-1 rounded-full bg-(--accent)" />
+              <h2 className="text-sm font-mono font-medium uppercase tracking-wider text-(--text-3)">
+                {t("weeklyHighlight")}
+              </h2>
+            </div>
+            <Link
+              href={`/${locale}/digest`}
+              className="group inline-flex items-center gap-1 text-xs font-medium text-(--accent) transition-colors hover:text-(--accent-hover)"
+            >
+              {t("viewFullDigest")}
+              <svg
+                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+          </div>
+
+          {/* Featured + sub-entries + sidebar */}
+          <div className="grid gap-4 lg:grid-cols-[1fr_280px]">
+            {/* Left: Featured entry + sub-entries */}
+            <div className="space-y-4">
+              {/* Featured card */}
+              {featuredEntry ? (
+                <Link
+                  href={`/${locale}/knowledge/${featuredEntry.slug}`}
+                  className="group block rounded-lg border border-(--border) bg-(--bg-surface) p-5 transition-colors hover:border-(--border-hover)"
+                >
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="rounded bg-(--accent-muted) px-2 py-0.5 text-xs font-mono font-medium text-(--accent)">
+                      {featuredEntry.contentType}
+                    </span>
+                    <span className="text-xs text-(--text-3)">
+                      {featuredEntry.authorDisplayName ??
+                        featuredEntry.authorUsername}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold leading-snug text-(--text-1) group-hover:text-(--accent)">
+                    {getLocalizedTitle(featuredEntry)}
+                  </h3>
+                  {featuredEntry.summaryKo && (
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-(--text-2)">
+                      {getLocalizedSummary(featuredEntry)}
+                    </p>
+                  )}
+                  <div className="mt-3 flex items-center gap-1 text-xs font-medium text-(--accent)">
+                    {t("readMore")}
+                    <svg
+                      className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </div>
+                </Link>
+              ) : (
+                <div className="rounded-lg border border-dashed border-(--border) p-8 text-center text-sm text-(--text-3)">
+                  {t("weeklyHighlightSubtitle")}
+                </div>
+              )}
+
+              {/* Sub-entries row */}
+              {subEntries.length > 0 && (
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {subEntries.map((entry) => (
+                    <Link
+                      key={entry.id}
+                      href={`/${locale}/knowledge/${entry.slug}`}
+                      className="group rounded-lg border border-(--border) bg-(--bg-surface) p-4 transition-colors hover:border-(--border-hover)"
+                    >
+                      <p className="line-clamp-2 text-sm font-medium leading-snug text-(--text-1) group-hover:text-(--accent)">
+                        {getLocalizedTitle(entry)}
+                      </p>
+                      <p className="mt-2 text-xs text-(--text-3)">
+                        {entry.authorDisplayName ?? entry.authorUsername}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Right sidebar: trending skills + platform pulse */}
+            <div className="space-y-4">
+              {/* Trending Skills */}
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
+                <h3 className="mb-3 text-xs font-mono font-medium uppercase tracking-wider text-(--text-3)">
+                  {t("popularSkills")}
+                </h3>
+                <div className="space-y-2.5">
+                  {popularSkills.length > 0
+                    ? popularSkills.slice(0, 4).map((skill, i) => (
+                        <Link
+                          key={skill.id}
+                          href={`/${locale}/skills/${skill.slug}`}
+                          className="group flex items-center gap-2.5"
+                        >
+                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-(--bg-elevated) text-xs font-mono text-(--text-3)">
+                            {i + 1}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-medium text-(--text-1) group-hover:text-(--accent)">
+                              {skill.name}
+                            </p>
+                          </div>
+                          <span className="shrink-0 text-xs tabular-nums text-(--text-3)">
+                            {skill.downloads.toLocaleString()}
+                          </span>
+                        </Link>
+                      ))
+                    : <p className="text-xs text-(--text-3)">--</p>}
+                </div>
+              </div>
+
+              {/* Platform pulse — compact stats */}
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
+                <h3 className="mb-3 text-xs font-mono font-medium uppercase tracking-wider text-(--text-3)">
+                  PLATFORM
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <PulseStat
+                    value={stats.totalEntries}
+                    label={t("statNewEntries")}
+                  />
+                  <PulseStat
+                    value={stats.totalSkills}
+                    label={t("statNewSkills")}
+                  />
+                  <PulseStat
+                    value={stats.totalUsers}
+                    label={t("statNewUsers")}
+                  />
+                  <PulseStat
+                    value={stats.totalVotes}
+                    label={t("statTotalVotes")}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ScrollFadeIn>
+
       {/* Hero Stats */}
       <ScrollFadeIn>
         <HeroStats />
       </ScrollFadeIn>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      {/* ============================================================
+          Three-column widget grid
+          ============================================================ */}
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent Knowledge */}
         <ScrollFadeIn delay={0.1}>
           <DashboardWidget
@@ -151,26 +345,18 @@ export default async function HomeDashboard() {
             </div>
           </DashboardWidget>
         </ScrollFadeIn>
-
-        {/* This Week link */}
-        <ScrollFadeIn delay={0.4}>
-          <Link href={`/${locale}/digest`}>
-            <div className="flex items-center justify-between rounded-lg border border-(--border) bg-(--bg-surface) p-6 transition-colors hover:border-(--border-hover) hover:bg-(--bg-elevated)">
-              <div>
-                <h3 className="text-lg font-semibold text-(--text-1)">
-                  {t("thisWeek")}
-                </h3>
-                <p className="text-sm text-(--text-2)">
-                  {t("thisWeekDescription")}
-                </p>
-              </div>
-              <svg className="h-6 w-6 text-(--accent)" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-        </ScrollFadeIn>
       </div>
+    </div>
+  );
+}
+
+function PulseStat({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="text-center">
+      <p className="text-lg font-bold tabular-nums text-(--text-1)">
+        {value.toLocaleString()}
+      </p>
+      <p className="text-xs text-(--text-3)">{label}</p>
     </div>
   );
 }

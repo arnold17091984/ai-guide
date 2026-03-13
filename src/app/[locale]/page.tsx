@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import HeroSection from "@/components/HeroSection";
+import AuthenticatedHero from "@/components/AuthenticatedHero";
 import GlassCard from "@/components/GlassCard";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import HomeDashboard from "@/components/HomeDashboard";
@@ -172,55 +172,53 @@ export default function HomePage() {
 
   return (
     <div>
-      <HeroSection
-        title={t("welcome")}
-        subtitle={t("description")}
-        ctaText={t("getStarted")}
-        ctaHref={`/${locale}/setup/vscode`}
-      />
+      <AuthenticatedHero />
 
-      {cardGroups.map((group, groupIndex) => (
-        <ScrollFadeIn key={group.labelKey} className={groupIndex > 0 ? "mt-16" : ""}>
-          <h2 className="mb-6 text-xl font-semibold text-(--text-1)">
-            {tc(group.labelKey)}
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {group.cards.map((card, cardIndex) => (
-              <ScrollFadeIn key={card.key} delay={cardIndex * 0.1}>
-                <GlassCard href={`/${locale}${card.href}`}>
-                  <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-md bg-(--bg-elevated) text-(--text-2)">
-                      {card.icon}
-                    </div>
-                    {card.badge && (
-                      <span className={`rounded px-2 py-0.5 text-xs font-mono ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}>
-                        {tc(`badges.${card.badge}`)}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold text-(--text-1) group-hover:text-(--accent)">
-                    {t(`guides.${card.key}.title`)}
-                  </h3>
-                  <p className="text-sm text-(--text-2)">
-                    {t(`guides.${card.key}.description`)}
-                  </p>
-                  <div className="mt-4 flex items-center text-sm font-medium text-(--accent)">
-                    {t("getStarted")}
-                    <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </GlassCard>
-              </ScrollFadeIn>
-            ))}
-          </div>
-        </ScrollFadeIn>
-      ))}
-
-      {/* Dashboard widgets */}
+      {/* Dashboard widgets — shown immediately after hero */}
       <Suspense fallback={<DashboardSkeleton />}>
         <HomeDashboard />
       </Suspense>
+
+      {/* Guide card groups */}
+      <div className="mt-16 space-y-16">
+        {cardGroups.map((group) => (
+          <ScrollFadeIn key={group.labelKey}>
+            <h2 className="mb-6 text-xl font-semibold text-(--text-1)">
+              {tc(group.labelKey)}
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {group.cards.map((card, cardIndex) => (
+                <ScrollFadeIn key={card.key} delay={cardIndex * 0.1}>
+                  <GlassCard href={`/${locale}${card.href}`}>
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-md bg-(--bg-elevated) text-(--text-2)">
+                        {card.icon}
+                      </div>
+                      {card.badge && (
+                        <span className={`rounded px-2 py-0.5 text-xs font-mono ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}>
+                          {tc(`badges.${card.badge}`)}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold text-(--text-1) group-hover:text-(--accent)">
+                      {t(`guides.${card.key}.title`)}
+                    </h3>
+                    <p className="text-sm text-(--text-2)">
+                      {t(`guides.${card.key}.description`)}
+                    </p>
+                    <div className="mt-4 flex items-center text-sm font-medium text-(--accent)">
+                      {t("getStarted")}
+                      <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </GlassCard>
+                </ScrollFadeIn>
+              ))}
+            </div>
+          </ScrollFadeIn>
+        ))}
+      </div>
     </div>
   );
 }
@@ -228,12 +226,29 @@ export default function HomePage() {
 function DashboardSkeleton() {
   return (
     <div className="mt-16 space-y-8">
+      {/* Digest banner skeleton */}
+      <div className="rounded-xl border border-(--border) bg-(--bg-surface) px-6 py-5">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="space-y-2">
+            <div className="h-5 w-44 animate-pulse rounded bg-(--bg-elevated)" />
+            <div className="h-3.5 w-64 animate-pulse rounded bg-(--bg-elevated)" />
+          </div>
+          <div className="h-4 w-28 animate-pulse rounded bg-(--bg-elevated)" />
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="h-16 animate-pulse rounded-lg bg-(--bg-elevated)" />
+          ))}
+        </div>
+      </div>
+      {/* HeroStats skeleton */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="h-28 animate-pulse rounded-lg bg-(--bg-elevated)" />
         ))}
       </div>
-      <div className="grid gap-8 lg:grid-cols-2">
+      {/* Three-column widget skeleton */}
+      <div className="grid gap-6 lg:grid-cols-3">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="h-64 animate-pulse rounded-lg bg-(--bg-elevated)" />
         ))}

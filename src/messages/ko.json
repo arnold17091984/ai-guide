@@ -62,6 +62,11 @@
     "welcome": "AI 활용 가이드에 오신 것을 환영합니다",
     "description": "이 가이드는 AI를 처음 접하는 분들을 위해 제작되었습니다. Claude와 VS Code를 설정하고 활용하는 방법을 단계별로 안내합니다.",
     "getStarted": "시작하기",
+    "quickAccess": {
+      "knowledge": "지식",
+      "skills": "스킬",
+      "teams": "팀"
+    },
     "guides": {
       "vscode": {
         "title": "VS Code 설치 및 설정",
@@ -1060,6 +1065,16 @@
         "noSave": "저장 없음",
         "instant": "즉시 결과"
       }
+    },
+    "adoption": {
+      "register": "스킬 등록",
+      "registered": "등록됨",
+      "inProgress": "진행 중",
+      "markComplete": "완료 표시",
+      "completed": "완료",
+      "unregister": "해제",
+      "adopters": "{count}명이 등록",
+      "noAdopters": "첫 번째 등록자가 되세요"
     }
   },
   "users": {
@@ -1237,7 +1252,15 @@
     "activeDiscussions": "활발한 토론",
     "viewAll": "전체 보기",
     "thisWeek": "이번 주 다이제스트",
-    "thisWeekDescription": "인기 항목, 스킬, 기여자를 확인하세요"
+    "thisWeekDescription": "인기 항목, 스킬, 기여자를 확인하세요",
+    "weeklyHighlight": "이번 주 AI Guide",
+    "weeklyHighlightSubtitle": "이번 주 커뮤니티 활동 스냅샷",
+    "viewFullDigest": "전체 다이제스트 보기",
+    "statNewEntries": "새 항목",
+    "statNewSkills": "새 스킬",
+    "statNewUsers": "새 멤버",
+    "statTotalVotes": "총 투표수",
+    "readMore": "더 보기"
   },
   "search": {
     "title": "검색",

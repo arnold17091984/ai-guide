@@ -62,6 +62,11 @@
     "welcome": "Welcome to the AI Guide",
     "description": "This guide is designed for those who are new to AI tools. Follow the step-by-step instructions to set up and use Claude and VS Code.",
     "getStarted": "Get Started",
+    "quickAccess": {
+      "knowledge": "Knowledge",
+      "skills": "Skills",
+      "teams": "Teams"
+    },
     "guides": {
       "vscode": {
         "title": "VS Code Installation & Setup",
@@ -1060,6 +1065,16 @@
         "noSave": "Nothing saved",
         "instant": "Instant results"
       }
+    },
+    "adoption": {
+      "register": "Register Skill",
+      "registered": "Registered",
+      "inProgress": "In Progress",
+      "markComplete": "Mark Complete",
+      "completed": "Completed",
+      "unregister": "Remove",
+      "adopters": "{count} users registered",
+      "noAdopters": "Be the first to register"
     }
   },
   "users": {
@@ -1237,7 +1252,15 @@
     "activeDiscussions": "Active Discussions",
     "viewAll": "View all",
     "thisWeek": "This Week's Digest",
-    "thisWeekDescription": "See the top entries, skills, and contributors"
+    "thisWeekDescription": "See the top entries, skills, and contributors",
+    "weeklyHighlight": "This Week on AI Guide",
+    "weeklyHighlightSubtitle": "A snapshot of community activity this week",
+    "viewFullDigest": "View Full Digest",
+    "statNewEntries": "New Entries",
+    "statNewSkills": "New Skills",
+    "statNewUsers": "New Members",
+    "statTotalVotes": "Total Votes",
+    "readMore": "Read more"
   },
   "search": {
     "title": "Search",
