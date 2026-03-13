@@ -34,11 +34,14 @@
     },
     "categoryPlatform": "Platform",
     "navKnowledge": "Knowledge Base",
+    "navDebtTracker": "Debt Tracker",
     "navSkills": "Skills",
     "navClaudeMd": "CLAUDE.md",
     "navCommunity": "Community",
     "navTrending": "Trending",
-    "navDigest": "Weekly Digest"
+    "navDigest": "Weekly Digest",
+    "navPackages": "Packages",
+    "navTeams": "Teams"
   },
   "home": {
     "welcome": "Welcome to the AI Guide",
@@ -1234,6 +1237,202 @@
     "noResults": "No results found",
     "viewAllResults": "View all results",
     "resultCount": "{count} results found",
-    "shortcut": "\u2318K"
+    "shortcut": "⌘K"
+  },
+  "knowledgeDebt": {
+    "title": "Knowledge Debt Tracker",
+    "subtitle": "Identify and track gaps, outdated content, and areas for improvement in the knowledge base",
+    "reportGap": "Report Gap",
+    "searchPlaceholder": "Search debt items...",
+    "noResults": "No debt items found",
+    "backToList": "Back to Debt Tracker",
+    "stats": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "resolved": "Resolved",
+      "total": "Total",
+      "resolutionRate": "Resolution Rate"
+    },
+    "categories": {
+      "missing": "Missing",
+      "outdated": "Outdated",
+      "incomplete": "Incomplete",
+      "inaccurate": "Inaccurate",
+      "missingDesc": "Documentation that should exist but doesn't",
+      "outdatedDesc": "Content that is no longer current",
+      "incompleteDesc": "Partial coverage that needs expansion",
+      "inaccurateDesc": "Information that contains errors"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "resolved": "Resolved",
+      "wontFix": "Won't Fix",
+      "all": "All"
+    },
+    "priority": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "sort": {
+      "votes": "Most Voted",
+      "newest": "Newest",
+      "priority": "Priority"
+    },
+    "filter": {
+      "all": "All"
+    },
+    "actions": {
+      "vote": "Upvote",
+      "voted": "Voted",
+      "assignToMe": "Assign to me",
+      "resolve": "Resolve",
+      "reopen": "Reopen",
+      "edit": "Edit",
+      "submitResolution": "Submit Resolution",
+      "cancel": "Cancel"
+    },
+    "comments": {
+      "title": "Comments",
+      "placeholder": "Add a comment...",
+      "submit": "Post Comment",
+      "loginRequired": "Log in to leave a comment"
+    },
+    "reportedBy": "Reported by",
+    "assignedTo": "Assigned to",
+    "relatedEntry": "Related entry",
+    "resolutionNote": "Resolution note",
+    "resolvedBy": "Resolved by",
+    "resolutionNotePlaceholder": "Describe how this was resolved...",
+    "newItem": {
+      "title": "Report Knowledge Gap",
+      "subtitle": "Help improve the knowledge base by reporting missing, outdated, or incomplete content"
+    },
+    "form": {
+      "titleLabel": "Title",
+      "titlePlaceholder": "Brief description of the gap",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Explain what's missing or needs improvement...",
+      "categoryLabel": "Category",
+      "priorityLabel": "Priority",
+      "tagsLabel": "Tags",
+      "tagsPlaceholder": "Comma-separated tags (e.g., api, setup, workflow)",
+      "relatedEntryLabel": "Related Entry ID",
+      "relatedEntryPlaceholder": "Optional: UUID of related knowledge entry",
+      "submit": "Submit Report",
+      "preview": "Preview",
+      "backToEdit": "Back to Edit",
+      "previewTitle": "Preview",
+      "submitting": "Submitting...",
+      "errorTitle": "Error"
+    }
+  },
+  "skillPackages": {
+    "title": "Skill Packages",
+    "subtitle": "Curated collections of skills bundled together for easy installation.",
+    "searchPlaceholder": "Search packages...",
+    "createPackage": "Create Package",
+    "featured": "Featured Packages",
+    "allPackages": "All Packages",
+    "resultsCount": "packages found",
+    "noResults": "No packages found. Be the first to create one!",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "page": "Page"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "skills": "Skills",
+      "packages": "Packages"
+    },
+    "detail": {
+      "stars": "stars",
+      "installs": "installs",
+      "skills": "Skills",
+      "installAll": "Install All Skills",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "installCommands": "Install Commands",
+      "includedSkills": "Included Skills",
+      "skillDetails": "Skill Details",
+      "author": "Author",
+      "info": "Package Info",
+      "created": "Created",
+      "updated": "Updated",
+      "actions": "Actions",
+      "editPackage": "Edit Package"
+    },
+    "create": {
+      "title": "Create Package",
+      "subtitle": "Bundle multiple skills into a curated collection."
+    },
+    "form": {
+      "name": "Package Name",
+      "namePlaceholder": "e.g. Full Stack Starter",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe what this package includes and who it is for...",
+      "tags": "Tags (comma separated)",
+      "tagsPlaceholder": "e.g. react, testing, workflow",
+      "addSkills": "Add Skills",
+      "searchSkills": "Search available skills...",
+      "selectedSkills": "Selected Skills",
+      "noSkillsSelected": "No skills selected yet. Search and add skills above.",
+      "submit": "Create Package",
+      "creating": "Creating..."
+    }
+  },
+  "teams": {
+    "title": "Teams",
+    "subtitle": "Collaborate and share knowledge with your team",
+    "myTeams": "My Teams",
+    "discover": "Discover",
+    "createTeam": "Create Team",
+    "teamName": "Team Name",
+    "description": "Description",
+    "publicTeam": "Public Team",
+    "publicTeamHint": "Anyone can discover and join this team",
+    "privateTeam": "Private Team",
+    "privateTeamHint": "Members can only join by invitation",
+    "creating": "Creating...",
+    "noTeams": "You haven't joined any teams yet",
+    "noPublicTeams": "No public teams found",
+    "searchTeams": "Search teams...",
+    "searchPlaceholder": "Search teams...",
+    "members": "Members",
+    "memberCount": "members",
+    "settings": "Settings",
+    "invite": "Invite Members",
+    "inviteMembers": "Invite Members",
+    "joinTeam": "Join Team",
+    "leaveTeam": "Leave Team",
+    "joined": "Joined",
+    "inviteTitle": "You've been invited!",
+    "inviteBy": "Invited by",
+    "acceptInvite": "Accept Invite",
+    "declineInvite": "Decline",
+    "inviteExpired": "This invite has expired",
+    "inviteInvalid": "Invalid invite link",
+    "createdOn": "Created",
+    "confirmLeave": "Are you sure you want to leave this team?",
+    "cancel": "Cancel",
+    "create": "Create",
+    "isPublic": "Public team",
+    "teamDescription": "Description",
+    "loginToCreate": "Log in to create a team",
+    "settingsTitle": "Team Settings",
+    "settingsSubtitle": "Manage your team configuration",
+    "avatarUrl": "Avatar URL",
+    "maxMembers": "Max Members",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Saved!",
+    "dangerZone": "Danger Zone",
+    "deleteTeam": "Delete Team",
+    "deleteWarning": "This action cannot be undone. All team data will be permanently deleted.",
+    "confirmDelete": "Yes, delete this team",
+    "back": "Back"
   }
 }

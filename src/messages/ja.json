@@ -34,11 +34,14 @@
     },
     "categoryPlatform": "プラットフォーム",
     "navKnowledge": "ナレッジベース",
+    "navDebtTracker": "デットトラッカー",
     "navSkills": "スキル",
     "navClaudeMd": "CLAUDE.md",
     "navCommunity": "コミュニティ",
     "navTrending": "トレンド",
-    "navDigest": "週刊ダイジェスト"
+    "navDigest": "週刊ダイジェスト",
+    "navPackages": "パッケージ",
+    "navTeams": "チーム"
   },
   "home": {
     "welcome": "AI活用ガイドへようこそ",
@@ -1234,6 +1237,202 @@
     "noResults": "検索結果がありません",
     "viewAllResults": "すべての結果を表示",
     "resultCount": "{count}件の結果",
-    "shortcut": "\u2318K"
+    "shortcut": "⌘K"
+  },
+  "knowledgeDebt": {
+    "title": "ナレッジデットトラッカー",
+    "subtitle": "ナレッジベースの欠落、古いコンテンツ、改善が必要な領域を特定・追跡します",
+    "reportGap": "ギャップを報告",
+    "searchPlaceholder": "デット項目を検索...",
+    "noResults": "デット項目が見つかりません",
+    "backToList": "デットトラッカーに戻る",
+    "stats": {
+      "open": "未解決",
+      "inProgress": "進行中",
+      "resolved": "解決済み",
+      "total": "合計",
+      "resolutionRate": "解決率"
+    },
+    "categories": {
+      "missing": "欠落",
+      "outdated": "古い",
+      "incomplete": "不完全",
+      "inaccurate": "不正確",
+      "missingDesc": "存在すべきだが存在しないドキュメント",
+      "outdatedDesc": "最新ではなくなったコンテンツ",
+      "incompleteDesc": "拡張が必要な部分的なカバレッジ",
+      "inaccurateDesc": "エラーを含む情報"
+    },
+    "status": {
+      "open": "未解決",
+      "inProgress": "進行中",
+      "resolved": "解決済み",
+      "wontFix": "対応なし",
+      "all": "すべて"
+    },
+    "priority": {
+      "critical": "緊急",
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "sort": {
+      "votes": "投票順",
+      "newest": "新着順",
+      "priority": "優先度順"
+    },
+    "filter": {
+      "all": "すべて"
+    },
+    "actions": {
+      "vote": "投票",
+      "voted": "投票済み",
+      "assignToMe": "自分に割り当て",
+      "resolve": "解決",
+      "reopen": "再開",
+      "edit": "編集",
+      "submitResolution": "解決を送信",
+      "cancel": "キャンセル"
+    },
+    "comments": {
+      "title": "コメント",
+      "placeholder": "コメントを追加...",
+      "submit": "コメント投稿",
+      "loginRequired": "コメントするにはログインしてください"
+    },
+    "reportedBy": "報告者",
+    "assignedTo": "担当者",
+    "relatedEntry": "関連項目",
+    "resolutionNote": "解決メモ",
+    "resolvedBy": "解決者",
+    "resolutionNotePlaceholder": "どのように解決されたか説明してください...",
+    "newItem": {
+      "title": "ナレッジギャップを報告",
+      "subtitle": "欠落、古い、または不完全なコンテンツを報告してナレッジベースを改善しましょう"
+    },
+    "form": {
+      "titleLabel": "タイトル",
+      "titlePlaceholder": "ギャップの簡単な説明",
+      "descriptionLabel": "説明",
+      "descriptionPlaceholder": "欠落している内容や改善が必要な事項を説明してください...",
+      "categoryLabel": "カテゴリ",
+      "priorityLabel": "優先度",
+      "tagsLabel": "タグ",
+      "tagsPlaceholder": "カンマ区切りのタグ（例：api, 設定, ワークフロー）",
+      "relatedEntryLabel": "関連項目ID",
+      "relatedEntryPlaceholder": "任意：関連ナレッジ項目のUUID",
+      "submit": "レポート送信",
+      "preview": "プレビュー",
+      "backToEdit": "編集に戻る",
+      "previewTitle": "プレビュー",
+      "submitting": "送信中...",
+      "errorTitle": "エラー"
+    }
+  },
+  "skillPackages": {
+    "title": "スキルパッケージ",
+    "subtitle": "複数のスキルをまとめて簡単にインストールできるキュレーションコレクションです。",
+    "searchPlaceholder": "パッケージを検索...",
+    "createPackage": "パッケージ作成",
+    "featured": "注目のパッケージ",
+    "allPackages": "すべてのパッケージ",
+    "resultsCount": "件のパッケージ",
+    "noResults": "パッケージが見つかりません。最初に作成してみましょう！",
+    "pagination": {
+      "prev": "前へ",
+      "next": "次へ",
+      "page": "ページ"
+    },
+    "breadcrumb": {
+      "home": "ホーム",
+      "skills": "スキル",
+      "packages": "パッケージ"
+    },
+    "detail": {
+      "stars": "スター",
+      "installs": "インストール",
+      "skills": "スキル",
+      "installAll": "すべてのスキルをインストール",
+      "copy": "コピー",
+      "copied": "コピー済み！",
+      "installCommands": "インストールコマンド",
+      "includedSkills": "含まれるスキル",
+      "skillDetails": "スキル詳細",
+      "author": "作成者",
+      "info": "パッケージ情報",
+      "created": "作成日",
+      "updated": "更新日",
+      "actions": "管理",
+      "editPackage": "パッケージ編集"
+    },
+    "create": {
+      "title": "パッケージ作成",
+      "subtitle": "複数のスキルをキュレーションコレクションにまとめましょう。"
+    },
+    "form": {
+      "name": "パッケージ名",
+      "namePlaceholder": "例：フルスタックスターター",
+      "description": "説明",
+      "descriptionPlaceholder": "このパッケージの内容と対象者を説明してください...",
+      "tags": "タグ（カンマ区切り）",
+      "tagsPlaceholder": "例：react, testing, workflow",
+      "addSkills": "スキルを追加",
+      "searchSkills": "利用可能なスキルを検索...",
+      "selectedSkills": "選択済みスキル",
+      "noSkillsSelected": "まだスキルが選択されていません。上で検索して追加してください。",
+      "submit": "パッケージ作成",
+      "creating": "作成中..."
+    }
+  },
+  "teams": {
+    "title": "チーム",
+    "subtitle": "チームと一緒にナレッジを共有・協力しましょう",
+    "myTeams": "マイチーム",
+    "discover": "探す",
+    "createTeam": "チーム作成",
+    "teamName": "チーム名",
+    "description": "説明",
+    "publicTeam": "公開チーム",
+    "publicTeamHint": "誰でも発見して参加できます",
+    "privateTeam": "非公開チーム",
+    "privateTeamHint": "招待によってのみ参加できます",
+    "creating": "作成中...",
+    "noTeams": "まだチームに参加していません",
+    "noPublicTeams": "公開チームが見つかりません",
+    "searchTeams": "チーム検索...",
+    "searchPlaceholder": "チーム検索...",
+    "members": "メンバー",
+    "memberCount": "人",
+    "settings": "設定",
+    "invite": "メンバー招待",
+    "inviteMembers": "メンバー招待",
+    "joinTeam": "チーム参加",
+    "leaveTeam": "チーム退出",
+    "joined": "参加中",
+    "inviteTitle": "招待されました！",
+    "inviteBy": "招待者",
+    "acceptInvite": "招待を承認",
+    "declineInvite": "辞退",
+    "inviteExpired": "この招待は期限切れです",
+    "inviteInvalid": "無効な招待リンクです",
+    "createdOn": "作成日",
+    "confirmLeave": "本当にこのチームを退出しますか？",
+    "cancel": "キャンセル",
+    "create": "作成",
+    "isPublic": "公開チーム",
+    "teamDescription": "説明",
+    "loginToCreate": "チームを作成するにはログインしてください",
+    "settingsTitle": "チーム設定",
+    "settingsSubtitle": "チームの構成を管理します",
+    "avatarUrl": "アバターURL",
+    "maxMembers": "最大メンバー数",
+    "save": "変更を保存",
+    "saving": "保存中...",
+    "saved": "保存しました！",
+    "dangerZone": "危険ゾーン",
+    "deleteTeam": "チーム削除",
+    "deleteWarning": "この操作は元に戻せません。すべてのチームデータが完全に削除されます。",
+    "confirmDelete": "はい、このチームを削除します",
+    "back": "戻る"
   }
 }

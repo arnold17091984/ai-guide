@@ -27,6 +27,7 @@ const menuGroups: MenuGroup[] = [
       { key: "skills", href: "/skills", commonKey: "navSkills" },
       { key: "claudeMdWorkshop", href: "/claude-md", commonKey: "navClaudeMd" },
       { key: "community", href: "/community", commonKey: "navCommunity" },
+      { key: "teams", href: "/teams", commonKey: "navTeams" },
       { key: "trending", href: "/trending", commonKey: "navTrending" },
       { key: "digest", href: "/digest", commonKey: "navDigest" },
     ],

@@ -22,9 +22,12 @@ const menuGroups: MenuGroup[] = [
     labelKey: "categoryPlatform",
     items: [
       { key: "knowledge", href: "/knowledge", commonKey: "navKnowledge" },
+      { key: "debtTracker", href: "/knowledge/debt", commonKey: "navDebtTracker" },
       { key: "skills", href: "/skills", commonKey: "navSkills" },
+      { key: "packages", href: "/skills/packages", commonKey: "navPackages" },
       { key: "claudeMdWorkshop", href: "/claude-md", commonKey: "navClaudeMd" },
       { key: "community", href: "/community", commonKey: "navCommunity" },
+      { key: "teams", href: "/teams", commonKey: "navTeams" },
       { key: "trending", href: "/trending", commonKey: "navTrending" },
       { key: "digest", href: "/digest", commonKey: "navDigest" },
     ],

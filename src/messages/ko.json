@@ -34,11 +34,14 @@
     },
     "categoryPlatform": "플랫폼",
     "navKnowledge": "지식 베이스",
+    "navDebtTracker": "부채 트래커",
     "navSkills": "스킬",
     "navClaudeMd": "CLAUDE.md",
     "navCommunity": "커뮤니티",
     "navTrending": "트렌딩",
-    "navDigest": "주간 다이제스트"
+    "navDigest": "주간 다이제스트",
+    "navPackages": "패키지",
+    "navTeams": "팀"
   },
   "home": {
     "welcome": "AI 활용 가이드에 오신 것을 환영합니다",
@@ -1234,6 +1237,202 @@
     "noResults": "검색 결과가 없습니다",
     "viewAllResults": "모든 결과 보기",
     "resultCount": "{count}개의 결과",
-    "shortcut": "\u2318K"
+    "shortcut": "⌘K"
+  },
+  "knowledgeDebt": {
+    "title": "지식 부채 트래커",
+    "subtitle": "지식 베이스의 누락, 오래된 콘텐츠, 개선이 필요한 영역을 식별하고 추적합니다",
+    "reportGap": "갭 보고",
+    "searchPlaceholder": "부채 항목 검색...",
+    "noResults": "부채 항목이 없습니다",
+    "backToList": "부채 트래커로 돌아가기",
+    "stats": {
+      "open": "미해결",
+      "inProgress": "진행 중",
+      "resolved": "해결됨",
+      "total": "전체",
+      "resolutionRate": "해결률"
+    },
+    "categories": {
+      "missing": "누락",
+      "outdated": "오래됨",
+      "incomplete": "불완전",
+      "inaccurate": "부정확",
+      "missingDesc": "존재해야 하지만 없는 문서",
+      "outdatedDesc": "더 이상 최신이 아닌 콘텐츠",
+      "incompleteDesc": "확장이 필요한 부분적 내용",
+      "inaccurateDesc": "오류가 포함된 정보"
+    },
+    "status": {
+      "open": "미해결",
+      "inProgress": "진행 중",
+      "resolved": "해결됨",
+      "wontFix": "수정 안 함",
+      "all": "전체"
+    },
+    "priority": {
+      "critical": "긴급",
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음"
+    },
+    "sort": {
+      "votes": "투표순",
+      "newest": "최신순",
+      "priority": "우선순위순"
+    },
+    "filter": {
+      "all": "전체"
+    },
+    "actions": {
+      "vote": "추천",
+      "voted": "추천함",
+      "assignToMe": "나에게 할당",
+      "resolve": "해결",
+      "reopen": "다시 열기",
+      "edit": "편집",
+      "submitResolution": "해결 제출",
+      "cancel": "취소"
+    },
+    "comments": {
+      "title": "댓글",
+      "placeholder": "댓글을 입력하세요...",
+      "submit": "댓글 등록",
+      "loginRequired": "댓글을 작성하려면 로그인하세요"
+    },
+    "reportedBy": "보고자",
+    "assignedTo": "담당자",
+    "relatedEntry": "관련 항목",
+    "resolutionNote": "해결 메모",
+    "resolvedBy": "해결자",
+    "resolutionNotePlaceholder": "어떻게 해결되었는지 설명하세요...",
+    "newItem": {
+      "title": "지식 갭 보고",
+      "subtitle": "누락, 오래되었거나 불완전한 콘텐츠를 보고하여 지식 베이스를 개선하세요"
+    },
+    "form": {
+      "titleLabel": "제목",
+      "titlePlaceholder": "갭에 대한 간단한 설명",
+      "descriptionLabel": "설명",
+      "descriptionPlaceholder": "누락된 내용이나 개선이 필요한 사항을 설명하세요...",
+      "categoryLabel": "카테고리",
+      "priorityLabel": "우선순위",
+      "tagsLabel": "태그",
+      "tagsPlaceholder": "쉼표로 구분된 태그 (예: api, 설정, 워크플로우)",
+      "relatedEntryLabel": "관련 항목 ID",
+      "relatedEntryPlaceholder": "선택사항: 관련 지식 항목의 UUID",
+      "submit": "보고서 제출",
+      "preview": "미리보기",
+      "backToEdit": "편집으로 돌아가기",
+      "previewTitle": "미리보기",
+      "submitting": "제출 중...",
+      "errorTitle": "오류"
+    }
+  },
+  "skillPackages": {
+    "title": "스킬 패키지",
+    "subtitle": "여러 스킬을 하나로 묶어 쉽게 설치할 수 있는 큐레이션 컬렉션입니다.",
+    "searchPlaceholder": "패키지 검색...",
+    "createPackage": "패키지 만들기",
+    "featured": "추천 패키지",
+    "allPackages": "전체 패키지",
+    "resultsCount": "개의 패키지",
+    "noResults": "패키지를 찾을 수 없습니다. 첫 번째로 만들어 보세요!",
+    "pagination": {
+      "prev": "이전",
+      "next": "다음",
+      "page": "페이지"
+    },
+    "breadcrumb": {
+      "home": "홈",
+      "skills": "스킬",
+      "packages": "패키지"
+    },
+    "detail": {
+      "stars": "스타",
+      "installs": "설치",
+      "skills": "스킬",
+      "installAll": "모든 스킬 설치",
+      "copy": "복사",
+      "copied": "복사됨!",
+      "installCommands": "설치 명령어",
+      "includedSkills": "포함된 스킬",
+      "skillDetails": "스킬 상세",
+      "author": "작성자",
+      "info": "패키지 정보",
+      "created": "생성일",
+      "updated": "수정일",
+      "actions": "관리",
+      "editPackage": "패키지 수정"
+    },
+    "create": {
+      "title": "패키지 만들기",
+      "subtitle": "여러 스킬을 큐레이션 컬렉션으로 묶어보세요."
+    },
+    "form": {
+      "name": "패키지 이름",
+      "namePlaceholder": "예: 풀스택 스타터",
+      "description": "설명",
+      "descriptionPlaceholder": "이 패키지에 포함된 내용과 대상을 설명해 주세요...",
+      "tags": "태그 (쉼표로 구분)",
+      "tagsPlaceholder": "예: react, testing, workflow",
+      "addSkills": "스킬 추가",
+      "searchSkills": "사용 가능한 스킬 검색...",
+      "selectedSkills": "선택된 스킬",
+      "noSkillsSelected": "아직 선택된 스킬이 없습니다. 위에서 검색하여 추가하세요.",
+      "submit": "패키지 만들기",
+      "creating": "생성 중..."
+    }
+  },
+  "teams": {
+    "title": "팀",
+    "subtitle": "팀과 함께 지식을 공유하고 협업하세요",
+    "myTeams": "내 팀",
+    "discover": "탐색",
+    "createTeam": "팀 만들기",
+    "teamName": "팀 이름",
+    "description": "설명",
+    "publicTeam": "공개 팀",
+    "publicTeamHint": "누구나 발견하고 참여할 수 있습니다",
+    "privateTeam": "비공개 팀",
+    "privateTeamHint": "초대를 통해서만 참여할 수 있습니다",
+    "creating": "생성 중...",
+    "noTeams": "아직 참여한 팀이 없습니다",
+    "noPublicTeams": "공개 팀을 찾을 수 없습니다",
+    "searchTeams": "팀 검색...",
+    "searchPlaceholder": "팀 검색...",
+    "members": "멤버",
+    "memberCount": "명",
+    "settings": "설정",
+    "invite": "멤버 초대",
+    "inviteMembers": "멤버 초대",
+    "joinTeam": "팀 참여",
+    "leaveTeam": "팀 탈퇴",
+    "joined": "참여 중",
+    "inviteTitle": "초대받았습니다!",
+    "inviteBy": "초대한 사람",
+    "acceptInvite": "초대 수락",
+    "declineInvite": "거절",
+    "inviteExpired": "이 초대는 만료되었습니다",
+    "inviteInvalid": "유효하지 않은 초대 링크입니다",
+    "createdOn": "생성일",
+    "confirmLeave": "정말 이 팀을 탈퇴하시겠습니까?",
+    "cancel": "취소",
+    "create": "만들기",
+    "isPublic": "공개 팀",
+    "teamDescription": "설명",
+    "loginToCreate": "팀을 만들려면 로그인하세요",
+    "settingsTitle": "팀 설정",
+    "settingsSubtitle": "팀 구성을 관리하세요",
+    "avatarUrl": "아바타 URL",
+    "maxMembers": "최대 멤버 수",
+    "save": "변경 사항 저장",
+    "saving": "저장 중...",
+    "saved": "저장됨!",
+    "dangerZone": "위험 구역",
+    "deleteTeam": "팀 삭제",
+    "deleteWarning": "이 작업은 취소할 수 없습니다. 모든 팀 데이터가 영구적으로 삭제됩니다.",
+    "confirmDelete": "네, 이 팀을 삭제합니다",
+    "back": "뒤로"
   }
 }

@@ -13,6 +13,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import { users } from "./users";
+import { teams } from "./teams";
 
 // ============================================================
 // trending_content
@@ -233,60 +234,6 @@ export const analyticsContributions = pgTable(
 );
 
 // ============================================================
-// teams + team_members
-// ============================================================
-
-export const teams = pgTable(
-  "teams",
-  {
-    id: uuid("id")
-      .primaryKey()
-      .default(sql`gen_random_uuid()`),
-
-    slug: text("slug").notNull(),
-    name: text("name").notNull(),
-
-    ownerId: uuid("owner_id")
-      .notNull()
-      .references(() => users.id),
-
-    description: text("description"),
-    isPublic: boolean("is_public").notNull().default(false),
-
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .default(sql`now()`),
-  },
-  (t) => [
-    uniqueIndex("teams_slug_uk").on(t.slug),
-    index("teams_owner_idx").on(t.ownerId),
-  ],
-);
-
-export const teamMembers = pgTable(
-  "team_members",
-  {
-    teamId: uuid("team_id")
-      .notNull()
-      .references(() => teams.id, { onDelete: "cascade" }),
-    userId: uuid("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-
-    // 'owner' | 'admin' | 'member'
-    role: text("role").notNull().default("member"),
-
-    joinedAt: timestamp("joined_at", { withTimezone: true })
-      .notNull()
-      .default(sql`now()`),
-  },
-  (t) => [
-    uniqueIndex("team_members_uk").on(t.teamId, t.userId),
-    index("team_members_user_idx").on(t.userId),
-  ],
-);
-
-// ============================================================
 // team_skill_snapshots
 // ============================================================
 
@@ -357,5 +304,3 @@ export type NewTrendingContent = typeof trendingContent.$inferInsert;
 export type ContentScore = typeof contentScores.$inferSelect;
 export type AnalyticsEvent = typeof analyticsEvents.$inferSelect;
 export type NewAnalyticsEvent = typeof analyticsEvents.$inferInsert;
-export type Team = typeof teams.$inferSelect;
-export type TeamMember = typeof teamMembers.$inferSelect;

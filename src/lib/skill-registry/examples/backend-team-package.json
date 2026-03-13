@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0",
+  "name": "Acme Backend Team Kit",
+  "description": "Standard skill set for the Acme Corp backend engineering team",
+  "version": "2.1.0",
+  "author": "acme-platform-team",
+  "createdAt": "2025-03-01T09:00:00Z",
+  "role": "backend",
+  "skills": [
+    {
+      "id": "code-review-assistant",
+      "version": "1.2.0",
+      "required": true
+    },
+    {
+      "id": "api-design-reviewer",
+      "version": "1.3.0",
+      "required": true
+    },
+    {
+      "id": "test-coverage-enforcer",
+      "version": "1.0.0",
+      "required": true
+    },
+    {
+      "id": "sql-query-optimizer",
+      "version": "2.1.0",
+      "required": false
+    },
+    {
+      "id": "openapi-generator",
+      "version": "1.4.0",
+      "required": false
+    },
+    {
+      "id": "changelog-generator",
+      "version": "2.0.0",
+      "required": false
+    }
+  ],
+  "claudeMdTemplate": "## Workflow Orchestration\n\n- Enter plan mode for ANY non-trivial task (3+ steps)\n- Use subagents for parallel research\n- Stop and re-plan if something goes wrong\n\n## Core Principles\n\n- Simplicity First: minimal, targeted changes\n- No Laziness: find root causes\n- Minimal Impact: only touch what is necessary\n\n## Testing\n\n- Run tests before every commit\n- Never mark a task complete without proof it works\n\n## Git Workflow\n\n- Feature branches for all changes\n- Descriptive commit messages\n- PRs require at least one review\n"
+}
