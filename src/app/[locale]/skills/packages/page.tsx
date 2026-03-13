@@ -190,10 +190,17 @@ export default async function PackagesPage({ params, searchParams }: PageProps) 
   const t = await getTranslations("skillPackages");
   const user = await getCurrentUser();
 
-  const [{ items, total }, featured] = await Promise.all([
-    listPackages({ search: q || undefined, page, limit: PAGE_SIZE }),
-    page === 1 && !q ? getFeaturedPackages(4) : Promise.resolve([]),
-  ]);
+  let items: Awaited<ReturnType<typeof listPackages>>["items"] = [];
+  let total = 0;
+  let featured: Awaited<ReturnType<typeof getFeaturedPackages>> = [];
+  try {
+    ([{ items, total }, featured] = await Promise.all([
+      listPackages({ search: q || undefined, page, limit: PAGE_SIZE }),
+      page === 1 && !q ? getFeaturedPackages(4) : Promise.resolve([]),
+    ]));
+  } catch {
+    // DB not available — render empty state
+  }
 
   const toEntry = (pkg: (typeof items)[number]): PackageCardEntry => ({
     id: pkg.id,

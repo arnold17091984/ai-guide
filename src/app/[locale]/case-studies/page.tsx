@@ -50,18 +50,25 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
   const t = await getTranslations("caseStudies");
   const tc = await getTranslations("common");
 
-  const [result, categories, industries] = await Promise.all([
-    listCaseStudies({
-      locale,
-      categorySlug: category,
-      industry,
-      query: q,
-      page,
-      pageSize: 12,
-    }),
-    getCaseStudyCategories(locale),
-    getDistinctIndustries(),
-  ]);
+  let result: Awaited<ReturnType<typeof listCaseStudies>> = { items: [], total: 0, page, pageSize: 12, totalPages: 0 };
+  let categories: Awaited<ReturnType<typeof getCaseStudyCategories>> = [];
+  let industries: string[] = [];
+  try {
+    [result, categories, industries] = await Promise.all([
+      listCaseStudies({
+        locale,
+        categorySlug: category,
+        industry,
+        query: q,
+        page,
+        pageSize: 12,
+      }),
+      getCaseStudyCategories(locale),
+      getDistinctIndustries(),
+    ]);
+  } catch {
+    // DB not available — render empty state
+  }
 
   const { items, total, totalPages } = result;
 

@@ -145,21 +145,25 @@ export async function getUserVoteForTarget(
   const user = await getCurrentUser();
   if (!user) return 0;
 
-  const existing = await db
-    .select({ value: votes.value })
-    .from(votes)
-    .where(
-      and(
-        eq(votes.userId, user.id),
-        eq(votes.targetType, targetType),
-        eq(votes.targetId, targetId),
-      ),
-    )
-    .limit(1)
-    .then((rows) => rows[0] ?? null);
+  try {
+    const existing = await db
+      .select({ value: votes.value })
+      .from(votes)
+      .where(
+        and(
+          eq(votes.userId, user.id),
+          eq(votes.targetType, targetType),
+          eq(votes.targetId, targetId),
+        ),
+      )
+      .limit(1)
+      .then((rows) => rows[0] ?? null);
 
-  if (!existing) return 0;
-  return existing.value as 1 | -1;
+    if (!existing) return 0;
+    return existing.value as 1 | -1;
+  } catch {
+    return 0;
+  }
 }
 
 // ============================================================
@@ -169,5 +173,9 @@ export async function getTargetVoteScore(
   targetType: string,
   targetId: string,
 ): Promise<number> {
-  return getTargetScore(targetType, targetId);
+  try {
+    return getTargetScore(targetType, targetId);
+  } catch {
+    return 0;
+  }
 }

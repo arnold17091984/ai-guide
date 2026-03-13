@@ -183,28 +183,32 @@ export default function KnowledgeEntryForm({
       formData.set("contentType", contentType);
       formData.set("tags", tags);
 
-      let result;
+      try {
+        let result;
 
-      if (entry) {
-        result = await updateEntry(entry.id, formData);
-      } else {
-        result = await createEntry(formData);
-      }
+        if (entry) {
+          result = await updateEntry(entry.id, formData);
+        } else {
+          result = await createEntry(formData);
+        }
 
-      if (result.success) {
-        showToast(
-          entry ? "Entry updated successfully." : "Entry created successfully.",
-          "success",
-        );
-        setTimeout(() => {
-          if (result.slug) {
-            router.push(`/${locale}/knowledge/${result.slug}`);
-          } else {
-            router.push(`/${locale}/knowledge`);
-          }
-        }, 1200);
-      } else {
-        showToast(result.error ?? "Something went wrong.", "error");
+        if (result.success) {
+          showToast(
+            entry ? "Entry updated successfully." : "Entry created successfully.",
+            "success",
+          );
+          setTimeout(() => {
+            if (result.slug) {
+              router.push(`/${locale}/knowledge/${result.slug}`);
+            } else {
+              router.push(`/${locale}/knowledge`);
+            }
+          }, 1200);
+        } else {
+          showToast(result.error ?? "Something went wrong.", "error");
+        }
+      } catch {
+        showToast("Something went wrong. Please try again.", "error");
       }
     });
   }
@@ -222,7 +226,7 @@ export default function KnowledgeEntryForm({
 
         <div className="relative z-10">
           {/* Toast */}
-          <div className="mb-4 min-h-[1px]">
+          <div className="mb-4 min-h-px">
             <AnimatePresence>
               {toast && <Toast message={toast.message} type={toast.type} />}
             </AnimatePresence>

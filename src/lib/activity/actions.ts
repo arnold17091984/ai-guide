@@ -29,29 +29,33 @@ export async function getPublicActivityFeed(
     conditions.push(eq(activityFeed.actionType, actionType));
   }
 
-  const rows = await db
-    .select({
-      id: activityFeed.id,
-      actorId: activityFeed.actorId,
-      actionType: activityFeed.actionType,
-      targetType: activityFeed.targetType,
-      targetId: activityFeed.targetId,
-      targetTitle: activityFeed.targetTitle,
-      metadata: activityFeed.metadata,
-      createdAt: activityFeed.createdAt,
-      isPublic: activityFeed.isPublic,
-      actorUsername: users.username,
-      actorDisplayName: users.displayName,
-      actorAvatarUrl: users.avatarUrl,
-    })
-    .from(activityFeed)
-    .leftJoin(users, eq(activityFeed.actorId, users.id))
-    .where(and(...conditions))
-    .orderBy(desc(activityFeed.createdAt))
-    .limit(limit)
-    .offset(offset);
+  try {
+    const rows = await db
+      .select({
+        id: activityFeed.id,
+        actorId: activityFeed.actorId,
+        actionType: activityFeed.actionType,
+        targetType: activityFeed.targetType,
+        targetId: activityFeed.targetId,
+        targetTitle: activityFeed.targetTitle,
+        metadata: activityFeed.metadata,
+        createdAt: activityFeed.createdAt,
+        isPublic: activityFeed.isPublic,
+        actorUsername: users.username,
+        actorDisplayName: users.displayName,
+        actorAvatarUrl: users.avatarUrl,
+      })
+      .from(activityFeed)
+      .leftJoin(users, eq(activityFeed.actorId, users.id))
+      .where(and(...conditions))
+      .orderBy(desc(activityFeed.createdAt))
+      .limit(limit)
+      .offset(offset);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -63,29 +67,33 @@ export async function getUserActivityFeed(
 ) {
   const { limit = 20, offset = 0 } = opts;
 
-  const rows = await db
-    .select({
-      id: activityFeed.id,
-      actorId: activityFeed.actorId,
-      actionType: activityFeed.actionType,
-      targetType: activityFeed.targetType,
-      targetId: activityFeed.targetId,
-      targetTitle: activityFeed.targetTitle,
-      metadata: activityFeed.metadata,
-      createdAt: activityFeed.createdAt,
-      isPublic: activityFeed.isPublic,
-      actorUsername: users.username,
-      actorDisplayName: users.displayName,
-      actorAvatarUrl: users.avatarUrl,
-    })
-    .from(activityFeed)
-    .leftJoin(users, eq(activityFeed.actorId, users.id))
-    .where(eq(activityFeed.actorId, userId))
-    .orderBy(desc(activityFeed.createdAt))
-    .limit(limit)
-    .offset(offset);
+  try {
+    const rows = await db
+      .select({
+        id: activityFeed.id,
+        actorId: activityFeed.actorId,
+        actionType: activityFeed.actionType,
+        targetType: activityFeed.targetType,
+        targetId: activityFeed.targetId,
+        targetTitle: activityFeed.targetTitle,
+        metadata: activityFeed.metadata,
+        createdAt: activityFeed.createdAt,
+        isPublic: activityFeed.isPublic,
+        actorUsername: users.username,
+        actorDisplayName: users.displayName,
+        actorAvatarUrl: users.avatarUrl,
+      })
+      .from(activityFeed)
+      .leftJoin(users, eq(activityFeed.actorId, users.id))
+      .where(eq(activityFeed.actorId, userId))
+      .orderBy(desc(activityFeed.createdAt))
+      .limit(limit)
+      .offset(offset);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================

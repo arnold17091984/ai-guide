@@ -29,15 +29,19 @@ export async function getUserNotifications(
     conditions.push(eq(notifications.isRead, false));
   }
 
-  const rows = await db
-    .select()
-    .from(notifications)
-    .where(and(...conditions))
-    .orderBy(desc(notifications.createdAt))
-    .limit(limit)
-    .offset(offset);
+  try {
+    const rows = await db
+      .select()
+      .from(notifications)
+      .where(and(...conditions))
+      .orderBy(desc(notifications.createdAt))
+      .limit(limit)
+      .offset(offset);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -68,14 +72,18 @@ export async function markAllAsRead(userId: string) {
 // getUnreadCount
 // ============================================================
 export async function getUnreadCount(userId: string): Promise<number> {
-  const [result] = await db
-    .select({ value: count() })
-    .from(notifications)
-    .where(
-      and(eq(notifications.userId, userId), eq(notifications.isRead, false)),
-    );
+  try {
+    const [result] = await db
+      .select({ value: count() })
+      .from(notifications)
+      .where(
+        and(eq(notifications.userId, userId), eq(notifications.isRead, false)),
+      );
 
-  return result?.value ?? 0;
+    return result?.value ?? 0;
+  } catch {
+    return 0;
+  }
 }
 
 // ============================================================

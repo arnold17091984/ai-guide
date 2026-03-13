@@ -8,11 +8,17 @@ import type {
   DigestTopSkill,
   DigestTopContributor,
   DigestStats,
+  WeeklyDigest,
 } from "@/lib/db/schema/digests";
 
 export default async function DigestPage() {
   const t = await getTranslations("digest");
-  const digest = await getLatestDigest();
+  let digest: WeeklyDigest | null = null;
+  try {
+    digest = await getLatestDigest();
+  } catch {
+    // DB not available — render empty state
+  }
 
   const topEntries = (digest?.topEntries ?? []) as DigestTopEntry[];
   const topSkills = (digest?.topSkills ?? []) as DigestTopSkill[];

@@ -249,26 +249,32 @@ export default async function KnowledgePage({ params, searchParams }: PageProps)
 
   const t = await getTranslations("knowledge");
 
-  // --- Fetch data in parallel ---
-  const [rawCategories, rawEntries] = await Promise.all([
-    listKnowledgeCategories(safeLocale),
-    q
-      ? searchEntries({
-          query: q,
-          locale: safeLocale,
-          categorySlug: category || undefined,
-          difficulty: difficulty || undefined,
-          page,
-          pageSize: PAGE_SIZE,
-        })
-      : listEntries({
-          locale: safeLocale,
-          categorySlug: category || undefined,
-          difficulty: difficulty || undefined,
-          page,
-          pageSize: PAGE_SIZE,
-        }),
-  ]);
+  // --- Fetch data in parallel (graceful fallback when DB is unavailable) ---
+  let rawCategories: Awaited<ReturnType<typeof listKnowledgeCategories>> = [];
+  let rawEntries: Array<Record<string, unknown>> = [];
+  try {
+    [rawCategories, rawEntries] = await Promise.all([
+      listKnowledgeCategories(safeLocale),
+      q
+        ? searchEntries({
+            query: q,
+            locale: safeLocale,
+            categorySlug: category || undefined,
+            difficulty: difficulty || undefined,
+            page,
+            pageSize: PAGE_SIZE,
+          })
+        : listEntries({
+            locale: safeLocale,
+            categorySlug: category || undefined,
+            difficulty: difficulty || undefined,
+            page,
+            pageSize: PAGE_SIZE,
+          }),
+    ]) as [typeof rawCategories, Array<Record<string, unknown>>];
+  } catch {
+    // DB not available — render empty state
+  }
 
   // Normalize search results to same shape as list results
   const entries = (rawEntries as Array<Record<string, unknown>>).map((e): KnowledgeCardEntry => ({

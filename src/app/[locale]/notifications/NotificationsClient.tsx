@@ -115,9 +115,11 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
   const [filter, setFilter] = useState<"all" | "unread">("all");
   const [items, setItems] = useState<NotificationRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
+    setFetchError(false);
     try {
       const rows = await getUserNotifications(userId, {
         limit: 50,
@@ -134,6 +136,8 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
           createdAt: r.createdAt,
         })),
       );
+    } catch {
+      setFetchError(true);
     } finally {
       setLoading(false);
     }
@@ -144,23 +148,35 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
   }, [fetchItems]);
 
   const handleMarkAllRead = async () => {
-    await markAllAsRead(userId);
-    setItems((prev) => prev.map((item) => ({ ...item, isRead: true })));
+    try {
+      await markAllAsRead(userId);
+      setItems((prev) => prev.map((item) => ({ ...item, isRead: true })));
+    } catch {
+      // silently fail — state refreshes on next load
+    }
   };
 
   const handleMarkRead = async (id: string) => {
-    await markAsRead(id, userId);
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, isRead: true } : item,
-      ),
-    );
+    try {
+      await markAsRead(id, userId);
+      setItems((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, isRead: true } : item,
+        ),
+      );
+    } catch {
+      // silently fail
+    }
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm(t.deleteConfirm)) return;
-    await deleteNotification(id, userId);
-    setItems((prev) => prev.filter((item) => item.id !== id));
+    try {
+      await deleteNotification(id, userId);
+      setItems((prev) => prev.filter((item) => item.id !== id));
+    } catch {
+      // silently fail — item stays visible
+    }
   };
 
   const hasUnread = items.some((item) => !item.isRead);
@@ -233,6 +249,18 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
               className="h-24 animate-pulse rounded-2xl bg-(--surface)"
             />
           ))
+        ) : fetchError ? (
+          <ScrollFadeIn>
+            <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-300/30 bg-red-500/5 py-12 text-center">
+              <p className="text-sm text-red-500">Failed to load notifications. Please try again.</p>
+              <button
+                onClick={() => void fetchItems()}
+                className="rounded-lg border border-red-300/30 px-4 py-1.5 text-xs font-medium text-red-500 hover:bg-red-500/10 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          </ScrollFadeIn>
         ) : items.length === 0 ? (
           <ScrollFadeIn>
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-(--border) bg-white/70 py-16 text-(--text-2) backdrop-blur-xl dark:bg-white/5">

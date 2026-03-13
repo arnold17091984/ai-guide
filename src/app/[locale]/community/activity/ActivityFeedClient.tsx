@@ -36,6 +36,7 @@ export default function ActivityFeedClient({ translations: t }: Props) {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
 
   const PAGE_SIZE = 20;
 
@@ -43,6 +44,7 @@ export default function ActivityFeedClient({ translations: t }: Props) {
     async (offset: number, append: boolean) => {
       const setter = append ? setLoadingMore : setLoading;
       setter(true);
+      if (!append) setFetchError(false);
       try {
         const rows = await getPublicActivityFeed({
           limit: PAGE_SIZE,
@@ -66,6 +68,8 @@ export default function ActivityFeedClient({ translations: t }: Props) {
           setItems(mapped);
         }
         setHasMore(mapped.length === PAGE_SIZE);
+      } catch {
+        if (!append) setFetchError(true);
       } finally {
         setter(false);
       }
@@ -139,6 +143,18 @@ export default function ActivityFeedClient({ translations: t }: Props) {
               className="h-20 animate-pulse rounded-2xl bg-(--surface)"
             />
           ))
+        ) : fetchError ? (
+          <ScrollFadeIn>
+            <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-300/30 bg-red-500/5 py-12 text-center">
+              <p className="text-sm text-red-500">Failed to load activity. Please try again.</p>
+              <button
+                onClick={() => void fetchItems(0, false)}
+                className="rounded-lg border border-red-300/30 px-4 py-1.5 text-xs font-medium text-red-500 hover:bg-red-500/10 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          </ScrollFadeIn>
         ) : items.length === 0 ? (
           <ScrollFadeIn>
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-(--border) bg-white/70 py-16 text-(--text-2) backdrop-blur-xl dark:bg-white/5">

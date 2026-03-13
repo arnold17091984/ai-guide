@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useTransition, useOptimistic } from "react";
+import { useState, useRef, useTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   addComment,
@@ -76,24 +76,30 @@ export default function CommentSection({
   // ---------- Delete comment ----------
   function handleDelete(commentId: string) {
     startTransition(async () => {
-      const result = await deleteComment(commentId);
-      if (result.success) {
-        setComments((prev) =>
-          prev.map((c) =>
-            c.id === commentId
-              ? { ...c, isDeleted: true, body: "[deleted]" }
-              : c,
-          ),
-        );
+      try {
+        const result = await deleteComment(commentId);
+        if (result.success) {
+          setComments((prev) =>
+            prev.map((c) =>
+              c.id === commentId
+                ? { ...c, isDeleted: true, body: "[deleted]" }
+                : c,
+            ),
+          );
+        } else {
+          setAddError(result.error ?? "serverError");
+        }
+      } catch {
+        setAddError("serverError");
       }
     });
   }
 
   return (
     <section aria-label="Comments" className="space-y-4">
-      <h3 className="text-base font-semibold text-[var(--text-1)]">
+      <h3 className="text-base font-semibold text-(--text-1)">
         Comments{" "}
-        <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-xs font-normal text-[var(--text-2)]">
+        <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-xs font-normal text-(--text-2)">
           {comments.filter((c) => !c.isDeleted).length}
         </span>
       </h3>
@@ -120,7 +126,7 @@ export default function CommentSection({
         </AnimatePresence>
 
         {comments.length === 0 && (
-          <p className="text-sm text-[var(--text-2)]">
+          <p className="text-sm text-(--text-2)">
             No comments yet. Be the first!
           </p>
         )}
@@ -138,8 +144,8 @@ export default function CommentSection({
             disabled={isPending}
             className={[
               "w-full resize-none rounded-xl border bg-white/5 px-4 py-3 text-sm",
-              "text-[var(--text-1)] placeholder:text-[var(--text-2)]",
-              "border-[var(--border)] focus:border-cyan-400/60 focus:outline-none focus:ring-1 focus:ring-cyan-400/40",
+              "text-(--text-1) placeholder:text-(--text-2)",
+              "border-(--border) focus:border-cyan-400/60 focus:outline-none focus:ring-1 focus:ring-cyan-400/40",
               "transition-colors duration-150 backdrop-blur-sm",
               isPending ? "opacity-60" : "",
             ].join(" ")}
@@ -165,7 +171,7 @@ export default function CommentSection({
           </div>
         </form>
       ) : (
-        <p className="text-sm text-[var(--text-2)]">
+        <p className="text-sm text-(--text-2)">
           Sign in to leave a comment.
         </p>
       )}
@@ -217,8 +223,8 @@ function CommentCard({
 
   if (comment.isDeleted) {
     return (
-      <div className="rounded-xl border border-[var(--border)] bg-white/3 px-4 py-3">
-        <p className="text-sm italic text-[var(--text-2)]">[deleted]</p>
+      <div className="rounded-xl border border-(--border) bg-white/3 px-4 py-3">
+        <p className="text-sm italic text-(--text-2)">[deleted]</p>
       </div>
     );
   }
@@ -230,7 +236,7 @@ function CommentCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-      className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-white/5 backdrop-blur-sm"
+      className="relative overflow-hidden rounded-xl border border-(--border) bg-white/5 backdrop-blur-sm"
     >
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 rounded-xl bg-linear-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
@@ -245,22 +251,22 @@ function CommentCard({
               <img
                 src={comment.author.avatarUrl}
                 alt={displayName}
-                className="h-6 w-6 rounded-full object-cover flex-shrink-0"
+                className="h-6 w-6 rounded-full object-cover shrink-0"
               />
             ) : (
-              <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-semibold text-cyan-400">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-semibold text-cyan-400">
                 {displayName.slice(0, 1).toUpperCase()}
               </div>
             )}
-            <span className="truncate text-sm font-medium text-[var(--text-1)]">
+            <span className="truncate text-sm font-medium text-(--text-1)">
               {displayName}
             </span>
           </div>
 
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-3 shrink-0">
             <time
               dateTime={comment.createdAt.toISOString()}
-              className="text-xs text-[var(--text-2)]"
+              className="text-xs text-(--text-2)"
             >
               {formatRelative(comment.createdAt)}
             </time>
@@ -274,7 +280,7 @@ function CommentCard({
                       setEditBody(comment.body);
                       setEditing(true);
                     }}
-                    className="rounded px-1.5 py-0.5 text-xs text-[var(--text-2)] hover:bg-white/10 hover:text-[var(--text-1)] transition-colors"
+                    className="rounded px-1.5 py-0.5 text-xs text-(--text-2) hover:bg-white/10 hover:text-(--text-1) transition-colors"
                   >
                     Edit
                   </button>
@@ -303,7 +309,7 @@ function CommentCard({
               disabled={isPending}
               className={[
                 "w-full resize-none rounded-lg border bg-white/5 px-3 py-2 text-sm",
-                "text-[var(--text-1)] border-[var(--border)]",
+                "text-(--text-1) border-(--border)",
                 "focus:border-cyan-400/60 focus:outline-none focus:ring-1 focus:ring-cyan-400/40",
                 "transition-colors duration-150",
               ].join(" ")}
@@ -315,7 +321,7 @@ function CommentCard({
               <button
                 type="button"
                 onClick={() => setEditing(false)}
-                className="rounded px-3 py-1 text-xs text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
+                className="rounded px-3 py-1 text-xs text-(--text-2) hover:text-(--text-1) transition-colors"
               >
                 Cancel
               </button>
@@ -333,7 +339,7 @@ function CommentCard({
             </div>
           </form>
         ) : (
-          <p className="text-sm leading-relaxed text-[var(--text-1)] whitespace-pre-wrap">
+          <p className="text-sm leading-relaxed text-(--text-1) whitespace-pre-wrap">
             {comment.body}
           </p>
         )}

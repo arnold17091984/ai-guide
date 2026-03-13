@@ -24,10 +24,16 @@ export default async function TrendingPage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "trending" });
 
-  const [initialItems, stats] = await Promise.all([
-    getTrendingFeed({ limit: 12, sortBy: "score" }),
-    getTrendingStats(),
-  ]);
+  let initialItems: Awaited<ReturnType<typeof getTrendingFeed>> = [];
+  let stats: Awaited<ReturnType<typeof getTrendingStats>> = { itemCounts: {}, sources: [], totalItems: 0 };
+  try {
+    [initialItems, stats] = await Promise.all([
+      getTrendingFeed({ limit: 12, sortBy: "score" }),
+      getTrendingStats(),
+    ]);
+  } catch {
+    // DB not available — render empty state
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">

@@ -115,11 +115,15 @@ export default function ValidateOnlyForm() {
     setReport(null);
 
     startTransition(async () => {
-      const res = await validateSkillFile(activeContent);
-      if (res.success) {
-        setReport(res.report);
-      } else {
-        setError(res.error);
+      try {
+        const res = await validateSkillFile(activeContent);
+        if (res.success) {
+          setReport(res.report);
+        } else {
+          setError(res.error);
+        }
+      } catch {
+        setError("Validation failed. Please try again.");
       }
     });
   };

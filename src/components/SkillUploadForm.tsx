@@ -191,13 +191,18 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
     if (!fileContent) return;
     setMode("validating");
     startValidating(async () => {
-      const res = await validateSkillFile(fileContent);
-      if (res.success) {
-        setResult({ kind: "validation", report: res.report });
-      } else {
-        setResult({ kind: "error", message: res.error });
+      try {
+        const res = await validateSkillFile(fileContent);
+        if (res.success) {
+          setResult({ kind: "validation", report: res.report });
+        } else {
+          setResult({ kind: "error", message: res.error });
+        }
+      } catch {
+        setResult({ kind: "error", message: "Validation failed. Please try again." });
+      } finally {
+        setMode("selected");
       }
-      setMode("selected");
     });
   };
 
@@ -205,20 +210,25 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
     if (!fileContent) return;
     setMode("publishing");
     startPublishing(async () => {
-      const res = await publishSkill(fileContent);
-      if (res.success) {
-        setResult({
-          kind: "publish-success",
-          skillId: res.skillId,
-          slug: res.slug,
-          status: res.status,
-        });
-        setMode("idle");
-      } else if ("report" in res && res.report) {
-        setResult({ kind: "publish-blocked", report: res.report, message: res.error });
-        setMode("selected");
-      } else {
-        setResult({ kind: "error", message: res.error });
+      try {
+        const res = await publishSkill(fileContent);
+        if (res.success) {
+          setResult({
+            kind: "publish-success",
+            skillId: res.skillId,
+            slug: res.slug,
+            status: res.status,
+          });
+          setMode("idle");
+        } else if ("report" in res && res.report) {
+          setResult({ kind: "publish-blocked", report: res.report, message: res.error });
+          setMode("selected");
+        } else {
+          setResult({ kind: "error", message: res.error });
+          setMode("selected");
+        }
+      } catch {
+        setResult({ kind: "error", message: "Publish failed. Please try again." });
         setMode("selected");
       }
     });

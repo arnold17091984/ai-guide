@@ -37,29 +37,39 @@ function makeUrl(
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Fetch slugs + updatedAt in parallel — gracefully degrade to [] on error
-  const [knowledgeSlugs, skillSlugs, caseSlugs] = await Promise.all([
-    db
-      .select({
-        slug: knowledgeEntries.slug,
-        updatedAt: knowledgeEntries.updatedAt,
-      })
-      .from(knowledgeEntries)
-      .where(eq(knowledgeEntries.status, "published"))
-      .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
+  // Fetch slugs + updatedAt in parallel — gracefully degrade to [] on error.
+  // The outer try/catch is required because the db proxy throws synchronously
+  // when DATABASE_URL is missing, before any Promise is created.
+  let knowledgeSlugs: { slug: string; updatedAt: Date | null }[] = [];
+  let skillSlugs: { slug: string; updatedAt: Date | null }[] = [];
+  let caseSlugs: { slug: string; updatedAt: Date | null }[] = [];
 
-    db
-      .select({ slug: skills.slug, updatedAt: skills.updatedAt })
-      .from(skills)
-      .where(eq(skills.status, "published"))
-      .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
+  try {
+    [knowledgeSlugs, skillSlugs, caseSlugs] = await Promise.all([
+      db
+        .select({
+          slug: knowledgeEntries.slug,
+          updatedAt: knowledgeEntries.updatedAt,
+        })
+        .from(knowledgeEntries)
+        .where(eq(knowledgeEntries.status, "published"))
+        .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
 
-    db
-      .select({ slug: caseStudies.slug, updatedAt: caseStudies.updatedAt })
-      .from(caseStudies)
-      .where(eq(caseStudies.status, "published"))
-      .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
-  ]);
+      db
+        .select({ slug: skills.slug, updatedAt: skills.updatedAt })
+        .from(skills)
+        .where(eq(skills.status, "published"))
+        .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
+
+      db
+        .select({ slug: caseStudies.slug, updatedAt: caseStudies.updatedAt })
+        .from(caseStudies)
+        .where(eq(caseStudies.status, "published"))
+        .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
+    ]);
+  } catch {
+    // DATABASE_URL missing or connection failed — return only static routes
+  }
 
   const entries: MetadataRoute.Sitemap = [];
 

@@ -30,7 +30,12 @@ export default async function BookmarksPage({
   }
 
   const t = await getTranslations({ locale, namespace: "trending" });
-  const bookmarksData = await getUserBookmarks(user.id, { limit: 20 });
+  let bookmarksData: Awaited<ReturnType<typeof getUserBookmarks>> = [];
+  try {
+    bookmarksData = await getUserBookmarks(user.id, { limit: 20 });
+  } catch {
+    // DB not available — render empty state
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">

@@ -28,12 +28,18 @@ export default async function ProfilePage({
   }
 
   // Fetch the full profile row (getCurrentUser returns a subset)
-  const profile = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, currentUser.id))
-    .limit(1)
-    .then((rows) => rows[0] ?? null);
+  type UserRow = typeof users.$inferSelect;
+  let profile: UserRow | null = null;
+  try {
+    profile = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, currentUser.id))
+      .limit(1)
+      .then((rows) => rows[0] ?? null);
+  } catch {
+    redirect(`/${locale}`);
+  }
 
   if (!profile) {
     redirect(`/${locale}`);

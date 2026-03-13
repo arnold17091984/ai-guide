@@ -60,11 +60,11 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
       },
     });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Internal server error";
+  } catch {
+    // DB unavailable — return empty results rather than a 500 so the UI
+    // degrades gracefully (search bar shows no suggestions instead of an error).
     return NextResponse.json(
-      { error: message },
-      { status: 500 },
+      { entries: [], skills: [], users: [], totalCount: 0 },
     );
   }
 }

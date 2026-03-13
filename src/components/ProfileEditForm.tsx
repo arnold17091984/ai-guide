@@ -82,21 +82,25 @@ export default function ProfileEditForm({
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      const result = await updateProfile(formData);
-      if (result.success) {
-        showToast(t("editSuccess"), "success");
-        setTimeout(onClose, 1500);
-      } else {
-        const errorKey = result.error ?? "serverError";
-        const errorMap: Record<string, string> = {
-          unauthenticated: t("errors.unauthenticated"),
-          displayNameTooLong: t("errors.displayNameTooLong"),
-          bioTooLong: t("errors.bioTooLong"),
-          invalidLocale: t("errors.invalidLocale"),
-          invalidWebsiteUrl: t("errors.invalidWebsiteUrl"),
-          serverError: t("errors.serverError"),
-        };
-        showToast(errorMap[errorKey] ?? t("errors.serverError"), "error");
+      try {
+        const result = await updateProfile(formData);
+        if (result.success) {
+          showToast(t("editSuccess"), "success");
+          setTimeout(onClose, 1500);
+        } else {
+          const errorKey = result.error ?? "serverError";
+          const errorMap: Record<string, string> = {
+            unauthenticated: t("errors.unauthenticated"),
+            displayNameTooLong: t("errors.displayNameTooLong"),
+            bioTooLong: t("errors.bioTooLong"),
+            invalidLocale: t("errors.invalidLocale"),
+            invalidWebsiteUrl: t("errors.invalidWebsiteUrl"),
+            serverError: t("errors.serverError"),
+          };
+          showToast(errorMap[errorKey] ?? t("errors.serverError"), "error");
+        }
+      } catch {
+        showToast(t("errors.serverError"), "error");
       }
     });
   }

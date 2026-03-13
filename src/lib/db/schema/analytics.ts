@@ -13,6 +13,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import { users } from "./users";
+import { skills } from "./skills";
 import { teams } from "./teams";
 
 // ============================================================
@@ -278,7 +279,7 @@ export const analyticsSkillAdoption = pgTable(
 
     skillId: uuid("skill_id")
       .notNull()
-      .references(() => users.id),
+      .references(() => skills.id, { onDelete: "cascade" }),
 
     weekStart: date("week_start").notNull(),
 

@@ -198,49 +198,53 @@ export async function getComments(
   targetType: string,
   targetId: string,
 ): Promise<CommentWithAuthor[]> {
-  const rows = await db
-    .select({
-      id: comments.id,
-      authorId: comments.authorId,
-      parentId: comments.parentId,
-      targetType: comments.targetType,
-      targetId: comments.targetId,
-      body: comments.body,
-      isDeleted: comments.isDeleted,
-      createdAt: comments.createdAt,
-      updatedAt: comments.updatedAt,
-      authorUserId: users.id,
-      authorUsername: users.username,
-      authorDisplayName: users.displayName,
-      authorAvatarUrl: users.avatarUrl,
-    })
-    .from(comments)
-    .leftJoin(users, eq(comments.authorId, users.id))
-    .where(
-      and(
-        eq(comments.targetType, targetType),
-        eq(comments.targetId, targetId),
-      ),
-    )
-    .orderBy(desc(comments.createdAt));
+  try {
+    const rows = await db
+      .select({
+        id: comments.id,
+        authorId: comments.authorId,
+        parentId: comments.parentId,
+        targetType: comments.targetType,
+        targetId: comments.targetId,
+        body: comments.body,
+        isDeleted: comments.isDeleted,
+        createdAt: comments.createdAt,
+        updatedAt: comments.updatedAt,
+        authorUserId: users.id,
+        authorUsername: users.username,
+        authorDisplayName: users.displayName,
+        authorAvatarUrl: users.avatarUrl,
+      })
+      .from(comments)
+      .leftJoin(users, eq(comments.authorId, users.id))
+      .where(
+        and(
+          eq(comments.targetType, targetType),
+          eq(comments.targetId, targetId),
+        ),
+      )
+      .orderBy(desc(comments.createdAt));
 
-  return rows.map((row) => ({
-    id: row.id,
-    authorId: row.authorId,
-    parentId: row.parentId,
-    targetType: row.targetType,
-    targetId: row.targetId,
-    body: row.body,
-    isDeleted: row.isDeleted,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
-    author: row.authorUserId
-      ? {
-          id: row.authorUserId,
-          username: row.authorUsername ?? row.authorUserId,
-          displayName: row.authorDisplayName,
-          avatarUrl: row.authorAvatarUrl,
-        }
-      : null,
-  }));
+    return rows.map((row) => ({
+      id: row.id,
+      authorId: row.authorId,
+      parentId: row.parentId,
+      targetType: row.targetType,
+      targetId: row.targetId,
+      body: row.body,
+      isDeleted: row.isDeleted,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
+      author: row.authorUserId
+        ? {
+            id: row.authorUserId,
+            username: row.authorUsername ?? row.authorUserId,
+            displayName: row.authorDisplayName,
+            avatarUrl: row.authorAvatarUrl,
+          }
+        : null,
+    }));
+  } catch {
+    return [];
+  }
 }

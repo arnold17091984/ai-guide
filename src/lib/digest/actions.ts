@@ -23,13 +23,17 @@ import type {
 // ============================================================
 
 export async function getLatestDigest() {
-  const rows = await db
-    .select()
-    .from(weeklyDigests)
-    .orderBy(desc(weeklyDigests.weekStart))
-    .limit(1);
+  try {
+    const rows = await db
+      .select()
+      .from(weeklyDigests)
+      .orderBy(desc(weeklyDigests.weekStart))
+      .limit(1);
 
-  return rows[0] ?? null;
+    return rows[0] ?? null;
+  } catch {
+    return null;
+  }
 }
 
 // ============================================================
@@ -38,14 +42,18 @@ export async function getLatestDigest() {
 // offset 0 = latest, 1 = one week prior, etc.
 
 export async function getDigestByOffset(offset: number) {
-  const rows = await db
-    .select()
-    .from(weeklyDigests)
-    .orderBy(desc(weeklyDigests.weekStart))
-    .offset(offset)
-    .limit(1);
+  try {
+    const rows = await db
+      .select()
+      .from(weeklyDigests)
+      .orderBy(desc(weeklyDigests.weekStart))
+      .offset(offset)
+      .limit(1);
 
-  return rows[0] ?? null;
+    return rows[0] ?? null;
+  } catch {
+    return null;
+  }
 }
 
 // ============================================================

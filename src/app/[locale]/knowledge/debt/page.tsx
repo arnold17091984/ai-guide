@@ -62,18 +62,30 @@ export default async function DebtDashboardPage({
   const sortBy = (sp.sort ?? "newest") as "votes" | "newest" | "priority";
   const page = Math.max(1, parseInt(sp.page ?? "1", 10));
 
-  const [items, stats] = await Promise.all([
-    listDebtItems({
-      category: category || undefined,
-      priority: priority || undefined,
-      status: status === "all" ? undefined : status,
-      search: search || undefined,
-      sortBy,
-      page,
-      limit: 20,
-    }),
-    getDebtStats(),
-  ]);
+  let items: Awaited<ReturnType<typeof listDebtItems>> = [];
+  let stats: Awaited<ReturnType<typeof getDebtStats>> = {
+    total: 0,
+    resolutionRate: 0,
+    byStatus: {},
+    byCategory: {},
+    byPriority: {},
+  };
+  try {
+    [items, stats] = await Promise.all([
+      listDebtItems({
+        category: category || undefined,
+        priority: priority || undefined,
+        status: status === "all" ? undefined : status,
+        search: search || undefined,
+        sortBy,
+        page,
+        limit: 20,
+      }),
+      getDebtStats(),
+    ]);
+  } catch {
+    // DB not available — render empty state
+  }
 
   const serializedItems = items.map((item) => ({
     ...item,

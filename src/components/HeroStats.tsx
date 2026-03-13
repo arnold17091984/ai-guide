@@ -3,7 +3,17 @@ import { getTranslations } from "next-intl/server";
 import HeroStatsClient from "./HeroStatsClient";
 
 export default async function HeroStats() {
-  const stats = await getDashboardStats();
+  let stats: Awaited<ReturnType<typeof getDashboardStats>> = {
+    totalEntries: 0,
+    totalSkills: 0,
+    totalUsers: 0,
+    totalVotes: 0,
+  };
+  try {
+    stats = await getDashboardStats();
+  } catch {
+    // DB not available — show zeroes
+  }
   const t = await getTranslations("dashboard");
 
   const items = [

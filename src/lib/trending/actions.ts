@@ -30,28 +30,36 @@ export async function getTrendingFeed(opts: {
       ? desc(trendingItems.publishedAt)
       : desc(trendingItems.score);
 
-  const rows = await db
-    .select()
-    .from(trendingItems)
-    .where(conditions.length > 0 ? and(...conditions) : undefined)
-    .orderBy(orderCol)
-    .limit(limit)
-    .offset(offset);
+  try {
+    const rows = await db
+      .select()
+      .from(trendingItems)
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .orderBy(orderCol)
+      .limit(limit)
+      .offset(offset);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
 // getTrendingSources — list all active sources
 // ============================================================
 export async function getTrendingSources() {
-  const rows = await db
-    .select()
-    .from(trendingSources)
-    .where(eq(trendingSources.isActive, true))
-    .orderBy(trendingSources.name);
+  try {
+    const rows = await db
+      .select()
+      .from(trendingSources)
+      .where(eq(trendingSources.isActive, true))
+      .orderBy(trendingSources.name);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -100,19 +108,23 @@ export async function getUserBookmarks(
 ) {
   const { limit = 20, offset = 0 } = opts;
 
-  const rows = await db
-    .select({
-      bookmark: userBookmarks,
-      item: trendingItems,
-    })
-    .from(userBookmarks)
-    .innerJoin(trendingItems, eq(userBookmarks.trendingItemId, trendingItems.id))
-    .where(eq(userBookmarks.userId, userId))
-    .orderBy(desc(userBookmarks.createdAt))
-    .limit(limit)
-    .offset(offset);
+  try {
+    const rows = await db
+      .select({
+        bookmark: userBookmarks,
+        item: trendingItems,
+      })
+      .from(userBookmarks)
+      .innerJoin(trendingItems, eq(userBookmarks.trendingItemId, trendingItems.id))
+      .where(eq(userBookmarks.userId, userId))
+      .orderBy(desc(userBookmarks.createdAt))
+      .limit(limit)
+      .offset(offset);
 
-  return rows;
+    return rows;
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -122,49 +134,57 @@ export async function isBookmarked(
   userId: string,
   trendingItemId: string,
 ): Promise<boolean> {
-  const rows = await db
-    .select({ id: userBookmarks.id })
-    .from(userBookmarks)
-    .where(
-      and(
-        eq(userBookmarks.userId, userId),
-        eq(userBookmarks.trendingItemId, trendingItemId),
-      ),
-    )
-    .limit(1);
+  try {
+    const rows = await db
+      .select({ id: userBookmarks.id })
+      .from(userBookmarks)
+      .where(
+        and(
+          eq(userBookmarks.userId, userId),
+          eq(userBookmarks.trendingItemId, trendingItemId),
+        ),
+      )
+      .limit(1);
 
-  return rows.length > 0;
+    return rows.length > 0;
+  } catch {
+    return false;
+  }
 }
 
 // ============================================================
 // getTrendingStats — count items per source, last fetch times
 // ============================================================
 export async function getTrendingStats() {
-  const itemCounts = await db
-    .select({
-      source: trendingItems.source,
-      count: count(),
-    })
-    .from(trendingItems)
-    .groupBy(trendingItems.source);
+  try {
+    const itemCounts = await db
+      .select({
+        source: trendingItems.source,
+        count: count(),
+      })
+      .from(trendingItems)
+      .groupBy(trendingItems.source);
 
-  const sources = await db
-    .select({
-      name: trendingSources.name,
-      displayName: trendingSources.displayName,
-      lastFetchedAt: trendingSources.lastFetchedAt,
-      isActive: trendingSources.isActive,
-    })
-    .from(trendingSources);
+    const sources = await db
+      .select({
+        name: trendingSources.name,
+        displayName: trendingSources.displayName,
+        lastFetchedAt: trendingSources.lastFetchedAt,
+        isActive: trendingSources.isActive,
+      })
+      .from(trendingSources);
 
-  const countsMap: Record<string, number> = {};
-  for (const row of itemCounts) {
-    countsMap[row.source] = row.count;
+    const countsMap: Record<string, number> = {};
+    for (const row of itemCounts) {
+      countsMap[row.source] = row.count;
+    }
+
+    return {
+      itemCounts: countsMap,
+      sources,
+      totalItems: Object.values(countsMap).reduce((a, b) => a + b, 0),
+    };
+  } catch {
+    return { itemCounts: {}, sources: [], totalItems: 0 };
   }
-
-  return {
-    itemCounts: countsMap,
-    sources,
-    totalItems: Object.values(countsMap).reduce((a, b) => a + b, 0),
-  };
 }

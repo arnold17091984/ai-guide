@@ -37,10 +37,16 @@ export default async function TeamsPage({ params, searchParams }: PageProps) {
     getCurrentUser(),
   ]);
 
-  const [myTeamsData, publicTeamsData] = await Promise.all([
-    currentUser ? getUserTeams(currentUser.id) : Promise.resolve([]),
-    getPublicTeams(q),
-  ]);
+  let myTeamsData: Awaited<ReturnType<typeof getUserTeams>> = [];
+  let publicTeamsData: Awaited<ReturnType<typeof getPublicTeams>> = [];
+  try {
+    [myTeamsData, publicTeamsData] = await Promise.all([
+      currentUser ? getUserTeams(currentUser.id) : Promise.resolve([]),
+      getPublicTeams(q),
+    ]);
+  } catch {
+    // DB not available — render empty state
+  }
 
   const myTeams = myTeamsData.map((row) => ({
     ...row.team,

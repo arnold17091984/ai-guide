@@ -184,18 +184,26 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
   }, [open]);
 
   const handleMarkAllRead = async () => {
-    await markAllAsRead(userId);
-    setItems((prev) => prev.map((item) => ({ ...item, isRead: true })));
-    setUnreadCount(0);
+    try {
+      await markAllAsRead(userId);
+      setItems((prev) => prev.map((item) => ({ ...item, isRead: true })));
+      setUnreadCount(0);
+    } catch {
+      // silently fail — badge stays accurate on next poll
+    }
   };
 
   const handleNotificationClick = async (item: NotificationItem) => {
     if (!item.isRead) {
-      await markAsRead(item.id, userId);
-      setItems((prev) =>
-        prev.map((n) => (n.id === item.id ? { ...n, isRead: true } : n)),
-      );
-      setUnreadCount((c) => Math.max(0, c - 1));
+      try {
+        await markAsRead(item.id, userId);
+        setItems((prev) =>
+          prev.map((n) => (n.id === item.id ? { ...n, isRead: true } : n)),
+        );
+        setUnreadCount((c) => Math.max(0, c - 1));
+      } catch {
+        // silently fail — read status will sync on next open
+      }
     }
     setOpen(false);
   };

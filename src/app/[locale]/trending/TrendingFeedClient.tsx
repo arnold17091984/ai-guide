@@ -129,6 +129,7 @@ export default function TrendingFeedClient({
   const [offset, setOffset] = useState(PAGE_SIZE);
   const [hasMore, setHasMore] = useState(initialItems.length >= PAGE_SIZE);
   const [isLoading, setIsLoading] = useState(false);
+  const [fetchError, setFetchError] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const totalCount = Object.values(itemCounts).reduce((a, b) => a + b, 0);
@@ -136,6 +137,7 @@ export default function TrendingFeedClient({
   const handleSourceChange = (source: string) => {
     setActiveSource(source);
     setIsLoading(true);
+    setFetchError(false);
     startTransition(async () => {
       try {
         const newItems = await getTrendingFeed({
@@ -147,6 +149,8 @@ export default function TrendingFeedClient({
         setItems(newItems);
         setOffset(PAGE_SIZE);
         setHasMore(newItems.length >= PAGE_SIZE);
+      } catch {
+        setFetchError(true);
       } finally {
         setIsLoading(false);
       }
@@ -156,6 +160,7 @@ export default function TrendingFeedClient({
   const handleSortChange = (newSort: "score" | "publishedAt") => {
     setSortBy(newSort);
     setIsLoading(true);
+    setFetchError(false);
     startTransition(async () => {
       try {
         const newItems = await getTrendingFeed({
@@ -167,6 +172,8 @@ export default function TrendingFeedClient({
         setItems(newItems);
         setOffset(PAGE_SIZE);
         setHasMore(newItems.length >= PAGE_SIZE);
+      } catch {
+        setFetchError(true);
       } finally {
         setIsLoading(false);
       }
@@ -186,6 +193,8 @@ export default function TrendingFeedClient({
         setItems((prev) => [...prev, ...newItems]);
         setOffset((prev) => prev + PAGE_SIZE);
         setHasMore(newItems.length >= PAGE_SIZE);
+      } catch {
+        // load-more failure is non-critical — existing items stay visible
       } finally {
         setIsLoading(false);
       }
@@ -256,6 +265,16 @@ export default function TrendingFeedClient({
           {Array.from({ length: 6 }).map((_, i) => (
             <SkeletonCard key={i} />
           ))}
+        </div>
+      ) : fetchError ? (
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-300/30 bg-red-500/5 py-12 text-center">
+          <p className="text-sm text-red-500">Failed to load trending items. Please try again.</p>
+          <button
+            onClick={() => handleSourceChange(activeSource)}
+            className="rounded-lg border border-red-300/30 px-4 py-1.5 text-xs font-medium text-red-500 hover:bg-red-500/10 transition-colors"
+          >
+            Retry
+          </button>
         </div>
       ) : items.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-(--border) bg-white/50 py-16 text-center backdrop-blur-xl dark:bg-white/5">

@@ -253,12 +253,18 @@ export default async function SkillsPage({ params, searchParams }: PageProps) {
 
   const t = await getTranslations("skills");
 
-  const { items, total } = await listSkills({
-    search: q || undefined,
-    category: category || undefined,
-    page,
-    pageSize: PAGE_SIZE,
-  });
+  let items: Awaited<ReturnType<typeof listSkills>>["items"] = [];
+  let total = 0;
+  try {
+    ({ items, total } = await listSkills({
+      search: q || undefined,
+      category: category || undefined,
+      page,
+      pageSize: PAGE_SIZE,
+    }));
+  } catch {
+    // DB not available — render empty state
+  }
 
   const entries: SkillCardEntry[] = items.map((s) => ({
     id: s.id,

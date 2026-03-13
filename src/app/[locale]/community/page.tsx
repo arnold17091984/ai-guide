@@ -105,10 +105,14 @@ export default async function CommunityPage({ params, searchParams }: PageProps)
     getCurrentUser(),
   ]);
 
-  const entries =
-    activeTab === "rising"
+  let entries: Awaited<ReturnType<typeof getLeaderboard>> = [];
+  try {
+    entries = activeTab === "rising"
       ? await getRisingStars(50)
       : await getLeaderboard(50);
+  } catch {
+    // DB not available — render empty state
+  }
 
   return (
     <>

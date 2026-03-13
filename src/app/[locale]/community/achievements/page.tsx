@@ -55,17 +55,26 @@ function groupByCategory<T extends { category: string }>(
 export default async function AchievementsPage({ params }: PageProps) {
   const { locale } = await params;
 
-  const [t, currentUser, allAchievements] = await Promise.all([
+  let allAchievements: Awaited<ReturnType<typeof getAllAchievements>> = [];
+  const [t, currentUser] = await Promise.all([
     getTranslations("community"),
     getCurrentUser(),
-    getAllAchievements(),
   ]);
+  try {
+    allAchievements = await getAllAchievements();
+  } catch {
+    // DB not available — render empty state
+  }
 
   // Build user's unlock map
   let userAchMap = new Map<string, UserAchievementWithDetails>();
   if (currentUser) {
-    const userAchs = await getUserAchievements(currentUser.id);
-    userAchMap = new Map(userAchs.map((a) => [a.slug, a]));
+    try {
+      const userAchs = await getUserAchievements(currentUser.id);
+      userAchMap = new Map(userAchs.map((a) => [a.slug, a]));
+    } catch {
+      // DB not available
+    }
   }
 
   const grouped = groupByCategory(allAchievements);

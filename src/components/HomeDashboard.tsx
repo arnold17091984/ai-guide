@@ -9,11 +9,18 @@ export default async function HomeDashboard() {
   const t = await getTranslations("dashboard");
   const locale = await getLocale();
 
-  const [recentEntries, popularSkills, activeDiscussions] = await Promise.all([
-    getRecentEntries(5),
-    getPopularSkills(5),
-    getActiveDiscussions(5),
-  ]);
+  let recentEntries: Awaited<ReturnType<typeof getRecentEntries>> = [];
+  let popularSkills: Awaited<ReturnType<typeof getPopularSkills>> = [];
+  let activeDiscussions: Awaited<ReturnType<typeof getActiveDiscussions>> = [];
+  try {
+    [recentEntries, popularSkills, activeDiscussions] = await Promise.all([
+      getRecentEntries(5),
+      getPopularSkills(5),
+      getActiveDiscussions(5),
+    ]);
+  } catch {
+    // DB not available — render empty state
+  }
 
   // Helper to pick localized title
   function getLocalizedTitle(entry: {
