@@ -242,9 +242,9 @@ export default function MarkdownEditor({
       )}
 
       {/* Outer container */}
-      <div className="relative overflow-hidden rounded-xl border border-(--border) bg-(--surface) shadow-sm">
+      <div className="relative overflow-hidden rounded-md border border-(--border) bg-(--bg-surface) shadow-sm">
         {/* Tab bar + Toolbar row */}
-        <div className="flex items-center justify-between border-b border-(--border) bg-white/40 px-2 dark:bg-white/5">
+        <div className="flex items-center justify-between border-b border-(--border) bg-(--bg-elevated) px-2">
           {/* Edit / Preview tabs */}
           <div className="relative flex">
             {(["edit", "preview"] as Tab[]).map((t) => (
@@ -254,7 +254,7 @@ export default function MarkdownEditor({
                 onClick={() => setTab(t)}
                 className={`relative px-4 py-2.5 text-xs font-semibold uppercase tracking-wide transition-colors ${
                   tab === t
-                    ? "text-(--primary)"
+                    ? "text-(--accent)"
                     : "text-(--text-2) hover:text-(--text-1)"
                 }`}
               >
@@ -262,7 +262,7 @@ export default function MarkdownEditor({
                 {tab === t && (
                   <motion.span
                     layoutId="md-tab-indicator"
-                    className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-(--primary)"
+                    className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-(--accent)"
                     transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
                   />
                 )}
@@ -291,7 +291,7 @@ export default function MarkdownEditor({
                       e.preventDefault();
                       applyToolbar(btn.id);
                     }}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-bold text-(--text-2) transition-colors hover:bg-blue-500/10 hover:text-blue-500 dark:hover:text-cyan-400 ${
+                    className={`rounded-md px-2.5 py-1 text-xs font-bold text-(--text-2) transition-colors hover:bg-(--accent-muted) hover:text-(--accent) ${
                       btn.id === "italic" ? "italic" : ""
                     }`}
                   >
@@ -357,7 +357,7 @@ export default function MarkdownEditor({
         .md-prose .md-h3 { font-size: 1.1rem; font-weight: 600; margin: 0.75rem 0 0.35rem; color: var(--text-1); }
         .md-prose .md-p  { margin: 0.35rem 0; line-height: 1.7; font-size: 0.9rem; color: var(--text-1); }
         .md-prose .md-blockquote {
-          border-left: 3px solid var(--primary);
+          border-left: 3px solid var(--accent);
           padding: 0.3rem 0.75rem;
           margin: 0.5rem 0;
           color: var(--text-2);
@@ -367,15 +367,15 @@ export default function MarkdownEditor({
         .md-prose .md-ul { list-style: disc; padding-left: 1.4rem; margin: 0.4rem 0; }
         .md-prose .md-li { margin: 0.2rem 0; font-size: 0.9rem; color: var(--text-1); }
         .md-prose .md-code {
-          background: rgba(99,102,241,0.12);
-          color: var(--primary);
+          background: var(--accent-muted);
+          color: var(--accent);
           border-radius: 4px;
           padding: 0.1em 0.35em;
           font-size: 0.82em;
           font-family: monospace;
         }
         .md-prose pre {
-          background: var(--surface);
+          background: var(--bg-surface);
           border: 1px solid var(--border);
           border-radius: 0.5rem;
           padding: 0.75rem 1rem;
@@ -386,7 +386,7 @@ export default function MarkdownEditor({
           color: var(--text-1);
         }
         .md-prose pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
-        .md-prose .md-link { color: var(--primary); text-decoration: underline; }
+        .md-prose .md-link { color: var(--accent); text-decoration: underline; }
         .md-prose strong { font-weight: 600; }
         .md-prose em { font-style: italic; }
       `}</style>

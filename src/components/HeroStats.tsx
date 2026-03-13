@@ -1,6 +1,5 @@
 import { getDashboardStats } from "@/lib/dashboard/actions";
 import { getTranslations } from "next-intl/server";
-import HeroStatsClient from "./HeroStatsClient";
 
 export default async function HeroStats() {
   let stats: Awaited<ReturnType<typeof getDashboardStats>> = {
@@ -17,27 +16,22 @@ export default async function HeroStats() {
   const t = await getTranslations("dashboard");
 
   const items = [
-    {
-      label: t("heroStats.entries"),
-      value: stats.totalEntries,
-      icon: "entries" as const,
-    },
-    {
-      label: t("heroStats.skills"),
-      value: stats.totalSkills,
-      icon: "skills" as const,
-    },
-    {
-      label: t("heroStats.contributors"),
-      value: stats.totalUsers,
-      icon: "contributors" as const,
-    },
-    {
-      label: t("heroStats.discussions"),
-      value: stats.totalVotes,
-      icon: "discussions" as const,
-    },
+    { label: t("heroStats.entries"), value: stats.totalEntries },
+    { label: t("heroStats.skills"), value: stats.totalSkills },
+    { label: t("heroStats.contributors"), value: stats.totalUsers },
+    { label: t("heroStats.discussions"), value: stats.totalVotes },
   ];
 
-  return <HeroStatsClient items={items} />;
+  return (
+    <div className="border-t border-(--border) pt-4">
+      <p className="text-sm text-(--text-3) font-mono">
+        {items.map((item, i) => (
+          <span key={item.label}>
+            {i > 0 && <span className="mx-2">•</span>}
+            <span>{item.value.toLocaleString()} {item.label}</span>
+          </span>
+        ))}
+      </p>
+    </div>
+  );
 }

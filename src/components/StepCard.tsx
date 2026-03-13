@@ -23,11 +23,11 @@ export default function StepCard({
           <div className="absolute left-5 top-12 bottom-0 w-px bg-linear-to-b from-(--border) to-transparent" />
         )}
         {/* Step number */}
-        <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-cyan-500 text-sm font-bold text-white shadow-lg shadow-blue-500/20">
+        <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-(--accent) text-sm font-bold text-black shadow-sm">
           {stepNumber}
         </div>
         {/* Content */}
-        <div className="flex-1 rounded-xl border border-(--border) bg-(--surface) p-6 shadow-sm transition-shadow hover:shadow-md">
+        <div className="flex-1 rounded-lg border border-(--border) bg-(--bg-surface) p-6 shadow-sm transition-shadow hover:border-(--border-hover)">
           <h3 className="text-lg font-semibold text-(--text-1)">
             {title}
           </h3>

@@ -34,10 +34,10 @@ function Toast({ message, type }: ToastProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
-      className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium shadow-lg ${
+      className={`flex items-center gap-2 rounded-md border px-4 py-3 text-sm font-medium shadow-lg ${
         type === "success"
-          ? "border-green-300/50 bg-green-50 text-green-800 dark:border-green-700/50 dark:bg-green-900/30 dark:text-green-300"
-          : "border-red-300/50 bg-red-50 text-red-800 dark:border-red-700/50 dark:bg-red-900/30 dark:text-red-300"
+          ? "border-green-500/30 bg-green-500/10 text-green-400"
+          : "border-red-500/30 bg-red-500/10 text-red-400"
       }`}
     >
       {type === "success" ? (
@@ -110,19 +110,16 @@ export default function ProfileEditForm({
       variants={fadeUp}
       initial="hidden"
       animate="visible"
-      className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5"
+      className="rounded-lg border border-(--border) bg-(--bg-surface) p-6 shadow-sm"
     >
-      {/* Glass shimmer overlay */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-
-      <div className="relative z-10">
+      <div>
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-(--text-1)">
             {t("editProfile")}
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+            className="rounded-md p-1.5 text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
             aria-label={t("cancel")}
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -154,7 +151,7 @@ export default function ProfileEditForm({
               defaultValue={user.displayName ?? ""}
               maxLength={100}
               placeholder={user.username}
-              className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) outline-none transition-all focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/20 dark:focus:border-cyan-500/60 dark:focus:ring-cyan-500/20"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-3) outline-none transition-all focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -173,7 +170,7 @@ export default function ProfileEditForm({
               defaultValue={bio ?? ""}
               maxLength={500}
               placeholder={t("fields.bioPlaceholder")}
-              className="w-full resize-none rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) outline-none transition-all focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/20 dark:focus:border-cyan-500/60 dark:focus:ring-cyan-500/20"
+              className="w-full resize-none rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-3) outline-none transition-all focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -189,7 +186,7 @@ export default function ProfileEditForm({
               id="locale"
               name="locale"
               defaultValue={user.locale}
-              className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) outline-none transition-all focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/20 dark:focus:border-cyan-500/60 dark:focus:ring-cyan-500/20"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) outline-none transition-all focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             >
               {LOCALES.map((loc) => (
                 <option key={loc.value} value={loc.value}>
@@ -213,7 +210,7 @@ export default function ProfileEditForm({
               type="url"
               defaultValue={websiteUrl ?? ""}
               placeholder="https://example.com"
-              className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) outline-none transition-all focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/20 dark:focus:border-cyan-500/60 dark:focus:ring-cyan-500/20"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-3) outline-none transition-all focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -222,7 +219,7 @@ export default function ProfileEditForm({
             <button
               type="submit"
               disabled={isPending}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-blue-500 to-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-cyan-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex flex-1 items-center justify-center gap-2 rounded-md bg-(--accent) h-9 px-5 text-sm font-medium text-black transition-all hover:bg-(--accent-hover) disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isPending ? (
                 <>
@@ -254,7 +251,7 @@ export default function ProfileEditForm({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl border border-(--border) bg-(--surface) px-5 py-2.5 text-sm font-medium text-(--text-2) transition-all hover:bg-(--surface-hover) hover:text-(--text-1)"
+              className="rounded-md border border-(--border) bg-transparent h-9 px-5 text-sm font-medium text-(--text-1) transition-all hover:bg-(--bg-elevated)"
             >
               {t("cancel")}
             </button>

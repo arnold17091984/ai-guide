@@ -56,10 +56,10 @@ function Toast({ message, type }: ToastProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
-      className={`flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium shadow-lg ${
+      className={`flex items-center gap-2 rounded-md border px-4 py-3 text-sm font-medium shadow-lg ${
         type === "success"
-          ? "border-green-300/50 bg-green-50 text-green-800 dark:border-green-700/50 dark:bg-green-900/30 dark:text-green-300"
-          : "border-red-300/50 bg-red-50 text-red-800 dark:border-red-700/50 dark:bg-red-900/30 dark:text-red-300"
+          ? "border-green-500/30 bg-green-500/10 text-green-400"
+          : "border-red-500/30 bg-red-500/10 text-red-400"
       }`}
     >
       {type === "success" ? (
@@ -103,7 +103,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) outline-none transition-all focus:border-blue-400/60 focus:ring-2 focus:ring-blue-400/20 dark:focus:border-cyan-500/60 dark:focus:ring-cyan-500/20";
+  "w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-3) outline-none transition-all focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20";
 
 // ============================================================
 // Props
@@ -220,11 +220,8 @@ export default function KnowledgeEntryForm({
       animate="visible"
     >
       {/* Glass card */}
-      <div className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5">
-        {/* Shimmer overlay */}
-        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-
-        <div className="relative z-10">
+      <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-6 shadow-sm">
+        <div>
           {/* Toast */}
           <div className="mb-4 min-h-px">
             <AnimatePresence>
@@ -235,15 +232,15 @@ export default function KnowledgeEntryForm({
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* ── Locale tabs ── */}
             <div>
-              <div className="mb-4 flex gap-1 rounded-xl border border-(--border) bg-(--surface) p-1">
+              <div className="mb-4 flex gap-1 rounded-md border border-(--border) bg-(--bg-elevated) p-1">
                 {LOCALES.map((loc) => (
                   <button
                     key={loc.key}
                     type="button"
                     onClick={() => setActiveLocale(loc.key)}
-                    className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+                    className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all ${
                       activeLocale === loc.key
-                        ? "bg-white text-(--text-1) shadow-sm dark:bg-white/10"
+                        ? "bg-(--bg-surface) text-(--text-1) shadow-sm"
                         : "text-(--text-2) hover:text-(--text-1)"
                     }`}
                   >
@@ -252,7 +249,7 @@ export default function KnowledgeEntryForm({
                     {activeLocale === loc.key && (
                       <motion.span
                         layoutId="locale-tab-bg"
-                        className="absolute inset-0 rounded-lg bg-white shadow-sm dark:bg-white/10"
+                        className="absolute inset-0 rounded-md bg-(--bg-surface) shadow-sm"
                         style={{ zIndex: -1 }}
                         transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
                       />
@@ -374,7 +371,7 @@ export default function KnowledgeEntryForm({
               <button
                 type="submit"
                 disabled={isPending}
-                className="flex items-center gap-2 rounded-xl bg-linear-to-r from-blue-500 to-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-cyan-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex items-center gap-2 rounded-md bg-(--accent) h-9 px-6 text-sm font-medium text-black transition-all hover:bg-(--accent-hover) disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isPending ? (
                   <>
@@ -410,7 +407,7 @@ export default function KnowledgeEntryForm({
                 type="button"
                 onClick={() => router.back()}
                 disabled={isPending}
-                className="rounded-xl border border-(--border) bg-(--surface) px-5 py-2.5 text-sm font-medium text-(--text-2) transition-all hover:bg-(--surface-hover) hover:text-(--text-1) disabled:opacity-60"
+                className="rounded-md border border-(--border) bg-transparent px-5 h-9 text-sm font-medium text-(--text-1) transition-all hover:bg-(--bg-elevated) disabled:opacity-60"
               >
                 Cancel
               </button>

@@ -54,7 +54,7 @@ function StatCard({
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-2xl p-4"
+      className="bg-(--bg-surface) border border-(--border) rounded-lg p-4"
     >
       <p className="text-sm text-(--text-2)">{label}</p>
       <p className={`mt-1 text-2xl font-bold ${color}`}>{value}</p>
@@ -83,7 +83,7 @@ export default function DebtStatsBar({
         <StatCard
           label={t.inProgress}
           value={stats.byStatus.in_progress ?? 0}
-          color="text-blue-600 dark:text-blue-400"
+          color="text-(--accent)"
           index={1}
         />
         <StatCard
@@ -116,7 +116,7 @@ export default function DebtStatsBar({
           {t.outdated}: {stats.byCategory.outdated ?? 0}
         </span>
         <span className="flex items-center gap-1.5">
-          <CategoryDot color="bg-blue-500" />
+          <CategoryDot color="bg-(--accent)" />
           {t.incomplete}: {stats.byCategory.incomplete ?? 0}
         </span>
         <span className="flex items-center gap-1.5">

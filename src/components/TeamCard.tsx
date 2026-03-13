@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import { DURATION, EASE_APPLE } from "@/lib/motion";
 
 // ============================================================
-// TeamCard — Glassmorphism card with team info
+// TeamCard — Terminal Native card with team info
 // ============================================================
 
 interface TeamCardProps {
@@ -36,15 +36,13 @@ export default function TeamCard({
   return (
     <motion.div
       whileHover={{
-        y: -4,
+        y: -2,
         transition: { duration: DURATION.normal, ease: EASE_APPLE },
       }}
       whileTap={{ scale: 0.98 }}
-      className="group relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-5 shadow-md backdrop-blur-xl transition-all duration-300 hover:border-cyan-300/50 hover:shadow-xl hover:shadow-cyan-500/15 dark:bg-white/5 dark:hover:border-cyan-500/30 dark:hover:shadow-cyan-500/10"
+      className="group relative overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-5 shadow-sm transition-all duration-300 hover:border-(--border-hover)"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-br from-cyan-500/10 via-blue-500/5 to-teal-500/10" />
-
-      <div className="relative z-10">
+      <div>
         {/* Header: Avatar + Badge */}
         <div className="mb-3 flex items-start justify-between">
           <Link href={`/${locale}/teams/${slug}`} className="flex items-center gap-3">
@@ -53,27 +51,27 @@ export default function TeamCard({
               <img
                 src={avatarUrl}
                 alt={name}
-                className="h-12 w-12 rounded-xl object-cover ring-2 ring-cyan-400/20"
+                className="h-12 w-12 rounded-lg object-cover ring-1 ring-(--border)"
               />
             ) : (
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-cyan-500 to-blue-500 text-lg font-bold text-white ring-2 ring-cyan-400/20">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-(--bg-elevated) text-lg font-bold text-(--text-1)">
                 {initial}
               </div>
             )}
             <div className="min-w-0">
-              <h3 className="truncate text-sm font-semibold text-(--text-1) group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+              <h3 className="truncate text-sm font-semibold text-(--text-1) group-hover:text-(--accent) transition-colors">
                 {name}
               </h3>
-              <span className="text-xs text-(--text-2)">/{slug}</span>
+              <span className="text-xs text-(--text-3) font-mono">/{slug}</span>
             </div>
           </Link>
 
           {/* Public/Private badge */}
           <span
-            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
+            className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-mono ${
               isPublic
-                ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400"
-                : "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400"
+                ? "bg-(--accent-muted) text-(--accent)"
+                : "bg-amber-500/10 text-amber-400"
             }`}
           >
             {isPublic ? (
@@ -98,7 +96,7 @@ export default function TeamCard({
 
         {/* Footer */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-xs text-(--text-2)">
+          <div className="flex items-center gap-1.5 text-xs text-(--text-3)">
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
             </svg>
@@ -111,14 +109,14 @@ export default function TeamCard({
                 e.preventDefault();
                 onJoin();
               }}
-              className="rounded-lg bg-cyan-500 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-cyan-600"
+              className="rounded-md bg-(--accent) px-3 py-1.5 text-xs font-medium text-black transition-colors hover:bg-(--accent-hover)"
             >
               Join
             </button>
           )}
 
           {isJoined && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-cyan-50 px-2.5 py-0.5 text-xs font-medium text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400">
+            <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-mono bg-(--accent-muted) text-(--accent)">
               <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>

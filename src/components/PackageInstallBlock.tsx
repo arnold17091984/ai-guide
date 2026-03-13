@@ -88,16 +88,16 @@ export default function PackageInstallBlock({
   }, [snippet, onInstall]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-(--border) bg-(--surface)/80 backdrop-blur-xl">
+    <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) font-mono">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-(--border) px-4 py-2.5">
+      <div className="flex items-center justify-between border-b border-(--border) bg-(--bg-elevated) px-4 py-2.5">
         <span className="text-xs font-medium text-(--text-2)">
           {installLabel}
         </span>
         <button
           type="button"
           onClick={handleCopy}
-          className="flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+          className="flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium text-(--text-2) transition-colors hover:bg-(--bg-base) hover:text-(--text-1)"
         >
           <AnimatePresence mode="wait" initial={false}>
             {copied ? (

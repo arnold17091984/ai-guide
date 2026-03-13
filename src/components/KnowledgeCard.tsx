@@ -66,22 +66,16 @@ function ChatIcon() {
 // -----------------------------------------------------------------------
 
 const DIFFICULTY_STYLES: Record<string, string> = {
-  beginner:
-    "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  intermediate:
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  advanced:
-    "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
+  beginner: "bg-amber-500/10 text-amber-400",
+  intermediate: "bg-amber-500/10 text-amber-400",
+  advanced: "bg-amber-500/10 text-amber-400",
 };
 
 const CONTENT_TYPE_STYLES: Record<string, string> = {
-  article:
-    "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  tip: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
-  workflow:
-    "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  tutorial:
-    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
+  article: "bg-(--accent-muted) text-(--accent)",
+  tip: "bg-(--accent-muted) text-(--accent)",
+  workflow: "bg-(--accent-muted) text-(--accent)",
+  tutorial: "bg-(--accent-muted) text-(--accent)",
 };
 
 function difficultyLabel(level: string | null): string {
@@ -138,41 +132,38 @@ export default function KnowledgeCard({ entry, locale }: KnowledgeCardProps) {
     <Link href={href} className="group block h-full focus:outline-none">
       <motion.article
         whileHover={{
-          y: -5,
+          y: -2,
           transition: { duration: DURATION.normal, ease: EASE_APPLE },
         }}
         whileTap={{ scale: 0.98 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-blue-300/50 hover:shadow-lg hover:shadow-blue-500/10 dark:bg-white/5 dark:hover:border-cyan-500/30 dark:hover:shadow-cyan-500/10"
+        className="relative flex h-full flex-col overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-5 shadow-sm transition-all duration-300 hover:border-(--border-hover)"
       >
-        {/* Hover gradient overlay */}
-        <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-br from-blue-500/8 via-cyan-500/4 to-teal-500/8" />
-
-        <div className="relative z-10 flex h-full flex-col gap-3">
+        <div className="flex h-full flex-col gap-3">
           {/* --- Badge row --- */}
           <div className="flex flex-wrap items-center gap-2">
             {contentType && (
               <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CONTENT_TYPE_STYLES[contentType] ?? "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"}`}
+                className={`rounded px-2 py-0.5 text-xs font-mono ${CONTENT_TYPE_STYLES[contentType] ?? "bg-(--accent-muted) text-(--accent)"}`}
               >
                 {contentType}
               </span>
             )}
             {difficultyLevel && (
               <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${DIFFICULTY_STYLES[difficultyLevel] ?? "bg-gray-100 text-gray-700"}`}
+                className={`rounded px-2 py-0.5 text-xs font-mono ${DIFFICULTY_STYLES[difficultyLevel] ?? "bg-amber-500/10 text-amber-400"}`}
               >
                 {difficultyLabel(difficultyLevel)}
               </span>
             )}
             {categoryLabel && (
-              <span className="ml-auto truncate rounded-full bg-indigo-100/70 px-2.5 py-0.5 text-xs font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300">
+              <span className="ml-auto truncate rounded bg-(--accent-muted) px-2 py-0.5 text-xs font-mono text-(--accent)">
                 {categoryLabel}
               </span>
             )}
           </div>
 
           {/* --- Title --- */}
-          <h2 className="line-clamp-2 text-base font-semibold leading-snug text-(--text-1) group-hover:text-(--primary) transition-colors">
+          <h2 className="line-clamp-2 text-base font-semibold leading-snug text-(--text-1) transition-colors group-hover:text-(--accent)">
             {title ?? "Untitled"}
           </h2>
 
@@ -187,7 +178,7 @@ export default function KnowledgeCard({ entry, locale }: KnowledgeCardProps) {
           <div className="mt-auto flex items-center justify-between gap-2 border-t border-(--border) pt-3">
             {/* Author */}
             <div className="flex min-w-0 items-center gap-2">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-400 to-cyan-500 text-xs font-bold text-white">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-(--bg-elevated) text-xs font-bold text-(--text-1)">
                 {authorInitials(authorName, authorUsername)}
               </div>
               <span className="truncate text-xs text-(--text-2)">
@@ -196,7 +187,7 @@ export default function KnowledgeCard({ entry, locale }: KnowledgeCardProps) {
             </div>
 
             {/* Meta: read time · votes · comments · date */}
-            <div className="flex shrink-0 items-center gap-3 text-xs text-(--text-2)">
+            <div className="flex shrink-0 items-center gap-3 text-xs text-(--text-3)">
               {readTimeMins != null && (
                 <span className="flex items-center gap-1">
                   <ClockIcon />

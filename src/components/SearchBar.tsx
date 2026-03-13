@@ -168,7 +168,7 @@ export default function SearchBar() {
                 onKeyDown={handleKeyDown}
                 onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true); }}
                 placeholder={t("placeholder")}
-                className="h-8 w-full rounded-lg border border-white/20 bg-white/40 px-3 text-sm text-(--text-1) placeholder:text-(--text-2) outline-none backdrop-blur-md transition-colors focus:border-blue-400 dark:border-white/10 dark:bg-white/5"
+                className="h-8 w-full rounded-md border border-(--border) bg-(--bg-surface) px-3 text-sm text-(--text-1) placeholder:text-(--text-3) outline-none transition-colors focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
               />
             </motion.div>
           )}
@@ -182,15 +182,15 @@ export default function SearchBar() {
               setTimeout(() => inputRef.current?.focus(), 100);
             }
           }}
-          className="flex items-center gap-1.5 rounded-lg p-2 text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+          className="flex items-center gap-1.5 rounded-md p-2 text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
           aria-label={t("title")}
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
           {!isOpen && (
-            <kbd className="hidden rounded border border-(--border) px-1.5 py-0.5 text-[10px] font-medium text-(--text-2) lg:inline-block">
-              {t("shortcut")}
+            <kbd className="hidden rounded border border-(--border) bg-(--bg-elevated) px-1.5 py-0.5 text-[10px] font-mono font-medium text-(--text-3) lg:inline-block">
+              ⌘K
             </kbd>
           )}
         </button>
@@ -202,7 +202,7 @@ export default function SearchBar() {
           setIsOpen(!isOpen);
           if (!isOpen) setTimeout(() => inputRef.current?.focus(), 100);
         }}
-        className="rounded-lg p-2 text-(--text-2) hover:bg-(--surface-hover) md:hidden"
+        className="rounded-md p-2 text-(--text-2) hover:bg-(--bg-elevated) md:hidden"
         aria-label={t("title")}
       >
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -228,7 +228,7 @@ export default function SearchBar() {
               onKeyDown={handleKeyDown}
               onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true); }}
               placeholder={t("placeholder")}
-              className="h-10 w-full rounded-xl border border-white/20 bg-white/80 px-4 text-sm text-(--text-1) placeholder:text-(--text-2) shadow-lg outline-none backdrop-blur-xl focus:border-blue-400 dark:border-white/10 dark:bg-slate-900/90"
+              className="h-10 w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 text-sm text-(--text-1) placeholder:text-(--text-3) shadow-lg outline-none transition-colors focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             />
           </motion.div>
         )}
@@ -242,7 +242,7 @@ export default function SearchBar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-            className="absolute right-0 top-full z-50 mt-2 w-80 max-h-80 overflow-y-auto rounded-2xl border border-white/20 bg-white/80 p-2 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/90"
+            className="absolute right-0 top-full z-50 mt-2 w-80 max-h-80 overflow-y-auto rounded-lg border border-(--border) bg-(--bg-surface) p-2 shadow-lg"
           >
             {suggestions.map((item, idx) => (
               <button
@@ -253,10 +253,10 @@ export default function SearchBar() {
                   setIsOpen(false);
                 }}
                 onMouseEnter={() => setActiveIndex(idx)}
-                className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
+                className={`flex w-full items-start gap-3 rounded-md px-3 py-2.5 text-left transition-colors ${
                   idx === activeIndex
-                    ? "bg-blue-50 dark:bg-blue-900/20"
-                    : "hover:bg-black/5 dark:hover:bg-white/5"
+                    ? "bg-(--accent-muted)"
+                    : "hover:bg-(--bg-elevated)"
                 }`}
               >
                 <span className="mt-0.5 text-(--text-2)">
@@ -274,7 +274,7 @@ export default function SearchBar() {
             ))}
             <button
               onClick={navigateToSearch}
-              className="mt-1 flex w-full items-center justify-center rounded-xl px-3 py-2 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20"
+              className="mt-1 flex w-full items-center justify-center rounded-md px-3 py-2 text-xs font-medium text-(--accent) transition-colors hover:bg-(--accent-muted)"
             >
               {t("viewAllResults")}
               <svg className="ml-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -283,7 +283,7 @@ export default function SearchBar() {
             </button>
             {isLoading && (
               <div className="flex justify-center py-2">
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-(--accent) border-t-transparent" />
               </div>
             )}
           </motion.div>

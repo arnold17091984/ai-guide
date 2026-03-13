@@ -37,25 +37,20 @@ function TeamSizeBadge({ size }: { size: number | null }) {
   if (!size) return null;
 
   let label: string;
-  let colorClass: string;
 
   if (size === 1) {
     label = "Solo";
-    colorClass = "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300";
   } else if (size <= 5) {
     label = `${size} people`;
-    colorClass = "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300";
   } else if (size <= 20) {
     label = `${size} people`;
-    colorClass = "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300";
   } else {
     label = `${size}+ people`;
-    colorClass = "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300";
   }
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${colorClass}`}
+      className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-mono bg-(--accent-muted) text-(--accent)"
     >
       {/* People icon */}
       <svg
@@ -85,25 +80,22 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
     <Link href={href} className="block">
       <motion.article
         whileHover={{
-          y: -6,
+          y: -2,
           transition: { duration: DURATION.normal, ease: EASE_APPLE },
         }}
         whileTap={{ scale: 0.98 }}
-        className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl transition-all duration-300 hover:border-violet-300/50 hover:shadow-xl hover:shadow-violet-500/15 dark:bg-white/5 dark:hover:border-violet-500/30 dark:hover:shadow-violet-500/10"
+        className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6 shadow-sm transition-all duration-300 hover:border-(--border-hover)"
       >
-        {/* Hover gradient overlay */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-br from-violet-500/8 via-purple-500/5 to-fuchsia-500/8" />
-
-        <div className="relative z-10 flex h-full flex-col">
+        <div className="flex h-full flex-col">
           {/* Top badges row */}
           <div className="mb-4 flex flex-wrap items-center gap-2">
             {study.categoryLabel && (
-              <span className="inline-flex items-center rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
+              <span className="inline-flex items-center rounded px-2 py-0.5 text-xs font-mono bg-(--accent-muted) text-(--accent)">
                 {study.categoryLabel}
               </span>
             )}
             {study.industry && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-(--surface-hover) px-2.5 py-0.5 text-xs font-medium text-(--text-2)">
+              <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-mono bg-(--bg-elevated) text-(--text-2)">
                 {/* Building icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +114,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
               </span>
             )}
             {study.isFeatured && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+              <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-mono bg-amber-500/10 text-amber-400">
                 {/* Star icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +131,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="mb-2 text-base font-semibold leading-snug text-(--text-1) line-clamp-2 group-hover:text-violet-700 dark:group-hover:text-violet-300 transition-colors duration-200">
+          <h3 className="mb-2 text-base font-semibold leading-snug text-(--text-1) line-clamp-2 transition-colors duration-200 group-hover:text-(--accent)">
             {study.title ?? "Untitled"}
           </h3>
 
@@ -154,7 +146,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
           <div className="mb-4">
             <TeamSizeBadge size={study.teamSize} />
             {study.projectDurationWeeks && (
-              <span className="ml-2 inline-flex items-center gap-1 text-xs text-(--text-2)">
+              <span className="ml-2 inline-flex items-center gap-1 text-xs text-(--text-3)">
                 {/* Clock icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -186,12 +178,12 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
                   loading="lazy"
                 />
               ) : (
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-violet-200 dark:bg-violet-800">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-(--bg-elevated)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="h-3.5 w-3.5 text-violet-600 dark:text-violet-300"
+                    className="h-3.5 w-3.5 text-(--text-3)"
                     aria-hidden="true"
                   >
                     <path
@@ -207,7 +199,7 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
               </span>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-(--text-2)">
+            <div className="flex items-center gap-3 text-xs text-(--text-3)">
               {/* Read time */}
               <span className="flex items-center gap-1">
                 <svg

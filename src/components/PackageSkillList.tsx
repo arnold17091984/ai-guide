@@ -124,14 +124,14 @@ export default function PackageSkillList({
 }: PackageSkillListProps) {
   if (skills.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-(--border) py-12 text-center">
+      <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed border-(--border) py-12 text-center">
         <p className="text-(--text-2)">No skills in this package yet.</p>
       </div>
     );
   }
 
   return (
-    <div className="divide-y divide-(--border) overflow-hidden rounded-2xl border border-(--border)">
+    <div className="divide-y divide-(--border) overflow-hidden rounded-lg border border-(--border)">
       {skills.map((skill, index) => (
         <motion.div
           key={skill.id}
@@ -142,7 +142,7 @@ export default function PackageSkillList({
             ease: EASE_APPLE,
             delay: index * 0.03,
           }}
-          className="flex items-center gap-4 bg-white/70 px-4 py-3 backdrop-blur-xl transition-colors hover:bg-(--surface-hover) dark:bg-white/5"
+          className="flex items-center gap-4 bg-(--bg-surface) px-4 py-3 transition-colors hover:bg-(--bg-elevated)"
         >
           {/* Drag handle (edit mode) */}
           {editMode && (
@@ -152,7 +152,7 @@ export default function PackageSkillList({
           )}
 
           {/* Order number */}
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-(--surface) text-xs font-semibold text-(--text-2)">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-(--bg-elevated) text-xs font-semibold text-(--text-2)">
             {index + 1}
           </span>
 
@@ -160,7 +160,7 @@ export default function PackageSkillList({
           <div className="min-w-0 flex-1">
             <Link
               href={`/${locale}/skills/${skill.slug}`}
-              className="text-sm font-medium text-(--text-1) transition-colors hover:text-(--primary)"
+              className="text-sm font-medium text-(--text-1) transition-colors hover:text-(--accent)"
             >
               {skill.name}
             </Link>
@@ -170,7 +170,7 @@ export default function PackageSkillList({
           </div>
 
           {/* Version */}
-          <span className="hidden shrink-0 rounded-full border border-(--border) bg-(--surface)/60 px-2 py-0.5 font-mono text-xs text-(--text-2) sm:inline">
+          <span className="hidden shrink-0 rounded border border-(--border) bg-(--bg-elevated) px-2 py-0.5 font-mono text-xs text-(--text-2) sm:inline">
             v{skill.currentVersion}
           </span>
 

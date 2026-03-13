@@ -11,16 +11,15 @@ import { EASE_APPLE } from "@/lib/motion";
 interface LevelDef {
   name: string;
   minScore: number;
-  color: string;
 }
 
 const LEVELS: LevelDef[] = [
-  { name: "Sage", minScore: 15000, color: "#ef4444" },
-  { name: "Master", minScore: 5000, color: "#f97316" },
-  { name: "Expert", minScore: 2000, color: "#a855f7" },
-  { name: "Practitioner", minScore: 500, color: "#3b82f6" },
-  { name: "Apprentice", minScore: 100, color: "#22c55e" },
-  { name: "Novice", minScore: 0, color: "#9ca3af" },
+  { name: "Sage", minScore: 15000 },
+  { name: "Master", minScore: 5000 },
+  { name: "Expert", minScore: 2000 },
+  { name: "Practitioner", minScore: 500 },
+  { name: "Apprentice", minScore: 100 },
+  { name: "Novice", minScore: 0 },
 ];
 
 function getLevel(reputation: number) {
@@ -81,7 +80,7 @@ export default function ProgressRing({
           fill="none"
           stroke="currentColor"
           strokeWidth={strokeWidth}
-          className="text-gray-200 dark:text-gray-700"
+          className="text-(--bg-elevated)"
         />
         {/* Progress ring */}
         <motion.circle
@@ -89,7 +88,7 @@ export default function ProgressRing({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke={level.color}
+          stroke="var(--accent)"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -98,13 +97,10 @@ export default function ProgressRing({
       </svg>
       {/* Center content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span
-          className="text-sm font-bold"
-          style={{ color: level.color }}
-        >
+        <span className="text-sm font-bold text-(--accent)">
           {level.name}
         </span>
-        <span className="text-xs text-(--text-2)">
+        <span className="text-xs text-(--text-3)">
           {reputation.toLocaleString()} XP
         </span>
       </div>

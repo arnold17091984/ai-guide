@@ -99,7 +99,7 @@ export default function CommentSection({
     <section aria-label="Comments" className="space-y-4">
       <h3 className="text-base font-semibold text-(--text-1)">
         Comments{" "}
-        <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-xs font-normal text-(--text-2)">
+        <span className="ml-1 rounded bg-(--bg-elevated) px-2 py-0.5 text-xs font-normal text-(--text-2)">
           {comments.filter((c) => !c.isDeleted).length}
         </span>
       </h3>
@@ -143,10 +143,10 @@ export default function CommentSection({
             placeholder="Add a comment..."
             disabled={isPending}
             className={[
-              "w-full resize-none rounded-xl border bg-white/5 px-4 py-3 text-sm",
-              "text-(--text-1) placeholder:text-(--text-2)",
-              "border-(--border) focus:border-cyan-400/60 focus:outline-none focus:ring-1 focus:ring-cyan-400/40",
-              "transition-colors duration-150 backdrop-blur-sm",
+              "w-full resize-none rounded-md border bg-(--bg-surface) px-4 py-3 text-sm",
+              "text-(--text-1) placeholder:text-(--text-3)",
+              "border-(--border) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20",
+              "transition-colors duration-150",
               isPending ? "opacity-60" : "",
             ].join(" ")}
           />
@@ -160,9 +160,9 @@ export default function CommentSection({
               type="submit"
               disabled={isPending}
               className={[
-                "rounded-lg px-4 py-2 text-sm font-medium transition-all duration-150",
-                "bg-cyan-500 text-white hover:bg-cyan-400",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500",
+                "rounded-md h-9 px-4 text-sm font-medium transition-all duration-150",
+                "bg-(--accent) text-black hover:bg-(--accent-hover)",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)",
                 isPending ? "cursor-wait opacity-60" : "cursor-pointer",
               ].join(" ")}
             >
@@ -223,7 +223,7 @@ function CommentCard({
 
   if (comment.isDeleted) {
     return (
-      <div className="rounded-xl border border-(--border) bg-white/3 px-4 py-3">
+      <div className="rounded-md border border-(--border) bg-(--bg-surface) px-4 py-3">
         <p className="text-sm italic text-(--text-2)">[deleted]</p>
       </div>
     );
@@ -236,10 +236,8 @@ function CommentCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-      className="relative overflow-hidden rounded-xl border border-(--border) bg-white/5 backdrop-blur-sm"
+      className="relative overflow-hidden rounded-md border border-(--border) bg-(--bg-surface)"
     >
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 rounded-xl bg-linear-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative z-10 px-4 py-3 space-y-2">
         {/* Header */}
@@ -254,7 +252,7 @@ function CommentCard({
                 className="h-6 w-6 rounded-full object-cover shrink-0"
               />
             ) : (
-              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500/20 text-xs font-semibold text-cyan-400">
+              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-(--accent-muted) text-xs font-semibold text-(--accent)">
                 {displayName.slice(0, 1).toUpperCase()}
               </div>
             )}
@@ -280,7 +278,7 @@ function CommentCard({
                       setEditBody(comment.body);
                       setEditing(true);
                     }}
-                    className="rounded px-1.5 py-0.5 text-xs text-(--text-2) hover:bg-white/10 hover:text-(--text-1) transition-colors"
+                    className="rounded px-1.5 py-0.5 text-xs text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1) transition-colors"
                   >
                     Edit
                   </button>
@@ -308,9 +306,9 @@ function CommentCard({
               maxLength={2000}
               disabled={isPending}
               className={[
-                "w-full resize-none rounded-lg border bg-white/5 px-3 py-2 text-sm",
+                "w-full resize-none rounded-md border bg-(--bg-surface) px-3 py-2 text-sm",
                 "text-(--text-1) border-(--border)",
-                "focus:border-cyan-400/60 focus:outline-none focus:ring-1 focus:ring-cyan-400/40",
+                "focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20",
                 "transition-colors duration-150",
               ].join(" ")}
             />
@@ -329,8 +327,8 @@ function CommentCard({
                 type="submit"
                 disabled={isPending}
                 className={[
-                  "rounded-lg px-3 py-1 text-xs font-medium",
-                  "bg-cyan-500 text-white hover:bg-cyan-400 transition-colors",
+                  "rounded-md px-3 py-1 text-xs font-medium",
+                  "bg-(--accent) text-black hover:bg-(--accent-hover) transition-colors",
                   isPending ? "opacity-60 cursor-wait" : "",
                 ].join(" ")}
               >

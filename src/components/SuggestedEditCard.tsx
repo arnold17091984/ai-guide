@@ -66,29 +66,26 @@ export default function SuggestedEditCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
-      className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-white/5 backdrop-blur-sm"
+      className="relative overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface)"
     >
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 rounded-xl bg-linear-to-br from-white/5 via-transparent to-transparent pointer-events-none" />
-
       <div className="relative z-10 p-4 space-y-3">
         {/* Header row */}
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div className="space-y-0.5 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-mono text-cyan-400/80 bg-cyan-500/10 rounded px-1.5 py-0.5">
+              <span className="text-xs font-mono text-(--accent) bg-(--accent-muted) rounded px-2 py-0.5">
                 {suggestion.field}
               </span>
               <StatusBadge status={status} />
             </div>
             {suggestion.summary && (
-              <p className="text-sm font-medium text-[var(--text-1)] mt-1">
+              <p className="text-sm font-medium text-(--text-1) mt-1">
                 {suggestion.summary}
               </p>
             )}
           </div>
 
-          <time className="text-xs text-[var(--text-2)] flex-shrink-0">
+          <time className="text-xs text-(--text-3) shrink-0">
             {suggestion.createdAt.toLocaleDateString(undefined, {
               month: "short",
               day: "numeric",
@@ -105,9 +102,9 @@ export default function SuggestedEditCard({
 
         {/* Rejection reason (on rejected suggestions) */}
         {status === "rejected" && suggestion.rejectionReason && (
-          <div className="rounded-lg border border-red-400/20 bg-red-500/5 px-3 py-2">
+          <div className="rounded-md border border-red-400/20 bg-red-500/5 px-3 py-2">
             <p className="text-xs font-medium text-red-400">Rejection reason</p>
-            <p className="text-sm text-[var(--text-2)] mt-0.5">
+            <p className="text-sm text-(--text-2) mt-0.5">
               {suggestion.rejectionReason}
             </p>
           </div>
@@ -115,7 +112,7 @@ export default function SuggestedEditCard({
 
         {/* Moderator actions */}
         {isMod && isPendingStatus && (
-          <div className="space-y-2 border-t border-[var(--border)] pt-3">
+          <div className="space-y-2 border-t border-(--border) pt-3">
             {!showRejectForm ? (
               <div className="flex items-center gap-2">
                 <ReviewButton
@@ -141,9 +138,9 @@ export default function SuggestedEditCard({
                   maxLength={500}
                   disabled={isPending}
                   className={[
-                    "w-full resize-none rounded-lg border bg-white/5 px-3 py-2 text-sm",
-                    "text-[var(--text-1)] placeholder:text-[var(--text-2)]",
-                    "border-[var(--border)] focus:border-red-400/60 focus:outline-none focus:ring-1 focus:ring-red-400/30",
+                    "w-full resize-none rounded-md border bg-(--bg-surface) px-3 py-2 text-sm",
+                    "text-(--text-1) placeholder:text-(--text-3)",
+                    "border-(--border) focus:border-red-400/60 focus:outline-none focus:ring-1 focus:ring-red-400/30",
                     "transition-colors",
                   ].join(" ")}
                 />
@@ -157,7 +154,7 @@ export default function SuggestedEditCard({
                   <button
                     type="button"
                     onClick={() => setShowRejectForm(false)}
-                    className="rounded px-3 py-1.5 text-xs text-[var(--text-2)] hover:text-[var(--text-1)] transition-colors"
+                    className="rounded-md px-3 py-1.5 text-xs text-(--text-2) hover:text-(--text-1) transition-colors"
                   >
                     Cancel
                   </button>
@@ -166,7 +163,7 @@ export default function SuggestedEditCard({
             )}
 
             {error && (
-              <p className="text-xs text-red-500">{friendlyError(error)}</p>
+              <p className="text-xs text-red-400">{friendlyError(error)}</p>
             )}
           </div>
         )}
@@ -180,14 +177,10 @@ export default function SuggestedEditCard({
 // ============================================================
 function StatusBadge({ status }: { status: SuggestionStatus }) {
   const styles: Record<SuggestionStatus, string> = {
-    pending:
-      "bg-amber-500/15 text-amber-400 border border-amber-400/30",
-    accepted:
-      "bg-emerald-500/15 text-emerald-400 border border-emerald-400/30",
-    rejected:
-      "bg-red-500/15 text-red-400 border border-red-400/30",
-    superseded:
-      "bg-white/10 text-[var(--text-2)] border border-[var(--border)]",
+    pending: "bg-amber-500/10 text-amber-400 border border-amber-400/30",
+    accepted: "bg-(--accent-muted) text-(--accent) border border-(--accent)/30",
+    rejected: "bg-red-500/10 text-red-400 border border-red-400/30",
+    superseded: "bg-(--bg-elevated) text-(--text-3) border border-(--border)",
   };
 
   const labels: Record<SuggestionStatus, string> = {
@@ -200,7 +193,7 @@ function StatusBadge({ status }: { status: SuggestionStatus }) {
   return (
     <span
       className={[
-        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
+        "inline-flex items-center rounded px-2 py-0.5 text-xs font-mono",
         styles[status],
       ].join(" ")}
     >
@@ -222,22 +215,22 @@ function DiffPanel({
   variant: "removed" | "added";
 }) {
   const borderColor =
-    variant === "removed" ? "border-red-400/20" : "border-emerald-400/20";
+    variant === "removed" ? "border-red-400/20" : "border-(--accent)/20";
   const bgColor =
-    variant === "removed" ? "bg-red-500/5" : "bg-emerald-500/5";
+    variant === "removed" ? "bg-red-500/5" : "bg-(--accent-muted)";
   const labelColor =
-    variant === "removed" ? "text-red-400" : "text-emerald-400";
+    variant === "removed" ? "text-red-400" : "text-(--accent)";
 
   // Truncate very long bodies for display
   const displayContent =
     content.length > 600 ? content.slice(0, 600) + "…" : content;
 
   return (
-    <div className={["rounded-lg border px-3 py-2 space-y-1", borderColor, bgColor].join(" ")}>
-      <p className={["text-xs font-semibold uppercase tracking-wide", labelColor].join(" ")}>
+    <div className={["rounded-md border px-3 py-2 space-y-1", borderColor, bgColor].join(" ")}>
+      <p className={["text-xs font-mono uppercase tracking-wider", labelColor].join(" ")}>
         {label}
       </p>
-      <p className="text-xs leading-relaxed text-[var(--text-2)] whitespace-pre-wrap font-mono break-words">
+      <p className="text-xs leading-relaxed text-(--text-2) whitespace-pre-wrap font-mono wrap-break-word">
         {displayContent}
       </p>
     </div>
@@ -259,11 +252,11 @@ function ReviewButton({
   onClick: () => void;
 }) {
   const base =
-    "rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2";
+    "rounded-md px-3 py-1.5 text-xs font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2";
   const styles =
     variant === "approve"
-      ? "bg-emerald-500 text-white hover:bg-emerald-400 focus-visible:ring-emerald-500"
-      : "bg-red-500/80 text-white hover:bg-red-400 focus-visible:ring-red-500";
+      ? "bg-(--accent) text-black hover:bg-(--accent-hover) focus-visible:ring-(--accent)"
+      : "border border-red-500/30 text-red-400 hover:bg-red-500/10 focus-visible:ring-red-500";
 
   return (
     <motion.button

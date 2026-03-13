@@ -7,7 +7,7 @@ import { EASE_APPLE, DURATION } from "@/lib/motion";
 // ============================================================
 // PackageCard
 // ============================================================
-// Glassmorphism card for skill package listings.
+// Terminal Native card for skill package listings.
 
 export interface PackageCardEntry {
   id: string;
@@ -152,26 +152,23 @@ export default function PackageCard({ entry, locale }: PackageCardProps) {
     <Link href={href} className="group block h-full focus:outline-none">
       <motion.article
         whileHover={{
-          y: -5,
+          y: -2,
           transition: { duration: DURATION.normal, ease: EASE_APPLE },
         }}
         whileTap={{ scale: 0.98 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-emerald-300/50 hover:shadow-lg hover:shadow-emerald-500/10 dark:bg-white/5 dark:hover:border-teal-500/30 dark:hover:shadow-teal-500/10"
+        className="relative flex h-full flex-col overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-5 shadow-sm transition-all duration-300 hover:border-(--border-hover)"
       >
-        {/* Hover gradient overlay */}
-        <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-br from-emerald-500/8 via-teal-500/4 to-cyan-500/8" />
-
-        <div className="relative z-10 flex h-full flex-col gap-3">
+        <div className="flex h-full flex-col gap-3">
           {/* --- Icon + Name row --- */}
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-emerald-400 to-teal-500 text-white">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-(--accent) text-black">
               <PackageIcon />
             </div>
             <div className="min-w-0 flex-1">
-              <h2 className="line-clamp-1 text-base font-semibold leading-snug text-(--text-1) transition-colors group-hover:text-(--primary)">
+              <h2 className="line-clamp-1 text-base font-semibold leading-snug text-(--text-1) transition-colors group-hover:text-(--accent)">
                 {name}
               </h2>
-              <p className="mt-0.5 text-xs text-(--text-2)">
+              <p className="mt-0.5 text-xs text-(--text-3) font-mono">
                 {skillCount} skills
               </p>
             </div>
@@ -190,13 +187,13 @@ export default function PackageCard({ entry, locale }: PackageCardProps) {
               {tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-(--border) bg-(--surface)/60 px-2 py-0.5 text-xs text-(--text-2)"
+                  className="rounded border border-(--border) px-2 py-0.5 text-xs font-mono text-(--text-3)"
                 >
                   {tag}
                 </span>
               ))}
               {tags.length > 3 && (
-                <span className="rounded-full border border-(--border) bg-(--surface)/60 px-2 py-0.5 text-xs text-(--text-2)">
+                <span className="rounded border border-(--border) px-2 py-0.5 text-xs font-mono text-(--text-3)">
                   +{tags.length - 3}
                 </span>
               )}
@@ -207,7 +204,7 @@ export default function PackageCard({ entry, locale }: PackageCardProps) {
           <div className="mt-auto flex items-center justify-between gap-2 border-t border-(--border) pt-3">
             {/* Author */}
             <div className="flex min-w-0 items-center gap-2">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-emerald-400 to-teal-500 text-xs font-bold text-white">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-(--bg-elevated) text-xs font-bold text-(--text-1)">
                 {authorInitials(authorName, authorUsername)}
               </div>
               <span className="truncate text-xs text-(--text-2)">
@@ -216,7 +213,7 @@ export default function PackageCard({ entry, locale }: PackageCardProps) {
             </div>
 
             {/* Stats */}
-            <div className="flex shrink-0 items-center gap-3 text-xs text-(--text-2)">
+            <div className="flex shrink-0 items-center gap-3 text-xs text-(--text-3)">
               <span className="flex items-center gap-1">
                 <StarIcon />
                 {formatCount(starCount)}

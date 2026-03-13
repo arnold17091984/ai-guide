@@ -11,7 +11,7 @@ const SIZE_MAP = {
 } as const;
 
 /**
- * LoadingSpinner — glassmorphism-styled spinner with optional label.
+ * LoadingSpinner — terminal-native spinner with accent color.
  *
  * Server Component — no client JS needed.
  * Use inside <Suspense> fallbacks or full-page loading states.
@@ -43,7 +43,7 @@ export default function LoadingSpinner({
             r="20"
             stroke="currentColor"
             strokeWidth="4"
-            className="text-slate-200 dark:text-white/10"
+            className="text-white/10"
           />
         </svg>
 
@@ -59,22 +59,16 @@ export default function LoadingSpinner({
             cx="24"
             cy="24"
             r="20"
-            stroke="url(#spinner-grad)"
+            stroke="var(--accent)"
             strokeWidth="4"
             strokeLinecap="round"
             strokeDasharray="31.4 94.2"
           />
-          <defs>
-            <linearGradient id="spinner-grad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#3b82f6" />
-              <stop offset="100%" stopColor="#06b6d4" />
-            </linearGradient>
-          </defs>
         </svg>
       </div>
 
       {label && (
-        <span className={`${s.text} font-medium text-slate-500 dark:text-slate-400`}>
+        <span className={`${s.text} font-mono text-(--text-3)`}>
           {label}
         </span>
       )}

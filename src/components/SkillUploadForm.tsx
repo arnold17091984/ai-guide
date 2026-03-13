@@ -71,7 +71,7 @@ function PublishSuccessBanner({
       variants={fadeUp}
       initial="hidden"
       animate="visible"
-      className={`rounded-2xl border p-6 ${
+      className={`rounded-lg border p-6 ${
         isQuarantined
           ? "border-amber-500/30 bg-amber-500/10"
           : "border-green-500/30 bg-green-500/10"
@@ -105,7 +105,7 @@ function PublishSuccessBanner({
       <button
         type="button"
         onClick={onReset}
-        className="mt-4 rounded-lg border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-(--text-1) transition-colors hover:bg-white/15"
+        className="mt-4 rounded-md border border-(--border) bg-transparent h-9 px-4 text-sm font-medium text-(--text-1) transition-colors hover:bg-(--bg-elevated)"
       >
         Upload another skill
       </button>
@@ -255,12 +255,12 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onClick={() => !fileContent && fileInputRef.current?.click()}
-              className={`relative flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed p-10 text-center transition-all duration-200 ${
+              className={`relative flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed p-10 text-center transition-all duration-200 ${
                 isDragging
-                  ? "border-cyan-400/60 bg-cyan-500/10"
+                  ? "border-(--accent)/60 bg-(--accent-muted)"
                   : fileContent
-                  ? "border-white/20 bg-white/5 cursor-default"
-                  : "cursor-pointer border-white/20 bg-white/5 hover:border-cyan-400/40 hover:bg-cyan-500/5"
+                  ? "border-(--border) bg-(--bg-surface) cursor-default"
+                  : "cursor-pointer border-(--border) bg-(--bg-surface) hover:border-(--accent)/40 hover:bg-(--bg-elevated)"
               }`}
             >
               <input
@@ -275,7 +275,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                 <>
                   {/* File selected state */}
                   <div className="flex items-center gap-3">
-                    <svg className="h-8 w-8 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="h-8 w-8 text-(--accent)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
                       <line x1="16" y1="13" x2="8" y2="13" />
@@ -293,7 +293,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                   <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); handleReset(); }}
-                    className="absolute right-4 top-4 rounded-lg p-1.5 text-(--text-2) transition-colors hover:bg-white/10 hover:text-(--text-1)"
+                    className="absolute right-4 top-4 rounded-md p-1.5 text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
                   >
                     <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
@@ -306,7 +306,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                   <div>
                     <p className="font-semibold text-(--text-1)">
                       Drop your skill file here, or{" "}
-                      <span className="text-cyan-400 underline decoration-dashed underline-offset-2">
+                      <span className="text-(--accent) underline decoration-dashed underline-offset-2">
                         browse
                       </span>
                     </p>
@@ -327,7 +327,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                   className="mt-3 overflow-hidden"
                 >
                   <details className="group">
-                    <summary className="cursor-pointer select-none rounded-lg px-3 py-2 text-xs font-medium text-(--text-2) hover:bg-white/5 hover:text-(--text-1) transition-colors list-none flex items-center gap-2">
+                    <summary className="cursor-pointer select-none rounded-md px-3 py-2 text-xs font-medium text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1) transition-colors list-none flex items-center gap-2">
                       <svg
                         className="h-3.5 w-3.5 transition-transform duration-150 group-open:rotate-90"
                         viewBox="0 0 20 20"
@@ -337,7 +337,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                       </svg>
                       Preview file contents
                     </summary>
-                    <pre className="mt-2 max-h-64 overflow-auto rounded-xl border border-white/10 bg-black/30 p-4 font-mono text-xs text-(--text-1) leading-relaxed">
+                    <pre className="mt-2 max-h-64 overflow-auto rounded-lg border border-(--border) bg-(--bg-surface) p-4 font-mono text-xs text-(--text-1) leading-relaxed">
                       <code>{fileContent}</code>
                     </pre>
                   </details>
@@ -360,7 +360,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                     type="button"
                     disabled={busy}
                     onClick={handleValidate}
-                    className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-semibold text-(--text-1) transition-all hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-md border border-(--border) bg-transparent h-9 px-5 text-sm font-medium text-(--text-1) transition-all hover:bg-(--bg-elevated) disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isValidating ? (
                       <>
@@ -384,7 +384,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
                       type="button"
                       disabled={busy}
                       onClick={handlePublish}
-                      className="flex items-center gap-2 rounded-xl bg-linear-to-r from-cyan-500 to-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-cyan-500/25 transition-all hover:from-cyan-400 hover:to-blue-400 hover:shadow-cyan-500/40 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex items-center gap-2 rounded-md bg-(--accent) h-9 px-5 text-sm font-medium text-black transition-all hover:bg-(--accent-hover) disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {isPublishing ? (
                         <>
@@ -420,7 +420,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
             transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
           >
             {result.kind === "error" && (
-              <div className="flex items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400">
+              <div className="flex items-start gap-3 rounded-md border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400">
                 <svg className="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clipRule="evenodd" />
                 </svg>
@@ -434,7 +434,7 @@ export default function SkillUploadForm({ showPublish = true }: { showPublish?: 
 
             {result.kind === "publish-blocked" && (
               <div className="space-y-4">
-                <div className="flex items-start gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-400">
+                <div className="flex items-start gap-3 rounded-md border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-400">
                   <svg className="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                   </svg>

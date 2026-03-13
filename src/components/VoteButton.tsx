@@ -105,7 +105,7 @@ export default function VoteButton({
           className={[
             "min-w-[2rem] text-center text-sm font-semibold tabular-nums",
             score > 0
-              ? "text-cyan-600 dark:text-cyan-400"
+              ? "text-(--accent)"
               : score < 0
                 ? "text-red-500 dark:text-red-400"
                 : "text-[var(--text-2)]",
@@ -159,12 +159,12 @@ function ArrowButton({
       transition={{ type: "spring", stiffness: 500, damping: 20 }}
       className={[
         "flex h-8 w-8 items-center justify-center rounded-lg border transition-colors duration-150",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)",
         active
           ? isUp
-            ? "border-cyan-400/60 bg-cyan-500/15 text-cyan-500 dark:border-cyan-400/50 dark:bg-cyan-500/20 dark:text-cyan-400"
-            : "border-red-400/60 bg-red-500/15 text-red-500 dark:border-red-400/50 dark:bg-red-500/20 dark:text-red-400"
-          : "border-[var(--border)] bg-transparent text-[var(--text-2)] hover:border-[var(--primary)] hover:text-[var(--primary)]",
+            ? "border-(--accent)/60 bg-(--accent-muted) text-(--accent)"
+            : "border-red-400/60 bg-red-500/15 text-red-400"
+          : "border-(--border) bg-transparent text-(--text-2) hover:border-(--accent) hover:text-(--accent)",
         loading ? "cursor-wait opacity-60" : "cursor-pointer",
       ].join(" ")}
     >

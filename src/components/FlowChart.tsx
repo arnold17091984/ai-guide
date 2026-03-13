@@ -1,6 +1,6 @@
 interface FlowStep {
   label: string;
-  color: string;
+  color?: string;
 }
 
 interface FlowChartProps {
@@ -13,13 +13,13 @@ export default function FlowChart({ steps }: FlowChartProps) {
       {steps.map((step, index) => (
         <div key={index} className="flex items-center gap-3">
           <div
-            className={`rounded-xl px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-transform hover:scale-105 ${step.color}`}
+            className={`rounded-lg border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm font-mono text-(--text-1) transition-transform hover:scale-105 hover:border-(--border-hover) hover:bg-(--bg-elevated) ${step.color ?? ""}`}
           >
             {step.label}
           </div>
           {index < steps.length - 1 && (
             <svg
-              className="h-5 w-5 shrink-0 text-(--text-2)"
+              className="h-5 w-5 shrink-0 text-(--text-3)"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

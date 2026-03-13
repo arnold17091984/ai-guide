@@ -20,7 +20,7 @@ export default function ContentRenderer({ content }: ContentRendererProps) {
         ) : (
           <div
             key={index}
-            className="whitespace-pre-line text-sm leading-relaxed text-(--text-1)"
+            className="whitespace-pre-line text-sm leading-relaxed text-(--text-2)"
           >
             {part.text}
           </div>

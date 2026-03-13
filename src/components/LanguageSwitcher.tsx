@@ -25,10 +25,10 @@ export default function LanguageSwitcher() {
   const activeIndex = languages.findIndex((l) => l.code === locale);
 
   return (
-    <div className="relative flex items-center rounded-xl bg-(--surface) p-1 border border-(--border)">
+    <div className="relative flex items-center rounded-md bg-(--bg-elevated) p-1 border border-(--border)">
       {/* Sliding indicator */}
       <motion.div
-        className="absolute top-1 bottom-1 rounded-lg bg-(--primary)"
+        className="absolute top-1 bottom-1 rounded-md bg-(--accent)"
         animate={{
           left: `calc(${activeIndex} * 33.333% + 4px)`,
           width: "calc(33.333% - 8px)",
@@ -39,9 +39,9 @@ export default function LanguageSwitcher() {
         <button
           key={lang.code}
           onClick={() => switchLocale(lang.code)}
-          className={`relative z-10 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+          className={`relative z-10 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
             locale === lang.code
-              ? "text-white"
+              ? "text-black"
               : "text-(--text-2) hover:text-(--text-1)"
           }`}
         >

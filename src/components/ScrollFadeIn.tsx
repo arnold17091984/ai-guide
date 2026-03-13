@@ -25,7 +25,7 @@ export default function ScrollFadeIn({
           opacity: 1,
           y: 0,
           transition: {
-            duration: DURATION.medium,
+            duration: DURATION.normal,
             ease: EASE_APPLE,
             delay,
           },

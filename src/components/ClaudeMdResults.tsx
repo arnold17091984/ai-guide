@@ -23,7 +23,7 @@ function SectionCard({ children, delay = 0 }: { children: React.ReactNode; delay
   return (
     <motion.div
       {...fadeUp(delay)}
-      className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
+      className="rounded-lg border border-(--border) bg-(--bg-surface) p-6"
     >
       {children}
     </motion.div>
@@ -40,12 +40,12 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function PriorityBadge({ priority }: { priority: ClaudeMdImprovement["priority"] }) {
   const styles = {
-    high: "bg-red-500/15 text-red-400 ring-1 ring-red-500/30",
-    medium: "bg-yellow-500/15 text-yellow-400 ring-1 ring-yellow-500/30",
-    low: "bg-blue-500/15 text-blue-400 ring-1 ring-blue-500/30",
+    high: "bg-red-500/10 text-red-400",
+    medium: "bg-amber-500/10 text-amber-400",
+    low: "bg-zinc-500/10 text-zinc-400",
   };
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${styles[priority]}`}>
+    <span className={`inline-block rounded px-2 py-0.5 text-xs font-mono ${styles[priority]}`}>
       {priority}
     </span>
   );
@@ -118,7 +118,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                 transition={{ duration: DURATION.fast, ease: EASE_APPLE, delay: 0.1 + i * 0.04 }}
                 className="flex items-center gap-3 text-sm"
               >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-(--accent-muted) text-(--accent)">
                   <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
@@ -148,7 +148,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: DURATION.fast, ease: EASE_APPLE, delay: 0.2 + i * 0.05 }}
-                className="rounded-xl border border-white/8 bg-white/3 p-4"
+                className="rounded-lg border border-(--border) bg-(--bg-elevated) p-4"
               >
                 <div className="mb-2 flex flex-wrap items-center gap-2">
                   <PriorityBadge priority={imp.priority} />
@@ -157,10 +157,10 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                 <p className="text-sm text-(--text-1)">{imp.suggestion}</p>
                 {imp.exampleContent && (
                   <details className="mt-3">
-                    <summary className="cursor-pointer text-xs font-medium text-blue-400 hover:text-blue-300">
+                    <summary className="cursor-pointer text-xs font-medium text-(--accent) hover:text-(--accent-hover)">
                       {labels.exampleContent}
                     </summary>
-                    <pre className="mt-2 overflow-x-auto rounded-lg bg-black/30 p-3 text-xs text-green-300">
+                    <pre className="mt-2 overflow-x-auto rounded-lg bg-(--bg-base) p-3 text-xs text-(--accent) font-mono">
                       {imp.exampleContent}
                     </pre>
                   </details>
@@ -184,7 +184,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: DURATION.fast, ease: EASE_APPLE, delay: 0.25 + i * 0.05 }}
-                className="rounded-xl border border-red-500/20 bg-red-500/5 p-4"
+                className="rounded-lg border border-red-500/20 bg-red-500/5 p-4"
               >
                 <div className="mb-3 flex flex-col gap-2">
                   <div className="flex items-start gap-2 text-sm">
@@ -231,7 +231,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                 transition={{ duration: DURATION.fast, delay: 0.3 + Math.min(i * 0.02, 0.5) }}
                 className="flex items-start gap-3 text-sm"
               >
-                <span className="mt-0.5 shrink-0 rounded bg-white/8 px-1.5 py-0.5 text-xs font-mono text-(--text-2)">
+                <span className="mt-0.5 shrink-0 rounded bg-(--bg-elevated) px-1.5 py-0.5 text-xs font-mono text-(--text-2)">
                   {labels.line} {rule.lineNumber}
                 </span>
                 <span className="text-(--text-1)">{rule.text}</span>
@@ -247,7 +247,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
           <SectionHeading>{labels.template}</SectionHeading>
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-blue-500/20 px-3 py-1 text-sm font-semibold text-blue-300">
+              <span className="rounded bg-(--accent-muted) px-3 py-1 text-sm font-mono font-semibold text-(--accent)">
                 {templateComparison.templateName}
               </span>
               <span className="text-sm text-(--text-2)">
@@ -264,7 +264,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                   {templateComparison.missingSections.map((s) => (
                     <span
                       key={s}
-                      className="rounded-full border border-yellow-500/30 bg-yellow-500/10 px-2.5 py-0.5 text-xs text-yellow-300"
+                      className="rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-xs font-mono text-amber-400"
                     >
                       {s}
                     </span>
@@ -282,7 +282,7 @@ export default function ClaudeMdResults({ analysis, labels }: ClaudeMdResultsPro
                   {templateComparison.extraSections.map((s) => (
                     <span
                       key={s}
-                      className="rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-0.5 text-xs text-green-300"
+                      className="rounded border border-(--accent)/30 bg-(--accent-muted) px-2 py-0.5 text-xs font-mono text-(--accent)"
                     >
                       {s}
                     </span>

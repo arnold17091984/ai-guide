@@ -19,19 +19,19 @@ export default function DashboardWidget({
 }: DashboardWidgetProps) {
   return (
     <div
-      className={`overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5 ${className}`}
+      className={`overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6 ${className}`}
     >
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-(--text-1)">{title}</h3>
+        <h3 className="text-sm font-mono font-medium uppercase tracking-wider text-(--text-3)">{title}</h3>
         {viewAllHref && (
           <Link
             href={viewAllHref}
-            className="flex items-center gap-1 text-sm font-medium text-(--primary) transition-colors hover:opacity-80"
+            className="flex items-center gap-1 text-xs font-medium text-(--accent) transition-colors hover:text-(--accent-hover)"
           >
             {viewAllLabel ?? "View all"}
             <svg
-              className="h-4 w-4"
+              className="h-3.5 w-3.5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -58,10 +58,10 @@ function DashboardWidgetSkeleton() {
     <div className="space-y-3">
       {Array.from({ length: 3 }).map((_, i) => (
         <div key={i} className="flex items-center gap-3">
-          <div className="h-10 w-10 animate-pulse rounded-lg bg-(--border)" />
+          <div className="h-10 w-10 animate-pulse rounded-md bg-(--bg-elevated)" />
           <div className="flex-1 space-y-2">
-            <div className="h-4 w-3/4 animate-pulse rounded bg-(--border)" />
-            <div className="h-3 w-1/2 animate-pulse rounded bg-(--border)" />
+            <div className="h-4 w-3/4 animate-pulse rounded-md bg-(--bg-elevated)" />
+            <div className="h-3 w-1/2 animate-pulse rounded-md bg-(--bg-elevated)" />
           </div>
         </div>
       ))}

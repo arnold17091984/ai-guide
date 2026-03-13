@@ -31,7 +31,7 @@ export default function GuideImage({ src, alt, caption }: GuideImageProps) {
     <>
       <figure className="my-4">
         <div
-          className="cursor-zoom-in overflow-hidden rounded-xl border border-(--border) bg-(--surface) transition-shadow hover:shadow-lg"
+          className="cursor-zoom-in overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) transition-all hover:border-(--border-hover) hover:shadow-md"
           onClick={() => setIsOpen(true)}
         >
           <Image
@@ -43,7 +43,7 @@ export default function GuideImage({ src, alt, caption }: GuideImageProps) {
           />
         </div>
         {caption && (
-          <figcaption className="mt-2 text-center text-xs text-(--text-2)">
+          <figcaption className="mt-2 text-center text-xs text-(--text-3)">
             {caption}
           </figcaption>
         )}
@@ -59,7 +59,7 @@ export default function GuideImage({ src, alt, caption }: GuideImageProps) {
         >
           <button
             onClick={close}
-            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+            className="absolute top-4 right-4 rounded-md border border-(--border) bg-(--bg-elevated) p-2 text-(--text-2) hover:border-(--border-hover) hover:text-(--text-1)"
             aria-label="Close"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

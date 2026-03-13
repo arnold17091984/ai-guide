@@ -13,13 +13,12 @@ export default function SkipToContent() {
         "sr-only",
         // Reveal on focus (keyboard navigation)
         "focus:not-sr-only",
-        "focus:fixed focus:left-4 focus:top-4 focus:z-[9999]",
+        "focus:fixed focus:left-4 focus:top-4 focus:z-9999",
         "focus:inline-flex focus:items-center focus:gap-2",
-        "focus:rounded-xl focus:border focus:border-blue-400/50",
-        "focus:bg-white/90 focus:px-4 focus:py-2 focus:text-sm focus:font-medium",
-        "focus:text-blue-700 focus:shadow-lg focus:shadow-blue-500/20",
-        "focus:backdrop-blur-xl focus:outline-none",
-        "dark:focus:border-cyan-500/50 dark:focus:bg-slate-900/90 dark:focus:text-cyan-400",
+        "focus:rounded-md focus:border focus:border-(--accent)/50",
+        "focus:bg-(--bg-surface) focus:px-4 focus:py-2 focus:text-sm focus:font-medium",
+        "focus:text-(--accent) focus:shadow-lg",
+        "focus:outline-none focus:ring-1 focus:ring-(--accent)/20",
       ].join(" ")}
     >
       Skip to main content

@@ -8,7 +8,7 @@ import type { SkillCategory } from "@/lib/skill-registry/types";
 // ============================================================
 // SkillCard
 // ============================================================
-// Glassmorphism card for the skill registry browse page.
+// Terminal Native card for the skill registry browse page.
 // Displays name, description, category badge, version,
 // star count, download count, and author.
 // ============================================================
@@ -33,30 +33,20 @@ interface SkillCardProps {
 }
 
 // ---------------------------------------------------------------------------
-// Category badge colors
+// Category badge colors — unified to accent-muted pattern
 // ---------------------------------------------------------------------------
 
 const CATEGORY_STYLES: Record<string, string> = {
-  workflow:
-    "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  "code-generation":
-    "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  testing:
-    "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
-  documentation:
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  security:
-    "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  devops:
-    "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
-  refactoring:
-    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
-  debugging:
-    "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
-  review:
-    "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
-  other:
-    "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+  workflow: "bg-(--accent-muted) text-(--accent)",
+  "code-generation": "bg-(--accent-muted) text-(--accent)",
+  testing: "bg-(--accent-muted) text-(--accent)",
+  documentation: "bg-amber-500/10 text-amber-400",
+  security: "bg-red-500/10 text-red-400",
+  devops: "bg-(--accent-muted) text-(--accent)",
+  refactoring: "bg-(--accent-muted) text-(--accent)",
+  debugging: "bg-amber-500/10 text-amber-400",
+  review: "bg-(--accent-muted) text-(--accent)",
+  other: "bg-(--bg-elevated) text-(--text-2)",
 };
 
 const SKILL_CATEGORIES: SkillCategory[] = [
@@ -167,32 +157,29 @@ export default function SkillCard({ entry, locale }: SkillCardProps) {
     <Link href={href} className="group block h-full focus:outline-none">
       <motion.article
         whileHover={{
-          y: -5,
+          y: -2,
           transition: { duration: DURATION.normal, ease: EASE_APPLE },
         }}
         whileTap={{ scale: 0.98 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-blue-300/50 hover:shadow-lg hover:shadow-blue-500/10 dark:bg-white/5 dark:hover:border-cyan-500/30 dark:hover:shadow-cyan-500/10"
+        className="relative flex h-full flex-col overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-5 shadow-sm transition-all duration-300 hover:border-(--border-hover)"
       >
-        {/* Hover gradient overlay */}
-        <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-linear-to-br from-blue-500/8 via-cyan-500/4 to-teal-500/8" />
-
-        <div className="relative z-10 flex h-full flex-col gap-3">
+        <div className="flex h-full flex-col gap-3">
           {/* --- Badge row --- */}
           <div className="flex flex-wrap items-center gap-2">
             {category && (
               <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_STYLES[category] ?? CATEGORY_STYLES.other}`}
+                className={`rounded px-2 py-0.5 text-xs font-mono ${CATEGORY_STYLES[category] ?? CATEGORY_STYLES.other}`}
               >
                 {category}
               </span>
             )}
-            <span className="ml-auto rounded-full border border-(--border) bg-(--surface)/60 px-2 py-0.5 font-mono text-xs text-(--text-2)">
+            <span className="ml-auto rounded border border-(--border) px-2 py-0.5 font-mono text-xs text-(--text-3)">
               v{currentVersion}
             </span>
           </div>
 
           {/* --- Name --- */}
-          <h2 className="line-clamp-1 text-base font-semibold leading-snug text-(--text-1) transition-colors group-hover:text-(--primary)">
+          <h2 className="line-clamp-1 text-base font-semibold leading-snug text-(--text-1) transition-colors group-hover:text-(--accent)">
             {name}
           </h2>
 
@@ -207,7 +194,7 @@ export default function SkillCard({ entry, locale }: SkillCardProps) {
           <div className="mt-auto flex items-center justify-between gap-2 border-t border-(--border) pt-3">
             {/* Author */}
             <div className="flex min-w-0 items-center gap-2">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-400 to-cyan-500 text-xs font-bold text-white">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-(--bg-elevated) text-xs font-bold text-(--text-1)">
                 {authorInitials(authorName, authorUsername)}
               </div>
               <span className="truncate text-xs text-(--text-2)">
@@ -216,7 +203,7 @@ export default function SkillCard({ entry, locale }: SkillCardProps) {
             </div>
 
             {/* Stats: stars + downloads */}
-            <div className="flex shrink-0 items-center gap-3 text-xs text-(--text-2)">
+            <div className="flex shrink-0 items-center gap-3 text-xs text-(--text-3)">
               <span className="flex items-center gap-1">
                 <StarIcon filled />
                 {formatCount(stars)}

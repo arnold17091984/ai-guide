@@ -95,7 +95,7 @@ function getNotificationColor(type: string) {
     case "edit_rejected":
       return "text-red-500";
     case "mention":
-      return "text-blue-500";
+      return "text-(--info)";
     case "system":
     default:
       return "text-(--text-2)";
@@ -216,7 +216,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={t("title")}
-        className="relative flex h-9 w-9 items-center justify-center rounded-full border border-(--border) bg-(--surface) text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--primary)"
+        className="relative flex h-9 w-9 items-center justify-center rounded-full border border-(--border) bg-(--bg-surface) text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)"
       >
         <svg
           className="h-5 w-5"
@@ -251,7 +251,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -6 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-            className="absolute right-0 z-50 mt-2 w-80 origin-top-right overflow-hidden rounded-2xl border border-(--border) bg-(--surface)/90 shadow-xl shadow-black/10 backdrop-blur-2xl sm:w-96"
+            className="absolute right-0 z-50 mt-2 w-80 origin-top-right overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) shadow-lg sm:w-96"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-(--border) px-4 py-3">
@@ -261,7 +261,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
               {unreadCount > 0 && (
                 <button
                   onClick={() => void handleMarkAllRead()}
-                  className="text-xs font-medium text-(--primary) hover:underline"
+                  className="text-xs font-medium text-(--accent) hover:underline"
                 >
                   {t("markAllRead")}
                 </button>
@@ -272,7 +272,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             <div className="max-h-96 overflow-y-auto">
               {loading ? (
                 <div className="flex items-center justify-center py-8">
-                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--border) border-t-(--primary)" />
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-(--border) border-t-(--accent)" />
                 </div>
               ) : items.length === 0 ? (
                 <div className="flex flex-col items-center gap-2 py-8 text-(--text-2)">
@@ -296,8 +296,8 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                   <button
                     key={item.id}
                     onClick={() => void handleNotificationClick(item)}
-                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-(--surface-hover) ${
-                      !item.isRead ? "bg-blue-500/5" : ""
+                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-(--bg-elevated) ${
+                      !item.isRead ? "bg-(--accent-muted)" : ""
                     }`}
                   >
                     <div
@@ -323,7 +323,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                       </p>
                     </div>
                     {!item.isRead && (
-                      <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
+                      <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-(--accent)" />
                     )}
                   </button>
                 ))
@@ -335,7 +335,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
               <Link
                 href={`/${locale}/notifications`}
                 onClick={() => setOpen(false)}
-                className="block text-center text-xs font-medium text-(--primary) hover:underline"
+                className="block text-center text-xs font-medium text-(--accent) hover:underline"
               >
                 {t("viewAll")}
               </Link>

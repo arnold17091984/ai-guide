@@ -44,7 +44,7 @@ function highlightMatch(text: string, query: string): React.ReactNode {
   const parts = text.split(regex);
   return parts.map((part, i) =>
     regex.test(part) ? (
-      <mark key={i} className="bg-yellow-200/60 text-inherit dark:bg-yellow-500/30 rounded-sm px-0.5">
+      <mark key={i} className="bg-(--accent-muted) text-(--accent) rounded-sm px-0.5">
         {part}
       </mark>
     ) : (
@@ -53,10 +53,10 @@ function highlightMatch(text: string, query: string): React.ReactNode {
   );
 }
 
-const typeColorMap: Record<SearchResultType, string> = {
-  knowledge: "from-blue-500 to-cyan-500",
-  skill: "from-purple-500 to-pink-500",
-  user: "from-green-500 to-emerald-500",
+const typeIconColorMap: Record<SearchResultType, string> = {
+  knowledge: "bg-(--accent-muted) text-(--accent)",
+  skill: "bg-purple-500/10 text-purple-400",
+  user: "bg-blue-500/10 text-blue-400",
 };
 
 export default function SearchResult({
@@ -79,23 +79,23 @@ export default function SearchResult({
   return (
     <Link
       href={url}
-      className="group block rounded-2xl border border-white/20 bg-white/40 p-4 backdrop-blur-md transition-all duration-200 hover:bg-white/60 hover:shadow-lg hover:shadow-blue-500/5 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+      className="group block rounded-lg border border-(--border) bg-(--bg-surface) p-4 transition-all duration-200 hover:border-(--border-hover) hover:bg-(--bg-elevated) hover:shadow-md"
     >
       <div className="flex gap-3">
         <div
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br ${typeColorMap[type]} text-white`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${typeIconColorMap[type]}`}
         >
           <TypeIcon type={type} />
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="truncate text-sm font-semibold text-(--text-1) group-hover:text-blue-600 dark:group-hover:text-blue-400">
+          <h3 className="truncate text-sm font-semibold text-(--text-1) group-hover:text-(--accent)">
             {highlightMatch(title, query ?? "")}
           </h3>
           <p className="mt-0.5 line-clamp-2 text-sm text-(--text-2)">
             {highlightMatch(description, query ?? "")}
           </p>
           <div className="mt-2 flex items-center gap-2 text-xs text-(--text-2)">
-            <span className="rounded-full bg-black/5 px-2 py-0.5 dark:bg-white/10">
+            <span className="rounded bg-(--bg-elevated) px-2 py-0.5 font-mono text-xs">
               {typeLabel}
             </span>
             {meta && (

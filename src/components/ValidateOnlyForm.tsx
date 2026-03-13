@@ -150,15 +150,15 @@ export default function ValidateOnlyForm() {
   return (
     <div className="space-y-5">
       {/* Mode switcher */}
-      <div className="flex gap-1 rounded-xl border border-white/10 bg-white/5 p-1">
+      <div className="flex gap-1 rounded-md border border-(--border) bg-(--bg-elevated) p-1">
         {(["paste", "file"] as const).map((mode) => (
           <button
             key={mode}
             type="button"
             onClick={() => setInputMode(mode)}
-            className={`flex-1 rounded-lg py-2 text-sm font-medium transition-all duration-150 ${
+            className={`flex-1 rounded-md py-2 text-sm font-medium transition-all duration-150 ${
               inputMode === mode
-                ? "bg-white/15 text-(--text-1) shadow-sm"
+                ? "bg-(--bg-surface) text-(--text-1) shadow-sm"
                 : "text-(--text-2) hover:text-(--text-1)"
             }`}
           >
@@ -188,13 +188,13 @@ export default function ValidateOnlyForm() {
                 placeholder={`Paste your skill .md content here...\n\n---\nname: My Skill\ndescription: ...\n---\n\n## Body`}
                 rows={14}
                 spellCheck={false}
-                className="w-full rounded-xl border border-white/15 bg-black/20 p-4 font-mono text-xs text-(--text-1) placeholder:text-(--text-2)/40 focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 resize-y backdrop-blur-sm transition-colors"
+                className="w-full rounded-md border border-(--border) bg-(--bg-surface) p-4 font-mono text-xs text-(--text-1) placeholder:text-(--text-3) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20 resize-y transition-colors"
               />
               {pasteContent && (
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="absolute right-3 top-3 rounded-lg p-1.5 text-(--text-2) transition-colors hover:bg-white/10 hover:text-(--text-1)"
+                  className="absolute right-3 top-3 rounded-md p-1.5 text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
                 >
                   <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
@@ -206,7 +206,7 @@ export default function ValidateOnlyForm() {
               <button
                 type="button"
                 onClick={handleLoadSample}
-                className="mt-2 text-xs text-cyan-400 hover:underline transition-colors"
+                className="mt-2 text-xs text-(--accent) hover:underline transition-colors"
               >
                 Load sample skill to try it out
               </button>
@@ -227,10 +227,10 @@ export default function ValidateOnlyForm() {
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
               onClick={() => !fileContent && fileInputRef.current?.click()}
-              className={`flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-10 text-center transition-all ${
+              className={`flex flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed p-10 text-center transition-all ${
                 fileContent
-                  ? "cursor-default border-white/20 bg-white/5"
-                  : "cursor-pointer border-white/20 bg-white/5 hover:border-cyan-400/40 hover:bg-cyan-500/5"
+                  ? "cursor-default border-(--border) bg-(--bg-surface)"
+                  : "cursor-pointer border-(--border) bg-(--bg-surface) hover:border-(--accent)/40 hover:bg-(--bg-elevated)"
               }`}
             >
               <input
@@ -243,7 +243,7 @@ export default function ValidateOnlyForm() {
 
               {fileContent ? (
                 <div className="flex items-center gap-3">
-                  <svg className="h-7 w-7 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="h-7 w-7 text-(--accent)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                   </svg>
@@ -256,7 +256,7 @@ export default function ValidateOnlyForm() {
                   <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); handleClear(); }}
-                    className="ml-2 rounded-lg p-1.5 text-(--text-2) transition-colors hover:bg-white/10 hover:text-(--text-1)"
+                    className="ml-2 rounded-md p-1.5 text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
                   >
                     <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
@@ -273,7 +273,7 @@ export default function ValidateOnlyForm() {
                   <div>
                     <p className="text-sm font-medium text-(--text-1)">
                       Drop .md file or{" "}
-                      <span className="text-cyan-400 underline decoration-dashed">browse</span>
+                      <span className="text-(--accent) underline decoration-dashed">browse</span>
                     </p>
                     <p className="text-xs text-(--text-2)">Max 512 KB</p>
                   </div>
@@ -292,7 +292,7 @@ export default function ValidateOnlyForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-            className="flex items-start gap-3 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400"
+            className="flex items-start gap-3 rounded-md border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400"
           >
             <svg className="mt-0.5 h-4 w-4 shrink-0" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clipRule="evenodd" />
@@ -307,7 +307,7 @@ export default function ValidateOnlyForm() {
         type="button"
         disabled={isPending || !activeContent.trim()}
         onClick={handleValidate}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-cyan-500 to-blue-500 py-3 text-sm font-semibold text-white shadow-md shadow-cyan-500/25 transition-all hover:from-cyan-400 hover:to-blue-400 hover:shadow-cyan-500/40 disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-md bg-(--accent) h-9 text-sm font-medium text-black transition-all hover:bg-(--accent-hover) disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isPending ? (
           <>

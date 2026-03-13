@@ -51,16 +51,16 @@ export default function DigestCard({
           y: -2,
           transition: { duration: DURATION.fast, ease: EASE_APPLE },
         }}
-        className="group flex items-center gap-4 rounded-xl border border-(--border) bg-white/70 p-4 backdrop-blur-xl transition-colors hover:border-blue-300/50 dark:bg-white/5 dark:hover:border-cyan-500/30"
+        className="group flex items-center gap-4 rounded-lg border border-(--border) bg-(--bg-surface) p-4 transition-colors hover:border-(--border-hover)"
       >
         {/* Rank */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500 to-violet-500 text-lg font-bold text-white">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-(--accent) text-lg font-bold text-black">
           {rank}
         </div>
 
         {/* Content */}
         <div className="min-w-0 flex-1">
-          <h4 className="truncate text-sm font-semibold text-(--text-1) group-hover:text-(--primary)">
+          <h4 className="truncate text-sm font-semibold text-(--text-1) group-hover:text-(--accent) transition-colors">
             {title}
           </h4>
           {author && (
@@ -69,7 +69,7 @@ export default function DigestCard({
         </div>
 
         {/* Metric */}
-        <div className="flex shrink-0 items-center gap-1 text-xs font-medium text-(--text-2)">
+        <div className="flex shrink-0 items-center gap-1 text-xs font-medium text-(--text-3)">
           {metricIcon}
           <span>{metric.toLocaleString()}</span>
         </div>

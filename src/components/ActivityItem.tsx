@@ -88,21 +88,21 @@ function getActionIcon(actionType: string) {
 function getActionColor(actionType: string) {
   switch (actionType) {
     case "published_entry":
-      return "text-blue-500 bg-blue-500/10";
+      return "text-(--accent) bg-(--accent-muted)";
     case "published_skill":
-      return "text-purple-500 bg-purple-500/10";
+      return "text-(--accent) bg-(--accent-muted)";
     case "commented":
-      return "text-green-500 bg-green-500/10";
+      return "text-(--accent) bg-(--accent-muted)";
     case "voted":
-      return "text-orange-500 bg-orange-500/10";
+      return "text-amber-400 bg-amber-500/10";
     case "earned_achievement":
-      return "text-yellow-500 bg-yellow-500/10";
+      return "text-amber-400 bg-amber-500/10";
     case "reached_level":
-      return "text-cyan-500 bg-cyan-500/10";
+      return "text-(--accent) bg-(--accent-muted)";
     case "edited_entry":
-      return "text-teal-500 bg-teal-500/10";
+      return "text-(--accent) bg-(--accent-muted)";
     default:
-      return "text-(--text-2) bg-(--surface)";
+      return "text-(--text-2) bg-(--bg-elevated)";
   }
 }
 
@@ -178,12 +178,12 @@ export default function ActivityItem({
         y: -2,
         transition: { duration: DURATION.fast, ease: EASE_APPLE },
       }}
-      className="group relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-4 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-blue-300/50 hover:shadow-md hover:shadow-blue-500/10 dark:bg-white/5 dark:hover:border-cyan-500/30"
+      className="group relative overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-4 shadow-sm transition-all duration-300 hover:border-(--border-hover)"
     >
       <div className="flex items-start gap-3">
         {/* Action icon */}
         <div
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${getActionColor(actionType)}`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${getActionColor(actionType)}`}
         >
           {getActionIcon(actionType)}
         </div>
@@ -192,7 +192,7 @@ export default function ActivityItem({
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             {/* Actor avatar */}
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--surface) text-xs font-semibold text-(--text-2)">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--bg-elevated) text-xs font-semibold text-(--text-2)">
               {actorAvatarUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -207,7 +207,7 @@ export default function ActivityItem({
             </div>
             <Link
               href="#"
-              className="truncate text-sm font-medium text-(--text-1) hover:text-(--primary)"
+              className="truncate text-sm font-medium text-(--text-1) hover:text-(--accent) transition-colors"
             >
               {displayName}
             </Link>
@@ -229,7 +229,7 @@ export default function ActivityItem({
         </div>
 
         {/* Timestamp */}
-        <span className="shrink-0 text-xs text-(--text-2)">
+        <span className="shrink-0 text-xs text-(--text-3)">
           {getRelativeTime(createdAt, locale)}
         </span>
       </div>

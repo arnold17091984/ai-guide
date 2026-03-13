@@ -4,33 +4,25 @@ import { motion } from "framer-motion";
 import { DURATION, EASE_APPLE } from "@/lib/motion";
 
 // ============================================================
-// Tier color mappings
+// Tier color mappings — left border accent per spec
 // ============================================================
 
-const TIER_COLORS: Record<string, { border: string; bg: string; text: string; glow: string }> = {
+const TIER_COLORS: Record<string, { borderLeft: string; text: string }> = {
   bronze: {
-    border: "border-amber-600/40 dark:border-amber-500/30",
-    bg: "from-amber-600/10 to-orange-600/5",
-    text: "text-amber-700 dark:text-amber-400",
-    glow: "shadow-amber-500/20",
+    borderLeft: "border-l-amber-700",
+    text: "text-amber-700 dark:text-amber-600",
   },
   silver: {
-    border: "border-slate-400/40 dark:border-slate-300/30",
-    bg: "from-slate-400/10 to-gray-400/5",
-    text: "text-slate-600 dark:text-slate-300",
-    glow: "shadow-slate-400/20",
+    borderLeft: "border-l-zinc-400",
+    text: "text-zinc-400",
   },
   gold: {
-    border: "border-yellow-500/40 dark:border-yellow-400/30",
-    bg: "from-yellow-500/10 to-amber-400/5",
-    text: "text-yellow-700 dark:text-yellow-400",
-    glow: "shadow-yellow-500/20",
+    borderLeft: "border-l-amber-400",
+    text: "text-amber-400",
   },
   platinum: {
-    border: "border-cyan-400/40 dark:border-cyan-300/30",
-    bg: "from-cyan-400/10 to-blue-400/5",
-    text: "text-cyan-700 dark:text-cyan-300",
-    glow: "shadow-cyan-500/20",
+    borderLeft: "border-l-emerald-400",
+    text: "text-emerald-400",
   },
 };
 
@@ -168,12 +160,12 @@ export default function AchievementCard({
   if (isSecret && !isUnlocked) {
     return (
       <motion.div
-        whileHover={{ y: -4, transition: { duration: DURATION.normal, ease: EASE_APPLE } }}
-        className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-5 shadow-md backdrop-blur-xl dark:bg-white/5"
+        whileHover={{ y: -2, transition: { duration: DURATION.normal, ease: EASE_APPLE } }}
+        className="relative overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-5 opacity-50 grayscale"
       >
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-200/60 dark:bg-gray-700/40">
-            <LockIcon className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-md bg-(--bg-elevated)">
+            <LockIcon className="h-5 w-5 text-(--text-3)" />
           </div>
           <div>
             <p className="font-semibold text-(--text-1)">???</p>
@@ -187,30 +179,20 @@ export default function AchievementCard({
   return (
     <motion.div
       whileHover={{
-        y: -4,
+        y: -2,
         transition: { duration: DURATION.normal, ease: EASE_APPLE },
       }}
-      className={`relative overflow-hidden rounded-2xl border bg-white/70 p-5 shadow-md backdrop-blur-xl dark:bg-white/5 ${
-        isUnlocked ? `${colors.border} ${colors.glow}` : "border-(--border) grayscale"
+      className={`relative overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-5 border-l-2 ${colors.borderLeft} ${
+        !isUnlocked ? "opacity-50 grayscale" : "shadow-[0_0_20px_rgba(16,185,129,0.15)]"
       }`}
     >
-      {/* Tier accent gradient at top */}
-      <div
-        className={`absolute inset-x-0 top-0 h-1 bg-linear-to-r ${colors.bg}`}
-      />
-
-      {/* Unlocked shine effect */}
-      {isUnlocked && (
-        <div className="absolute inset-0 opacity-[0.03] bg-linear-to-br from-white via-transparent to-transparent" />
-      )}
-
       <div className="relative">
         <div className="flex items-start gap-3">
           <div
-            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${
               isUnlocked
-                ? `bg-linear-to-br ${colors.bg} ${colors.text}`
-                : "bg-gray-200/60 text-gray-400 dark:bg-gray-700/40 dark:text-gray-500"
+                ? `bg-(--bg-elevated) ${colors.text}`
+                : "bg-(--bg-elevated) text-(--text-3)"
             }`}
           >
             {isUnlocked ? (
@@ -238,9 +220,9 @@ export default function AchievementCard({
                 {progress} / {requiredValue}
               </span>
             </div>
-            <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+            <div className="mt-1 h-1.5 overflow-hidden rounded-md bg-(--bg-elevated)">
               <div
-                className={`h-full rounded-full bg-linear-to-r ${colors.bg.replace("/10", "/60").replace("/5", "/40")}`}
+                className="h-full rounded-md bg-(--accent)"
                 style={{ width: `${progressPct}%` }}
               />
             </div>
@@ -250,10 +232,10 @@ export default function AchievementCard({
         {/* Footer */}
         <div className="mt-3 flex items-center justify-between text-xs text-(--text-2)">
           <span
-            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 ${
+            className={`inline-flex items-center gap-1 rounded px-2 py-0.5 font-mono ${
               isUnlocked
-                ? `${colors.text} bg-linear-to-r ${colors.bg}`
-                : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
+                ? `${colors.text} bg-(--accent-muted)`
+                : "bg-(--bg-elevated) text-(--text-3)"
             }`}
           >
             {isUnlocked ? unlockedLabel : lockedLabel}

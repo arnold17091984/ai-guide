@@ -58,7 +58,7 @@ function SeverityIcon({ severity }: { severity: SeverityLevel }) {
     );
   }
   return (
-    <svg className="h-4 w-4 shrink-0 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+    <svg className="h-4 w-4 shrink-0 text-zinc-400" viewBox="0 0 20 20" fill="currentColor">
       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clipRule="evenodd" />
     </svg>
   );
@@ -66,14 +66,14 @@ function SeverityIcon({ severity }: { severity: SeverityLevel }) {
 
 function SecurityBadge({ level }: { level: SecurityLevel }) {
   const styles: Record<SecurityLevel, string> = {
-    critical: "bg-red-500/20 text-red-400 ring-1 ring-red-500/30",
-    high:     "bg-orange-500/20 text-orange-400 ring-1 ring-orange-500/30",
-    medium:   "bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/30",
-    low:      "bg-yellow-500/20 text-yellow-400 ring-1 ring-yellow-500/30",
-    info:     "bg-blue-500/20 text-blue-400 ring-1 ring-blue-500/30",
+    critical: "bg-red-500/10 text-red-400",
+    high:     "bg-orange-500/10 text-orange-400",
+    medium:   "bg-amber-500/10 text-amber-400",
+    low:      "bg-zinc-500/10 text-zinc-400",
+    info:     "bg-zinc-500/10 text-zinc-400",
   };
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${styles[level]}`}>
+    <span className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-mono uppercase ${styles[level]}`}>
       {level}
     </span>
   );
@@ -115,7 +115,7 @@ function QualityBar({ score }: { score: number }) {
         <span className="text-sm font-medium text-(--text-2)">Quality Score</span>
         <span className={`text-2xl font-bold tabular-nums ${textColor}`}>{clamped}</span>
       </div>
-      <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-(--bg-elevated)">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${clamped}%` }}
@@ -141,7 +141,7 @@ function IssueRow({ issue }: { issue: ValidationIssue }) {
   const hasSuggestion = Boolean(issue.suggestion || issue.docsUrl);
 
   return (
-    <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+    <div className="rounded-lg border border-(--border) bg-(--bg-elevated) p-3">
       <button
         type="button"
         onClick={() => hasSuggestion && setOpen((o) => !o)}
@@ -152,7 +152,7 @@ function IssueRow({ issue }: { issue: ValidationIssue }) {
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs text-(--text-2)">
+            <span className="rounded bg-(--bg-base) px-1.5 py-0.5 font-mono text-xs text-(--text-2)">
               {issue.code}
             </span>
             {issue.location?.field && (
@@ -184,10 +184,10 @@ function IssueRow({ issue }: { issue: ValidationIssue }) {
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
             className="overflow-hidden"
           >
-            <div className="mt-3 space-y-2 border-t border-white/10 pt-3 pl-6">
+            <div className="mt-3 space-y-2 border-t border-(--border) pt-3 pl-6">
               {issue.suggestion && (
                 <p className="text-xs text-(--text-2)">
-                  <span className="font-semibold text-cyan-400">Suggestion:</span>{" "}
+                  <span className="font-semibold text-(--accent)">Suggestion:</span>{" "}
                   {issue.suggestion}
                 </p>
               )}
@@ -196,7 +196,7 @@ function IssueRow({ issue }: { issue: ValidationIssue }) {
                   href={issue.docsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:underline"
+                  className="inline-flex items-center gap-1 text-xs text-(--accent) hover:underline"
                 >
                   Documentation
                   <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
@@ -235,7 +235,7 @@ function StageRow({
   return (
     <motion.div
       variants={itemVariants}
-      className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
+      className="rounded-lg border border-(--border) bg-(--bg-surface)"
     >
       <button
         type="button"
@@ -263,17 +263,17 @@ function StageRow({
         {/* Issue pill counts */}
         <span className="flex items-center gap-1.5">
           {errorCount > 0 && (
-            <span className="rounded-full bg-red-500/20 px-2 py-0.5 text-xs font-semibold text-red-400">
+            <span className="rounded bg-red-500/10 px-2 py-0.5 text-xs font-mono text-red-400">
               {errorCount} err
             </span>
           )}
           {warnCount > 0 && (
-            <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-semibold text-amber-400">
+            <span className="rounded bg-amber-500/10 px-2 py-0.5 text-xs font-mono text-amber-400">
               {warnCount} warn
             </span>
           )}
           {infoCount > 0 && (
-            <span className="rounded-full bg-blue-500/20 px-2 py-0.5 text-xs font-semibold text-blue-400">
+            <span className="rounded bg-zinc-500/10 px-2 py-0.5 text-xs font-mono text-zinc-400">
               {infoCount} info
             </span>
           )}
@@ -303,7 +303,7 @@ function StageRow({
             transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
             className="overflow-hidden"
           >
-            <div className="space-y-2 border-t border-white/10 p-4">
+            <div className="space-y-2 border-t border-(--border) p-4">
               {result.issues.map((issue, idx) => (
                 <IssueRow key={`${issue.code}-${idx}`} issue={issue} />
               ))}
@@ -328,7 +328,7 @@ function CompatibilityMatrix({
   if (entries.length === 0) return null;
 
   return (
-    <motion.div variants={itemVariants} className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+    <motion.div variants={itemVariants} className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
       <h3 className="mb-3 text-sm font-semibold text-(--text-1)">Claude Code Compatibility</h3>
       <div className="flex flex-wrap gap-2">
         {entries.map(([version, compatible]) => (
@@ -336,8 +336,8 @@ function CompatibilityMatrix({
             key={version}
             className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium ${
               compatible
-                ? "bg-green-500/15 text-green-400 ring-1 ring-green-500/25"
-                : "bg-white/5 text-(--text-2) line-through"
+                ? "bg-(--accent-muted) text-(--accent)"
+                : "bg-(--bg-elevated) text-(--text-2) line-through"
             }`}
           >
             {compatible ? (
@@ -369,7 +369,7 @@ function SecurityFindings({
   if (findings.length === 0) return null;
 
   return (
-    <motion.div variants={itemVariants} className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+    <motion.div variants={itemVariants} className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
       <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-(--text-1)">
         <svg className="h-4 w-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
           <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
@@ -378,10 +378,10 @@ function SecurityFindings({
       </h3>
       <div className="space-y-3">
         {findings.map((finding, idx) => (
-          <div key={`${finding.rule}-${idx}`} className="rounded-lg border border-white/10 bg-white/5 p-3">
+          <div key={`${finding.rule}-${idx}`} className="rounded-lg border border-(--border) bg-(--bg-elevated) p-3">
             <div className="flex flex-wrap items-start gap-2">
               <SecurityBadge level={finding.level} />
-              <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs text-(--text-2)">
+              <span className="rounded bg-(--bg-base) px-1.5 py-0.5 font-mono text-xs text-(--text-2)">
                 {finding.rule}
               </span>
               {finding.lines && finding.lines.length > 0 && (
@@ -395,7 +395,7 @@ function SecurityFindings({
             <p className="mt-2 text-sm text-(--text-1)">{finding.message}</p>
             {finding.suggestion && (
               <p className="mt-1.5 text-xs text-(--text-2)">
-                <span className="font-semibold text-cyan-400">Fix:</span>{" "}
+                <span className="font-semibold text-(--accent)">Fix:</span>{" "}
                 {finding.suggestion}
               </p>
             )}
@@ -455,7 +455,7 @@ export default function ValidationResults({ report }: ValidationResultsProps) {
       {/* Overall pass/fail hero */}
       <motion.div
         variants={itemVariants}
-        className={`flex items-center gap-4 rounded-2xl border p-6 ${
+        className={`flex items-center gap-4 rounded-lg border p-6 ${
           overallPassed
             ? "border-green-500/30 bg-green-500/10"
             : "border-red-500/30 bg-red-500/10"
@@ -485,7 +485,7 @@ export default function ValidationResults({ report }: ValidationResultsProps) {
               <span className="text-amber-400">{report.summary.warnings} warning{report.summary.warnings !== 1 ? "s" : ""} </span>
             )}
             {report.summary.infos > 0 && (
-              <span className="text-blue-400">{report.summary.infos} suggestion{report.summary.infos !== 1 ? "s" : ""} </span>
+              <span className="text-zinc-400">{report.summary.infos} suggestion{report.summary.infos !== 1 ? "s" : ""} </span>
             )}
             {report.summary.errors === 0 && report.summary.warnings === 0 && report.summary.infos === 0 && (
               <span>No issues found</span>
@@ -499,7 +499,7 @@ export default function ValidationResults({ report }: ValidationResultsProps) {
       {/* Quality score bar */}
       <motion.div
         variants={itemVariants}
-        className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
+        className="rounded-lg border border-(--border) bg-(--bg-surface) p-4"
       >
         <QualityBar score={report.qualityScore} />
       </motion.div>

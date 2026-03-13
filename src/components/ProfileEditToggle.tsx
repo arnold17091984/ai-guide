@@ -47,7 +47,7 @@ export default function ProfileEditToggle({
             animate="visible"
             exit={{ opacity: 0, y: -8, transition: { duration: DURATION.fast, ease: EASE_APPLE } }}
             onClick={() => setIsOpen(true)}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-(--border) bg-white/70 px-6 py-4 text-sm font-semibold text-(--text-1) shadow-md backdrop-blur-xl transition-all hover:border-blue-300/50 hover:bg-(--surface-hover) hover:shadow-lg hover:shadow-blue-500/10 dark:bg-white/5 dark:hover:border-cyan-500/30"
+            className="flex w-full items-center justify-center gap-2 rounded-md border border-(--border) bg-transparent h-9 px-6 text-sm font-medium text-(--text-1) transition-all hover:bg-(--bg-elevated) hover:border-(--border-hover)"
           >
             <svg
               className="h-4 w-4"

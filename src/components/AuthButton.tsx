@@ -34,7 +34,7 @@ function DropdownItem({
   return (
     <button
       onClick={onClick}
-      className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+      className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
     >
       {children}
     </button>
@@ -82,7 +82,7 @@ export default function AuthButton() {
         transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
-        className="flex items-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-4 py-2 text-sm font-medium text-(--text-1) backdrop-blur-sm transition-colors hover:bg-(--surface-hover) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--primary)"
+        className="flex items-center gap-2 rounded-md border border-(--border) bg-transparent h-9 px-4 text-sm font-medium text-(--text-1) transition-colors hover:bg-(--bg-elevated) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)"
       >
         <GitHubIcon className="h-4 w-4 text-(--text-2)" />
         Sign in
@@ -116,7 +116,7 @@ export default function AuthButton() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Open account menu"
-        className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border-2 border-(--border) bg-(--surface) ring-offset-1 transition-all hover:border-(--primary) hover:ring-2 hover:ring-(--primary)/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--primary)"
+        className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border-2 border-(--border) bg-(--bg-surface) ring-offset-1 transition-all hover:border-(--accent) hover:ring-2 hover:ring-(--accent)/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)"
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -143,11 +143,11 @@ export default function AuthButton() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -6 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-            className="absolute right-0 z-50 mt-2 w-52 origin-top-right rounded-2xl border border-(--border) bg-(--surface)/90 p-1.5 shadow-xl shadow-black/10 backdrop-blur-2xl"
+            className="absolute right-0 z-50 mt-2 w-52 origin-top-right rounded-lg border border-(--border) bg-(--bg-surface) p-1.5 shadow-lg"
           >
             {/* User info header */}
-            <div className="mb-1 flex items-center gap-3 rounded-xl bg-(--surface-hover) px-3 py-2.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--surface)">
+            <div className="mb-1 flex items-center gap-3 rounded-md bg-(--bg-elevated) px-3 py-2.5">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--bg-elevated)">
                 {avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img

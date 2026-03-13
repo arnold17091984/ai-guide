@@ -40,31 +40,35 @@ interface DebtItemCardProps {
 }
 
 // ============================================================
-// Category styling
+// Category styling — Terminal Native
 // ============================================================
 
 const CATEGORY_COLORS: Record<string, string> = {
-  missing: "text-red-500",
-  outdated: "text-amber-500",
-  incomplete: "text-blue-500",
-  inaccurate: "text-purple-500",
+  missing: "text-red-400",
+  outdated: "text-amber-400",
+  incomplete: "text-(--accent)",
+  inaccurate: "text-amber-400",
 };
 
 const CATEGORY_BG: Record<string, string> = {
-  missing: "bg-red-100 dark:bg-red-900/30",
-  outdated: "bg-amber-100 dark:bg-amber-900/30",
-  incomplete: "bg-blue-100 dark:bg-blue-900/30",
-  inaccurate: "bg-purple-100 dark:bg-purple-900/30",
+  missing: "bg-red-500/10",
+  outdated: "bg-amber-500/10",
+  incomplete: "bg-(--accent-muted)",
+  inaccurate: "bg-amber-500/10",
+};
+
+const CATEGORY_BADGE: Record<string, string> = {
+  missing: "bg-red-500/10 text-red-400",
+  outdated: "bg-amber-500/10 text-amber-400",
+  incomplete: "bg-(--accent-muted) text-(--accent)",
+  inaccurate: "bg-amber-500/10 text-amber-400",
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  open: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  in_progress:
-    "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  resolved:
-    "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-  wont_fix:
-    "bg-gray-100 text-gray-600 dark:bg-gray-800/50 dark:text-gray-400",
+  open: "bg-amber-500/10 text-amber-400",
+  in_progress: "bg-blue-500/10 text-blue-400",
+  resolved: "bg-(--accent-muted) text-(--accent)",
+  wont_fix: "bg-(--bg-elevated) text-(--text-3)",
 };
 
 // ============================================================
@@ -146,12 +150,12 @@ export default function DebtItemCard({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-30px" }}
-      className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-2xl p-5 transition-all hover:shadow-lg"
+      className="border border-(--border) bg-(--bg-surface) rounded-lg p-5 transition-all hover:border-(--border-hover)"
     >
       <div className="flex items-start gap-3">
         {/* Category icon */}
         <div
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${CATEGORY_BG[item.category] ?? "bg-(--surface)"}`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${CATEGORY_BG[item.category] ?? "bg-(--bg-elevated)"}`}
         >
           <CategoryIcon category={item.category} />
         </div>
@@ -162,7 +166,7 @@ export default function DebtItemCard({
           <div className="flex items-start justify-between gap-2">
             <Link
               href={`/${locale}/knowledge/debt/${item.id}`}
-              className="text-sm font-semibold text-(--text-1) hover:text-(--primary) transition-colors line-clamp-2"
+              className="text-sm font-semibold text-(--text-1) hover:text-(--accent) transition-colors line-clamp-2"
             >
               {item.title}
             </Link>
@@ -171,7 +175,7 @@ export default function DebtItemCard({
           {/* Badges row */}
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <span
-              className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_BG[item.category] ?? ""} ${CATEGORY_COLORS[item.category] ?? ""}`}
+              className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-mono ${CATEGORY_BADGE[item.category] ?? "bg-(--bg-elevated) text-(--text-2)"}`}
             >
               {t.categoryLabels[item.category] ?? item.category}
             </span>
@@ -180,22 +184,22 @@ export default function DebtItemCard({
               label={t.priorityLabels[item.priority] ?? item.priority}
             />
             <span
-              className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[item.status] ?? ""}`}
+              className={`inline-flex items-center rounded px-2 py-0.5 text-xs font-mono ${STATUS_COLORS[item.status] ?? "bg-(--bg-elevated) text-(--text-2)"}`}
             >
               {t.statusLabels[item.status] ?? item.status}
             </span>
           </div>
 
           {/* Footer row */}
-          <div className="mt-3 flex items-center gap-4 text-xs text-(--text-2)">
+          <div className="mt-3 flex items-center gap-4 text-xs text-(--text-3)">
             {/* Vote button */}
             <button
               type="button"
               onClick={() => onVote?.(item.id)}
               className={`flex items-center gap-1 transition-colors ${
                 hasVoted
-                  ? "text-amber-600 dark:text-amber-400"
-                  : "hover:text-amber-600 dark:hover:text-amber-400"
+                  ? "text-(--accent)"
+                  : "hover:text-(--accent)"
               }`}
             >
               <svg
@@ -238,11 +242,11 @@ export default function DebtItemCard({
                     className="h-4 w-4 rounded-full"
                   />
                 ) : (
-                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-(--surface) text-[10px] font-medium">
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-(--bg-elevated) text-[10px] font-medium text-(--text-1)">
                     {(item.assigneeDisplayName ?? item.assigneeUsername)?.[0]?.toUpperCase()}
                   </span>
                 )}
-                <span className="truncate max-w-[80px]">
+                <span className="truncate max-w-20">
                   {item.assigneeDisplayName ?? item.assigneeUsername}
                 </span>
               </span>
