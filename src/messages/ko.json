@@ -51,6 +51,13 @@
     "tryAgain": "다시 시도",
     "loading": "로딩 중..."
   },
+  "hero": {
+    "title": "Claude Code를 함께 마스터하자.",
+    "subtitle": "스킬 공유・지식 관리・팀 협업을 위한 오픈 플랫폼",
+    "cta": "시작하기",
+    "exploreCta": "스킬 탐색",
+    "welcomeBack": "돌아오셨네요, {name}"
+  },
   "home": {
     "welcome": "AI 활용 가이드에 오신 것을 환영합니다",
     "description": "이 가이드는 AI를 처음 접하는 분들을 위해 제작되었습니다. Claude와 VS Code를 설정하고 활용하는 방법을 단계별로 안내합니다.",

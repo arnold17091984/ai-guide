@@ -35,7 +35,6 @@ export default async function NewKnowledgeEntryPage({
       <PageHeader
         title="New Knowledge Entry"
         subtitle="Share your knowledge with the community. The Korean title and body are required; other locales are optional."
-        gradient="from-blue-500 to-cyan-500"
         icon={
           <svg
             className="h-7 w-7"

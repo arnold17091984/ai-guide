@@ -130,7 +130,7 @@ export default function NewDebtFormClient({
       desc: t.categoryIncompleteDesc,
       color: "border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800",
       activeColor: "ring-2 ring-blue-500",
-      icon: <IncompleteIcon cls="h-5 w-5 text-blue-500" />,
+      icon: <IncompleteIcon cls="h-5 w-5 text-(--accent)" />,
     },
     {
       value: "inaccurate",
@@ -184,7 +184,7 @@ export default function NewDebtFormClient({
   }
 
   return (
-    <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-2xl p-6">
+    <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-lg p-6">
       <AnimatePresence mode="wait">
         {!showPreview ? (
           <motion.div
@@ -197,7 +197,7 @@ export default function NewDebtFormClient({
           >
             {/* Error */}
             {error && (
-              <div className="rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 text-sm text-red-700 dark:text-red-400">
+              <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 text-sm text-red-700 dark:text-red-400">
                 {t.errorTitle}: {error}
               </div>
             )}
@@ -212,7 +212,7 @@ export default function NewDebtFormClient({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={t.titlePlaceholder}
-                className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+                className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
               />
             </div>
 
@@ -226,7 +226,7 @@ export default function NewDebtFormClient({
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder={t.descriptionPlaceholder}
                 rows={5}
-                className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-3 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+                className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-3 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
               />
             </div>
 
@@ -241,7 +241,7 @@ export default function NewDebtFormClient({
                     key={cat.value}
                     type="button"
                     onClick={() => setCategory(cat.value)}
-                    className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-all ${cat.color} ${category === cat.value ? cat.activeColor : "opacity-70 hover:opacity-100"}`}
+                    className={`flex items-start gap-3 rounded-lg border p-3 text-left transition-all ${cat.color} ${category === cat.value ? cat.activeColor : "opacity-70 hover:opacity-100"}`}
                   >
                     <div className="shrink-0 mt-0.5">{cat.icon}</div>
                     <div>
@@ -286,7 +286,7 @@ export default function NewDebtFormClient({
                 value={tagsInput}
                 onChange={(e) => setTagsInput(e.target.value)}
                 placeholder={t.tagsPlaceholder}
-                className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+                className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
               />
             </div>
 
@@ -300,7 +300,7 @@ export default function NewDebtFormClient({
                 value={relatedEntryId}
                 onChange={(e) => setRelatedEntryId(e.target.value)}
                 placeholder={t.relatedEntryPlaceholder}
-                className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+                className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
               />
             </div>
 
@@ -310,7 +310,7 @@ export default function NewDebtFormClient({
                 type="button"
                 onClick={() => setShowPreview(true)}
                 disabled={!title.trim() || !description.trim()}
-                className="rounded-xl bg-amber-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="rounded-lg bg-amber-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t.preview}
               </button>
@@ -329,7 +329,7 @@ export default function NewDebtFormClient({
               {t.previewTitle}
             </h2>
 
-            <div className="rounded-xl border border-(--border) bg-(--surface) p-4 space-y-3">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4 space-y-3">
               <h3 className="text-lg font-bold text-(--text-1)">{title}</h3>
 
               <div className="flex flex-wrap gap-2">
@@ -358,7 +358,7 @@ export default function NewDebtFormClient({
                     .map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-(--surface-hover) px-2.5 py-0.5 text-xs text-(--text-2)"
+                        className="rounded-full bg-(--bg-elevated) px-2.5 py-0.5 text-xs text-(--text-2)"
                       >
                         {tag}
                       </span>
@@ -372,7 +372,7 @@ export default function NewDebtFormClient({
                 type="button"
                 onClick={handleSubmit}
                 disabled={isPending}
-                className="rounded-xl bg-amber-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-amber-600 disabled:opacity-60"
+                className="rounded-lg bg-amber-500 px-6 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-amber-600 disabled:opacity-60"
               >
                 {isPending ? t.submitting : t.submit}
               </button>
@@ -380,7 +380,7 @@ export default function NewDebtFormClient({
                 type="button"
                 onClick={() => setShowPreview(false)}
                 disabled={isPending}
-                className="rounded-xl border border-(--border) px-6 py-2.5 text-sm text-(--text-2) hover:bg-(--surface-hover)"
+                className="rounded-lg border border-(--border) px-6 py-2.5 text-sm text-(--text-2) hover:bg-(--bg-elevated)"
               >
                 {t.backToEdit}
               </button>

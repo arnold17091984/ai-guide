@@ -22,13 +22,13 @@ interface SearchResultsClientProps {
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse rounded-2xl border border-white/20 bg-white/40 p-4 backdrop-blur-md dark:border-white/10 dark:bg-white/5">
+    <div className="animate-pulse rounded-lg border border-(--border) bg-(--bg-surface) p-4">
       <div className="flex gap-3">
-        <div className="h-10 w-10 shrink-0 rounded-xl bg-black/10 dark:bg-white/10" />
+        <div className="h-10 w-10 shrink-0 rounded-md bg-(--bg-elevated)" />
         <div className="flex-1 space-y-2">
-          <div className="h-4 w-3/4 rounded bg-black/10 dark:bg-white/10" />
-          <div className="h-3 w-full rounded bg-black/5 dark:bg-white/5" />
-          <div className="h-3 w-1/4 rounded bg-black/5 dark:bg-white/5" />
+          <div className="h-4 w-3/4 rounded-md bg-(--bg-elevated)" />
+          <div className="h-3 w-full rounded-md bg-(--bg-elevated)" />
+          <div className="h-3 w-1/4 rounded-md bg-(--bg-elevated)" />
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@ export default function SearchResultsClient({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("placeholder")}
-            className="h-12 w-full rounded-2xl border border-white/20 bg-white/50 pl-12 pr-4 text-base text-(--text-1) placeholder:text-(--text-2) shadow-sm outline-none backdrop-blur-md transition-colors focus:border-blue-400 focus:shadow-blue-500/10 dark:border-white/10 dark:bg-white/5"
+            className="h-12 w-full rounded-md border border-(--border) bg-(--bg-surface) pl-12 pr-4 text-base text-(--text-1) placeholder:text-(--text-3) outline-none transition-colors focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             autoFocus
           />
         </div>
@@ -147,10 +147,10 @@ export default function SearchResultsClient({
           <button
             key={filter}
             onClick={() => handleFilterChange(filter)}
-            className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+            className={`shrink-0 rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 ${
               activeFilter === filter
-                ? "bg-blue-500 text-white shadow-md shadow-blue-500/25"
-                : "bg-white/40 text-(--text-2) hover:bg-white/60 dark:bg-white/5 dark:hover:bg-white/10"
+                ? "bg-(--accent) text-black"
+                : "border border-(--border) text-(--text-2) hover:bg-(--bg-elevated)"
             }`}
           >
             {filterLabelMap[filter]}
@@ -216,7 +216,7 @@ export default function SearchResultsClient({
                 {activeFilter === "all" && results.entries.length >= 5 && (
                   <button
                     onClick={() => handleFilterChange("knowledge")}
-                    className="mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                    className="mt-2 text-sm font-medium text-(--accent) hover:underline"
                   >
                     {t("viewAllResults")} →
                   </button>
@@ -240,7 +240,7 @@ export default function SearchResultsClient({
                 {activeFilter === "all" && results.skills.length >= 5 && (
                   <button
                     onClick={() => handleFilterChange("skill")}
-                    className="mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                    className="mt-2 text-sm font-medium text-(--accent) hover:underline"
                   >
                     {t("viewAllResults")} →
                   </button>
@@ -264,7 +264,7 @@ export default function SearchResultsClient({
                 {activeFilter === "all" && results.users.length >= 5 && (
                   <button
                     onClick={() => handleFilterChange("user")}
-                    className="mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
+                    className="mt-2 text-sm font-medium text-(--accent) hover:underline"
                   >
                     {t("viewAllResults")} →
                   </button>

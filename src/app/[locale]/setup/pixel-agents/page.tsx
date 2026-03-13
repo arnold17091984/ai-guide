@@ -36,12 +36,6 @@ const featureIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-const featureColors: Record<string, string> = {
-  visualMonitoring: "from-cyan-500 to-blue-400",
-  customization: "from-blue-500 to-cyan-400",
-  subAgents: "from-green-500 to-emerald-400",
-  security: "from-orange-500 to-amber-400",
-};
 
 export default function PixelAgentsPage() {
   const t = useTranslations("setup.pixelAgents");
@@ -52,11 +46,11 @@ export default function PixelAgentsPage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-pink-500 to-rose-400"
+        
       />
 
-      <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-        <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="mb-8 rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+        <h2 className="mb-3 text-lg font-semibold text-(--text-1)">
           {t("overviewTitle")}
         </h2>
         <GuideImage
@@ -64,14 +58,14 @@ export default function PixelAgentsPage() {
           alt="Pixel Agents banner"
           caption={t("bannerCaption")}
         />
-        <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+        <p className="text-sm leading-relaxed text-(--text-2)">
           {t("overviewDescription")}
         </p>
         <TipBox variant="info">{t("overviewTip")}</TipBox>
       </div>
 
-      <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-        <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="mb-8 rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+        <h2 className="mb-3 text-lg font-semibold text-(--text-1)">
           {t("previewTitle")}
         </h2>
         <GuideImage
@@ -89,7 +83,7 @@ export default function PixelAgentsPage() {
       </div>
 
       <div className="mb-8 space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-(--text-1)">
           {t("stepsTitle")}
         </h2>
 
@@ -98,7 +92,7 @@ export default function PixelAgentsPage() {
           title={t("steps.install.title")}
           description={t("steps.install.description")}
         >
-          <p className="text-sm text-gray-700 dark:text-gray-300">
+          <p className="text-sm text-(--text-2)">
             {t("steps.install.detail")}
           </p>
           <CodeBlock code={t("steps.install.command")} />
@@ -134,37 +128,37 @@ export default function PixelAgentsPage() {
           title={t("steps.showPanel.title")}
           description={t("steps.showPanel.description")}
         >
-          <div className="rounded-lg bg-gray-900 p-3 font-mono text-sm text-gray-100 dark:bg-gray-800">
+          <div className="rounded-lg bg-(--bg-base) p-3 font-mono text-sm text-(--text-1)">
             <p>{t("steps.showPanel.command")}</p>
           </div>
           <TipBox variant="info">{t("steps.showPanel.detail")}</TipBox>
         </StepCard>
       </div>
 
-      <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="mb-8 rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+        <h2 className="mb-4 text-lg font-semibold text-(--text-1)">
           {t("shortcutsTitle")}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="pb-3 pr-4 text-left font-semibold text-gray-900 dark:text-white">
+              <tr className="border-b border-(--border)">
+                <th className="pb-3 pr-4 text-left font-semibold text-(--text-1)">
                   {t("shortcutsAction")}
                 </th>
-                <th className="pb-3 text-left font-semibold text-gray-900 dark:text-white">
+                <th className="pb-3 text-left font-semibold text-(--text-1)">
                   {t("shortcutsKey")}
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+            <tbody className="divide-y divide-(--border)">
               {shortcuts.map((item, i) => (
                 <tr key={i}>
-                  <td className="py-2.5 pr-4 text-gray-700 dark:text-gray-300">
+                  <td className="py-2.5 pr-4 text-(--text-2)">
                     {item.action}
                   </td>
                   <td className="py-2.5">
-                    <kbd className="rounded-md border border-gray-300 bg-gray-100 px-2 py-0.5 font-mono text-xs text-gray-800 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200">
+                    <kbd className="rounded-md border border-(--border) bg-(--bg-elevated) px-2 py-0.5 font-mono text-xs text-(--text-1)">
                       {item.key}
                     </kbd>
                   </td>
@@ -176,7 +170,7 @@ export default function PixelAgentsPage() {
       </div>
 
       <div className="mb-8 space-y-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold text-(--text-1)">
           {t("featuresTitle")}
         </h2>
         {featureKeys.map((key) => {
@@ -184,19 +178,19 @@ export default function PixelAgentsPage() {
           return (
             <div
               key={key}
-              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+              className="rounded-lg border border-(--border) bg-(--bg-surface) p-6"
             >
               <div className="mb-4 flex items-start gap-4">
                 <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${featureColors[key]} text-white`}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-(--bg-elevated) text-(--text-2)"
                 >
                   {featureIcons[key]}
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-semibold text-(--text-1)">
                     {t(`features.${key}.title`)}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-sm text-(--text-2)">
                     {t(`features.${key}.description`)}
                   </p>
                 </div>
@@ -204,8 +198,8 @@ export default function PixelAgentsPage() {
               <ul className="ml-16 space-y-3">
                 {items.map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
-                    <span className="whitespace-pre-line text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-(--accent)" />
+                    <span className="whitespace-pre-line text-sm leading-relaxed text-(--text-2)">
                       {item}
                     </span>
                   </li>
@@ -216,8 +210,8 @@ export default function PixelAgentsPage() {
         })}
       </div>
 
-      <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
-        <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-amber-800 dark:text-amber-300">
+      <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-6">
+        <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-amber-400">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
@@ -225,7 +219,7 @@ export default function PixelAgentsPage() {
         </h2>
         <ul className="space-y-2">
           {(t.raw("limitations") as string[]).map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm text-amber-900 dark:text-amber-200">
+            <li key={i} className="flex items-start gap-3 text-sm text-amber-400">
               <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
               <span>{item}</span>
             </li>

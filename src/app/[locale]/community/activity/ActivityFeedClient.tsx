@@ -97,7 +97,7 @@ export default function ActivityFeedClient({ translations: t }: Props) {
       <PageHeader
         title={t.title}
         subtitle={t.subtitle}
-        gradient="from-green-500 to-emerald-600"
+        gradient=""
         icon={
           <svg
             className="h-7 w-7"
@@ -122,10 +122,10 @@ export default function ActivityFeedClient({ translations: t }: Props) {
             <button
               key={tab.key}
               onClick={() => setFilter(tab.key)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+              className={`rounded px-4 py-2 text-sm font-medium transition-all ${
                 filter === tab.key
-                  ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/25"
-                  : "bg-(--surface) text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+                  ? "bg-(--accent-muted) text-(--accent)"
+                  : "border border-(--border) bg-(--bg-surface) text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
               }`}
             >
               {tab.label}
@@ -140,12 +140,12 @@ export default function ActivityFeedClient({ translations: t }: Props) {
           Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
-              className="h-20 animate-pulse rounded-2xl bg-(--surface)"
+              className="h-20 animate-pulse rounded-lg bg-(--bg-elevated)"
             />
           ))
         ) : fetchError ? (
           <ScrollFadeIn>
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-300/30 bg-red-500/5 py-12 text-center">
+            <div className="flex flex-col items-center gap-3 rounded-lg border border-red-500/30 bg-red-500/5 py-12 text-center">
               <p className="text-sm text-red-500">Failed to load activity. Please try again.</p>
               <button
                 onClick={() => void fetchItems(0, false)}
@@ -157,7 +157,7 @@ export default function ActivityFeedClient({ translations: t }: Props) {
           </ScrollFadeIn>
         ) : items.length === 0 ? (
           <ScrollFadeIn>
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-(--border) bg-white/70 py-16 text-(--text-2) backdrop-blur-xl dark:bg-white/5">
+            <div className="flex flex-col items-center gap-3 rounded-lg border border-(--border) bg-(--bg-surface) py-16 text-(--text-2)">
               <svg
                 className="h-12 w-12"
                 fill="none"
@@ -190,11 +190,11 @@ export default function ActivityFeedClient({ translations: t }: Props) {
             <button
               onClick={handleLoadMore}
               disabled={loadingMore}
-              className="rounded-full border border-(--border) bg-(--surface) px-6 py-2.5 text-sm font-medium text-(--text-1) transition-all hover:bg-(--surface-hover) hover:shadow-md disabled:opacity-50"
+              className="rounded-md border border-(--border) bg-(--bg-surface) px-6 py-2.5 text-sm font-medium text-(--text-1) transition-all hover:bg-(--bg-elevated) disabled:opacity-50"
             >
               {loadingMore ? (
                 <span className="flex items-center gap-2">
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-(--border) border-t-(--primary)" />
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-(--border) border-t-(--accent)" />
                   Loading...
                 </span>
               ) : (

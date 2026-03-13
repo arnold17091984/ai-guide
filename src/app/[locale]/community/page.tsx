@@ -64,7 +64,7 @@ function TabBar({
   ];
 
   return (
-    <div className="mb-8 flex gap-2 overflow-x-auto rounded-xl border border-(--border) bg-white/70 p-1 backdrop-blur-xl dark:bg-white/5">
+    <div className="mb-8 flex gap-2 overflow-x-auto rounded-md border border-(--border) bg-(--bg-surface) p-1">
       {tabs.map((tab) => {
         const isActive = activeTab === tab.key;
         const href =
@@ -78,8 +78,8 @@ function TabBar({
             href={href}
             className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors ${
               isActive
-                ? "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-                : "text-(--text-2) hover:text-(--text-1) hover:bg-gray-50 dark:hover:bg-white/5"
+                ? "bg-(--accent-muted) text-(--accent)"
+                : "text-(--text-2) hover:text-(--text-1) hover:bg-(--bg-elevated)"
             }`}
           >
             {tab.icon}
@@ -119,7 +119,7 @@ export default async function CommunityPage({ params, searchParams }: PageProps)
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-purple-600 via-fuchsia-500 to-pink-500"
+        gradient=""
         icon={<TrophyIcon />}
       />
 
@@ -136,14 +136,14 @@ export default async function CommunityPage({ params, searchParams }: PageProps)
       <Suspense
         fallback={
           <div className="flex justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-(--accent) border-t-transparent" />
           </div>
         }
       >
         <div className="space-y-1">
           {entries.length === 0 && (
             <ScrollFadeIn>
-              <div className="rounded-2xl border border-(--border) bg-white/70 p-12 text-center backdrop-blur-xl dark:bg-white/5">
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-12 text-center">
                 <p className="text-(--text-2)">{t("empty")}</p>
               </div>
             </ScrollFadeIn>

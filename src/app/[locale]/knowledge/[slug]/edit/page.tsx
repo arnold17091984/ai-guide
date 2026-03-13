@@ -61,7 +61,6 @@ export default async function EditKnowledgeEntryPage({
       <PageHeader
         title="Edit Entry"
         subtitle={`Editing: ${entry.titleKo}`}
-        gradient="from-indigo-500 to-cyan-500"
         icon={
           <svg
             className="h-7 w-7"

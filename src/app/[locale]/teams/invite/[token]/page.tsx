@@ -42,7 +42,7 @@ export default async function InvitePage({ params }: PageProps) {
   if (!inviteData) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="mx-auto max-w-md rounded-2xl border border-(--border) bg-white/70 p-10 text-center shadow-md backdrop-blur-xl dark:bg-white/5">
+        <div className="mx-auto max-w-md rounded-lg border border-(--border) bg-(--bg-surface) p-10 text-center">
           <div className="mb-4 flex justify-center text-red-400">
             <svg
               className="h-12 w-12"
@@ -74,7 +74,7 @@ export default async function InvitePage({ params }: PageProps) {
   if (isExpired) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="mx-auto max-w-md rounded-2xl border border-(--border) bg-white/70 p-10 text-center shadow-md backdrop-blur-xl dark:bg-white/5">
+        <div className="mx-auto max-w-md rounded-lg border border-(--border) bg-(--bg-surface) p-10 text-center">
           <div className="mb-4 flex justify-center text-amber-400">
             <svg
               className="h-12 w-12"
@@ -101,9 +101,9 @@ export default async function InvitePage({ params }: PageProps) {
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="mx-auto w-full max-w-md rounded-2xl border border-(--border) bg-white/70 p-10 text-center shadow-md backdrop-blur-xl dark:bg-white/5">
+      <div className="mx-auto w-full max-w-md rounded-lg border border-(--border) bg-(--bg-surface) p-10 text-center">
         {/* Envelope icon */}
-        <div className="mb-6 flex justify-center text-cyan-500">
+        <div className="mb-6 flex justify-center text-(--accent)">
           <EnvelopeIcon />
         </div>
 
@@ -117,16 +117,16 @@ export default async function InvitePage({ params }: PageProps) {
         </p>
 
         {/* Team card */}
-        <div className="mb-8 flex items-center gap-4 rounded-xl border border-(--border) bg-(--surface) p-4 text-left">
+        <div className="mb-8 flex items-center gap-4 rounded-md border border-(--border) bg-(--bg-elevated) p-4 text-left">
           {teamAvatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={teamAvatarUrl}
               alt={teamName}
-              className="h-14 w-14 rounded-xl object-cover ring-2 ring-cyan-400/20"
+              className="h-14 w-14 rounded-md object-cover ring-1 ring-(--border)"
             />
           ) : (
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-cyan-500 to-blue-500 text-xl font-bold text-white ring-2 ring-cyan-400/20">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-(--bg-elevated) text-xl font-bold text-(--text-1) border border-(--border)">
               {teamInitial}
             </div>
           )}

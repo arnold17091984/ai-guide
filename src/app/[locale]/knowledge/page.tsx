@@ -87,7 +87,7 @@ function SearchBar({
         name="q"
         defaultValue={defaultValue}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-(--border) bg-(--surface) py-2.5 pl-10 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+        className="w-full rounded-md border border-(--border) bg-(--bg-surface) py-2.5 pl-10 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) transition-colors focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
       />
     </form>
   );
@@ -125,10 +125,10 @@ function PillLink({
   return (
     <a
       href={slug ? `?category=${encodeURIComponent(slug)}` : "?"}
-      className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+      className={`shrink-0 rounded px-4 py-1.5 text-sm font-medium transition-colors ${
         isActive
-          ? "bg-(--primary) text-white shadow-sm"
-          : "border border-(--border) bg-(--surface) text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+          ? "bg-(--accent-muted) text-(--accent)"
+          : "border border-(--border) bg-(--bg-surface) text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
       }`}
     >
       {label}
@@ -158,10 +158,10 @@ function DifficultyFilter({
           <a
             key={opt.value}
             href={opt.value ? `?difficulty=${opt.value}` : "?"}
-            className={`rounded-lg px-3 py-1 text-sm font-medium transition-colors ${
+            className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
               isActive
-                ? "bg-(--primary)/15 text-(--primary) ring-1 ring-(--primary)/30"
-                : "text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+                ? "bg-(--accent-muted) text-(--accent)"
+                : "text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
             }`}
           >
             {opt.label}
@@ -174,8 +174,8 @@ function DifficultyFilter({
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <div className="col-span-full flex flex-col items-center gap-4 rounded-2xl border border-dashed border-(--border) py-20 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-(--surface) text-(--text-2)">
+    <div className="col-span-full flex flex-col items-center gap-4 rounded-lg border border-dashed border-(--border) py-20 text-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-(--bg-surface) text-(--text-2)">
         <BookOpenIcon />
       </div>
       <p className="text-(--text-2)">{message}</p>
@@ -203,12 +203,12 @@ function Pagination({
       {hasPrev ? (
         <a
           href={`?page=${page - 1}`}
-          className="rounded-lg border border-(--border) bg-(--surface) px-4 py-2 text-sm font-medium text-(--text-1) transition-colors hover:bg-(--surface-hover)"
+          className="rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2 text-sm font-medium text-(--text-1) transition-colors hover:bg-(--bg-elevated)"
         >
           {prevLabel}
         </a>
       ) : (
-        <span className="rounded-lg border border-(--border) px-4 py-2 text-sm font-medium text-(--text-2) opacity-40 cursor-not-allowed">
+        <span className="rounded-md border border-(--border) px-4 py-2 text-sm font-medium text-(--text-2) opacity-40 cursor-not-allowed">
           {prevLabel}
         </span>
       )}
@@ -220,12 +220,12 @@ function Pagination({
       {hasNext ? (
         <a
           href={`?page=${page + 1}`}
-          className="rounded-lg border border-(--border) bg-(--surface) px-4 py-2 text-sm font-medium text-(--text-1) transition-colors hover:bg-(--surface-hover)"
+          className="rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2 text-sm font-medium text-(--text-1) transition-colors hover:bg-(--bg-elevated)"
         >
           {nextLabel}
         </a>
       ) : (
-        <span className="rounded-lg border border-(--border) px-4 py-2 text-sm font-medium text-(--text-2) opacity-40 cursor-not-allowed">
+        <span className="rounded-md border border-(--border) px-4 py-2 text-sm font-medium text-(--text-2) opacity-40 cursor-not-allowed">
           {nextLabel}
         </span>
       )}
@@ -308,7 +308,6 @@ export default async function KnowledgePage({ params, searchParams }: PageProps)
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-blue-600 via-indigo-600 to-cyan-600"
         icon={<BookOpenIconLg />}
       />
 
@@ -345,7 +344,7 @@ export default async function KnowledgePage({ params, searchParams }: PageProps)
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="h-52 animate-pulse rounded-2xl bg-(--surface)"
+                  className="h-52 animate-pulse rounded-lg bg-(--bg-surface)"
                 />
               ))}
             </div>

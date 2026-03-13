@@ -65,14 +65,14 @@ export default async function TeamsPage({ params, searchParams }: PageProps) {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-cyan-600 via-blue-500 to-indigo-500"
+        gradient=""
         icon={<TeamIcon />}
       />
 
       <Suspense
         fallback={
           <div className="flex justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-cyan-500 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-(--accent) border-t-transparent" />
           </div>
         }
       >

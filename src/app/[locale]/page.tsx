@@ -8,7 +8,6 @@ import HomeDashboard from "@/components/HomeDashboard";
 interface GuideCard {
   key: string;
   href: string;
-  gradient: string;
   badge?: "beginner" | "intermediate" | "advanced" | "experimental";
   icon: React.ReactNode;
 }
@@ -25,7 +24,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "vscode",
         href: "/setup/vscode",
-        gradient: "from-blue-500 to-cyan-400",
         badge: "beginner",
         icon: (
           <svg className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
@@ -36,7 +34,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "claudeWeb",
         href: "/setup/claude-web",
-        gradient: "from-orange-400 to-rose-500",
         badge: "beginner",
         icon: (
           <svg className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
@@ -47,7 +44,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "claudeCode",
         href: "/setup/claude-code",
-        gradient: "from-blue-500 to-cyan-600",
         badge: "beginner",
         icon: (
           <svg className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
@@ -63,7 +59,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "workflow",
         href: "/setup/workflow",
-        gradient: "from-emerald-500 to-teal-400",
         badge: "intermediate",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -74,7 +69,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "bestPractices",
         href: "/setup/best-practices",
-        gradient: "from-green-500 to-emerald-400",
         badge: "intermediate",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -85,7 +79,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "commonWorkflows",
         href: "/setup/common-workflows",
-        gradient: "from-indigo-500 to-blue-500",
         badge: "intermediate",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -101,7 +94,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "memory",
         href: "/setup/memory",
-        gradient: "from-teal-500 to-cyan-400",
         badge: "advanced",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -112,7 +104,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "costs",
         href: "/setup/costs",
-        gradient: "from-amber-500 to-yellow-400",
         badge: "advanced",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -123,7 +114,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "security",
         href: "/setup/security",
-        gradient: "from-red-500 to-rose-400",
         badge: "advanced",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -134,7 +124,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "agentTeams",
         href: "/setup/agent-teams",
-        gradient: "from-cyan-500 to-blue-500",
         badge: "experimental",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -145,7 +134,6 @@ const cardGroups: CardGroup[] = [
       {
         key: "pixelAgents",
         href: "/setup/pixel-agents",
-        gradient: "from-pink-500 to-rose-400",
         badge: "experimental",
         icon: (
           <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -160,20 +148,20 @@ const cardGroups: CardGroup[] = [
 
 const badgeStyles: Record<string, { bg: string; text: string }> = {
   beginner: {
-    bg: "bg-green-100 dark:bg-green-900/30",
-    text: "text-green-700 dark:text-green-400",
+    bg: "bg-(--accent-muted)",
+    text: "text-(--accent)",
   },
   intermediate: {
-    bg: "bg-blue-100 dark:bg-blue-900/30",
-    text: "text-blue-700 dark:text-blue-400",
+    bg: "bg-blue-500/10",
+    text: "text-blue-400",
   },
   advanced: {
-    bg: "bg-teal-100 dark:bg-teal-900/30",
-    text: "text-teal-700 dark:text-teal-400",
+    bg: "bg-amber-500/10",
+    text: "text-amber-400",
   },
   experimental: {
-    bg: "bg-amber-100 dark:bg-amber-900/30",
-    text: "text-amber-700 dark:text-amber-400",
+    bg: "bg-orange-500/10",
+    text: "text-orange-400",
   },
 };
 
@@ -201,22 +189,22 @@ export default function HomePage() {
               <ScrollFadeIn key={card.key} delay={cardIndex * 0.1}>
                 <GlassCard href={`/${locale}${card.href}`}>
                   <div className="mb-4 flex items-center justify-between">
-                    <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-linear-to-br ${card.gradient} text-white`}>
+                    <div className="flex h-14 w-14 items-center justify-center rounded-md bg-(--bg-elevated) text-(--text-2)">
                       {card.icon}
                     </div>
                     {card.badge && (
-                      <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}>
+                      <span className={`rounded px-2 py-0.5 text-xs font-mono ${badgeStyles[card.badge].bg} ${badgeStyles[card.badge].text}`}>
                         {tc(`badges.${card.badge}`)}
                       </span>
                     )}
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold text-(--text-1) group-hover:text-(--primary)">
+                  <h3 className="mb-2 text-xl font-semibold text-(--text-1) group-hover:text-(--accent)">
                     {t(`guides.${card.key}.title`)}
                   </h3>
                   <p className="text-sm text-(--text-2)">
                     {t(`guides.${card.key}.description`)}
                   </p>
-                  <div className="mt-4 flex items-center text-sm font-medium text-(--primary)">
+                  <div className="mt-4 flex items-center text-sm font-medium text-(--accent)">
                     {t("getStarted")}
                     <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -242,12 +230,12 @@ function DashboardSkeleton() {
     <div className="mt-16 space-y-8">
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-28 animate-pulse rounded-2xl bg-(--border)" />
+          <div key={i} className="h-28 animate-pulse rounded-lg bg-(--bg-elevated)" />
         ))}
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-64 animate-pulse rounded-2xl bg-(--border)" />
+          <div key={i} className="h-64 animate-pulse rounded-lg bg-(--bg-elevated)" />
         ))}
       </div>
     </div>

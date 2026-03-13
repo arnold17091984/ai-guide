@@ -8,18 +8,18 @@ import type { ProfileAchievement } from "./actions";
 // AchievementShowcase — Grid of unlocked achievement badges
 // ============================================================
 
-const tierColors: Record<string, string> = {
-  bronze: "from-amber-600 to-orange-700",
-  silver: "from-slate-300 to-gray-400",
-  gold: "from-yellow-400 to-amber-500",
-  platinum: "from-cyan-400 to-blue-500",
+const tierIconColor: Record<string, string> = {
+  bronze: "text-amber-600",
+  silver: "text-zinc-400",
+  gold: "text-amber-400",
+  platinum: "text-(--accent)",
 };
 
 const tierBorder: Record<string, string> = {
-  bronze: "border-amber-400/40",
-  silver: "border-gray-300/40",
-  gold: "border-yellow-400/40",
-  platinum: "border-cyan-400/40",
+  bronze: "border-l-amber-700",
+  silver: "border-l-zinc-400",
+  gold: "border-l-amber-400",
+  platinum: "border-l-emerald-400",
 };
 
 interface AchievementShowcaseProps {
@@ -44,15 +44,15 @@ export default function AchievementShowcase({
             scale: 1.08,
             transition: { duration: DURATION.fast, ease: EASE_APPLE },
           }}
-          className={`flex flex-col items-center gap-2 rounded-xl border bg-white/50 p-3 text-center backdrop-blur-sm dark:bg-white/5 ${
-            tierBorder[ach.tier] ?? "border-(--border)"
+          className={`flex flex-col items-center gap-2 rounded-lg border border-(--border) border-l-2 bg-(--bg-surface) p-3 text-center ${
+            tierBorder[ach.tier] ?? "border-l-(--border)"
           }`}
           title={ach.nameKey}
         >
           <div
-            className={`flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br ${
-              tierColors[ach.tier] ?? "from-gray-400 to-gray-500"
-            } text-white shadow-sm`}
+            className={`flex h-10 w-10 items-center justify-center rounded-md bg-(--bg-elevated) ${
+              tierIconColor[ach.tier] ?? "text-(--text-2)"
+            }`}
           >
             <svg
               className="h-5 w-5"

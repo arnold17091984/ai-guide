@@ -24,7 +24,7 @@ export default function BookmarksClient({
 }: BookmarksClientProps) {
   if (initialBookmarks.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-(--border) bg-white/50 py-16 text-center backdrop-blur-xl dark:bg-white/5">
+      <div className="flex flex-col items-center justify-center rounded-lg border border-(--border) bg-(--bg-surface) py-16 text-center">
         <svg
           viewBox="0 0 24 24"
           fill="none"

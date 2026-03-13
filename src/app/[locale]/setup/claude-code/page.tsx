@@ -13,7 +13,7 @@ export default function ClaudeCodePage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-blue-500 to-cyan-600"
+        
       />
 
       <div className="space-y-6">
@@ -23,7 +23,7 @@ export default function ClaudeCodePage() {
           title={t("steps.install.title")}
           description={t("steps.install.description")}
         >
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
             <ContentRenderer content={t("steps.install.content")} />
           </div>
           <GuideImage
@@ -51,7 +51,7 @@ export default function ClaudeCodePage() {
           title={t("steps.cliInstall.title")}
           description={t("steps.cliInstall.description")}
         >
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
             <ContentRenderer content={t("steps.cliInstall.content")} />
           </div>
           <GuideImage
@@ -67,7 +67,7 @@ export default function ClaudeCodePage() {
           title={t("steps.cliUsage.title")}
           description={t("steps.cliUsage.description")}
         >
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
             <ContentRenderer content={t("steps.cliUsage.content")} />
           </div>
           <GuideImage
@@ -83,7 +83,7 @@ export default function ClaudeCodePage() {
           title={t("steps.login.title")}
           description={t("steps.login.description")}
         >
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
             <ContentRenderer content={t("steps.login.content")} />
           </div>
         </StepCard>
@@ -94,7 +94,7 @@ export default function ClaudeCodePage() {
           title={t("steps.agentInstaller.title")}
           description={t("steps.agentInstaller.description")}
         >
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
             <ContentRenderer content={t("steps.agentInstaller.content")} />
           </div>
           <GuideImage

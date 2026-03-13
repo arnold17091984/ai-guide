@@ -127,10 +127,10 @@ export default function DebtDetailClient({
           <button
             type="button"
             onClick={handleVote}
-            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${
+            className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
               hasVoted
                 ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 ring-1 ring-amber-500/30"
-                : "border border-(--border) bg-(--surface) text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+                : "border border-(--border) bg-(--bg-surface) text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
             }`}
           >
             <svg
@@ -153,7 +153,7 @@ export default function DebtDetailClient({
           <button
             type="button"
             onClick={handleAssign}
-            className="inline-flex items-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm font-medium text-(--text-2) transition-all hover:bg-(--surface-hover) hover:text-(--text-1)"
+            className="inline-flex items-center gap-2 rounded-lg border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm font-medium text-(--text-2) transition-all hover:bg-(--bg-elevated) hover:text-(--text-1)"
           >
             <svg
               className="h-4 w-4"
@@ -178,7 +178,7 @@ export default function DebtDetailClient({
           <button
             type="button"
             onClick={() => setShowResolveForm(!showResolveForm)}
-            className="inline-flex items-center gap-2 rounded-xl bg-green-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-green-600"
+            className="inline-flex items-center gap-2 rounded-lg bg-green-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-green-600"
           >
             <svg
               className="h-4 w-4"
@@ -199,7 +199,7 @@ export default function DebtDetailClient({
           <button
             type="button"
             onClick={handleReopen}
-            className="inline-flex items-center gap-2 rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-900/20 px-4 py-2.5 text-sm font-medium text-amber-700 dark:text-amber-400 transition-all hover:bg-amber-100 dark:hover:bg-amber-900/30"
+            className="inline-flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 dark:bg-amber-900/20 px-4 py-2.5 text-sm font-medium text-amber-700 dark:text-amber-400 transition-all hover:bg-amber-100 dark:hover:bg-amber-900/30"
           >
             <svg
               className="h-4 w-4"
@@ -220,26 +220,26 @@ export default function DebtDetailClient({
 
       {/* Resolution form */}
       {showResolveForm && (
-        <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-2xl p-4">
+        <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-lg p-4">
           <textarea
             value={resolutionNote}
             onChange={(e) => setResolutionNote(e.target.value)}
             placeholder={t.resolutionNotePlaceholder}
             rows={3}
-            className="w-full rounded-xl border border-(--border) bg-(--surface) p-3 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+            className="w-full rounded-md border border-(--border) bg-(--bg-surface) p-3 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
           />
           <div className="mt-3 flex gap-2">
             <button
               type="button"
               onClick={handleResolve}
-              className="rounded-xl bg-green-500 px-4 py-2 text-sm font-semibold text-white hover:bg-green-600"
+              className="rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-white hover:bg-green-600"
             >
               {t.submitResolution}
             </button>
             <button
               type="button"
               onClick={() => setShowResolveForm(false)}
-              className="rounded-xl border border-(--border) px-4 py-2 text-sm text-(--text-2) hover:bg-(--surface-hover)"
+              className="rounded-lg border border-(--border) px-4 py-2 text-sm text-(--text-2) hover:bg-(--bg-elevated)"
             >
               {t.cancel}
             </button>
@@ -248,7 +248,7 @@ export default function DebtDetailClient({
       )}
 
       {/* Comments section */}
-      <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-2xl p-6">
+      <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-lg p-6">
         <h2 className="text-lg font-semibold text-(--text-1) mb-4">
           {t.commentsTitle} ({comments.length})
         </h2>
@@ -267,7 +267,7 @@ export default function DebtDetailClient({
                   className="h-8 w-8 rounded-full shrink-0"
                 />
               ) : (
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-(--surface) text-sm font-medium text-(--text-2) shrink-0">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-(--bg-surface) text-sm font-medium text-(--text-2) shrink-0">
                   {(
                     comment.displayName ??
                     comment.username ??
@@ -300,13 +300,13 @@ export default function DebtDetailClient({
               onChange={(e) => setCommentText(e.target.value)}
               placeholder={t.commentPlaceholder}
               rows={2}
-              className="w-full rounded-xl border border-(--border) bg-(--surface) p-3 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) p-3 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
             />
             <div className="mt-2 flex justify-end">
               <button
                 type="submit"
                 disabled={!commentText.trim()}
-                className="rounded-xl bg-(--primary) px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="rounded-lg bg-(--accent) px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t.submitComment}
               </button>

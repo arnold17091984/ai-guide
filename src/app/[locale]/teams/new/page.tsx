@@ -44,12 +44,12 @@ export default async function CreateTeamPage({ params }: PageProps) {
       <PageHeader
         title={t("createTeam")}
         subtitle={t("subtitle")}
-        gradient="from-cyan-600 via-blue-500 to-indigo-500"
+        gradient=""
         icon={<PlusIcon />}
       />
 
       <div className="mx-auto max-w-lg">
-        <div className="rounded-2xl border border-(--border) bg-white/70 p-8 shadow-md backdrop-blur-xl dark:bg-white/5">
+        <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-8">
           <CreateTeamForm
             locale={locale}
             labels={{

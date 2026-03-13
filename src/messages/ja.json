@@ -51,6 +51,13 @@
     "tryAgain": "再試行",
     "loading": "読み込み中..."
   },
+  "hero": {
+    "title": "Claude Code を、みんなの知恵で使いこなす。",
+    "subtitle": "スキル共有・ナレッジ管理・チーム連携のためのオープンプラットフォーム",
+    "cta": "始める",
+    "exploreCta": "スキルを探す",
+    "welcomeBack": "おかえり、{name}"
+  },
   "home": {
     "welcome": "AI活用ガイドへようこそ",
     "description": "このガイドは、AIツールを初めて使う方のために作成されました。ClaudeとVS Codeのセットアップと活用方法をステップバイステップで案内します。",

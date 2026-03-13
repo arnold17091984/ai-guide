@@ -210,14 +210,13 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero / metadata bar */}
-      <div className="relative -mx-4 -mt-8 mb-12 overflow-hidden rounded-b-3xl bg-linear-to-br from-violet-600 via-purple-600 to-fuchsia-600 px-8 py-16 sm:-mx-6 lg:-mx-8">
-        <div className="absolute inset-0 bg-black/10 dark:bg-black/25" />
+      <div className="relative -mx-4 -mt-8 mb-12 overflow-hidden rounded-b-lg border-b border-(--border) bg-(--bg-surface) px-8 py-12 sm:-mx-6 lg:-mx-8">
         <div className="relative mx-auto max-w-4xl">
           {/* Breadcrumb */}
-          <nav className="mb-6 flex items-center gap-2 text-sm text-white/70">
+          <nav className="mb-6 flex items-center gap-2 text-sm text-(--text-2)">
             <Link
               href={`/${locale}/case-studies`}
-              className="hover:text-white transition-colors"
+              className="hover:text-(--text-1) transition-colors"
             >
               {t("title")}
             </Link>
@@ -234,50 +233,50 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-white/90 line-clamp-1">{study.title}</span>
+            <span className="text-(--text-1) line-clamp-1">{study.title}</span>
           </nav>
 
           {/* Category + industry badges */}
           <div className="mb-4 flex flex-wrap gap-2">
             {study.categoryLabel && (
-              <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+              <span className="rounded bg-(--accent-muted) px-2 py-0.5 text-xs font-mono text-(--accent)">
                 {study.categoryLabel}
               </span>
             )}
             {study.industry && (
-              <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
+              <span className="rounded bg-(--bg-elevated) px-2 py-0.5 text-xs font-mono text-(--text-2) border border-(--border)">
                 {study.industry}
               </span>
             )}
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h1 className="text-3xl font-bold tracking-tight text-(--text-1) sm:text-4xl">
             {study.title ?? study.slug}
           </h1>
 
           {study.summary && (
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80">
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-(--text-2)">
               {study.summary}
             </p>
           )}
 
           {/* Metadata row */}
-          <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/70">
+          <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-(--text-2)">
             {/* Author */}
             <div className="flex items-center gap-2">
               {study.authorAvatar ? (
                 <img
                   src={study.authorAvatar}
                   alt={study.authorName ?? ""}
-                  className="h-8 w-8 rounded-full object-cover ring-2 ring-white/30"
+                  className="h-8 w-8 rounded-full object-cover ring-1 ring-(--border)"
                 />
               ) : (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 ring-2 ring-white/30">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-(--bg-elevated) ring-1 ring-(--border)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="h-4 w-4 text-white"
+                    className="h-4 w-4 text-(--text-2)"
                     aria-hidden="true"
                   >
                     <path
@@ -288,7 +287,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                   </svg>
                 </div>
               )}
-              <span className="font-medium text-white/90">
+              <span className="font-medium text-(--text-1)">
                 {study.authorName ?? study.authorUsername ?? "Anonymous"}
               </span>
             </div>
@@ -356,7 +355,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
               {study.techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-md bg-white/15 px-2.5 py-1 text-xs font-mono text-white/90 backdrop-blur-sm"
+                  className="rounded bg-(--bg-elevated) px-2.5 py-1 text-xs font-mono text-(--text-2) border border-(--border)"
                 >
                   {tech}
                 </span>
@@ -406,7 +405,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                 {study.tags.map((tag) => (
                   <span
                     key={tag.slug}
-                    className="rounded-full border border-(--border) px-3 py-1 text-xs font-medium text-(--text-2)"
+                    className="rounded border border-(--border) px-3 py-1 text-xs font-mono text-(--text-2)"
                   >
                     #{tag.label ?? tag.slug}
                   </span>
@@ -429,7 +428,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
           {/* Sidebar: ToC */}
           {toc.length > 0 && (
             <aside className="hidden w-56 shrink-0 xl:block">
-              <div className="sticky top-24 rounded-2xl border border-(--border) bg-white/70 p-5 backdrop-blur-xl shadow-md dark:bg-white/5">
+              <div className="sticky top-24 rounded-lg border border-(--border) bg-(--bg-surface) p-5">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                   {t("tableOfContents")}
                 </p>
@@ -438,7 +437,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      className={`block rounded-lg py-1 text-xs leading-snug text-(--text-2) transition-colors hover:text-violet-600 dark:hover:text-violet-400 ${
+                      className={`block rounded py-1 text-xs leading-snug text-(--text-2) transition-colors hover:text-(--accent) ${
                         item.level === 3 ? "pl-4" : "pl-0 font-medium"
                       }`}
                     >
@@ -462,12 +461,12 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                 <Link
                   key={related.id}
                   href={`/${locale}/case-studies/${related.slug}`}
-                  className="group flex flex-col rounded-2xl border border-(--border) bg-white/70 p-5 shadow-sm backdrop-blur-xl transition-all duration-200 hover:border-violet-300/50 hover:shadow-md dark:bg-white/5"
+                  className="group flex flex-col rounded-lg border border-(--border) bg-(--bg-surface) p-5 transition-all duration-200 hover:border-(--border-hover) hover:bg-(--bg-elevated)"
                 >
                   <span className="mb-2 text-xs font-medium text-(--text-2)">
                     {related.industry}
                   </span>
-                  <span className="text-sm font-semibold leading-snug text-(--text-1) line-clamp-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                  <span className="text-sm font-semibold leading-snug text-(--text-1) line-clamp-2 group-hover:text-(--accent) transition-colors">
                     {related.title ?? related.slug}
                   </span>
                   {related.summary && (

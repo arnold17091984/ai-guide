@@ -48,7 +48,6 @@ export default async function NewDebtPage({ params }: PageProps) {
       <PageHeader
         title={t("newItem.title")}
         subtitle={t("newItem.subtitle")}
-        gradient="from-amber-500 to-orange-500"
         icon={<ReportIcon />}
       />
 

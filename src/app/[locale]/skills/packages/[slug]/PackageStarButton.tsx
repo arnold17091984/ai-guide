@@ -65,11 +65,11 @@ export default function PackageStarButton({
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
       className={[
-        "inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-all duration-200",
+        "inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/50",
         starred
           ? "border-amber-400/60 bg-amber-500/15 text-amber-600 dark:border-amber-400/50 dark:bg-amber-500/20 dark:text-amber-400"
-          : "border-(--border) bg-(--surface)/60 text-(--text-2) hover:border-amber-400/50 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400",
+          : "border-(--border) bg-(--bg-surface)/60 text-(--text-2) hover:border-amber-400/50 hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400",
         pending ? "cursor-wait opacity-70" : "cursor-pointer",
       ].join(" ")}
     >

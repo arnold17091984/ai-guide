@@ -101,7 +101,7 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-violet-600 via-purple-600 to-fuchsia-600"
+        gradient=""
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -141,14 +141,14 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
             name="q"
             defaultValue={q}
             placeholder={t("searchPlaceholder")}
-            className="w-full rounded-xl border border-(--border) bg-white/70 py-2.5 pl-9 pr-4 text-sm text-(--text-1) backdrop-blur-xl placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+            className="w-full rounded-md border border-(--border) bg-(--bg-surface) py-2.5 pl-9 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
           />
         </form>
 
         {/* New case study link */}
         <Link
           href={`/${locale}/case-studies/new`}
-          className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-linear-to-r from-violet-600 to-purple-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:opacity-90 transition-opacity"
+          className="inline-flex shrink-0 items-center gap-2 rounded-md bg-(--accent) px-4 py-2.5 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover)"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -168,10 +168,10 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
         <div className="mb-6 flex flex-wrap gap-2">
           <Link
             href={buildUrl({ category: "", page: "1" })}
-            className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
+            className={`rounded px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
               !category
-                ? "bg-violet-600 text-white shadow-sm"
-                : "border border-(--border) text-(--text-2) hover:border-violet-400 hover:text-violet-600"
+                ? "bg-(--accent-muted) text-(--accent)"
+                : "border border-(--border) text-(--text-2) hover:border-(--accent) hover:text-(--accent)"
             }`}
           >
             {t("categories")}
@@ -180,10 +180,10 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
             <Link
               key={cat.slug}
               href={buildUrl({ category: cat.slug, page: "1" })}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
+              className={`rounded px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
                 category === cat.slug
-                  ? "bg-violet-600 text-white shadow-sm"
-                  : "border border-(--border) text-(--text-2) hover:border-violet-400 hover:text-violet-600"
+                  ? "bg-(--accent-muted) text-(--accent)"
+                  : "border border-(--border) text-(--text-2) hover:border-(--accent) hover:text-(--accent)"
               }`}
             >
               {cat.label}
@@ -202,10 +202,10 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
             <Link
               key={ind}
               href={buildUrl({ industry: industry === ind ? "" : ind, page: "1" })}
-              className={`rounded-full border px-3 py-1 text-xs font-medium transition-all duration-200 ${
+              className={`rounded border px-3 py-1 text-xs font-medium transition-all duration-200 ${
                 industry === ind
-                  ? "border-purple-400 bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                  : "border-(--border) text-(--text-2) hover:border-purple-400 hover:text-purple-600"
+                  ? "border-(--accent) bg-(--accent-muted) text-(--accent)"
+                  : "border-(--border) text-(--text-2) hover:border-(--accent) hover:text-(--accent)"
               }`}
             >
               {ind}
@@ -229,7 +229,7 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-72 animate-pulse rounded-2xl border border-(--border) bg-white/50 dark:bg-white/5"
+                className="h-72 animate-pulse rounded-lg border border-(--border) bg-(--bg-elevated)"
               />
             ))}
           </div>
@@ -242,7 +242,7 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-(--border) bg-white/70 py-20 text-center backdrop-blur-xl dark:bg-white/5">
+          <div className="flex flex-col items-center justify-center rounded-lg border border-(--border) bg-(--bg-surface) py-20 text-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -269,7 +269,7 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
           {page > 1 && (
             <Link
               href={buildUrl({ page: String(page - 1) })}
-              className="inline-flex items-center gap-1 rounded-lg border border-(--border) px-3 py-2 text-sm text-(--text-2) hover:border-violet-400 hover:text-violet-600 transition-colors"
+              className="inline-flex items-center gap-1 rounded-lg border border-(--border) px-3 py-2 text-sm text-(--text-2) hover:border-(--accent) hover:text-(--accent) transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +295,7 @@ export default async function CaseStudiesPage({ params, searchParams }: PageProp
           {page < totalPages && (
             <Link
               href={buildUrl({ page: String(page + 1) })}
-              className="inline-flex items-center gap-1 rounded-lg border border-(--border) px-3 py-2 text-sm text-(--text-2) hover:border-violet-400 hover:text-violet-600 transition-colors"
+              className="inline-flex items-center gap-1 rounded-lg border border-(--border) px-3 py-2 text-sm text-(--text-2) hover:border-(--accent) hover:text-(--accent) transition-colors"
             >
               {tc("next")}
               <svg

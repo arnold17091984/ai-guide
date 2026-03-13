@@ -13,7 +13,7 @@ export default function VscodePage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-blue-500 to-cyan-400"
+        
       />
 
       <div className="space-y-6">
@@ -49,7 +49,7 @@ export default function VscodePage() {
           title={t("steps.setup.title")}
           description={t("steps.setup.description")}
         >
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4">
             <ContentRenderer content={t("steps.setup.content")} />
           </div>
           <GuideImage

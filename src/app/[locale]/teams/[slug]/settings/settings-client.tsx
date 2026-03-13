@@ -91,11 +91,11 @@ export default function TeamSettingsClient({
   }
 
   return (
-    <div className="min-h-screen bg-(--bg)">
+    <div className="min-h-screen bg-(--bg-base)">
       <PageHeader
         title={labels.settingsTitle}
         subtitle={labels.settingsSubtitle}
-        gradient="from-cyan-600 to-blue-600"
+        gradient=""
       />
 
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
@@ -114,7 +114,7 @@ export default function TeamSettingsClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
-          className="space-y-6 rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5"
+          className="space-y-6 rounded-lg border border-(--border) bg-(--bg-surface) p-6"
         >
           {/* Team Name */}
           <div>
@@ -126,7 +126,7 @@ export default function TeamSettingsClient({
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -139,7 +139,7 @@ export default function TeamSettingsClient({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 resize-none"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20 resize-none"
             />
           </div>
 
@@ -153,7 +153,7 @@ export default function TeamSettingsClient({
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function TeamSettingsClient({
               type="button"
               onClick={() => setIsPublic(!isPublic)}
               className={`relative h-6 w-11 rounded-full transition-colors ${
-                isPublic ? "bg-cyan-500" : "bg-gray-300 dark:bg-gray-600"
+                isPublic ? "bg-(--accent)" : "bg-(--bg-elevated)"
               }`}
             >
               <span
@@ -188,7 +188,7 @@ export default function TeamSettingsClient({
               onChange={(e) => setMaxMembers(Number(e.target.value))}
               min={1}
               max={100}
-              className="w-32 rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20"
+              className="w-32 rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -197,7 +197,7 @@ export default function TeamSettingsClient({
             <button
               type="submit"
               disabled={isPending}
-              className="rounded-xl bg-cyan-500 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-cyan-600 disabled:opacity-50"
+              className="rounded-md bg-(--accent) px-6 py-2.5 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover) disabled:opacity-50"
             >
               {isPending ? labels.saving : saved ? labels.saved : labels.save}
             </button>
@@ -221,7 +221,7 @@ export default function TeamSettingsClient({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DURATION.normal, ease: EASE_APPLE, delay: 0.1 }}
-            className="mt-8 rounded-2xl border border-red-200 bg-red-50/50 p-6 dark:border-red-900/50 dark:bg-red-900/10"
+            className="mt-8 rounded-lg border border-red-500/30 bg-red-500/5 p-6"
           >
             <h3 className="text-sm font-semibold text-red-700 dark:text-red-400">
               {labels.dangerZone}
@@ -232,7 +232,7 @@ export default function TeamSettingsClient({
             {!confirmingDelete ? (
               <button
                 onClick={() => setConfirmingDelete(true)}
-                className="mt-4 rounded-xl border border-red-300 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-100 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/30"
+                className="mt-4 rounded-md border border-red-500/30 px-4 py-2 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10"
               >
                 {labels.deleteTeam}
               </button>
@@ -241,13 +241,13 @@ export default function TeamSettingsClient({
                 <button
                   onClick={handleDelete}
                   disabled={isPending}
-                  className="rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+                  className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50"
                 >
                   {labels.confirmDelete}
                 </button>
                 <button
                   onClick={() => setConfirmingDelete(false)}
-                  className="rounded-xl px-4 py-2 text-sm font-medium text-(--text-2) hover:bg-(--surface-hover) transition-colors"
+                  className="rounded-md border border-(--border) px-4 py-2 text-sm font-medium text-(--text-2) hover:bg-(--bg-elevated) transition-colors"
                 >
                   Cancel
                 </button>

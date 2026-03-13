@@ -18,13 +18,13 @@ import AchievementShowcase from "./AchievementShowcase";
 
 const roleBadgeClass: Record<string, string> = {
   admin:
-    "bg-red-50 text-red-700 border-red-300/50 dark:bg-red-900/20 dark:text-red-400 dark:border-red-700/40",
+    "bg-red-500/10 text-red-400 border-red-500/30",
   moderator:
-    "bg-orange-50 text-orange-700 border-orange-300/50 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-700/40",
+    "bg-orange-500/10 text-orange-400 border-orange-500/30",
   contributor:
-    "bg-blue-50 text-blue-700 border-blue-300/50 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-700/40",
+    "bg-(--accent-muted) text-(--accent) border-(--accent)/30",
   viewer:
-    "bg-gray-50 text-gray-600 border-gray-300/50 dark:bg-gray-800/30 dark:text-gray-400 dark:border-gray-700/40",
+    "bg-(--bg-elevated) text-(--text-2) border-(--border)",
 };
 
 export default async function PublicProfilePage({
@@ -60,7 +60,7 @@ export default async function PublicProfilePage({
       <PageHeader
         title={t("publicProfile.title")}
         subtitle={`@${profile.username}`}
-        gradient="from-blue-500 to-cyan-500"
+        
         icon={
           <svg
             className="h-7 w-7"
@@ -81,10 +81,8 @@ export default async function PublicProfilePage({
       <div className="mx-auto max-w-3xl space-y-6">
         {/* ── Avatar + Identity Card ── */}
         <ScrollFadeIn>
-          <div className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5">
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-
-            <div className="relative z-10 flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+          <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+            <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
               {/* Avatar */}
               <div className="relative shrink-0">
                 {profile.avatarUrl ? (
@@ -93,10 +91,10 @@ export default async function PublicProfilePage({
                     alt={profile.displayName ?? profile.username}
                     width={96}
                     height={96}
-                    className="h-24 w-24 rounded-2xl object-cover ring-2 ring-blue-400/30"
+                    className="h-24 w-24 rounded-full object-cover ring-2 ring-(--border)"
                   />
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-cyan-500 text-3xl font-bold text-white ring-2 ring-blue-400/30">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-(--accent-muted) text-3xl font-bold text-(--accent) ring-2 ring-(--border)">
                     {(profile.displayName ?? profile.username)
                       .charAt(0)
                       .toUpperCase()}
@@ -104,7 +102,7 @@ export default async function PublicProfilePage({
                 )}
                 {profile.isVerified && (
                   <span
-                    className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 ring-2 ring-white dark:ring-slate-900"
+                    className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-(--accent) ring-2 ring-(--bg-surface)"
                     title="Verified"
                   >
                     <svg
@@ -138,7 +136,7 @@ export default async function PublicProfilePage({
                   {/* Badges */}
                   <div className="mb-3 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
                     <span
-                      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${roleClass}`}
+                      className={`inline-flex items-center rounded border px-2.5 py-0.5 text-xs font-mono ${roleClass}`}
                     >
                       {profile.role}
                     </span>
@@ -169,9 +167,8 @@ export default async function PublicProfilePage({
 
         {/* ── Links & Meta ── */}
         <ScrollFadeIn delay={0.15}>
-          <div className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5">
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-            <div className="relative z-10 space-y-4">
+          <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+            <div className="space-y-4">
               {/* Member since */}
               <div className="flex items-center gap-3 text-sm text-(--text-2)">
                 <svg
@@ -206,7 +203,7 @@ export default async function PublicProfilePage({
                     href={`https://github.com/${profile.githubHandle}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-(--primary) transition-colors hover:underline"
+                    className="font-medium text-(--accent) transition-colors hover:underline"
                   >
                     @{profile.githubHandle}
                   </a>
@@ -233,7 +230,7 @@ export default async function PublicProfilePage({
                     href={profile.websiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="truncate font-medium text-(--primary) transition-colors hover:underline"
+                    className="truncate font-medium text-(--accent) transition-colors hover:underline"
                   >
                     {profile.websiteUrl.replace(/^https?:\/\//, "")}
                   </a>
@@ -246,9 +243,8 @@ export default async function PublicProfilePage({
         {/* ── Achievement Showcase ── */}
         {achievements.length > 0 && (
           <ScrollFadeIn delay={0.2}>
-            <div className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5">
-              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-              <div className="relative z-10">
+            <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+              <div>
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-(--text-1)">
                     {t("achievementShowcase")}
@@ -256,7 +252,7 @@ export default async function PublicProfilePage({
                   {achievements.length > 6 && (
                     <Link
                       href={`/${locale}/community/achievements`}
-                      className="text-sm font-medium text-(--primary) hover:underline"
+                      className="text-sm font-medium text-(--accent) hover:underline"
                     >
                       {t("viewAll")}
                     </Link>
@@ -274,7 +270,7 @@ export default async function PublicProfilePage({
             <div className="flex justify-center">
               <Link
                 href={`/${locale}/profile`}
-                className="inline-flex items-center gap-2 rounded-xl border border-(--border) bg-white/70 px-6 py-3 text-sm font-medium text-(--text-1) shadow-md backdrop-blur-xl transition-all duration-200 hover:border-blue-300/50 hover:shadow-lg dark:bg-white/5"
+                className="inline-flex items-center gap-2 rounded-md border border-(--border) bg-(--bg-surface) px-6 py-3 text-sm font-medium text-(--text-1) transition-all duration-200 hover:border-(--border-hover) hover:bg-(--bg-elevated)"
               >
                 <svg
                   className="h-4 w-4"

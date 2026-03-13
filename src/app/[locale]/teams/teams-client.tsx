@@ -161,17 +161,17 @@ export default function TeamsPageClient({
       {/* Toolbar */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         {/* Tabs */}
-        <div className="flex gap-2 overflow-x-auto rounded-xl border border-(--border) bg-white/70 p-1 backdrop-blur-xl dark:bg-white/5">
+        <div className="flex gap-2 overflow-x-auto rounded-md border border-(--border) bg-(--bg-surface) p-1">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.key;
             return (
               <Link
                 key={tab.key}
                 href={`/${locale}/teams${tab.key === "my" ? "" : "?tab=discover"}`}
-                className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors ${
+                className={`flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors ${
                   isActive
-                    ? "bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300"
-                    : "text-(--text-2) hover:text-(--text-1) hover:bg-gray-50 dark:hover:bg-white/5"
+                    ? "bg-(--accent-muted) text-(--accent) font-medium"
+                    : "text-(--text-2) hover:text-(--text-1) hover:bg-(--bg-elevated)"
                 }`}
               >
                 {tab.icon}
@@ -185,7 +185,7 @@ export default function TeamsPageClient({
         {isLoggedIn ? (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-cyan-600"
+            className="inline-flex items-center gap-2 rounded-md bg-(--accent) px-4 py-2.5 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover)"
           >
             <PlusIcon />
             {labels.createTeam}
@@ -207,7 +207,7 @@ export default function TeamsPageClient({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={labels.searchPlaceholder}
-              className="w-full rounded-xl border border-(--border) bg-white/70 py-3 pl-11 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) py-3 pl-11 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
         </form>
@@ -217,7 +217,7 @@ export default function TeamsPageClient({
       {activeTab === "my" ? (
         myTeams.length === 0 ? (
           <ScrollFadeIn>
-            <div className="rounded-2xl border border-(--border) bg-white/70 p-12 text-center backdrop-blur-xl dark:bg-white/5">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-12 text-center">
               <p className="text-(--text-2)">{labels.noTeams}</p>
             </div>
           </ScrollFadeIn>
@@ -240,7 +240,7 @@ export default function TeamsPageClient({
         )
       ) : publicTeams.length === 0 ? (
         <ScrollFadeIn>
-          <div className="rounded-2xl border border-(--border) bg-white/70 p-12 text-center backdrop-blur-xl dark:bg-white/5">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-12 text-center">
             <p className="text-(--text-2)">{labels.noPublicTeams}</p>
           </div>
         </ScrollFadeIn>
@@ -280,7 +280,7 @@ export default function TeamsPageClient({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
-              className="fixed inset-x-4 top-[15%] z-50 mx-auto max-w-md rounded-2xl border border-(--border) bg-white/90 p-6 shadow-2xl backdrop-blur-xl dark:bg-gray-900/90 sm:inset-x-auto"
+              className="fixed inset-x-4 top-[15%] z-50 mx-auto max-w-md rounded-lg border border-(--border) bg-(--bg-surface) p-6 shadow-lg sm:inset-x-auto"
             >
               <h3 className="mb-5 text-lg font-semibold text-(--text-1)">
                 {labels.createTeam}
@@ -294,7 +294,7 @@ export default function TeamsPageClient({
                     type="text"
                     value={teamName}
                     onChange={(e) => setTeamName(e.target.value)}
-                    className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20"
+                    className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
                     required
                     disabled={isPending}
                   />
@@ -307,7 +307,7 @@ export default function TeamsPageClient({
                     value={teamDesc}
                     onChange={(e) => setTeamDesc(e.target.value)}
                     rows={3}
-                    className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 resize-none"
+                    className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20 resize-none"
                     disabled={isPending}
                   />
                 </div>
@@ -316,7 +316,7 @@ export default function TeamsPageClient({
                     type="checkbox"
                     checked={teamPublic}
                     onChange={(e) => setTeamPublic(e.target.checked)}
-                    className="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
+                    className="h-4 w-4 rounded border-(--border) accent-(--accent)"
                     disabled={isPending}
                   />
                   <span className="text-sm text-(--text-1)">{labels.isPublic}</span>
@@ -330,7 +330,7 @@ export default function TeamsPageClient({
                   <button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="rounded-xl px-4 py-2.5 text-sm font-medium text-(--text-2) hover:bg-(--surface-hover) transition-colors"
+                    className="rounded-md border border-(--border) px-4 py-2.5 text-sm font-medium text-(--text-2) hover:bg-(--bg-elevated) transition-colors"
                     disabled={isPending}
                   >
                     {labels.cancel}
@@ -338,7 +338,7 @@ export default function TeamsPageClient({
                   <button
                     type="submit"
                     disabled={isPending || !teamName.trim()}
-                    className="rounded-xl bg-cyan-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-cyan-600 disabled:opacity-50"
+                    className="rounded-md bg-(--accent) px-4 py-2.5 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover) disabled:opacity-50"
                   >
                     {isPending ? labels.creating : labels.create}
                   </button>

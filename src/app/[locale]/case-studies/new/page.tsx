@@ -36,7 +36,7 @@ export default async function NewCaseStudyPage({ params }: PageProps) {
       <PageHeader
         title={t("newCaseStudy")}
         subtitle={t("subtitle")}
-        gradient="from-violet-600 via-purple-600 to-fuchsia-600"
+        gradient=""
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"

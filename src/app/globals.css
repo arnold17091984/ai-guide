@@ -31,12 +31,6 @@
   --warning: #F59E0B;
   --info: #3B82F6;
 
-  /* Legacy aliases — keep temporarily for gradual migration */
-  --bg: var(--bg-base);
-  --surface: var(--bg-surface);
-  --surface-hover: var(--bg-elevated);
-  --primary: var(--accent);
-  --secondary: var(--accent);
 }
 
 .light {
@@ -56,12 +50,6 @@
   --warning: #D97706;
   --info: #2563EB;
 
-  /* Legacy aliases */
-  --bg: var(--bg-base);
-  --surface: var(--bg-surface);
-  --surface-hover: var(--bg-elevated);
-  --primary: var(--accent);
-  --secondary: var(--accent);
 }
 
 body {

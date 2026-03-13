@@ -77,7 +77,6 @@ export default async function CreatePackagePage({ params, searchParams }: PagePr
       <PageHeader
         title={t("create.title")}
         subtitle={t("create.subtitle")}
-        gradient="from-emerald-600 via-teal-600 to-cyan-600"
         icon={<PackageIconLg />}
       />
 

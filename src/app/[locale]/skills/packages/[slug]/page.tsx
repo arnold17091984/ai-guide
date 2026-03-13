@@ -179,7 +179,7 @@ export default async function PackageDetailPage({ params }: PageProps) {
         >
           <Link
             href={`/${locale}`}
-            className="flex items-center gap-1 transition-colors hover:text-(--primary)"
+            className="flex items-center gap-1 transition-colors hover:text-(--accent)"
           >
             <HomeIcon />
             {t("breadcrumb.home")}
@@ -189,7 +189,7 @@ export default async function PackageDetailPage({ params }: PageProps) {
           </span>
           <Link
             href={`/${locale}/skills`}
-            className="transition-colors hover:text-(--primary)"
+            className="transition-colors hover:text-(--accent)"
           >
             {t("breadcrumb.skills")}
           </Link>
@@ -198,7 +198,7 @@ export default async function PackageDetailPage({ params }: PageProps) {
           </span>
           <Link
             href={`/${locale}/skills/packages`}
-            className="transition-colors hover:text-(--primary)"
+            className="transition-colors hover:text-(--accent)"
           >
             {t("breadcrumb.packages")}
           </Link>
@@ -217,7 +217,7 @@ export default async function PackageDetailPage({ params }: PageProps) {
             {/* Header */}
             <header className="space-y-4">
               <div className="flex items-start gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-400 to-teal-500 text-white">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-(--bg-elevated) text-(--accent)">
                   <PackageIcon />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -261,7 +261,7 @@ export default async function PackageDetailPage({ params }: PageProps) {
                   {pkg.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-(--border) bg-(--surface) px-3 py-0.5 text-xs text-(--text-2)"
+                      className="rounded border border-(--border) bg-(--bg-surface) px-3 py-0.5 text-xs text-(--text-2)"
                     >
                       {tag}
                     </span>
@@ -346,12 +346,12 @@ export default async function PackageDetailPage({ params }: PageProps) {
         <ScrollFadeIn delay={0.1}>
           <aside className="space-y-4 lg:sticky lg:top-8 lg:self-start">
             {/* Author card */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.author")}
               </h3>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-emerald-400 to-teal-500 text-sm font-bold text-white">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-(--bg-elevated) text-sm font-bold text-(--text-1)">
                   {authorInitials(pkg.authorName, pkg.authorUsername)}
                 </div>
                 <div className="min-w-0">
@@ -366,7 +366,7 @@ export default async function PackageDetailPage({ params }: PageProps) {
             </div>
 
             {/* Package info */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.info")}
               </h3>
@@ -406,14 +406,14 @@ export default async function PackageDetailPage({ params }: PageProps) {
 
             {/* Author actions */}
             {isAuthor && (
-              <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                   {t("detail.actions")}
                 </h3>
                 <div className="space-y-2">
                   <Link
                     href={`/${locale}/skills/packages/new?edit=${pkg.id}`}
-                    className="block w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2 text-center text-sm font-medium text-(--text-1) transition-colors hover:bg-(--surface-hover)"
+                    className="block w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2 text-center text-sm font-medium text-(--text-1) transition-colors hover:bg-(--bg-elevated)"
                   >
                     {t("detail.editPackage")}
                   </Link>

@@ -119,21 +119,16 @@ function authorInitials(name: string | null, username: string | null): string {
 }
 
 const DIFFICULTY_STYLES: Record<string, string> = {
-  beginner:
-    "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  intermediate:
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  advanced:
-    "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
+  beginner: "bg-emerald-500/10 text-emerald-400",
+  intermediate: "bg-amber-500/10 text-amber-400",
+  advanced: "bg-red-500/10 text-red-400",
 };
 
 const CONTENT_TYPE_STYLES: Record<string, string> = {
-  article: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  tip: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
-  workflow:
-    "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  tutorial:
-    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
+  article: "bg-(--accent-muted) text-(--accent)",
+  tip: "bg-(--accent-muted) text-(--accent)",
+  workflow: "bg-violet-500/10 text-violet-400",
+  tutorial: "bg-blue-500/10 text-blue-400",
 };
 
 // ---------------------------------------------------------------------------
@@ -163,7 +158,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
         >
           <Link
             href={`/${locale}`}
-            className="flex items-center gap-1 hover:text-(--primary) transition-colors"
+            className="flex items-center gap-1 hover:text-(--accent) transition-colors"
           >
             <HomeIcon />
             {t("breadcrumb.home")}
@@ -171,7 +166,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
           <span className="opacity-40"><ChevronRightIcon /></span>
           <Link
             href={`/${locale}/knowledge`}
-            className="hover:text-(--primary) transition-colors"
+            className="hover:text-(--accent) transition-colors"
           >
             {t("breadcrumb.knowledgeBase")}
           </Link>
@@ -180,7 +175,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
               <span className="opacity-40"><ChevronRightIcon /></span>
               <Link
                 href={`/${locale}/knowledge?category=${entry.categorySlug}`}
-                className="hover:text-(--primary) transition-colors"
+                className="hover:text-(--accent) transition-colors"
               >
                 {entry.categoryLabel}
               </Link>
@@ -202,14 +197,14 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
               <div className="flex flex-wrap gap-2">
                 {entry.contentType && (
                   <span
-                    className={`rounded-full px-3 py-0.5 text-xs font-medium ${CONTENT_TYPE_STYLES[entry.contentType] ?? "bg-gray-100 text-gray-700"}`}
+                    className={`rounded px-3 py-0.5 text-xs font-mono font-medium ${CONTENT_TYPE_STYLES[entry.contentType] ?? "bg-zinc-500/10 text-zinc-400"}`}
                   >
                     {entry.contentType}
                   </span>
                 )}
                 {entry.difficultyLevel && (
                   <span
-                    className={`rounded-full px-3 py-0.5 text-xs font-medium ${DIFFICULTY_STYLES[entry.difficultyLevel] ?? "bg-gray-100 text-gray-700"}`}
+                    className={`rounded px-3 py-0.5 text-xs font-mono font-medium ${DIFFICULTY_STYLES[entry.difficultyLevel] ?? "bg-zinc-500/10 text-zinc-400"}`}
                   >
                     {entry.difficultyLevel.charAt(0).toUpperCase() +
                       entry.difficultyLevel.slice(1)}
@@ -263,7 +258,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
                 {entry.tags.map((tag) => (
                   <span
                     key={tag.slug}
-                    className="rounded-full border border-(--border) bg-(--surface) px-3 py-0.5 text-xs text-(--text-2)"
+                    className="rounded border border-(--border) bg-(--bg-surface) px-3 py-0.5 text-xs text-(--text-2)"
                   >
                     {tag.label}
                   </span>
@@ -275,7 +270,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
             <div className="mt-10 flex flex-wrap gap-3 border-t border-(--border) pt-6">
               <Link
                 href={`/${locale}/knowledge/${slug}/history`}
-                className="flex items-center gap-2 rounded-lg border border-(--border) bg-(--surface) px-4 py-2 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+                className="flex items-center gap-2 rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
               >
                 <HistoryIcon />
                 {t("detail.versionHistory")}
@@ -283,7 +278,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
 
               <Link
                 href={`/${locale}/knowledge/${slug}/edit`}
-                className="flex items-center gap-2 rounded-lg border border-(--border) bg-(--surface) px-4 py-2 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+                className="flex items-center gap-2 rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
               >
                 <PencilIcon />
                 {t("detail.edit")}
@@ -291,7 +286,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
 
               <Link
                 href={`/${locale}/knowledge/${slug}/suggest`}
-                className="flex items-center gap-2 rounded-lg bg-(--primary)/10 px-4 py-2 text-sm font-medium text-(--primary) transition-colors hover:bg-(--primary)/20"
+                className="flex items-center gap-2 rounded-md bg-(--accent-muted) px-4 py-2 text-sm font-medium text-(--accent) transition-colors hover:bg-(--accent)/20"
               >
                 <GitPullRequestIcon />
                 {t("detail.suggestEdit")}
@@ -313,12 +308,12 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
         <ScrollFadeIn delay={0.1}>
           <aside className="space-y-4 lg:sticky lg:top-8 lg:self-start">
             {/* Author card */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.author")}
               </h3>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-400 to-cyan-500 text-sm font-bold text-white">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-(--bg-elevated) text-sm font-bold text-(--text-1)">
                   {authorInitials(entry.authorName, entry.authorUsername)}
                 </div>
                 <div className="min-w-0">
@@ -335,7 +330,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
             </div>
 
             {/* Entry info */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.info")}
               </h3>
@@ -346,7 +341,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
                     <dd className="text-right font-medium text-(--text-1)">
                       <Link
                         href={`/${locale}/knowledge?category=${entry.categorySlug}`}
-                        className="hover:text-(--primary) transition-colors"
+                        className="hover:text-(--accent) transition-colors"
                       >
                         {entry.categoryLabel}
                       </Link>
@@ -358,7 +353,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
                     <dt className="text-(--text-2)">{t("detail.difficulty")}</dt>
                     <dd className="text-right">
                       <span
-                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${DIFFICULTY_STYLES[entry.difficultyLevel] ?? ""}`}
+                        className={`rounded px-2 py-0.5 text-xs font-mono font-medium ${DIFFICULTY_STYLES[entry.difficultyLevel] ?? ""}`}
                       >
                         {entry.difficultyLevel.charAt(0).toUpperCase() +
                           entry.difficultyLevel.slice(1)}
@@ -395,7 +390,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
 
             {/* Tags */}
             {entry.tags && entry.tags.length > 0 && (
-              <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                   {t("detail.tags")}
                 </h3>
@@ -403,7 +398,7 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
                   {entry.tags.map((tag) => (
                     <span
                       key={tag.slug}
-                      className="rounded-full border border-(--border) bg-(--surface) px-2.5 py-0.5 text-xs text-(--text-2) transition-colors hover:bg-(--surface-hover)"
+                      className="rounded border border-(--border) bg-(--bg-surface) px-2.5 py-0.5 text-xs text-(--text-2) transition-colors hover:bg-(--bg-elevated)"
                     >
                       {tag.label}
                     </span>
@@ -413,28 +408,28 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
             )}
 
             {/* Quick links */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.actions")}
               </h3>
               <div className="space-y-1">
                 <Link
                   href={`/${locale}/knowledge/${slug}/history`}
-                  className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+                  className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
                 >
                   <HistoryIcon />
                   {t("detail.versionHistory")}
                 </Link>
                 <Link
                   href={`/${locale}/knowledge/${slug}/edit`}
-                  className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+                  className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
                 >
                   <PencilIcon />
                   {t("detail.edit")}
                 </Link>
                 <Link
                   href={`/${locale}/knowledge/${slug}/suggest`}
-                  className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-(--primary) transition-colors hover:bg-(--primary)/10"
+                  className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-(--accent) transition-colors hover:bg-(--accent-muted)"
                 >
                   <GitPullRequestIcon />
                   {t("detail.suggestEdit")}

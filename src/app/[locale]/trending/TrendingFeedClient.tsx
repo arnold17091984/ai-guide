@@ -60,7 +60,7 @@ const SOURCES = [
 // ============================================================
 function SkeletonCard() {
   return (
-    <div className="animate-pulse rounded-2xl border border-(--border) bg-white/70 p-5 backdrop-blur-xl dark:bg-white/5">
+    <div className="animate-pulse rounded-lg border border-(--border) bg-(--bg-surface) p-5">
       <div className="flex items-center justify-between mb-3">
         <div className="h-5 w-20 rounded-full bg-gray-200 dark:bg-white/10" />
         <div className="h-3 w-8 rounded bg-gray-200 dark:bg-white/10" />
@@ -215,10 +215,10 @@ export default function TrendingFeedClient({
             <button
               key={key}
               onClick={() => handleSourceChange(key)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
+              className={`inline-flex items-center gap-1.5 rounded px-3.5 py-1.5 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-(--primary) text-white shadow-md"
-                  : "border border-(--border) bg-white/50 text-(--text-2) hover:bg-white/80 dark:bg-white/5 dark:hover:bg-white/10"
+                  ? "bg-(--accent-muted) text-(--accent)"
+                  : "border border-(--border) bg-(--bg-surface) text-(--text-2) hover:bg-(--bg-elevated)"
               }`}
             >
               {icon}
@@ -236,12 +236,12 @@ export default function TrendingFeedClient({
       </div>
 
       {/* Sort toggle */}
-      <div className="flex items-center gap-1 rounded-xl border border-(--border) bg-white/50 p-1 backdrop-blur-sm dark:bg-white/5 w-fit">
+      <div className="flex items-center gap-1 rounded-md border border-(--border) bg-(--bg-surface) p-1 w-fit">
         <button
           onClick={() => handleSortChange("score")}
           className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
             sortBy === "score"
-              ? "bg-(--primary) text-white shadow-sm"
+              ? "bg-(--accent-muted) text-(--accent)"
               : "text-(--text-2) hover:text-(--text-1)"
           }`}
         >
@@ -251,7 +251,7 @@ export default function TrendingFeedClient({
           onClick={() => handleSortChange("publishedAt")}
           className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
             sortBy === "publishedAt"
-              ? "bg-(--primary) text-white shadow-sm"
+              ? "bg-(--accent-muted) text-(--accent)"
               : "text-(--text-2) hover:text-(--text-1)"
           }`}
         >
@@ -267,7 +267,7 @@ export default function TrendingFeedClient({
           ))}
         </div>
       ) : fetchError ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-300/30 bg-red-500/5 py-12 text-center">
+        <div className="flex flex-col items-center gap-3 rounded-lg border border-red-500/30 bg-red-500/5 py-12 text-center">
           <p className="text-sm text-red-500">Failed to load trending items. Please try again.</p>
           <button
             onClick={() => handleSourceChange(activeSource)}
@@ -277,7 +277,7 @@ export default function TrendingFeedClient({
           </button>
         </div>
       ) : items.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-(--border) bg-white/50 py-16 text-center backdrop-blur-xl dark:bg-white/5">
+        <div className="flex flex-col items-center justify-center rounded-lg border border-(--border) bg-(--bg-surface) py-16 text-center">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -322,7 +322,7 @@ export default function TrendingFeedClient({
           <button
             onClick={loadMore}
             disabled={isLoading}
-            className="rounded-xl border border-(--border) bg-white/50 px-6 py-2.5 text-sm font-medium text-(--text-1) backdrop-blur-sm transition-all hover:bg-white/80 hover:shadow-md disabled:opacity-50 dark:bg-white/5 dark:hover:bg-white/10"
+            className="rounded-md border border-(--border) bg-(--bg-surface) px-6 py-2.5 text-sm font-medium text-(--text-1) transition-all hover:bg-(--bg-elevated) disabled:opacity-50"
           >
             {isLoading ? (
               <span className="inline-flex items-center gap-2">

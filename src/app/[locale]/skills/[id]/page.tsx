@@ -40,30 +40,24 @@ const CLAUDE_VERSIONS: ClaudeCodeVersion[] = [
 // ---------------------------------------------------------------------------
 
 const CATEGORY_STYLES: Record<string, string> = {
-  workflow:
-    "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  "code-generation":
-    "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  testing:
-    "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
-  documentation:
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  security: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
-  devops: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
-  refactoring:
-    "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
-  debugging:
-    "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
-  review: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
-  other: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+  workflow: "bg-violet-500/10 text-violet-400",
+  "code-generation": "bg-(--accent-muted) text-(--accent)",
+  testing: "bg-emerald-500/10 text-emerald-400",
+  documentation: "bg-amber-500/10 text-amber-400",
+  security: "bg-red-500/10 text-red-400",
+  devops: "bg-(--accent-muted) text-(--accent)",
+  refactoring: "bg-blue-500/10 text-blue-400",
+  debugging: "bg-orange-500/10 text-orange-400",
+  review: "bg-teal-500/10 text-teal-400",
+  other: "bg-zinc-500/10 text-zinc-400",
 };
 
 const SEVERITY_STYLES: Record<string, string> = {
-  critical: "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300",
-  high: "bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-300",
-  medium: "bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300",
-  low: "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300",
-  info: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+  critical: "bg-red-500/10 text-red-400",
+  high: "bg-orange-500/10 text-orange-400",
+  medium: "bg-amber-500/10 text-amber-400",
+  low: "bg-blue-500/10 text-blue-400",
+  info: "bg-zinc-500/10 text-zinc-400",
 };
 
 // ---------------------------------------------------------------------------
@@ -267,7 +261,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
         >
           <Link
             href={`/${locale}`}
-            className="flex items-center gap-1 transition-colors hover:text-(--primary)"
+            className="flex items-center gap-1 transition-colors hover:text-(--accent)"
           >
             <HomeIcon />
             {t("breadcrumb.home")}
@@ -277,7 +271,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
           </span>
           <Link
             href={`/${locale}/skills`}
-            className="transition-colors hover:text-(--primary)"
+            className="transition-colors hover:text-(--accent)"
           >
             {t("breadcrumb.skillRegistry")}
           </Link>
@@ -299,16 +293,16 @@ export default async function SkillDetailPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-2">
                 {category && (
                   <span
-                    className={`rounded-full px-3 py-0.5 text-xs font-medium ${CATEGORY_STYLES[category] ?? CATEGORY_STYLES.other}`}
+                    className={`rounded px-3 py-0.5 text-xs font-mono font-medium ${CATEGORY_STYLES[category] ?? CATEGORY_STYLES.other}`}
                   >
                     {category}
                   </span>
                 )}
-                <span className="rounded-full border border-(--border) bg-(--surface)/60 px-2.5 py-0.5 font-mono text-xs text-(--text-2)">
+                <span className="rounded border border-(--border) bg-(--bg-surface)/60 px-2.5 py-0.5 font-mono text-xs text-(--text-2)">
                   v{skill.currentVersion}
                 </span>
                 {skill.license && (
-                  <span className="rounded-full border border-(--border) bg-(--surface)/60 px-2.5 py-0.5 text-xs text-(--text-2)">
+                  <span className="rounded border border-(--border) bg-(--bg-surface)/60 px-2.5 py-0.5 text-xs text-(--text-2)">
                     {skill.license}
                   </span>
                 )}
@@ -339,7 +333,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
                     href={skill.homepageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 transition-colors hover:text-(--primary)"
+                    className="flex items-center gap-1.5 transition-colors hover:text-(--accent)"
                   >
                     <LinkIcon />
                     {t("detail.homepage")}
@@ -369,7 +363,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
                   {skill.triggers.map((trigger, i) => (
                     <code
                       key={i}
-                      className="rounded-lg border border-(--border) bg-(--surface)/60 px-3 py-1 font-mono text-sm text-(--text-1)"
+                      className="rounded-lg border border-(--border) bg-(--bg-surface)/60 px-3 py-1 font-mono text-sm text-(--text-1)"
                     >
                       {trigger}
                     </code>
@@ -384,29 +378,29 @@ export default async function SkillDetailPage({ params }: PageProps) {
                 <h2 className="mb-3 text-lg font-semibold text-(--text-1)">
                   {t("detail.dependencies")}
                 </h2>
-                <div className="divide-y divide-(--border) overflow-hidden rounded-xl border border-(--border)">
+                <div className="divide-y divide-(--border) overflow-hidden rounded-lg border border-(--border)">
                   {skill.dependencies.map((dep) => (
                     <div
                       key={dep.id}
-                      className="flex items-center justify-between gap-4 bg-(--surface)/50 px-4 py-3"
+                      className="flex items-center justify-between gap-4 bg-(--bg-surface)/50 px-4 py-3"
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <GitBranchIcon className="h-4 w-4 shrink-0 text-(--text-2)" />
                         <Link
                           href={`/${locale}/skills/${dep.slug}`}
-                          className="truncate text-sm font-medium text-(--text-1) transition-colors hover:text-(--primary)"
+                          className="truncate text-sm font-medium text-(--text-1) transition-colors hover:text-(--accent)"
                         >
                           {dep.name}
                         </Link>
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         {dep.versionRange && (
-                          <code className="rounded bg-(--surface) px-2 py-0.5 font-mono text-xs text-(--text-2)">
+                          <code className="rounded bg-(--bg-surface) px-2 py-0.5 font-mono text-xs text-(--text-2)">
                             {dep.versionRange}
                           </code>
                         )}
                         {!dep.required && (
-                          <span className="rounded-full border border-(--border) px-2 py-0.5 text-xs text-(--text-2)">
+                          <span className="rounded border border-(--border) px-2 py-0.5 text-xs text-(--text-2)">
                             {t("detail.optional")}
                           </span>
                         )}
@@ -445,7 +439,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
               <h2 className="mb-3 text-lg font-semibold text-(--text-1)">
                 {t("detail.compatibility")}
               </h2>
-              <div className="overflow-hidden rounded-xl border border-(--border)">
+              <div className="overflow-hidden rounded-lg border border-(--border)">
                 <div className="grid grid-cols-2 gap-0 divide-y divide-(--border) sm:grid-cols-4">
                   {CLAUDE_VERSIONS.map((v) => {
                     const compatible = isVersionCompatible(
@@ -458,8 +452,8 @@ export default async function SkillDetailPage({ params }: PageProps) {
                         key={v}
                         className={`flex items-center justify-between gap-2 px-4 py-3 ${
                           compatible
-                            ? "bg-(--surface)/40"
-                            : "bg-(--surface)/20 opacity-50"
+                            ? "bg-(--bg-surface)/40"
+                            : "bg-(--bg-surface)/20 opacity-50"
                         }`}
                       >
                         <span className="font-mono text-sm text-(--text-1)">
@@ -497,10 +491,10 @@ export default async function SkillDetailPage({ params }: PageProps) {
                 </h2>
                 <div className="mb-3 flex flex-wrap items-center gap-3">
                   <span
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium ${
+                    className={`inline-flex items-center gap-1.5 rounded px-3 py-1 text-sm font-mono font-medium ${
                       skill.securityPassed
-                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
-                        : "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
+                        ? "bg-emerald-500/10 text-emerald-400"
+                        : "bg-red-500/10 text-red-400"
                     }`}
                   >
                     {skill.securityPassed ? <CheckIcon /> : <XIcon />}
@@ -524,11 +518,11 @@ export default async function SkillDetailPage({ params }: PageProps) {
                     {skill.securityFindings.map((finding) => (
                       <div
                         key={finding.id}
-                        className="overflow-hidden rounded-xl border border-(--border) bg-(--surface)/50"
+                        className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface)/50"
                       >
                         <div className="flex flex-wrap items-center gap-3 border-b border-(--border) px-4 py-2.5">
                           <span
-                            className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${SEVERITY_STYLES[finding.level] ?? SEVERITY_STYLES.info}`}
+                            className={`rounded px-2.5 py-0.5 text-xs font-mono font-semibold ${SEVERITY_STYLES[finding.level] ?? SEVERITY_STYLES.info}`}
                           >
                             {finding.level}
                           </span>
@@ -570,7 +564,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
                 {skill.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-(--border) bg-(--surface) px-3 py-0.5 text-xs text-(--text-2)"
+                    className="rounded border border-(--border) bg-(--bg-surface) px-3 py-0.5 text-xs text-(--text-2)"
                   >
                     {tag}
                   </span>
@@ -594,12 +588,12 @@ export default async function SkillDetailPage({ params }: PageProps) {
         <ScrollFadeIn delay={0.1}>
           <aside className="space-y-4 lg:sticky lg:top-8 lg:self-start">
             {/* Author card */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.author")}
               </h3>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-400 to-cyan-500 text-sm font-bold text-white">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-(--bg-elevated) text-sm font-bold text-(--text-1)">
                   {authorInitials(skill.authorName, skill.authorUsername)}
                 </div>
                 <div className="min-w-0">
@@ -614,7 +608,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
             </div>
 
             {/* Skill info */}
-            <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+            <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                 {t("detail.info")}
               </h3>
@@ -666,7 +660,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
 
             {/* Version history */}
             {skill.versions.length > 0 && (
-              <div className="rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl">
+              <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-(--text-2)">
                   {t("detail.versionHistory")}
                 </h3>
@@ -693,7 +687,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
                         </p>
                       </div>
                       {v.yanked && (
-                        <span className="shrink-0 rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                        <span className="shrink-0 rounded bg-red-500/10 px-1.5 py-0.5 text-xs text-red-400">
                           {t("detail.yanked")}
                         </span>
                       )}

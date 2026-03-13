@@ -53,13 +53,13 @@ export default async function ProfilePage({
 
   const roleBadgeClass: Record<string, string> = {
     admin:
-      "bg-red-50 text-red-700 border-red-300/50 dark:bg-red-900/20 dark:text-red-400 dark:border-red-700/40",
+      "bg-red-500/10 text-red-400 border-red-500/30",
     moderator:
-      "bg-orange-50 text-orange-700 border-orange-300/50 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-700/40",
+      "bg-orange-500/10 text-orange-400 border-orange-500/30",
     contributor:
-      "bg-blue-50 text-blue-700 border-blue-300/50 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-700/40",
+      "bg-(--accent-muted) text-(--accent) border-(--accent)/30",
     viewer:
-      "bg-gray-50 text-gray-600 border-gray-300/50 dark:bg-gray-800/30 dark:text-gray-400 dark:border-gray-700/40",
+      "bg-(--bg-elevated) text-(--text-2) border-(--border)",
   };
 
   const roleClass = roleBadgeClass[profile.role] ?? roleBadgeClass.viewer;
@@ -69,7 +69,6 @@ export default async function ProfilePage({
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-blue-500 to-cyan-500"
         icon={
           <svg
             className="h-7 w-7"
@@ -90,10 +89,8 @@ export default async function ProfilePage({
       <div className="mx-auto max-w-2xl space-y-6">
         {/* ── Avatar + identity card ── */}
         <ScrollFadeIn>
-          <div className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5">
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-
-            <div className="relative z-10 flex flex-col items-center gap-5 sm:flex-row sm:items-start">
+          <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+            <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
               {/* Avatar */}
               <div className="relative shrink-0">
                 {profile.avatarUrl ? (
@@ -102,10 +99,10 @@ export default async function ProfilePage({
                     alt={profile.displayName ?? profile.username}
                     width={96}
                     height={96}
-                    className="h-24 w-24 rounded-2xl object-cover ring-2 ring-blue-400/30"
+                    className="h-24 w-24 rounded-full object-cover ring-2 ring-(--border)"
                   />
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-cyan-500 text-3xl font-bold text-white ring-2 ring-blue-400/30">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-(--accent-muted) text-3xl font-bold text-(--accent) ring-2 ring-(--border)">
                     {(profile.displayName ?? profile.username)
                       .charAt(0)
                       .toUpperCase()}
@@ -113,7 +110,7 @@ export default async function ProfilePage({
                 )}
                 {profile.isVerified && (
                   <span
-                    className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 ring-2 ring-white dark:ring-slate-900"
+                    className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-(--accent) ring-2 ring-(--bg-surface)"
                     title={t("verified")}
                   >
                     <svg
@@ -138,7 +135,7 @@ export default async function ProfilePage({
                     {profile.displayName ?? profile.username}
                   </h2>
                   {profile.isVerified && (
-                    <span className="text-xs font-medium text-blue-500">
+                    <span className="text-xs font-medium text-(--accent)">
                       {t("verified")}
                     </span>
                   )}
@@ -151,7 +148,7 @@ export default async function ProfilePage({
                 {/* Badges row */}
                 <div className="mb-3 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
                   <span
-                    className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${roleClass}`}
+                    className={`inline-flex items-center rounded border px-2.5 py-0.5 text-xs font-mono ${roleClass}`}
                   >
                     {t(`roles.${profile.role}`)}
                   </span>
@@ -174,10 +171,8 @@ export default async function ProfilePage({
 
         {/* ── Stats + links card ── */}
         <ScrollFadeIn delay={0.1}>
-          <div className="relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-6 shadow-md backdrop-blur-xl dark:bg-white/5">
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-blue-500/5 via-cyan-500/3 to-teal-500/5" />
-
-            <div className="relative z-10 space-y-4">
+          <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+            <div className="space-y-4">
               {/* Member since */}
               <div className="flex items-center gap-3 text-sm text-(--text-2)">
                 <svg
@@ -235,7 +230,7 @@ export default async function ProfilePage({
                     href={`https://github.com/${profile.githubHandle}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-(--primary) transition-colors hover:underline"
+                    className="font-medium text-(--accent) transition-colors hover:underline"
                   >
                     @{profile.githubHandle}
                   </a>
@@ -262,7 +257,7 @@ export default async function ProfilePage({
                     href={profile.websiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="truncate font-medium text-(--primary) transition-colors hover:underline"
+                    className="truncate font-medium text-(--accent) transition-colors hover:underline"
                   >
                     {profile.websiteUrl.replace(/^https?:\/\//, "")}
                   </a>

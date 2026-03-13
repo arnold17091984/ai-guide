@@ -209,7 +209,7 @@ export default function DebtDashboardClient({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href={`/${locale}/knowledge/debt/new`}
-          className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-amber-600 hover:shadow-lg"
+          className="inline-flex items-center gap-2 rounded-md bg-(--accent) px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-(--accent-hover)"
         >
           <PlusIcon />
           {t.reportGap}
@@ -229,7 +229,7 @@ export default function DebtDashboardClient({
             name="search"
             defaultValue={currentSearch}
             placeholder={t.searchPlaceholder}
-            className="w-full rounded-xl border border-(--border) bg-(--surface) py-2 pl-10 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+            className="w-full rounded-md border border-(--border) bg-(--bg-surface) py-2 pl-10 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) transition-colors focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
           />
           {/* Preserve current filters */}
           {currentCategory && (
@@ -251,10 +251,10 @@ export default function DebtDashboardClient({
             key={pill.value}
             type="button"
             onClick={() => navigate({ category: pill.value })}
-            className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+            className={`shrink-0 rounded px-4 py-1.5 text-sm font-medium transition-colors ${
               currentCategory === pill.value
-                ? "bg-amber-500 text-white shadow-sm"
-                : "border border-(--border) bg-(--surface) text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+                ? "bg-(--accent-muted) text-(--accent)"
+                : "border border-(--border) bg-(--bg-surface) text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
             }`}
           >
             {pill.label}
@@ -265,15 +265,15 @@ export default function DebtDashboardClient({
       {/* Status tabs + sort */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         {/* Status tabs */}
-        <div className="flex gap-1 rounded-xl bg-(--surface) p-1">
+        <div className="flex gap-1 rounded-lg bg-(--bg-surface) border border-(--border) p-1">
           {statusTabs.map((tab) => (
             <button
               key={tab.value}
               type="button"
               onClick={() => navigate({ status: tab.value })}
-              className={`rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors ${
+              className={`rounded-md px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 currentStatus === tab.value
-                  ? "bg-white dark:bg-white/10 text-(--text-1) shadow-sm"
+                  ? "bg-(--accent-muted) text-(--accent)"
                   : "text-(--text-2) hover:text-(--text-1)"
               }`}
             >
@@ -289,10 +289,10 @@ export default function DebtDashboardClient({
               key={opt.value}
               type="button"
               onClick={() => navigate({ sort: opt.value })}
-              className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                 currentSort === opt.value
-                  ? "bg-amber-500/15 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/30"
-                  : "text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+                  ? "bg-(--accent-muted) text-(--accent)"
+                  : "text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
               }`}
             >
               {opt.label}
@@ -303,7 +303,7 @@ export default function DebtDashboardClient({
 
       {/* Items list */}
       {items.length === 0 ? (
-        <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-(--border) py-20 text-center">
+        <div className="flex flex-col items-center gap-4 rounded-lg border border-dashed border-(--border) py-20 text-center">
           <EmptyIcon />
           <p className="text-(--text-2)">{t.noResults}</p>
         </div>

@@ -65,7 +65,7 @@ export default function InviteActions({
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
         <a
           href={`/${locale}/auth/login?next=/${locale}/teams/invite/${token}`}
-          className="inline-flex items-center justify-center rounded-xl bg-cyan-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-cyan-600"
+          className="inline-flex items-center justify-center rounded-md bg-(--accent) px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover)"
         >
           {labels.acceptInvite}
         </a>
@@ -78,7 +78,7 @@ export default function InviteActions({
       <button
         onClick={handleAccept}
         disabled={isPending}
-        className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-cyan-600 disabled:opacity-50"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-(--accent) px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover) disabled:opacity-50"
       >
         {isPending ? (
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -99,7 +99,7 @@ export default function InviteActions({
       <button
         onClick={handleDecline}
         disabled={isPending}
-        className="inline-flex items-center justify-center rounded-xl border border-(--border) px-6 py-3 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--surface-hover) disabled:opacity-50"
+        className="inline-flex items-center justify-center rounded-md border border-(--border) px-6 py-3 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--bg-elevated) disabled:opacity-50"
       >
         {labels.declineInvite}
       </button>

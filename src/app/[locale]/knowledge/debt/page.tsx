@@ -98,7 +98,6 @@ export default async function DebtDashboardPage({
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-amber-500 to-orange-500"
         icon={<DebtIcon />}
       />
 

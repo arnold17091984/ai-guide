@@ -74,9 +74,9 @@ function getNotificationColor(type: string) {
     case "edit_rejected":
       return "text-red-500 bg-red-500/10";
     case "mention":
-      return "text-blue-500 bg-blue-500/10";
+      return "text-(--info) bg-blue-500/10";
     default:
-      return "text-(--text-2) bg-(--surface)";
+      return "text-(--text-2) bg-(--bg-elevated)";
   }
 }
 
@@ -186,7 +186,7 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
       <PageHeader
         title={t.title}
         subtitle={t.subtitle}
-        gradient="from-orange-500 to-amber-500"
+        
         icon={
           <svg
             className="h-7 w-7"
@@ -210,20 +210,20 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
           <div className="flex gap-2">
             <button
               onClick={() => setFilter("all")}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+              className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
                 filter === "all"
-                  ? "bg-amber-500 text-white shadow-md shadow-amber-500/25"
-                  : "bg-(--surface) text-(--text-2) hover:bg-(--surface-hover)"
+                  ? "bg-(--accent) text-black"
+                  : "border border-(--border) text-(--text-2) hover:bg-(--bg-elevated)"
               }`}
             >
               {t.all}
             </button>
             <button
               onClick={() => setFilter("unread")}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+              className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
                 filter === "unread"
-                  ? "bg-amber-500 text-white shadow-md shadow-amber-500/25"
-                  : "bg-(--surface) text-(--text-2) hover:bg-(--surface-hover)"
+                  ? "bg-(--accent) text-black"
+                  : "border border-(--border) text-(--text-2) hover:bg-(--bg-elevated)"
               }`}
             >
               {t.unreadFilter}
@@ -232,7 +232,7 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
           {hasUnread && (
             <button
               onClick={() => void handleMarkAllRead()}
-              className="text-sm font-medium text-(--primary) hover:underline"
+              className="text-sm font-medium text-(--accent) hover:underline"
             >
               {t.markAllRead}
             </button>
@@ -246,12 +246,12 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
           Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
-              className="h-24 animate-pulse rounded-2xl bg-(--surface)"
+              className="h-24 animate-pulse rounded-lg bg-(--bg-elevated)"
             />
           ))
         ) : fetchError ? (
           <ScrollFadeIn>
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-red-300/30 bg-red-500/5 py-12 text-center">
+            <div className="flex flex-col items-center gap-3 rounded-lg border border-red-500/30 bg-red-500/5 py-12 text-center">
               <p className="text-sm text-red-500">Failed to load notifications. Please try again.</p>
               <button
                 onClick={() => void fetchItems()}
@@ -263,7 +263,7 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
           </ScrollFadeIn>
         ) : items.length === 0 ? (
           <ScrollFadeIn>
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-(--border) bg-white/70 py-16 text-(--text-2) backdrop-blur-xl dark:bg-white/5">
+            <div className="flex flex-col items-center gap-3 rounded-lg border border-(--border) bg-(--bg-surface) py-16 text-(--text-2)">
               <svg
                 className="h-12 w-12"
                 fill="none"
@@ -284,15 +284,15 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
           items.map((item, i) => (
             <ScrollFadeIn key={item.id} delay={i * 0.03}>
               <div
-                className={`group relative overflow-hidden rounded-2xl border border-(--border) bg-white/70 p-4 backdrop-blur-xl transition-all dark:bg-white/5 ${
+                className={`group relative overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-4 transition-all ${
                   !item.isRead
-                    ? "border-blue-300/30 bg-blue-500/5"
-                    : "hover:border-blue-300/30"
+                    ? "border-(--accent)/30 bg-(--accent-muted)"
+                    : "hover:border-(--border-hover) hover:bg-(--bg-elevated)"
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${getNotificationColor(item.type)}`}
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${getNotificationColor(item.type)}`}
                   >
                     {getNotificationIcon(item.type)}
                   </div>
@@ -318,7 +318,7 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
                       <button
                         onClick={() => void handleMarkRead(item.id)}
                         title={t.unread}
-                        className="rounded-lg p-1.5 text-(--text-2) hover:bg-(--surface-hover) hover:text-(--text-1)"
+                        className="rounded-md p-1.5 text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
                       >
                         <svg
                           className="h-4 w-4"
@@ -337,7 +337,7 @@ export default function NotificationsClient({ userId, translations: t }: Props) 
                     )}
                     <button
                       onClick={() => void handleDelete(item.id)}
-                      className="rounded-lg p-1.5 text-(--text-2) hover:bg-red-500/10 hover:text-red-500"
+                      className="rounded-md p-1.5 text-(--text-2) hover:bg-red-500/10 hover:text-red-400"
                     >
                       <svg
                         className="h-4 w-4"

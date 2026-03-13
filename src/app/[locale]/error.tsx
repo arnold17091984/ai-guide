@@ -22,7 +22,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4">
-      <div className="flex max-w-lg flex-col items-center gap-8 rounded-3xl border border-white/20 bg-white/70 px-8 py-12 text-center shadow-2xl shadow-red-500/10 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+      <div className="flex max-w-lg flex-col items-center gap-8 rounded-lg border border-(--border) bg-(--bg-surface) px-8 py-12 text-center">
         {/* Inline SVG illustration */}
         <svg
           width="120"
@@ -33,36 +33,25 @@ export default function Error({ error, reset }: ErrorProps) {
           aria-hidden="true"
           className="opacity-80"
         >
-          <circle cx="60" cy="60" r="56" fill="url(#err-bg)" />
+          <circle cx="60" cy="60" r="56" fill="rgba(239,68,68,0.08)" />
 
           {/* Warning triangle */}
           <path
             d="M60 28 L92 82 H28 Z"
-            stroke="url(#err-stroke)"
+            stroke="#ef4444"
             strokeWidth="5"
             strokeLinejoin="round"
             fill="none"
           />
           {/* Exclamation body */}
-          <rect x="57" y="50" width="6" height="18" rx="3" fill="url(#err-stroke)" />
+          <rect x="57" y="50" width="6" height="18" rx="3" fill="#ef4444" />
           {/* Exclamation dot */}
-          <circle cx="60" cy="75" r="3.5" fill="url(#err-stroke)" />
-
-          <defs>
-            <radialGradient id="err-bg" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#fef2f2" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#fecaca" stopOpacity="0.2" />
-            </radialGradient>
-            <linearGradient id="err-stroke" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#ef4444" />
-              <stop offset="100%" stopColor="#f97316" />
-            </linearGradient>
-          </defs>
+          <circle cx="60" cy="75" r="3.5" fill="#ef4444" />
         </svg>
 
         {/* Error badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-red-200/60 bg-red-50/80 px-4 py-1.5 dark:border-red-500/30 dark:bg-red-500/10">
-          <span className="text-sm font-semibold text-red-600 dark:text-red-400">
+        <div className="inline-flex items-center gap-2 rounded border border-red-500/30 bg-red-500/10 px-4 py-1.5">
+          <span className="text-sm font-semibold text-red-400">
             {error.digest ? `Error · ${error.digest}` : "Error"}
           </span>
         </div>
@@ -79,7 +68,7 @@ export default function Error({ error, reset }: ErrorProps) {
         <button
           onClick={reset}
           type="button"
-          className="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-red-500 to-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition-all duration-200 hover:scale-[1.02] hover:shadow-xl hover:shadow-red-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+          className="inline-flex items-center gap-2 rounded-md border border-red-500/30 bg-transparent px-6 py-3 text-sm font-semibold text-red-400 transition-all duration-200 hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50"
         >
           {/* Refresh icon */}
           <svg

@@ -42,7 +42,7 @@ export default async function BookmarksPage({
       <PageHeader
         title={t("bookmarks.title")}
         subtitle={t("bookmarks.subtitle")}
-        gradient="from-pink-500 to-purple-500"
+        gradient=""
         icon={
           <svg
             viewBox="0 0 24 24"

@@ -36,7 +36,7 @@ export default async function DigestPage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-indigo-500 to-violet-500"
+        gradient=""
         icon={
           <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
@@ -133,7 +133,7 @@ export default async function DigestPage() {
 
       {/* Week navigation */}
       <ScrollFadeIn>
-        <div className="flex items-center justify-between rounded-2xl border border-(--border) bg-white/70 p-4 backdrop-blur-xl dark:bg-white/5">
+        <div className="flex items-center justify-between rounded-lg border border-(--border) bg-(--bg-surface) p-4">
           <span className="text-sm text-(--text-2)">
             {t("thisWeek")}
           </span>
@@ -145,7 +145,7 @@ export default async function DigestPage() {
 
 function StatBadge({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-xl border border-(--border) bg-white/70 p-4 text-center backdrop-blur-xl dark:bg-white/5">
+    <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-4 text-center">
       <p className="text-2xl font-bold text-(--text-1)">{value.toLocaleString()}</p>
       <p className="text-xs text-(--text-2)">{label}</p>
     </div>
@@ -154,7 +154,7 @@ function StatBadge({ label, value }: { label: string; value: number }) {
 
 function EmptyState() {
   return (
-    <div className="rounded-xl border border-dashed border-(--border) p-8 text-center text-sm text-(--text-2)">
+    <div className="rounded-lg border border-dashed border-(--border) p-8 text-center text-sm text-(--text-2)">
       --
     </div>
   );

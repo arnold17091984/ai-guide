@@ -78,7 +78,7 @@ export default function CreateTeamForm({ locale, labels }: CreateTeamFormProps) 
           onChange={(e) => setName(e.target.value)}
           required
           disabled={isPending}
-          className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 disabled:opacity-50"
+          className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20 disabled:opacity-50"
         />
       </div>
 
@@ -96,12 +96,12 @@ export default function CreateTeamForm({ locale, labels }: CreateTeamFormProps) 
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
           disabled={isPending}
-          className="w-full resize-none rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 disabled:opacity-50"
+          className="w-full resize-none rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20 disabled:opacity-50"
         />
       </div>
 
       {/* Public / Private Toggle */}
-      <div className="rounded-xl border border-(--border) bg-(--surface) p-4">
+      <div className="rounded-md border border-(--border) bg-(--bg-surface) p-4">
         <div className="flex items-start gap-4">
           {/* Public option */}
           <label className="flex flex-1 cursor-pointer items-start gap-3">
@@ -111,7 +111,7 @@ export default function CreateTeamForm({ locale, labels }: CreateTeamFormProps) 
               checked={isPublic}
               onChange={() => setIsPublic(true)}
               disabled={isPending}
-              className="mt-0.5 h-4 w-4 accent-cyan-500"
+              className="mt-0.5 h-4 w-4 accent-(--accent)"
             />
             <div>
               <p className="text-sm font-medium text-(--text-1)">
@@ -129,7 +129,7 @@ export default function CreateTeamForm({ locale, labels }: CreateTeamFormProps) 
               checked={!isPublic}
               onChange={() => setIsPublic(false)}
               disabled={isPending}
-              className="mt-0.5 h-4 w-4 accent-cyan-500"
+              className="mt-0.5 h-4 w-4 accent-(--accent)"
             />
             <div>
               <p className="text-sm font-medium text-(--text-1)">
@@ -150,14 +150,14 @@ export default function CreateTeamForm({ locale, labels }: CreateTeamFormProps) 
           type="button"
           onClick={() => router.back()}
           disabled={isPending}
-          className="rounded-xl px-4 py-2.5 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--surface-hover) disabled:opacity-50"
+          className="rounded-md border border-(--border) px-4 py-2.5 text-sm font-medium text-(--text-2) transition-colors hover:bg-(--bg-elevated) disabled:opacity-50"
         >
           {labels.cancel}
         </button>
         <button
           type="submit"
           disabled={isPending || !name.trim()}
-          className="inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-cyan-600 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-md bg-(--accent) px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover) disabled:opacity-50"
         >
           {isPending ? (
             <>

@@ -19,17 +19,17 @@ interface PageProps {
 // ============================================================
 
 const CATEGORY_STYLES: Record<string, string> = {
-  missing: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
-  outdated: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  incomplete: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  inaccurate: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+  missing: "bg-red-500/10 text-red-400",
+  outdated: "bg-amber-500/10 text-amber-400",
+  incomplete: "bg-blue-500/10 text-blue-400",
+  inaccurate: "bg-violet-500/10 text-violet-400",
 };
 
 const STATUS_STYLES: Record<string, string> = {
-  open: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  in_progress: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  resolved: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-  wont_fix: "bg-gray-100 text-gray-600 dark:bg-gray-800/50 dark:text-gray-400",
+  open: "bg-amber-500/10 text-amber-400",
+  in_progress: "bg-blue-500/10 text-blue-400",
+  resolved: "bg-emerald-500/10 text-emerald-400",
+  wont_fix: "bg-zinc-500/10 text-zinc-400",
 };
 
 // ============================================================
@@ -107,11 +107,11 @@ export default async function DebtDetailPage({ params }: PageProps) {
 
       {/* Item header */}
       <ScrollFadeIn delay={0.05}>
-        <div className="bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-(--border) shadow-md rounded-2xl p-6">
+        <div className="bg-(--bg-surface) border border-(--border) rounded-lg p-6">
           {/* Badges */}
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span
-              className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${CATEGORY_STYLES[item.category] ?? ""}`}
+              className={`inline-flex items-center rounded px-2.5 py-0.5 text-xs font-mono font-medium ${CATEGORY_STYLES[item.category] ?? ""}`}
             >
               {categoryLabels[item.category] ?? item.category}
             </span>
@@ -120,7 +120,7 @@ export default async function DebtDetailPage({ params }: PageProps) {
               label={priorityLabels[item.priority] ?? item.priority}
             />
             <span
-              className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? ""}`}
+              className={`inline-flex items-center rounded px-2.5 py-0.5 text-xs font-mono font-medium ${STATUS_STYLES[item.status] ?? ""}`}
             >
               {statusLabels[item.status] ?? item.status}
             </span>
@@ -142,7 +142,7 @@ export default async function DebtDetailPage({ params }: PageProps) {
               {(item.tags as string[]).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-(--surface) px-2.5 py-0.5 text-xs text-(--text-2)"
+                  className="rounded bg-(--bg-elevated) px-2.5 py-0.5 text-xs text-(--text-2)"
                 >
                   {tag}
                 </span>
@@ -169,13 +169,13 @@ export default async function DebtDetailPage({ params }: PageProps) {
 
           {/* Related entry */}
           {item.relatedEntry && (
-            <div className="mt-4 rounded-xl bg-(--surface) p-3">
+            <div className="mt-4 rounded-lg bg-(--bg-elevated) p-3">
               <span className="text-xs font-medium text-(--text-2)">
                 {t("relatedEntry")}:
               </span>
               <a
                 href={`/${locale}/knowledge/${item.relatedEntry.slug}`}
-                className="ml-2 text-sm text-(--primary) hover:underline"
+                className="ml-2 text-sm text-(--accent) hover:underline"
               >
                 {item.relatedEntry.title}
               </a>
@@ -184,15 +184,15 @@ export default async function DebtDetailPage({ params }: PageProps) {
 
           {/* Resolution note */}
           {item.status === "resolved" && item.resolutionNote && (
-            <div className="mt-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/40 p-3">
-              <span className="text-xs font-medium text-green-700 dark:text-green-400">
+            <div className="mt-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3">
+              <span className="text-xs font-mono font-medium text-emerald-400">
                 {t("resolutionNote")}:
               </span>
-              <p className="mt-1 text-sm text-green-800 dark:text-green-300">
+              <p className="mt-1 text-sm text-emerald-300">
                 {item.resolutionNote}
               </p>
               {item.resolverDisplayName && (
-                <p className="mt-1 text-xs text-green-600 dark:text-green-500">
+                <p className="mt-1 text-xs text-emerald-400/70">
                   {t("resolvedBy")}: {item.resolverDisplayName ?? item.resolverUsername}
                 </p>
               )}

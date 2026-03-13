@@ -115,7 +115,7 @@ export default function ClaudeMdPage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-indigo-600 via-blue-600 to-cyan-600"
+        
         icon={<GearIcon />}
       />
 
@@ -125,7 +125,7 @@ export default function ClaudeMdPage() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.medium, ease: EASE_APPLE }}
-          className="flex gap-2 rounded-xl border border-white/10 bg-white/5 p-1 backdrop-blur-xl"
+          className="flex gap-2 rounded-lg border border-(--border) bg-(--bg-surface) p-1"
         >
           {(["paste", "upload"] as const).map((mode) => (
             <button
@@ -134,10 +134,10 @@ export default function ClaudeMdPage() {
                 setInputMode(mode);
                 setError(null);
               }}
-              className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+              className={`flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                 inputMode === mode
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
-                  : "text-(--text-2) hover:text-(--text-1)"
+                  ? "bg-(--accent) text-black"
+                  : "text-(--text-2) hover:bg-(--bg-elevated) hover:text-(--text-1)"
               }`}
             >
               {mode === "paste" ? t("modePaste") : t("modeUpload")}
@@ -151,7 +151,7 @@ export default function ClaudeMdPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
-          className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
+          className="rounded-lg border border-(--border) bg-(--bg-surface) p-6"
         >
           {inputMode === "paste" ? (
             <div className="space-y-3">
@@ -163,7 +163,7 @@ export default function ClaudeMdPage() {
                 onChange={(e) => setContent(e.target.value)}
                 placeholder={t("pastePlaceholder")}
                 rows={14}
-                className="w-full resize-y rounded-xl border border-white/10 bg-black/20 p-4 font-mono text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-sm transition-colors focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                className="w-full resize-y rounded-md border border-(--border) bg-(--bg-base) p-4 font-mono text-sm text-(--text-1) placeholder:text-(--text-3) transition-colors focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
                 spellCheck={false}
               />
               <p className="text-xs text-(--text-2)">
@@ -178,7 +178,7 @@ export default function ClaudeMdPage() {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="flex w-full flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/20 bg-black/10 py-12 text-(--text-2) transition-colors hover:border-blue-500/50 hover:text-blue-400"
+                className="flex w-full flex-col items-center gap-3 rounded-md border-2 border-dashed border-(--border) bg-(--bg-base) py-12 text-(--text-2) transition-colors hover:border-(--accent)/50 hover:text-(--accent)"
               >
                 <UploadIcon />
                 <span className="text-sm font-medium">
@@ -195,7 +195,7 @@ export default function ClaudeMdPage() {
                 aria-label={t("uploadLabel")}
               />
               {content && (
-                <p className="text-xs text-green-400">
+                <p className="text-xs text-(--accent)">
                   {t("uploadLoaded")}: {content.split("\n").length} {t("lines")}
                 </p>
               )}
@@ -211,7 +211,7 @@ export default function ClaudeMdPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: DURATION.fast }}
-              className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400"
+              className="rounded-md border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400"
             >
               {error}
             </motion.div>
@@ -227,7 +227,7 @@ export default function ClaudeMdPage() {
           <button
             onClick={handleAnalyze}
             disabled={isPending || !content.trim()}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-blue-600 to-cyan-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-2 rounded-md bg-(--accent) px-6 py-3.5 text-sm font-semibold text-black transition-all duration-200 hover:bg-(--accent-hover) active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isPending ? (
               <>

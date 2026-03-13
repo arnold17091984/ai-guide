@@ -99,18 +99,12 @@ function authorInitials(name: string | null, username: string | null): string {
 }
 
 const CHANGE_TYPE_STYLES: Record<string, string> = {
-  create:
-    "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
-  edit:
-    "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
-  revert:
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  accept_suggestion:
-    "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
-  locale_add:
-    "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
-  metadata_update:
-    "bg-gray-100 text-gray-700 dark:bg-gray-800/60 dark:text-gray-300",
+  create: "bg-emerald-500/10 text-emerald-400",
+  edit: "bg-(--accent-muted) text-(--accent)",
+  revert: "bg-amber-500/10 text-amber-400",
+  accept_suggestion: "bg-violet-500/10 text-violet-400",
+  locale_add: "bg-(--accent-muted) text-(--accent)",
+  metadata_update: "bg-zinc-500/10 text-zinc-400",
 };
 
 // ---------------------------------------------------------------------------
@@ -140,7 +134,7 @@ export default async function VersionHistoryPage({ params }: PageProps) {
         >
           <Link
             href={`/${locale}`}
-            className="flex items-center gap-1 hover:text-(--primary) transition-colors"
+            className="flex items-center gap-1 hover:text-(--accent) transition-colors"
           >
             <HomeIcon />
             {t("breadcrumb.home")}
@@ -148,14 +142,14 @@ export default async function VersionHistoryPage({ params }: PageProps) {
           <span className="opacity-40"><ChevronRightIcon /></span>
           <Link
             href={`/${locale}/knowledge`}
-            className="hover:text-(--primary) transition-colors"
+            className="hover:text-(--accent) transition-colors"
           >
             {t("breadcrumb.knowledgeBase")}
           </Link>
           <span className="opacity-40"><ChevronRightIcon /></span>
           <Link
             href={`/${locale}/knowledge/${slug}`}
-            className="hover:text-(--primary) transition-colors"
+            className="hover:text-(--accent) transition-colors"
           >
             {entry.title ?? slug}
           </Link>
@@ -167,7 +161,7 @@ export default async function VersionHistoryPage({ params }: PageProps) {
       {/* Page header */}
       <ScrollFadeIn delay={0.05}>
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-(--primary)/10 text-(--primary)">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-(--accent-muted) text-(--accent)">
             <HistoryIcon />
           </div>
           <div>
@@ -180,14 +174,14 @@ export default async function VersionHistoryPage({ params }: PageProps) {
       {/* Timeline */}
       {versions.length === 0 ? (
         <ScrollFadeIn delay={0.1}>
-          <div className="rounded-2xl border border-dashed border-(--border) py-16 text-center text-(--text-2)">
+          <div className="rounded-lg border border-dashed border-(--border) py-16 text-center text-(--text-2)">
             {t("history.noVersions")}
           </div>
         </ScrollFadeIn>
       ) : (
         <div className="relative space-y-0">
           {/* Vertical connecting line */}
-          <div className="absolute left-4.75 top-6 bottom-6 w-0.5 bg-linear-to-b from-(--primary)/40 via-(--border) to-transparent" />
+          <div className="absolute left-4.75 top-6 bottom-6 w-0.5 bg-(--border)" />
 
           {versions.map((version, index) => {
             const isLatest = index === 0;
@@ -202,19 +196,19 @@ export default async function VersionHistoryPage({ params }: PageProps) {
                   <div
                     className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200 ${
                       isLatest
-                        ? "border-(--primary) bg-(--primary) text-white shadow-md shadow-(--primary)/30"
-                        : "border-(--border) bg-(--surface) text-(--text-2) group-hover:border-(--primary)/50"
+                        ? "border-(--accent) bg-(--accent) text-black shadow-md"
+                        : "border-(--border) bg-(--bg-surface) text-(--text-2) group-hover:border-(--accent)/50"
                     }`}
                   >
                     <GitCommitIcon />
                   </div>
 
                   {/* Version card */}
-                  <div className="min-w-0 flex-1 rounded-2xl border border-(--border) bg-(--surface)/80 p-4 backdrop-blur-xl transition-all duration-200 hover:border-(--primary)/30 hover:shadow-md hover:shadow-(--primary)/5">
+                  <div className="min-w-0 flex-1 rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl transition-all duration-200 hover:border-(--border-hover) hover:shadow-md">
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div className="flex flex-wrap items-center gap-2">
                         {/* Version number */}
-                        <span className="rounded-full bg-(--primary)/10 px-2.5 py-0.5 text-xs font-mono font-semibold text-(--primary)">
+                        <span className="rounded bg-(--accent-muted) px-2.5 py-0.5 text-xs font-mono font-semibold text-(--accent)">
                           v{version.versionNumber}
                         </span>
 
@@ -228,7 +222,7 @@ export default async function VersionHistoryPage({ params }: PageProps) {
                         )}
 
                         {isLatest && (
-                          <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                          <span className="rounded bg-(--accent-muted) px-2.5 py-0.5 text-xs font-mono font-medium text-(--accent)">
                             {t("history.latest")}
                           </span>
                         )}
@@ -237,7 +231,7 @@ export default async function VersionHistoryPage({ params }: PageProps) {
                       {/* View link */}
                       <Link
                         href={`/${locale}/knowledge/${slug}?version=${version.versionNumber}`}
-                        className="flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1 text-xs font-medium text-(--text-2) transition-colors hover:bg-(--surface-hover) hover:text-(--text-1)"
+                        className="flex shrink-0 items-center gap-1.5 rounded-md px-3 py-1 text-xs font-medium text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
                       >
                         <EyeIcon />
                         {t("history.viewVersion")}
@@ -255,7 +249,7 @@ export default async function VersionHistoryPage({ params }: PageProps) {
                     <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-(--text-2)">
                       {/* Author avatar */}
                       <div className="flex items-center gap-1.5">
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-linear-to-br from-blue-400 to-cyan-500 text-[9px] font-bold text-white">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-(--bg-elevated) text-[9px] font-bold text-(--text-1)">
                           {authorInitials(version.authorName ?? null, version.authorUsername ?? null)}
                         </div>
                         <span>
@@ -284,7 +278,7 @@ export default async function VersionHistoryPage({ params }: PageProps) {
         <div className="pt-4">
           <Link
             href={`/${locale}/knowledge/${slug}`}
-            className="inline-flex items-center gap-2 text-sm text-(--text-2) hover:text-(--primary) transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-(--text-2) hover:text-(--accent) transition-colors"
           >
             <span className="rotate-180 inline-block"><ChevronRightIcon /></span>
             {t("history.backToEntry")}

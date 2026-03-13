@@ -40,7 +40,7 @@ export default async function TrendingPage({
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-rose-500 to-orange-500"
+        gradient=""
         icon={
           <svg
             viewBox="0 0 24 24"

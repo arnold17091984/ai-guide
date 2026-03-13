@@ -68,7 +68,7 @@ export default function AuthButton() {
   // ── Loading skeleton ──────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="h-9 w-9 animate-pulse rounded-full bg-(--surface)" />
+      <div className="h-9 w-9 animate-pulse rounded-full bg-(--bg-surface)" />
     );
   }
 

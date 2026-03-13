@@ -109,7 +109,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
             role="alert"
-            className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800/50 dark:bg-red-900/20 dark:text-red-400"
+            className="flex items-start gap-3 rounded-md border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-400"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
       </AnimatePresence>
 
       {/* Metadata grid */}
-      <div className="rounded-2xl border border-(--border) bg-white/70 p-6 backdrop-blur-xl shadow-md dark:bg-white/5">
+      <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-6">
         <h2 className="mb-5 text-sm font-semibold uppercase tracking-wider text-(--text-2)">
           Metadata
         </h2>
@@ -150,7 +150,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. How we cut deploy time by 70% using Claude Code"
-              className="w-full rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               id="cs-category"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
-              className="w-full rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             >
               <option value="">Select category…</option>
               {categories.map((cat) => (
@@ -191,7 +191,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={industry}
               onChange={(e) => setIndustry(e.target.value)}
               placeholder="e.g. SaaS, Fintech, Healthcare"
-              className="w-full rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -210,7 +210,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={teamSize}
               onChange={(e) => setTeamSize(e.target.value)}
               placeholder="e.g. 1, 5, 20"
-              className="w-full rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -229,7 +229,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={durationWeeks}
               onChange={(e) => setDurationWeeks(e.target.value)}
               placeholder="e.g. 4, 8, 12"
-              className="w-full rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -248,7 +248,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={techStackRaw}
               onChange={(e) => setTechStackRaw(e.target.value)}
               placeholder="e.g. Next.js, Supabase, Claude Code"
-              className="w-full rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
 
@@ -267,14 +267,14 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               placeholder="1–3 sentence overview of the case study…"
-              className="w-full resize-none rounded-xl border border-(--border) bg-white/80 px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-white/5"
+              className="w-full resize-none rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
             />
           </div>
         </div>
       </div>
 
       {/* Write / Preview tabs */}
-      <div className="rounded-2xl border border-(--border) bg-white/70 backdrop-blur-xl shadow-md dark:bg-white/5 overflow-hidden">
+      <div className="rounded-lg border border-(--border) bg-(--bg-surface) overflow-hidden">
         {/* Tab bar */}
         <div className="flex border-b border-(--border)">
           {(["write", "preview"] as Tab[]).map((tab) => (
@@ -284,7 +284,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-3 text-sm font-medium capitalize transition-colors duration-150 ${
                 activeTab === tab
-                  ? "border-b-2 border-violet-500 text-violet-600 dark:text-violet-400"
+                  ? "border-b-2 border-(--accent) text-(--accent)"
                   : "text-(--text-2) hover:text-(--text-1)"
               }`}
             >
@@ -301,7 +301,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder={`# Background\n\nDescribe your project context, team, and starting point...\n\n## The Challenge\n\n## How We Used Claude Code\n\n## Results & Metrics\n\n## Lessons Learned`}
-              className="w-full resize-y rounded-xl border border-(--border) bg-white/80 px-4 py-3 font-mono text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-400/30 dark:bg-black/20"
+              className="w-full resize-y rounded-md border border-(--border) bg-(--bg-surface) px-4 py-3 font-mono text-sm text-(--text-1) placeholder:text-(--text-2) focus:border-(--accent) focus:outline-none focus:ring-1 focus:ring-(--accent)/20"
               style={{ minHeight: "400px" }}
             />
             <p className="mt-2 text-xs text-(--text-2)">
@@ -331,7 +331,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
           type="button"
           onClick={() => router.back()}
           disabled={isPending}
-          className="rounded-xl border border-(--border) px-5 py-2.5 text-sm font-medium text-(--text-2) hover:bg-(--surface-hover) transition-colors disabled:opacity-50"
+          className="rounded-md border border-(--border) px-5 py-2.5 text-sm font-medium text-(--text-2) hover:bg-(--bg-elevated) transition-colors disabled:opacity-50"
         >
           Cancel
         </button>
@@ -341,7 +341,7 @@ export default function CaseStudyForm({ categories }: CaseStudyFormProps) {
           disabled={isPending || !title.trim()}
           whileTap={{ scale: 0.97 }}
           transition={{ duration: DURATION.fast }}
-          className="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-violet-600 to-purple-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md hover:opacity-90 transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-md bg-(--accent) px-6 py-2.5 text-sm font-medium text-black transition-colors hover:bg-(--accent-hover) disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isPending ? (
             <>

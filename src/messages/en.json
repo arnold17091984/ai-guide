@@ -51,6 +51,13 @@
     "tryAgain": "Try Again",
     "loading": "Loading..."
   },
+  "hero": {
+    "title": "Master Claude Code with collective wisdom.",
+    "subtitle": "An open platform for skill sharing, knowledge management, and team collaboration.",
+    "cta": "Get Started",
+    "exploreCta": "Explore Skills",
+    "welcomeBack": "Welcome back, {name}"
+  },
   "home": {
     "welcome": "Welcome to the AI Guide",
     "description": "This guide is designed for those who are new to AI tools. Follow the step-by-step instructions to set up and use Claude and VS Code.",

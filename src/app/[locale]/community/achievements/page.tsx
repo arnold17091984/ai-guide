@@ -91,7 +91,7 @@ export default async function AchievementsPage({ params }: PageProps) {
       <PageHeader
         title={t("achievements.title")}
         subtitle={t("achievements.subtitle")}
-        gradient="from-amber-500 via-yellow-500 to-orange-500"
+        gradient=""
         icon={<BadgeIcon />}
       />
 
@@ -140,7 +140,7 @@ export default async function AchievementsPage({ params }: PageProps) {
 
       {allAchievements.length === 0 && (
         <ScrollFadeIn>
-          <div className="rounded-2xl border border-(--border) bg-white/70 p-12 text-center backdrop-blur-xl dark:bg-white/5">
+          <div className="rounded-lg border border-(--border) bg-(--bg-surface) p-12 text-center">
             <p className="text-(--text-2)">{t("achievements.empty")}</p>
           </div>
         </ScrollFadeIn>

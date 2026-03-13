@@ -214,7 +214,7 @@ export default function PackageForm({
     <form onSubmit={handleSubmit} className="mx-auto max-w-2xl space-y-8">
       {/* Error */}
       {error && (
-        <div className="rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/50 dark:text-red-400">
+        <div className="rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/50 dark:text-red-400">
           {error}
         </div>
       )}
@@ -234,7 +234,7 @@ export default function PackageForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={labels.namePlaceholder}
-          className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+          className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
         />
       </div>
 
@@ -253,7 +253,7 @@ export default function PackageForm({
           onChange={(e) => setDescription(e.target.value)}
           placeholder={labels.descriptionPlaceholder}
           rows={3}
-          className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+          className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
         />
       </div>
 
@@ -271,7 +271,7 @@ export default function PackageForm({
           value={tagsInput}
           onChange={(e) => setTagsInput(e.target.value)}
           placeholder={labels.tagsPlaceholder}
-          className="w-full rounded-xl border border-(--border) bg-(--surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+          className="w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 py-2.5 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
         />
       </div>
 
@@ -289,12 +289,12 @@ export default function PackageForm({
             value={skillSearch}
             onChange={(e) => setSkillSearch(e.target.value)}
             placeholder={labels.searchSkills}
-            className="w-full rounded-xl border border-(--border) bg-(--surface) py-2.5 pl-10 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/20"
+            className="w-full rounded-md border border-(--border) bg-(--bg-surface) py-2.5 pl-10 pr-4 text-sm text-(--text-1) placeholder:text-(--text-2) backdrop-blur-xl transition-colors focus:border-(--accent) focus:outline-none focus:ring-2 focus:ring-(--accent)/20"
           />
         </div>
 
         {/* Available skills list */}
-        <div className="max-h-60 divide-y divide-(--border) overflow-y-auto rounded-xl border border-(--border)">
+        <div className="max-h-60 divide-y divide-(--border) overflow-y-auto rounded-lg border border-(--border)">
           {filteredSkills.length === 0 ? (
             <p className="px-4 py-6 text-center text-sm text-(--text-2)">
               No skills found
@@ -305,7 +305,7 @@ export default function PackageForm({
                 key={skill.id}
                 type="button"
                 onClick={() => addSkill(skill.id)}
-                className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-(--surface-hover)"
+                className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-(--bg-elevated)"
               >
                 <span className="text-(--text-2)">
                   <PlusIcon />
@@ -332,11 +332,11 @@ export default function PackageForm({
             {labels.selectedSkills} ({selectedSkills.length})
           </h4>
           {selectedSkills.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-(--border) px-4 py-6 text-center text-sm text-(--text-2)">
+            <p className="rounded-lg border border-dashed border-(--border) px-4 py-6 text-center text-sm text-(--text-2)">
               {labels.noSkillsSelected}
             </p>
           ) : (
-            <div className="divide-y divide-(--border) overflow-hidden rounded-xl border border-(--border)">
+            <div className="divide-y divide-(--border) overflow-hidden rounded-lg border border-(--border)">
               {selectedSkills.map((skill, index) => (
                 <motion.div
                   key={skill.id}
@@ -352,7 +352,7 @@ export default function PackageForm({
                   <span className="text-(--text-2)">
                     <GripIcon />
                   </span>
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-(--surface) text-xs font-semibold text-(--text-2)">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-(--bg-surface) text-xs font-semibold text-(--text-2)">
                     {index + 1}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -380,7 +380,7 @@ export default function PackageForm({
         type="submit"
         disabled={submitting || !name.trim() || !description.trim()}
         whileTap={{ scale: 0.97 }}
-        className="w-full rounded-xl bg-(--primary) px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-(--primary-hover) disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-lg bg-(--accent) px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {submitting ? labels.creating : labels.submit}
       </motion.button>

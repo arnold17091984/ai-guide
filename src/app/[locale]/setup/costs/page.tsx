@@ -32,12 +32,6 @@ const sectionIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-const sectionColors: Record<string, string> = {
-  contextWindow: "from-blue-500 to-cyan-400",
-  reduceTokens: "from-green-500 to-emerald-400",
-  teamCosts: "from-blue-500 to-cyan-500",
-  costTips: "from-amber-500 to-yellow-400",
-};
 
 interface ModelInfo {
   name: string;
@@ -56,11 +50,11 @@ export default function CostsPage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-amber-500 to-yellow-400"
+        
       />
 
-      <div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="mb-8 rounded-lg border border-(--border) bg-(--bg-surface) p-6">
+        <h2 className="mb-4 text-lg font-semibold text-(--text-1)">
           {t("modelsTitle")}
         </h2>
         <div className="grid gap-4 sm:grid-cols-3">
@@ -69,14 +63,14 @@ export default function CostsPage() {
               key={i}
               className={`rounded-lg border p-4 ${model.color}`}
             >
-              <h3 className="text-base font-bold text-gray-900 dark:text-white">
+              <h3 className="text-base font-bold text-(--text-1)">
                 {model.name}
               </h3>
-              <div className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-400">
+              <div className="mt-2 space-y-1 text-sm text-(--text-2)">
                 <p>{model.speed}</p>
                 <p>{model.cost}</p>
               </div>
-              <p className="mt-3 text-xs font-medium text-gray-500 dark:text-gray-400">
+              <p className="mt-3 text-xs font-medium text-(--text-3)">
                 {model.best}
               </p>
             </div>
@@ -91,19 +85,19 @@ export default function CostsPage() {
           return (
             <div
               key={key}
-              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+              className="rounded-lg border border-(--border) bg-(--bg-surface) p-6"
             >
               <div className="mb-4 flex items-start gap-4">
                 <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${sectionColors[key]} text-white`}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-(--bg-elevated) text-(--text-2)"
                 >
                   {sectionIcons[key]}
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-xl font-semibold text-(--text-1)">
                     {t(`sections.${key}.title`)}
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-sm text-(--text-2)">
                     {t(`sections.${key}.description`)}
                   </p>
                 </div>
@@ -111,8 +105,8 @@ export default function CostsPage() {
               <ul className="ml-16 space-y-3">
                 {items.map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
-                    <span className="whitespace-pre-line text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-(--accent)" />
+                    <span className="whitespace-pre-line text-sm leading-relaxed text-(--text-2)">
                       {item}
                     </span>
                   </li>

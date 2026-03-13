@@ -43,14 +43,6 @@ const sectionIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-const sectionColors: Record<string, string> = {
-  permissionBasics: "from-blue-500 to-indigo-500",
-  permissionModes: "from-blue-500 to-cyan-400",
-  bypassPermissions: "from-red-500 to-rose-400",
-  allowRules: "from-emerald-500 to-green-400",
-  sandboxing: "from-green-500 to-teal-400",
-  safetyTips: "from-orange-500 to-amber-400",
-};
 
 export default function SecurityPage() {
   const t = useTranslations("setup.security");
@@ -60,7 +52,7 @@ export default function SecurityPage() {
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        gradient="from-red-500 to-rose-400"
+        
       />
 
       <div className="space-y-6">
@@ -69,19 +61,19 @@ export default function SecurityPage() {
           return (
             <div
               key={key}
-              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+              className="rounded-lg border border-(--border) bg-(--bg-surface) p-6"
             >
               <div className="mb-4 flex items-start gap-4">
                 <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${sectionColors[key]} text-white`}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-(--bg-elevated) text-(--text-2)"
                 >
                   {sectionIcons[key]}
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-xl font-semibold text-(--text-1)">
                     {t(`sections.${key}.title`)}
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-sm text-(--text-2)">
                     {t(`sections.${key}.description`)}
                   </p>
                 </div>
@@ -89,8 +81,8 @@ export default function SecurityPage() {
               <ul className="ml-16 space-y-3">
                 {items.map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
-                    <span className="whitespace-pre-line text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-sm bg-(--accent)" />
+                    <span className="whitespace-pre-line text-sm leading-relaxed text-(--text-2)">
                       {item}
                     </span>
                   </li>
