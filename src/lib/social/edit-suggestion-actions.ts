@@ -225,15 +225,19 @@ export async function getPendingSuggestionsForTarget(
   targetType: string,
   targetId: string,
 ) {
-  return db
-    .select()
-    .from(editSuggestions)
-    .where(
-      and(
-        eq(editSuggestions.targetType, targetType),
-        eq(editSuggestions.targetId, targetId),
-        eq(editSuggestions.status, "pending"),
-      ),
-    )
-    .orderBy(editSuggestions.createdAt);
+  try {
+    return db
+      .select()
+      .from(editSuggestions)
+      .where(
+        and(
+          eq(editSuggestions.targetType, targetType),
+          eq(editSuggestions.targetId, targetId),
+          eq(editSuggestions.status, "pending"),
+        ),
+      )
+      .orderBy(editSuggestions.createdAt);
+  } catch {
+    return [];
+  }
 }
