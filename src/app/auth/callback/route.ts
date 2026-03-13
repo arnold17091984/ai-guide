@@ -34,6 +34,9 @@ export async function GET(request: NextRequest) {
 
   try {
     const supabase = await createClient();
+    if (!supabase) {
+      return NextResponse.redirect(`${homeUrl}?error=supabase_not_configured`);
+    }
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {

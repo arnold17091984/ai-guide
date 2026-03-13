@@ -9,10 +9,15 @@ export async function middleware(request: NextRequest) {
   // Run next-intl middleware first to get the locale-aware response
   const response = handleI18nRouting(request);
 
+  // Skip Supabase session refresh if env vars are not configured
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !supabaseKey) return response;
+
   // Layer Supabase session refresh on top — mutates cookies on the response
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {

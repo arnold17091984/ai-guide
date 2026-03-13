@@ -27,6 +27,12 @@ export function useAuth(): AuthState {
   useEffect(() => {
     const supabase = createClient();
 
+    // If Supabase is not configured, skip auth entirely
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     // Validate session against Supabase server to avoid stale JWTs
     supabase.auth
       .getUser()

@@ -22,6 +22,10 @@ async function getLocale(): Promise<Locale> {
  */
 export async function signInWithGitHub(): Promise<void> {
   const supabase = await createClient();
+  if (!supabase) {
+    const locale = await getLocale();
+    redirect(`/${locale}?error=supabase_not_configured`);
+  }
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -46,7 +50,7 @@ export async function signInWithGitHub(): Promise<void> {
  */
 export async function signOut(): Promise<void> {
   const supabase = await createClient();
-  await supabase.auth.signOut();
+  if (supabase) await supabase.auth.signOut();
 
   const locale = await getLocale();
   redirect(`/${locale}`);

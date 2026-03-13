@@ -24,6 +24,7 @@ export type CurrentUser = {
 
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const supabase = await createClient();
+  if (!supabase) return null;
 
   const {
     data: { user: authUser },
