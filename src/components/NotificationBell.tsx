@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -123,6 +124,7 @@ interface NotificationBellProps {
 export default function NotificationBell({ userId }: NotificationBellProps) {
   const t = useTranslations("notifications");
   const locale = useLocale();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [items, setItems] = useState<NotificationItem[]>([]);
@@ -214,6 +216,9 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
       }
     }
     setOpen(false);
+    if (item.linkUrl) {
+      router.push(item.linkUrl);
+    }
   };
 
   return (

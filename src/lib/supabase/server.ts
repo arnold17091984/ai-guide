@@ -44,11 +44,21 @@ export async function createClient() {
 // Service role client — bypasses RLS.
 // ONLY use in server-side code that never touches the client bundle.
 export function createAdminClient() {
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
-      cookies: { getAll: () => [], setAll: () => {} },
-    },
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!url) {
+    throw new Error(
+      "NEXT_PUBLIC_SUPABASE_URL is not set. Cannot create admin client.",
+    );
+  }
+
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceRoleKey) {
+    throw new Error(
+      "SUPABASE_SERVICE_ROLE_KEY is not set. Cannot create admin client.",
+    );
+  }
+
+  return createServerClient(url, serviceRoleKey, {
+    cookies: { getAll: () => [], setAll: () => {} },
+  });
 }

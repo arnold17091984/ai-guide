@@ -45,31 +45,35 @@ export default function CommentSection({
     setAddError(null);
 
     startTransition(async () => {
-      const result = await addComment({ targetType, targetId, body });
+      try {
+        const result = await addComment({ targetType, targetId, body });
 
-      if (!result.success) {
-        setAddError(result.error ?? "error");
-        return;
-      }
+        if (!result.success) {
+          setAddError(result.error ?? "error");
+          return;
+        }
 
-      // Optimistically prepend a placeholder comment while revalidation runs
-      const newComment: CommentWithAuthor = {
-        id: result.commentId ?? crypto.randomUUID(),
-        authorId: currentUserId,
-        parentId: null,
-        targetType,
-        targetId,
-        body,
-        isDeleted: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        author: null, // author detail refreshed on revalidation
-      };
+        // Optimistically prepend a placeholder comment while revalidation runs
+        const newComment: CommentWithAuthor = {
+          id: result.commentId ?? crypto.randomUUID(),
+          authorId: currentUserId,
+          parentId: null,
+          targetType,
+          targetId,
+          body,
+          isDeleted: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          author: null, // author detail refreshed on revalidation
+        };
 
-      setComments((prev) => [newComment, ...prev]);
+        setComments((prev) => [newComment, ...prev]);
 
-      if (textareaRef.current) {
-        textareaRef.current.value = "";
+        if (textareaRef.current) {
+          textareaRef.current.value = "";
+        }
+      } catch {
+        setAddError("serverError");
       }
     });
   }

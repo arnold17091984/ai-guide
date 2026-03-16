@@ -34,6 +34,11 @@ export async function updateSkillStatus(
   skillId: string,
   status: "in_progress" | "completed",
 ) {
+  const VALID_STATUSES: readonly string[] = ["in_progress", "completed"];
+  if (!VALID_STATUSES.includes(status)) {
+    throw new Error("Invalid status");
+  }
+
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized");
 
@@ -148,6 +153,7 @@ export async function getMySkillStats() {
 // ============================================================
 
 export async function getSkillAdopters(skillId: string, limit = 10) {
+  const safeLimit = Math.min(Math.max(1, limit), 100);
   const rows = await db
     .select({
       userId: userSkills.userId,
@@ -161,7 +167,7 @@ export async function getSkillAdopters(skillId: string, limit = 10) {
     .innerJoin(users, eq(userSkills.userId, users.id))
     .where(eq(userSkills.skillId, skillId))
     .orderBy(desc(userSkills.registeredAt))
-    .limit(limit);
+    .limit(safeLimit);
 
   return rows;
 }

@@ -123,6 +123,16 @@ export async function createEntry(formData: FormData): Promise<ActionResult> {
   const contentType = ((formData.get("contentType") as string | null)?.trim() ?? "article") as ContentType;
   const tagsRaw = (formData.get("tags") as string | null) ?? "";
 
+  const VALID_DIFFICULTIES: DifficultyLevel[] = ["beginner", "intermediate", "advanced"];
+  const VALID_CONTENT_TYPES: ContentType[] = ["article", "tip", "workflow", "tutorial"];
+
+  if (difficulty && !VALID_DIFFICULTIES.includes(difficulty)) {
+    return { success: false, error: "invalid difficulty level" };
+  }
+  if (!VALID_CONTENT_TYPES.includes(contentType)) {
+    return { success: false, error: "invalid content type" };
+  }
+
   const validationError = validateFields({ titleKo, bodyKo, categoryId });
   if (validationError) {
     return { success: false, error: validationError };

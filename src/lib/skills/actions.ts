@@ -31,55 +31,59 @@ export async function starSkill(skillId: string): Promise<StarSkillResult> {
   }
 
   try {
-    // Check for existing star vote
-    const existing = await db
-      .select({ id: votes.id })
-      .from(votes)
-      .where(
-        and(
-          eq(votes.userId, user.id),
-          eq(votes.targetType, "skill"),
-          eq(votes.targetId, skillId),
-          eq(votes.value, 1),
-        ),
-      )
-      .limit(1)
-      .then((r) => r[0] ?? null);
+    const { starred, newCount } = await db.transaction(async (tx) => {
+      // Check for existing star vote
+      const existing = await tx
+        .select({ id: votes.id })
+        .from(votes)
+        .where(
+          and(
+            eq(votes.userId, user.id),
+            eq(votes.targetType, "skill"),
+            eq(votes.targetId, skillId),
+            eq(votes.value, 1),
+          ),
+        )
+        .limit(1)
+        .then((r) => r[0] ?? null);
 
-    let starred: boolean;
+      let starred: boolean;
 
-    if (existing) {
-      // Toggle off — remove the star
-      await db.delete(votes).where(eq(votes.id, existing.id));
-      await db
-        .update(skills)
-        .set({ stars: sql`GREATEST(${skills.stars} - 1, 0)` })
-        .where(eq(skills.id, skillId));
-      starred = false;
-    } else {
-      // Add the star
-      await db.insert(votes).values({
-        userId: user.id,
-        targetType: "skill",
-        targetId: skillId,
-        value: 1,
-      });
-      await db
-        .update(skills)
-        .set({ stars: sql`${skills.stars} + 1` })
-        .where(eq(skills.id, skillId));
-      starred = true;
-    }
+      if (existing) {
+        // Toggle off — remove the star
+        await tx.delete(votes).where(eq(votes.id, existing.id));
+        await tx
+          .update(skills)
+          .set({ stars: sql`GREATEST(${skills.stars} - 1, 0)` })
+          .where(eq(skills.id, skillId));
+        starred = false;
+      } else {
+        // Add the star
+        await tx.insert(votes).values({
+          userId: user.id,
+          targetType: "skill",
+          targetId: skillId,
+          value: 1,
+        });
+        await tx
+          .update(skills)
+          .set({ stars: sql`${skills.stars} + 1` })
+          .where(eq(skills.id, skillId));
+        starred = true;
+      }
 
-    // Read back the authoritative count
-    const updatedRow = await db
-      .select({ stars: skills.stars })
-      .from(skills)
-      .where(eq(skills.id, skillId))
-      .limit(1)
-      .then((r) => r[0]);
+      // Read back the authoritative count
+      const updatedRow = await tx
+        .select({ stars: skills.stars })
+        .from(skills)
+        .where(eq(skills.id, skillId))
+        .limit(1)
+        .then((r) => r[0]);
 
-    const newCount = updatedRow?.stars ?? 0;
+      const newCount = updatedRow?.stars ?? 0;
+
+      return { starred, newCount };
+    });
 
     revalidatePath("/", "layout");
 
@@ -106,19 +110,17 @@ export async function incrementDownload(
   skillId: string,
 ): Promise<IncrementDownloadResult> {
   try {
-    await db
+    const [updatedRow] = await db
       .update(skills)
       .set({ downloads: sql`${skills.downloads} + 1` })
-      .where(eq(skills.id, skillId));
-
-    const updatedRow = await db
-      .select({ downloads: skills.downloads })
-      .from(skills)
       .where(eq(skills.id, skillId))
-      .limit(1)
-      .then((r) => r[0]);
+      .returning({ downloads: skills.downloads });
 
-    return { success: true, newCount: updatedRow?.downloads ?? 0 };
+    if (!updatedRow) {
+      return { success: false, newCount: 0, error: "skill not found" };
+    }
+
+    return { success: true, newCount: updatedRow.downloads };
   } catch {
     return { success: false, newCount: 0, error: "serverError" };
   }

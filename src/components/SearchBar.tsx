@@ -66,6 +66,13 @@ export default function SearchBar() {
     setQuery("");
   }, [pathname]);
 
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, []);
+
   // Click outside to close
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -168,6 +175,10 @@ export default function SearchBar() {
                 onKeyDown={handleKeyDown}
                 onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true); }}
                 placeholder={t("placeholder")}
+                role="combobox"
+                aria-expanded={showSuggestions}
+                aria-controls="search-listbox"
+                aria-activedescendant={activeIndex >= 0 ? `suggestion-${activeIndex}` : undefined}
                 className="h-8 w-full rounded-md border border-(--border) bg-(--bg-surface) px-3 text-sm text-(--text-1) placeholder:text-(--text-3) outline-none transition-colors focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
               />
             </motion.div>
@@ -228,6 +239,10 @@ export default function SearchBar() {
               onKeyDown={handleKeyDown}
               onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true); }}
               placeholder={t("placeholder")}
+              role="combobox"
+              aria-expanded={showSuggestions}
+              aria-controls="search-listbox"
+              aria-activedescendant={activeIndex >= 0 ? `suggestion-${activeIndex}` : undefined}
               className="h-10 w-full rounded-md border border-(--border) bg-(--bg-surface) px-4 text-sm text-(--text-1) placeholder:text-(--text-3) shadow-lg outline-none transition-colors focus:border-(--accent) focus:ring-1 focus:ring-(--accent)/20"
             />
           </motion.div>
@@ -242,11 +257,16 @@ export default function SearchBar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
+            id="search-listbox"
+            role="listbox"
             className="absolute right-0 top-full z-50 mt-2 w-80 max-h-80 overflow-y-auto rounded-lg border border-(--border) bg-(--bg-surface) p-2 shadow-lg"
           >
             {suggestions.map((item, idx) => (
               <button
                 key={`${item.type}-${item.id}`}
+                id={`suggestion-${idx}`}
+                role="option"
+                aria-selected={idx === activeIndex}
                 onClick={() => {
                   router.push(item.url);
                   setShowSuggestions(false);
