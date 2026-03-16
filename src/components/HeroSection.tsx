@@ -103,7 +103,7 @@ function TerminalWindow() {
   const command = COMMANDS[commandIndex];
 
   return (
-    <div className="w-full max-w-xl mx-auto">
+    <div aria-hidden="true" className="w-full max-w-xl mx-auto">
       {/* Title bar */}
       <div className="bg-(--bg-elevated) rounded-t-lg border border-(--border) px-4 py-2 flex items-center gap-2">
         <span className="h-3 w-3 rounded-full bg-red-500" />

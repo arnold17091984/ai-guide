@@ -12,14 +12,15 @@ import { revalidatePath } from "next/cache";
 
 export async function registerSkill(skillId: string) {
   const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) return { success: false as const, error: "unauthenticated" };
 
   try {
     await db
       .insert(userSkills)
       .values({ userId: user.id, skillId, status: "registered" })
       .onConflictDoNothing();
-  } catch {
+  } catch (err) {
+    console.error("[registerSkill]", err);
     // Already registered or DB error — silently ignore
   }
 
@@ -40,7 +41,7 @@ export async function updateSkillStatus(
   }
 
   const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) return { success: false as const, error: "unauthenticated" };
 
   const now = new Date();
   const updates: Record<string, unknown> = { status };
@@ -63,7 +64,7 @@ export async function updateSkillStatus(
 
 export async function unregisterSkill(skillId: string) {
   const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) return { success: false as const, error: "unauthenticated" };
 
   await db
     .delete(userSkills)
@@ -182,5 +183,5 @@ export async function getSkillAdopterCount(skillId: string) {
     .from(userSkills)
     .where(eq(userSkills.skillId, skillId));
 
-  return Number(result.value);
+  return Number(result?.value ?? 0);
 }

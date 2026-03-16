@@ -232,6 +232,8 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={t("title")}
+        aria-expanded={open}
+        aria-haspopup="true"
         className="relative flex h-9 w-9 items-center justify-center rounded-full border border-(--border) bg-(--bg-surface) text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--accent)"
       >
         <svg
@@ -267,6 +269,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -6 }}
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
+            role="menu"
             className="absolute right-0 z-50 mt-2 w-80 origin-top-right overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) shadow-lg sm:w-96"
           >
             {/* Header */}

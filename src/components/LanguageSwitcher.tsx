@@ -45,6 +45,8 @@ export default function LanguageSwitcher() {
   return (
     <div
       ref={containerRef}
+      role="radiogroup"
+      aria-label="Language"
       className="relative flex items-center rounded-md bg-(--bg-elevated) p-1 border border-(--border)"
     >
       {/* Sliding indicator — measured from actual button positions */}
@@ -56,6 +58,8 @@ export default function LanguageSwitcher() {
       {languages.map((lang) => (
         <button
           key={lang.code}
+          role="radio"
+          aria-checked={locale === lang.code}
           data-locale={lang.code}
           onClick={() => switchLocale(lang.code)}
           className={`relative z-10 rounded-md px-3 py-1 text-xs font-medium transition-colors ${

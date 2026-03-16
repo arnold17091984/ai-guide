@@ -146,61 +146,65 @@ export async function createEntry(formData: FormData): Promise<ActionResult> {
   );
 
   try {
-    const [entry] = await db
-      .insert(knowledgeEntries)
-      .values({
-        slug,
-        contentType,
-        status: "draft",
-        difficultyLevel: difficulty ?? null,
-        authorId: user.id,
-        categoryId: categoryId || null,
+    const result = await db.transaction(async (tx) => {
+      const [entry] = await tx
+        .insert(knowledgeEntries)
+        .values({
+          slug,
+          contentType,
+          status: "draft",
+          difficultyLevel: difficulty ?? null,
+          authorId: user.id,
+          categoryId: categoryId || null,
+          titleKo,
+          titleEn: titleEn || null,
+          titleJa: titleJa || null,
+          bodyKo: bodyKo || null,
+          bodyEn: bodyEn || null,
+          bodyJa: bodyJa || null,
+          readTimeMins: estimateReadTime(bodyKo),
+        })
+        .returning({ id: knowledgeEntries.id, slug: knowledgeEntries.slug });
+
+      if (!entry) {
+        throw new Error("failed to create entry");
+      }
+
+      // Insert tag associations
+      if (tagIds.length > 0) {
+        await tx.insert(knowledgeEntryTags).values(
+          tagIds.map((tagId) => ({ entryId: entry.id, tagId })),
+        );
+      }
+
+      // Save initial version snapshot
+      const snapshot: KnowledgeEntrySnapshot = {
         titleKo,
-        titleEn: titleEn || null,
-        titleJa: titleJa || null,
-        bodyKo: bodyKo || null,
-        bodyEn: bodyEn || null,
-        bodyJa: bodyJa || null,
-        readTimeMins: estimateReadTime(bodyKo),
-      })
-      .returning({ id: knowledgeEntries.id, slug: knowledgeEntries.slug });
+        titleEn,
+        titleJa,
+        bodyKo,
+        bodyEn,
+        bodyJa,
+        categoryId: categoryId || undefined,
+        difficultyLevel: difficulty,
+      };
 
-    if (!entry) {
-      return { success: false, error: "failed to create entry" };
-    }
+      await saveVersion({
+        contentType: "knowledge_entry",
+        contentId: entry.id,
+        authorId: user.id,
+        snapshot,
+        baseVersion: 0,
+        changeType: "create",
+        changeSummary: `Created: ${titleKo}`,
+      });
 
-    // Insert tag associations
-    if (tagIds.length > 0) {
-      await db.insert(knowledgeEntryTags).values(
-        tagIds.map((tagId) => ({ entryId: entry.id, tagId })),
-      );
-    }
-
-    // Save initial version snapshot
-    const snapshot: KnowledgeEntrySnapshot = {
-      titleKo,
-      titleEn,
-      titleJa,
-      bodyKo,
-      bodyEn,
-      bodyJa,
-      categoryId: categoryId || undefined,
-      difficultyLevel: difficulty,
-    };
-
-    await saveVersion({
-      contentType: "knowledge_entry",
-      contentId: entry.id,
-      authorId: user.id,
-      snapshot,
-      baseVersion: 0,
-      changeType: "create",
-      changeSummary: `Created: ${titleKo}`,
+      return { id: entry.id, slug: entry.slug };
     });
 
     revalidatePath("/[locale]/knowledge", "page");
 
-    return { success: true, id: entry.id, slug: entry.slug };
+    return { success: true, id: result.id, slug: result.slug };
   } catch (err) {
     console.error("[createEntry]", err);
     return { success: false, error: "server error" };
