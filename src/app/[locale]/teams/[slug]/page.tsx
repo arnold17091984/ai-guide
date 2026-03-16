@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import ScrollFadeIn from "@/components/ScrollFadeIn";
 import { getCurrentUser } from "@/lib/auth";
 import {
   getTeam,

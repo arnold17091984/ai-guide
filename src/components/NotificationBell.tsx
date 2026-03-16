@@ -141,17 +141,22 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
 
   // Poll every 30s
   useEffect(() => {
-    void fetchCount();
     const interval = setInterval(() => void fetchCount(), 30_000);
-    return () => clearInterval(interval);
+    // Initial fetch via zero-delay timer to avoid synchronous setState in effect
+    const timer = setTimeout(() => void fetchCount(), 0);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
   }, [fetchCount]);
 
   // Fetch notifications when dropdown opens
   useEffect(() => {
     if (!open) return;
-    setLoading(true);
+    let cancelled = false;
     getUserNotifications(userId, { limit: 10 })
-      .then((rows) =>
+      .then((rows) => {
+        if (cancelled) return;
         setItems(
           rows.map((r) => ({
             id: r.id,
@@ -162,9 +167,12 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             isRead: r.isRead,
             createdAt: r.createdAt,
           })),
-        ),
-      )
-      .finally(() => setLoading(false));
+        );
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
   }, [open, userId]);
 
   // Close on click outside
@@ -212,7 +220,10 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
     <div ref={containerRef} className="relative">
       {/* Bell button */}
       <motion.button
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => setOpen((prev) => {
+          if (!prev) setLoading(true);
+          return !prev;
+        })}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label={t("title")}

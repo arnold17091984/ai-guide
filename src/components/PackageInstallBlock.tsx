@@ -65,7 +65,6 @@ function CheckIcon() {
 export default function PackageInstallBlock({
   packageSlug,
   skillSlugs,
-  packageId,
   onInstall,
   copyLabel = "Copy",
   copiedLabel = "Copied!",

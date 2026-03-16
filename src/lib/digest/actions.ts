@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, desc, gte, and, sql, count } from "drizzle-orm";
+import { eq, desc, gte, and, count } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import {
   weeklyDigests,

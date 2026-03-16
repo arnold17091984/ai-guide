@@ -18,20 +18,17 @@ import type {
 // and community-observed CLAUDE.md patterns.
 // ----------------------------------------------------------
 
-const BEST_PRACTICE_SECTIONS = [
-  "workflow orchestration",
-  "task management",
-  "core principles",
-  "code style",
-  "testing",
-  "git workflow",
-  "error handling",
-  "security",
-  "performance",
-  "documentation",
-] as const;
-
-type BestPracticeSection = (typeof BEST_PRACTICE_SECTIONS)[number];
+type BestPracticeSection =
+  | "workflow orchestration"
+  | "task management"
+  | "core principles"
+  | "code style"
+  | "testing"
+  | "git workflow"
+  | "error handling"
+  | "security"
+  | "performance"
+  | "documentation";
 
 // Patterns that signal rule conflicts
 // Each entry is [patternA, patternB, explanation, resolution]

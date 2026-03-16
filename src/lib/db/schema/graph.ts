@@ -6,7 +6,6 @@ import {
   integer,
   real,
   timestamp,
-  primaryKey,
   index,
   uniqueIndex,
 } from "drizzle-orm/pg-core";

@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import PageHeader from "@/components/PageHeader";
-import ScrollFadeIn from "@/components/ScrollFadeIn";
 import { getCurrentUser } from "@/lib/auth";
 import { getUserTeams, getPublicTeams } from "@/lib/teams/actions";
 import TeamsPageClient from "./teams-client";

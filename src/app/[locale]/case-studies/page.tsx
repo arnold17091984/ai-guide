@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import CaseStudyCard from "@/components/CaseStudyCard";

@@ -45,7 +45,7 @@ function PackageIconLg() {
 
 export default async function CreatePackagePage({ params, searchParams }: PageProps) {
   const { locale } = await params;
-  const _sp = await searchParams;
+  await searchParams;
 
   const user = await getCurrentUser();
   if (!user) {

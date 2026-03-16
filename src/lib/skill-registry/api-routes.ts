@@ -21,7 +21,6 @@
 import type {
   ApiResponse,
   SkillRecord,
-  SkillSearchParams,
   ValidationReport,
   ClaudeMdAnalysis,
   SkillPackage,
@@ -39,10 +38,10 @@ export interface UploadSkillRequest {
   changelog?: string;
 }
 
-export interface UploadSkillResponse extends ApiResponse<{
+export type UploadSkillResponse = ApiResponse<{
   skill: SkillRecord;
   validation: ValidationReport;
-}> {}
+}>;
 
 export interface ValidateSkillRequest {
   content: string;
@@ -50,14 +49,14 @@ export interface ValidateSkillRequest {
   resolveDepencies?: boolean;
 }
 
-export interface ValidateSkillResponse extends ApiResponse<ValidationReport> {}
+export type ValidateSkillResponse = ApiResponse<ValidationReport>;
 
 export interface AnalyzeClaudeMdRequest {
   content: string;
   filePath?: string;
 }
 
-export interface AnalyzeClaudeMdResponse extends ApiResponse<ClaudeMdAnalysis> {}
+export type AnalyzeClaudeMdResponse = ApiResponse<ClaudeMdAnalysis>;
 
 export interface PackageDiffRequest {
   packageA: SkillPackage;
@@ -66,10 +65,10 @@ export interface PackageDiffRequest {
   memberB: string;
 }
 
-export interface PackageDiffResponse extends ApiResponse<{
+export type PackageDiffResponse = ApiResponse<{
   diff: TeamConfigDiff;
   report: string;
-}> {}
+}>;
 
 // ----------------------------------------------------------
 // Endpoint catalog

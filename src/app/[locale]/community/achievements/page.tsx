@@ -53,7 +53,7 @@ function groupByCategory<T extends { category: string }>(
 // ---------------------------------------------------------------------------
 
 export default async function AchievementsPage({ params }: PageProps) {
-  const { locale } = await params;
+  await params;
 
   let allAchievements: Awaited<ReturnType<typeof getAllAchievements>> = [];
   const [t, currentUser] = await Promise.all([

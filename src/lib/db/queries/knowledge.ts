@@ -1,6 +1,6 @@
 import { db } from "../client";
 import { knowledgeEntries, knowledgeEntryTags, tags, users, categories } from "../schema";
-import { eq, and, sql, desc, inArray, or, count } from "drizzle-orm";
+import { eq, and, sql, desc, count } from "drizzle-orm";
 
 // ============================================================
 // Knowledge Entry Queries
@@ -194,7 +194,6 @@ export async function searchEntries(params: {
     categorySlug,
     difficulty,
     contentType,
-    tagSlugs,
     page = 1,
     pageSize = 20,
   } = params;
@@ -257,7 +256,6 @@ export async function listEntries(params: {
 }) {
   const {
     locale = "ko",
-    categorySlug,
     difficulty,
     contentType,
     isFeatured,

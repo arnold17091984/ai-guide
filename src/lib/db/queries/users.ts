@@ -3,7 +3,6 @@ import {
   users,
   knowledgeEntries,
   comments,
-  votes,
   skills,
 } from "../schema";
 import { eq, and, sql, desc, or, ilike, count } from "drizzle-orm";

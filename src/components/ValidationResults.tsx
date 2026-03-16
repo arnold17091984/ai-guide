@@ -11,7 +11,6 @@ import type {
   ValidationReport,
   ValidationStageName,
   ValidationIssue,
-  SecurityFinding,
   ClaudeCodeVersion,
 } from "@/lib/skill-registry/types";
 
@@ -220,11 +219,10 @@ function IssueRow({ issue }: { issue: ValidationIssue }) {
 function StageRow({
   name,
   result,
-  delay,
 }: {
   name: ValidationStageName;
   result: { passed: boolean; issues: ValidationIssue[] };
-  delay: number;
+  delay?: number;
 }) {
   const [open, setOpen] = useState(false);
   const hasIssues = result.issues.length > 0;

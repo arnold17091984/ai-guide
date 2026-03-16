@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import {
   voteDebtItem,
   assignDebtItem,
@@ -69,7 +68,6 @@ export default function DebtDetailClient({
   assigneeId,
   translations: t,
 }: DebtDetailClientProps) {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [showResolveForm, setShowResolveForm] = useState(false);
   const [resolutionNote, setResolutionNote] = useState("");
@@ -109,10 +107,6 @@ export default function DebtDetailClient({
       await addDebtComment(itemId, commentText);
       setCommentText("");
     });
-  }
-
-  function handleEdit() {
-    router.push(`/${locale}/knowledge/debt/${itemId}`);
   }
 
   const canSelfAssign =

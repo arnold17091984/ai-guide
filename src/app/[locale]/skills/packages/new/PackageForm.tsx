@@ -4,7 +4,7 @@ import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { EASE_APPLE, DURATION } from "@/lib/motion";
-import { createPackage, addSkillToPackage } from "@/lib/skills/package-actions";
+import { createPackage } from "@/lib/skills/package-actions";
 
 // ============================================================
 // PackageForm

@@ -129,7 +129,6 @@ export default function DebtDashboardClient({
   currentStatus,
   currentSort,
   currentSearch,
-  currentPage,
   translations: t,
 }: DebtDashboardClientProps) {
   const router = useRouter();

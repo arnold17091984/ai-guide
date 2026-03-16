@@ -75,7 +75,6 @@ export interface LeaderboardRowProps {
 
 export default function LeaderboardRow({
   rank,
-  userId,
   username,
   displayName,
   avatarUrl,

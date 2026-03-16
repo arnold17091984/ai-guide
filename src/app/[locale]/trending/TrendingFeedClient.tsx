@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { EASE_APPLE, DURATION, staggerContainer, fadeUp } from "@/lib/motion";
+import { motion } from "framer-motion";
+import { staggerContainer } from "@/lib/motion";
 import { getTrendingFeed } from "@/lib/trending/actions";
 import TrendingCard from "@/components/TrendingCard";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
@@ -130,7 +130,7 @@ export default function TrendingFeedClient({
   const [hasMore, setHasMore] = useState(initialItems.length >= PAGE_SIZE);
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const totalCount = Object.values(itemCounts).reduce((a, b) => a + b, 0);
 

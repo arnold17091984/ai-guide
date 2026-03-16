@@ -38,10 +38,16 @@ function TerminalWindow() {
   const [phase, setPhase] = useState<"typing" | "results" | "pause">("typing");
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const clearTimer = () => {
     if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
+    }
+    if (resetTimerRef.current !== null) {
+      clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = null;
     }
   };
 
@@ -49,10 +55,13 @@ function TerminalWindow() {
     const command = COMMANDS[commandIndex];
 
     if (phase === "typing") {
-      setTypedInput("");
-      setVisibleOutputLines(0);
-
       let charIndex = 0;
+
+      // Reset state asynchronously to avoid synchronous setState in effect
+      resetTimerRef.current = setTimeout(() => {
+        setTypedInput("");
+        setVisibleOutputLines(0);
+      }, 0);
       const typeNext = () => {
         charIndex += 1;
         setTypedInput(command.input.slice(0, charIndex));
@@ -89,11 +98,9 @@ function TerminalWindow() {
     }
 
     return clearTimer;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, commandIndex]);
 
   const command = COMMANDS[commandIndex];
-  const showCursor = phase === "typing" || (phase === "results" && visibleOutputLines === 0);
 
   return (
     <div className="w-full max-w-xl mx-auto">

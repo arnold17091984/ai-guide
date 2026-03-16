@@ -245,7 +245,6 @@ function CommentCard({
           <div className="flex items-center gap-2 min-w-0">
             {/* Avatar */}
             {comment.author?.avatarUrl ? (
-              // eslint-disable-next-line @next/next-intl/no-raw-usage
               <img
                 src={comment.author.avatarUrl}
                 alt={displayName}

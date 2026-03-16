@@ -29,7 +29,7 @@ export function useAuth(): AuthState {
 
     // If Supabase is not configured, skip auth entirely
     if (!supabase) {
-      setLoading(false);
+      setTimeout(() => setLoading(false), 0);
       return;
     }
 

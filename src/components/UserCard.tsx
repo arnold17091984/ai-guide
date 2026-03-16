@@ -27,7 +27,6 @@ export default function UserCard({
   displayName,
   avatarUrl,
   reputation,
-  role,
   isVerified,
   entriesCount,
   rank,

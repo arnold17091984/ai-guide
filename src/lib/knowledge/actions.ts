@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { eq, and } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import { knowledgeEntries, knowledgeEntryTags } from "@/lib/db/schema/knowledge";
 import { tags } from "@/lib/db/schema/taxonomy";

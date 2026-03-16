@@ -20,7 +20,6 @@ export default function DigestCard({
   title,
   author,
   metric,
-  metricLabel,
   href,
   type,
 }: DigestCardProps) {

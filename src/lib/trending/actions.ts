@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, desc, and, count, sql } from "drizzle-orm";
+import { eq, desc, and, count } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import {
   trendingItems,

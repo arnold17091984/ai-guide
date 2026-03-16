@@ -11,12 +11,17 @@ import SearchBar from "./SearchBar";
 import { useAuth } from "@/hooks/useAuth";
 
 function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") === "light" ? "light" : "dark";
+    }
+    return "dark";
+  });
 
   useEffect(() => {
+    // Ensure classList matches the initial state read from localStorage
     const stored = localStorage.getItem("theme");
     if (stored === "light") {
-      setTheme("light");
       document.documentElement.classList.replace("dark", "light");
     }
   }, []);
