@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Image from "next/image";
 import {
   voteDebtItem,
   assignDebtItem,
@@ -255,10 +256,13 @@ export default function DebtDetailClient({
               className="flex gap-3 border-b border-(--border) pb-4 last:border-0 last:pb-0"
             >
               {comment.avatarUrl ? (
-                <img
+                <Image
                   src={comment.avatarUrl}
                   alt=""
+                  width={32}
+                  height={32}
                   className="h-8 w-8 rounded-full shrink-0"
+                  unoptimized
                 />
               ) : (
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-(--bg-surface) text-sm font-medium text-(--text-2) shrink-0">

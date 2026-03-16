@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getCaseStudyBySlug, getRelatedCaseStudies } from "@/lib/db/queries/case-studies";
@@ -265,10 +266,13 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
             {/* Author */}
             <div className="flex items-center gap-2">
               {study.authorAvatar ? (
-                <img
+                <Image
                   src={study.authorAvatar}
                   alt={study.authorName ?? ""}
+                  width={32}
+                  height={32}
                   className="h-8 w-8 rounded-full object-cover ring-1 ring-(--border)"
+                  unoptimized
                 />
               ) : (
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-(--bg-elevated) ring-1 ring-(--border)">

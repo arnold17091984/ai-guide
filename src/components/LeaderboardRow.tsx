@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import ReputationBadge from "@/components/ReputationBadge";
 import { DURATION, EASE_APPLE } from "@/lib/motion";
@@ -101,10 +102,13 @@ export default function LeaderboardRow({
 
         {/* Avatar */}
         {avatarUrl ? (
-          <img
+          <Image
             src={avatarUrl}
             alt={displayName ?? username}
+            width={40}
+            height={40}
             className="h-10 w-10 rounded-full object-cover"
+            unoptimized
           />
         ) : (
           <DefaultAvatar />

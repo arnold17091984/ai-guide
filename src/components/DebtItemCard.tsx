@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { EASE_APPLE, DURATION } from "@/lib/motion";
 import PriorityBadge from "./PriorityBadge";
@@ -236,10 +237,13 @@ export default function DebtItemCard({
             {item.assigneeUsername && (
               <span className="flex items-center gap-1 ml-auto">
                 {item.assigneeAvatar ? (
-                  <img
+                  <Image
                     src={item.assigneeAvatar}
                     alt=""
+                    width={16}
+                    height={16}
                     className="h-4 w-4 rounded-full"
+                    unoptimized
                   />
                 ) : (
                   <span className="flex h-4 w-4 items-center justify-center rounded-full bg-(--bg-elevated) text-[10px] font-medium text-(--text-1)">

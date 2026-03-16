@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useTransition } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   addComment,
@@ -245,10 +246,13 @@ function CommentCard({
           <div className="flex items-center gap-2 min-w-0">
             {/* Avatar */}
             {comment.author?.avatarUrl ? (
-              <img
+              <Image
                 src={comment.author.avatarUrl}
                 alt={displayName}
+                width={24}
+                height={24}
                 className="h-6 w-6 rounded-full object-cover shrink-0"
+                unoptimized
               />
             ) : (
               <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-(--accent-muted) text-xs font-semibold text-(--accent)">

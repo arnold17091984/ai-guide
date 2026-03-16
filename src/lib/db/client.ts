@@ -9,9 +9,7 @@ import * as schema from "./schema";
 // The connection is created on first access, then cached.
 
 declare global {
-  // eslint-disable-next-line no-var
   var _pgClient: ReturnType<typeof postgres> | undefined;
-  // eslint-disable-next-line no-var
   var _drizzle: ReturnType<typeof drizzle<typeof schema>> | undefined;
 }
 

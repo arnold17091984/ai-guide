@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import { EASE_APPLE, DURATION } from "@/lib/motion";
@@ -171,11 +172,13 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
             <div className="flex items-center gap-2">
               {/* Author avatar */}
               {study.authorAvatar ? (
-                <img
+                <Image
                   src={study.authorAvatar}
                   alt={study.authorName ?? study.authorUsername ?? ""}
+                  width={24}
+                  height={24}
                   className="h-6 w-6 rounded-full object-cover"
-                  loading="lazy"
+                  unoptimized
                 />
               ) : (
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-(--bg-elevated)">

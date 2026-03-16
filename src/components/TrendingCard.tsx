@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { EASE_APPLE, DURATION } from "@/lib/motion";
 import { bookmarkItem } from "@/lib/trending/actions";
@@ -112,10 +113,13 @@ export default function TrendingCard({
             {item.authorName && (
               <div className="flex items-center gap-1.5">
                 {item.authorAvatarUrl ? (
-                  <img
+                  <Image
                     src={item.authorAvatarUrl}
                     alt={item.authorName}
+                    width={16}
+                    height={16}
                     className="h-4 w-4 rounded-full"
+                    unoptimized
                   />
                 ) : (
                   <div className="flex h-4 w-4 items-center justify-center rounded-full bg-(--bg-elevated)">
