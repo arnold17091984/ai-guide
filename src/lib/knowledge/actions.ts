@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import { knowledgeEntries, knowledgeEntryTags } from "@/lib/db/schema/knowledge";
 import { tags } from "@/lib/db/schema/taxonomy";
@@ -89,7 +89,7 @@ async function resolveTagIds(tagSlugs: string[]): Promise<string[]> {
   const rows = await db
     .select({ id: tags.id, slug: tags.slug })
     .from(tags)
-    .then((all) => all.filter((r) => slugList.includes(r.slug)));
+    .where(inArray(tags.slug, slugList));
 
   return rows.map((r) => r.id);
 }
@@ -268,34 +268,36 @@ export async function updateEntry(
   try {
     const baseVersion = await getCurrentVersionNumber("knowledge_entry", id);
 
-    await db
-      .update(knowledgeEntries)
-      .set({
-        titleKo,
-        titleEn: titleEn || null,
-        titleJa: titleJa || null,
-        bodyKo: bodyKo || null,
-        bodyEn: bodyEn || null,
-        bodyJa: bodyJa || null,
-        categoryId: categoryId || null,
-        difficultyLevel: difficulty ?? null,
-        readTimeMins: estimateReadTime(bodyKo),
-        updatedAt: new Date(),
-      })
-      .where(eq(knowledgeEntries.id, id));
+    await db.transaction(async (tx) => {
+      await tx
+        .update(knowledgeEntries)
+        .set({
+          titleKo,
+          titleEn: titleEn || null,
+          titleJa: titleJa || null,
+          bodyKo: bodyKo || null,
+          bodyEn: bodyEn || null,
+          bodyJa: bodyJa || null,
+          categoryId: categoryId || null,
+          difficultyLevel: difficulty ?? null,
+          readTimeMins: estimateReadTime(bodyKo),
+          updatedAt: new Date(),
+        })
+        .where(eq(knowledgeEntries.id, id));
 
-    // Replace tag associations
-    await db
-      .delete(knowledgeEntryTags)
-      .where(eq(knowledgeEntryTags.entryId, id));
+      // Replace tag associations
+      await tx
+        .delete(knowledgeEntryTags)
+        .where(eq(knowledgeEntryTags.entryId, id));
 
-    if (tagIds.length > 0) {
-      await db.insert(knowledgeEntryTags).values(
-        tagIds.map((tagId) => ({ entryId: id, tagId })),
-      );
-    }
+      if (tagIds.length > 0) {
+        await tx.insert(knowledgeEntryTags).values(
+          tagIds.map((tagId) => ({ entryId: id, tagId })),
+        );
+      }
+    });
 
-    // Save version snapshot
+    // Save version snapshot (uses its own internal transaction for optimistic locking)
     const snapshot: KnowledgeEntrySnapshot = {
       titleKo,
       titleEn,

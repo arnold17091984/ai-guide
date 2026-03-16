@@ -22,14 +22,16 @@ function ThemeToggle() {
     // Ensure classList matches the initial state read from localStorage
     const stored = localStorage.getItem("theme");
     if (stored === "light") {
-      document.documentElement.classList.replace("dark", "light");
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
     }
   }, []);
 
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    document.documentElement.classList.replace(theme, next);
+    document.documentElement.classList.remove(theme);
+    document.documentElement.classList.add(next);
     localStorage.setItem("theme", next);
   };
 

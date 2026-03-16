@@ -270,10 +270,10 @@ function CommentCard({
 
           <div className="flex items-center gap-3 shrink-0">
             <time
-              dateTime={comment.createdAt.toISOString()}
+              dateTime={new Date(comment.createdAt).toISOString()}
               className="text-xs text-(--text-2)"
             >
-              {formatRelative(comment.createdAt)}
+              {formatRelative(new Date(comment.createdAt))}
             </time>
 
             {canAct && !editing && (

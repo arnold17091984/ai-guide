@@ -141,14 +141,37 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
     }
   }, [userId]);
 
-  // Poll every 30s
+  // Poll every 30s, pausing when tab is hidden
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   useEffect(() => {
-    const interval = setInterval(() => void fetchCount(), 30_000);
+    const startPolling = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => void fetchCount(), 30_000);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      } else {
+        void fetchCount();
+        startPolling();
+      }
+    };
+
     // Initial fetch via zero-delay timer to avoid synchronous setState in effect
     const timer = setTimeout(() => void fetchCount(), 0);
+    startPolling();
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current) clearInterval(intervalRef.current);
       clearTimeout(timer);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [fetchCount]);
 
