@@ -1,0 +1,13 @@
+test_command: "npx next build"
+lint_command: "npx eslint ."
+type_check: "npx tsc --noEmit"
+e2e_command: ""
+security_scan: "npm audit --production"
+max_file_scan: 50
+exclude_patterns:
+  - "node_modules/**"
+  - ".next/**"
+  - "dist/**"
+  - ".improve/**"
+  - "*.lock"
+  - "*.png"
