@@ -6,7 +6,31 @@ import { routing } from "./i18n/routing";
 const handleI18nRouting = createIntlMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
-  // Run next-intl middleware first to get the locale-aware response
+  // Skip i18n routing for auth callback — it must stay at /auth/callback (no locale prefix)
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith("/auth/")) {
+    const { NextResponse } = await import("next/server");
+    const response = NextResponse.next();
+
+    // Still refresh Supabase session on auth routes
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createServerClient(supabaseUrl, supabaseKey, {
+        cookies: {
+          getAll() { return request.cookies.getAll(); },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+            cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+          },
+        },
+      });
+      await supabase.auth.getUser();
+    }
+    return response;
+  }
+
+  // Run next-intl middleware for all other routes
   const response = handleI18nRouting(request);
 
   // Skip Supabase session refresh if env vars are not configured
