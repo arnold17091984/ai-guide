@@ -11,6 +11,7 @@ import ReputationBadge from "@/components/ReputationBadge";
 import ProfileStats from "./ProfileStats";
 import ProfileProgressRing from "./ProfileProgressRing";
 import AchievementShowcase from "./AchievementShowcase";
+import ProfileSkillBadges from "@/components/ProfileSkillBadges";
 
 // ============================================================
 // Public user profile page — Server Component
@@ -165,8 +166,13 @@ export default async function PublicProfilePage({
           <ProfileStats stats={stats} locale={locale} />
         </ScrollFadeIn>
 
-        {/* ── Links & Meta ── */}
+        {/* ── Skill badges ── */}
         <ScrollFadeIn delay={0.15}>
+          <ProfileSkillBadges userId={profile.id} />
+        </ScrollFadeIn>
+
+        {/* ── Links & Meta ── */}
+        <ScrollFadeIn delay={0.2}>
           <div className="overflow-hidden rounded-lg border border-(--border) bg-(--bg-surface) p-6">
             <div className="space-y-4">
               {/* Member since */}

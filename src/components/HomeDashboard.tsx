@@ -96,7 +96,7 @@ export default async function HomeDashboard() {
           </div>
 
           {/* Featured + sub-entries + sidebar */}
-          <div className="grid gap-4 lg:grid-cols-[1fr_280px]">
+          <div className="grid gap-4 md:grid-cols-[1fr_280px]">
             {/* Left: Featured entry + sub-entries */}
             <div className="space-y-4">
               {/* Featured card */}
@@ -147,7 +147,7 @@ export default async function HomeDashboard() {
 
               {/* Sub-entries row */}
               {subEntries.length > 0 && (
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
                   {subEntries.map((entry) => (
                     <Link
                       key={entry.id}

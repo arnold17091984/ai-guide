@@ -9,6 +9,7 @@ import PageHeader from "@/components/PageHeader";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import ReputationBadge from "@/components/ReputationBadge";
 import ProfileEditToggle from "@/components/ProfileEditToggle";
+import ProfileSkillBadges from "@/components/ProfileSkillBadges";
 
 // ============================================================
 // Profile page — Server Component
@@ -265,6 +266,11 @@ export default async function ProfilePage({
               )}
             </div>
           </div>
+        </ScrollFadeIn>
+
+        {/* ── Skill badges ── */}
+        <ScrollFadeIn delay={0.15}>
+          <ProfileSkillBadges userId={profile.id} />
         </ScrollFadeIn>
 
         {/* ── Edit profile toggle ── */}

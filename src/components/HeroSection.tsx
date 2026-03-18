@@ -113,7 +113,7 @@ function TerminalWindow() {
       </div>
 
       {/* Terminal body */}
-      <div className="bg-(--bg-surface) rounded-b-lg border-x border-b border-(--border) p-4 font-mono text-sm min-h-50">
+      <div className="bg-(--bg-surface) rounded-b-lg border-x border-b border-(--border) p-3 sm:p-4 font-mono text-xs sm:text-sm min-h-36 sm:min-h-50">
         {/* Prompt + typed input */}
         <div className="flex items-start gap-2">
           <span className="text-(--accent) select-none shrink-0">&#x27E9;</span>
@@ -168,7 +168,7 @@ export default function HeroSection({
   exploreHref,
 }: HeroSectionProps) {
   return (
-    <section className="relative -mx-4 -mt-8 mb-8 px-4 py-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <section className="relative -mx-4 -mt-8 mb-8 px-4 py-12 sm:py-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -178,7 +178,7 @@ export default function HeroSection({
         {/* Headline */}
         <motion.h1
           variants={fadeUp}
-          className="text-4xl font-bold tracking-tight text-(--text-1) sm:text-5xl text-center"
+          className="text-2xl font-bold tracking-tight text-(--text-1) sm:text-4xl lg:text-5xl text-center"
         >
           {title}
         </motion.h1>
@@ -186,13 +186,13 @@ export default function HeroSection({
         {/* Subtitle */}
         <motion.p
           variants={fadeUp}
-          className="mt-4 text-lg leading-relaxed text-(--text-2) text-center"
+          className="mt-3 text-sm leading-relaxed text-(--text-2) text-center sm:mt-4 sm:text-lg"
         >
           {subtitle}
         </motion.p>
 
         {/* Terminal window */}
-        <motion.div variants={fadeUp} className="mt-10">
+        <motion.div variants={fadeUp} className="mt-6 sm:mt-10">
           <TerminalWindow />
         </motion.div>
 

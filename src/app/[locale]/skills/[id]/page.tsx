@@ -226,6 +226,7 @@ function detectCategory(tags: string[]): string | null {
 import InstallBlock from "./InstallBlock";
 import SkillAdoptButton from "@/components/SkillAdoptButton";
 import { getUserSkillStatus } from "@/lib/skills/user-skill-actions";
+import PrerequisitesList from "@/components/PrerequisitesList";
 
 // ---------------------------------------------------------------------------
 // Page
@@ -602,6 +603,8 @@ export default async function SkillDetailPage({ params }: PageProps) {
                 />
               </div>
             )}
+
+            <PrerequisitesList skillId={skill.id} userId={user?.id} locale={locale} />
 
             {/* Author card */}
             <div className="rounded-lg border border-(--border) bg-(--bg-surface)/80 p-4 backdrop-blur-xl">

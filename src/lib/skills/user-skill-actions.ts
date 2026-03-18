@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, and, count, desc } from "drizzle-orm";
+import { eq, and, count, desc, inArray } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import { userSkills, skills, users } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
@@ -184,4 +184,44 @@ export async function getSkillAdopterCount(skillId: string) {
     .where(eq(userSkills.skillId, skillId));
 
   return Number(result?.value ?? 0);
+}
+
+// ============================================================
+// getUserSkillsForProfile — public query for any user's skills
+// ============================================================
+// Returns completed and in-progress skills for any user by ID.
+// Does not require authentication — safe for public profile pages.
+
+export async function getUserSkillsForProfile(userId: string) {
+  try {
+    const rows = await db
+      .select({
+        id: userSkills.id,
+        skillId: userSkills.skillId,
+        status: userSkills.status,
+        registeredAt: userSkills.registeredAt,
+        completedAt: userSkills.completedAt,
+        skillName: skills.name,
+        skillSlug: skills.slug,
+        skillDescription: skills.description,
+        skillDownloads: skills.downloads,
+        skillStars: skills.stars,
+      })
+      .from(userSkills)
+      .innerJoin(skills, eq(userSkills.skillId, skills.id))
+      .where(
+        and(
+          eq(userSkills.userId, userId),
+          inArray(userSkills.status, ["in_progress", "completed"]),
+        ),
+      )
+      .orderBy(desc(userSkills.registeredAt));
+
+    const completed = rows.filter((r) => r.status === "completed");
+    const inProgress = rows.filter((r) => r.status === "in_progress");
+
+    return { completed, inProgress };
+  } catch {
+    return { completed: [], inProgress: [] };
+  }
 }

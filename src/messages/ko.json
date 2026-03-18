@@ -43,6 +43,8 @@
     "navPackages": "패키지",
     "navTeams": "팀",
     "navCaseStudies": "케이스 스터디",
+    "navMySkills": "내 스킬",
+    "navLearningPaths": "학습 경로",
     "notFoundTitle": "페이지를 찾을 수 없습니다",
     "notFoundMessage": "찾으시는 페이지가 존재하지 않거나 이동되었습니다.",
     "backToHome": "홈으로 돌아가기",
@@ -1490,5 +1492,43 @@
     "intermediate": "중급",
     "advanced": "고급",
     "expert": "전문가"
+  },
+  "mySkills": {
+    "title": "내 스킬",
+    "subtitle": "스킬 학습 진행 상황 추적",
+    "stats": { "registered": "등록됨", "inProgress": "진행 중", "completed": "완료" },
+    "filters": { "all": "전체", "registered": "등록됨", "inProgress": "진행 중", "completed": "완료" },
+    "emptyState": "아직 등록된 스킬이 없습니다.",
+    "emptyFiltered": "해당하는 스킬이 없습니다.",
+    "registeredAt": "등록일",
+    "startedAt": "시작일",
+    "completedAt": "완료일",
+    "viewSkill": "스킬 보기",
+    "recommendations": { "title": "추천 다음 단계", "subtitle": "완료한 스킬 기반 추천", "empty": "추천을 받으려면 스킬을 완료하세요" },
+    "analytics": { "completionRate": "완료율", "totalSkills": "총 스킬 수", "daysSinceStart": "학습 일수" }
+  },
+  "learningPaths": {
+    "title": "학습 경로",
+    "subtitle": "Claude Code 마스터를 위한 체계적인 학습 코스",
+    "roles": { "all": "모든 역할", "backend": "백엔드", "frontend": "프론트엔드", "devops": "DevOps", "fullstack": "풀스택", "data": "데이터", "mobile": "모바일" },
+    "difficulty": { "all": "모든 레벨", "beginner": "초급", "intermediate": "중급", "advanced": "고급" },
+    "estimatedHours": "예상 {hours}시간",
+    "steps": "{count}단계",
+    "enroll": "학습 시작",
+    "enrolled": "등록됨",
+    "continue": "계속",
+    "progress": "{completed}/{total}단계 완료",
+    "markComplete": "완료하기",
+    "completed": "완료",
+    "noResults": "아직 학습 경로가 없습니다.",
+    "breadcrumb": { "home": "홈", "learningPaths": "학습 경로" },
+    "detail": { "overview": "개요", "steps": "단계", "yourProgress": "내 진행 상황" },
+    "unenroll": "등록 해제"
+  },
+  "prerequisites": {
+    "title": "선행 스킬",
+    "completed": "완료",
+    "notCompleted": "미완료",
+    "none": "선행 스킬 없음"
   }
 }

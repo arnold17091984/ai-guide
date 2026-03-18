@@ -1,4 +1,4 @@
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
 const STORAGE_KEY = "ai-guide-visited";
@@ -61,11 +61,13 @@ export function useProgressLine() {
   const pathname = usePathname();
   const visited = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  // Track current page visit
+  // Track current page visit — must be in useEffect to avoid setState during render
   const pathWithoutLocale = "/" + pathname.split("/").slice(2).join("/");
-  if (typeof window !== "undefined" && ALL_PAGES.includes(pathWithoutLocale)) {
-    addVisited(pathWithoutLocale);
-  }
+  useEffect(() => {
+    if (ALL_PAGES.includes(pathWithoutLocale)) {
+      addVisited(pathWithoutLocale);
+    }
+  }, [pathWithoutLocale]);
 
   const isVisited = useCallback((href: string) => visited.includes(href), [visited]);
   const progress = ALL_PAGES.length > 0 ? (visited.length / ALL_PAGES.length) * 100 : 0;

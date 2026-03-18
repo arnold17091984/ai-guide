@@ -43,6 +43,8 @@
     "navPackages": "Packages",
     "navTeams": "Teams",
     "navCaseStudies": "Case Studies",
+    "navMySkills": "My Skills",
+    "navLearningPaths": "Learning Paths",
     "notFoundTitle": "Page Not Found",
     "notFoundMessage": "The page you are looking for doesn't exist or has been moved.",
     "backToHome": "Back to Home",
@@ -1490,5 +1492,43 @@
     "intermediate": "Intermediate",
     "advanced": "Advanced",
     "expert": "Expert"
+  },
+  "mySkills": {
+    "title": "My Skills",
+    "subtitle": "Track your skill learning journey",
+    "stats": { "registered": "Registered", "inProgress": "In Progress", "completed": "Completed" },
+    "filters": { "all": "All", "registered": "Registered", "inProgress": "In Progress", "completed": "Completed" },
+    "emptyState": "You haven't registered any skills yet.",
+    "emptyFiltered": "No skills match this filter.",
+    "registeredAt": "Registered",
+    "startedAt": "Started",
+    "completedAt": "Completed",
+    "viewSkill": "View Skill",
+    "recommendations": { "title": "Recommended Next Steps", "subtitle": "Based on your completed skills", "empty": "Complete more skills to get recommendations" },
+    "analytics": { "completionRate": "Completion Rate", "totalSkills": "Total Skills", "daysSinceStart": "Days Active" }
+  },
+  "learningPaths": {
+    "title": "Learning Paths",
+    "subtitle": "Structured learning journeys for Claude Code mastery",
+    "roles": { "all": "All Roles", "backend": "Backend", "frontend": "Frontend", "devops": "DevOps", "fullstack": "Fullstack", "data": "Data", "mobile": "Mobile" },
+    "difficulty": { "all": "All Levels", "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
+    "estimatedHours": "{hours}h estimated",
+    "steps": "{count} steps",
+    "enroll": "Start Learning",
+    "enrolled": "Enrolled",
+    "continue": "Continue",
+    "progress": "{completed}/{total} steps completed",
+    "markComplete": "Mark Complete",
+    "completed": "Completed",
+    "noResults": "No learning paths available yet.",
+    "breadcrumb": { "home": "Home", "learningPaths": "Learning Paths" },
+    "detail": { "overview": "Overview", "steps": "Steps", "yourProgress": "Your Progress" },
+    "unenroll": "Unenroll"
+  },
+  "prerequisites": {
+    "title": "Prerequisites",
+    "completed": "Completed",
+    "notCompleted": "Not completed",
+    "none": "No prerequisites"
   }
 }

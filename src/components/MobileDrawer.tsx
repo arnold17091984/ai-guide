@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useProgressLine } from "@/hooks/useProgressLine";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface MenuItem {
   key: string;
@@ -28,6 +29,8 @@ const menuGroups: MenuGroup[] = [
       { key: "debtTracker", href: "/knowledge/debt", commonKey: "navDebtTracker" },
       { key: "skills", href: "/skills", commonKey: "navSkills" },
       { key: "packages", href: "/skills/packages", commonKey: "navPackages" },
+      { key: "mySkills", href: "/skills/my", commonKey: "navMySkills" },
+      { key: "learningPaths", href: "/learning-paths", commonKey: "navLearningPaths" },
       { key: "claudeMdWorkshop", href: "/claude-md", commonKey: "navClaudeMd" },
       { key: "community", href: "/community", commonKey: "navCommunity" },
       { key: "teams", href: "/teams", commonKey: "navTeams" },
@@ -123,6 +126,11 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
+            </div>
+
+            {/* Language switcher (mobile only) */}
+            <div className="mb-4 px-2 sm:hidden">
+              <LanguageSwitcher />
             </div>
 
             {/* Progress bar */}

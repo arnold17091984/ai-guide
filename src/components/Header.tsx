@@ -81,10 +81,12 @@ export default function Header() {
           </Link>
 
           {/* Right side */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <SearchBar />
             <ThemeToggle />
-            <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
             {user && <NotificationBell userId={user.id} />}
             <AuthButton />
           </div>

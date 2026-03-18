@@ -43,6 +43,8 @@
     "navPackages": "パッケージ",
     "navTeams": "チーム",
     "navCaseStudies": "ケーススタディ",
+    "navMySkills": "マイスキル",
+    "navLearningPaths": "学習パス",
     "notFoundTitle": "ページが見つかりません",
     "notFoundMessage": "お探しのページは存在しないか、移動しました。",
     "backToHome": "ホームに戻る",
@@ -1490,5 +1492,43 @@
     "intermediate": "中級",
     "advanced": "上級",
     "expert": "エキスパート"
+  },
+  "mySkills": {
+    "title": "マイスキル",
+    "subtitle": "スキル学習の進捗を追跡",
+    "stats": { "registered": "登録済み", "inProgress": "学習中", "completed": "完了" },
+    "filters": { "all": "すべて", "registered": "登録済み", "inProgress": "学習中", "completed": "完了" },
+    "emptyState": "まだスキルを登録していません。",
+    "emptyFiltered": "該当するスキルがありません。",
+    "registeredAt": "登録日",
+    "startedAt": "開始日",
+    "completedAt": "完了日",
+    "viewSkill": "スキルを見る",
+    "recommendations": { "title": "おすすめの次のステップ", "subtitle": "完了したスキルに基づく推薦", "empty": "推薦を受けるにはスキルを完了してください" },
+    "analytics": { "completionRate": "完了率", "totalSkills": "総スキル数", "daysSinceStart": "学習日数" }
+  },
+  "learningPaths": {
+    "title": "学習パス",
+    "subtitle": "Claude Code習得のための体系的な学習コース",
+    "roles": { "all": "すべてのロール", "backend": "バックエンド", "frontend": "フロントエンド", "devops": "DevOps", "fullstack": "フルスタック", "data": "データ", "mobile": "モバイル" },
+    "difficulty": { "all": "すべてのレベル", "beginner": "初級", "intermediate": "中級", "advanced": "上級" },
+    "estimatedHours": "推定{hours}時間",
+    "steps": "{count}ステップ",
+    "enroll": "学習を始める",
+    "enrolled": "登録済み",
+    "continue": "続ける",
+    "progress": "{completed}/{total}ステップ完了",
+    "markComplete": "完了にする",
+    "completed": "完了",
+    "noResults": "学習パスはまだありません。",
+    "breadcrumb": { "home": "ホーム", "learningPaths": "学習パス" },
+    "detail": { "overview": "概要", "steps": "ステップ", "yourProgress": "あなたの進捗" },
+    "unenroll": "登録解除"
+  },
+  "prerequisites": {
+    "title": "前提スキル",
+    "completed": "完了済み",
+    "notCompleted": "未完了",
+    "none": "前提スキルなし"
   }
 }
