@@ -3,6 +3,8 @@
 import { useAuth } from "@/hooks/useAuth";
 import { DURATION, EASE_APPLE } from "@/lib/motion";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocale } from "next-intl";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 // ---------------------------------------------------------------------------
@@ -42,10 +44,34 @@ function DropdownItem({
 }
 
 // ---------------------------------------------------------------------------
+// Dropdown link item (navigates instead of onClick)
+// ---------------------------------------------------------------------------
+function DropdownLink({
+  href,
+  onClick,
+  children,
+}: {
+  href: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-(--text-2) transition-colors hover:bg-(--bg-elevated) hover:text-(--text-1)"
+    >
+      {children}
+    </Link>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
 export default function AuthButton() {
   const { user, loading, signIn, signOut } = useAuth();
+  const locale = useLocale();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -175,26 +201,38 @@ export default function AuthButton() {
             {/* Divider */}
             <div className="my-1 h-px bg-(--border)" />
 
-            {/* Actions */}
+            {/* Navigation */}
+            <DropdownLink href={`/${locale}/profile`} onClick={() => setDropdownOpen(false)}>
+              <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              Profile
+            </DropdownLink>
+            <DropdownLink href={`/${locale}/skills/my`} onClick={() => setDropdownOpen(false)}>
+              <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              My Skills
+            </DropdownLink>
+            <DropdownLink href={`/${locale}/learning-paths`} onClick={() => setDropdownOpen(false)}>
+              <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Learning Paths
+            </DropdownLink>
+
+            {/* Divider */}
+            <div className="my-1 h-px bg-(--border)" />
+
+            {/* Sign out */}
             <DropdownItem
               onClick={() => {
                 setDropdownOpen(false);
                 void signOut();
               }}
             >
-              {/* Sign-out icon */}
-              <svg
-                className="h-4 w-4 shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
+              <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
               Sign out
             </DropdownItem>
