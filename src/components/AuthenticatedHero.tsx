@@ -1,11 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import HeroSection from "./HeroSection";
+import OnboardingModal from "./OnboardingModal";
 import { fadeUp, staggerContainer } from "@/lib/motion";
+
+const ONBOARDING_KEY = "ai-guide-onboarding-complete";
 
 const STAT_CARDS = [
   {
@@ -42,6 +46,18 @@ export default function AuthenticatedHero() {
   const t = useTranslations("home");
   const th = useTranslations("hero");
   const locale = useLocale();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    const done = localStorage.getItem(ONBOARDING_KEY);
+    if (!done) setShowOnboarding(true);
+  }, [user]);
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem(ONBOARDING_KEY, "1");
+    setShowOnboarding(false);
+  };
 
   // While loading auth state, show a minimal skeleton to avoid layout shift
   if (loading) {
@@ -76,7 +92,16 @@ export default function AuthenticatedHero() {
     || user.email?.split("@")[0]
     || "User";
 
+  const avatarUrl = user.user_metadata?.avatar_url as string | undefined;
+
   return (
+    <>
+    <OnboardingModal
+      isOpen={showOnboarding}
+      onComplete={handleOnboardingComplete}
+      userName={displayName}
+      avatarUrl={avatarUrl}
+    />
     <section className="relative -mx-4 -mt-8 mb-8 px-4 py-16 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <motion.div
         variants={staggerContainer}
@@ -130,5 +155,6 @@ export default function AuthenticatedHero() {
         </motion.div>
       </motion.div>
     </section>
+    </>
   );
 }

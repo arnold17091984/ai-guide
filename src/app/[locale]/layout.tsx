@@ -6,6 +6,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import SkipToContent from "@/components/SkipToContent";
+import AchievementToast from "@/components/AchievementToast";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -59,6 +60,7 @@ export default async function LocaleLayout({
               </main>
             </div>
           </div>
+          <AchievementToast />
         </NextIntlClientProvider>
       </body>
     </html>

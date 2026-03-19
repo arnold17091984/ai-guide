@@ -1097,6 +1097,14 @@
     "viewAll": "모두 보기",
     "notFound": "사용자를 찾을 수 없습니다. 찾고 계신 프로필이 존재하지 않습니다."
   },
+  "social": {
+    "follow": "팔로우",
+    "following": "팔로잉",
+    "unfollow": "팔로우 취소",
+    "followers": "팔로워",
+    "followersCount": "{count}명의 팔로워",
+    "followingCount": "{count}명 팔로잉"
+  },
   "notifications": {
     "title": "알림",
     "subtitle": "활동 소식을 확인하세요",
@@ -1530,5 +1538,34 @@
     "completed": "완료",
     "notCompleted": "미완료",
     "none": "선행 스킬 없음"
+  },
+  "gamification": {
+    "streak": "{count}일 연속",
+    "achievements": {
+      "firstSkill": { "title": "첫 스킬!", "desc": "첫 스킬을 등록했습니다" },
+      "knowledgeSeeker": { "title": "지식 탐구자!", "desc": "첫 지식을 읽었습니다" },
+      "conversationStarter": { "title": "대화의 시작!", "desc": "첫 댓글을 작성했습니다" }
+    }
+  },
+  "onboarding": {
+    "welcome": "AI Guide에 오신 것을 환영합니다!",
+    "welcomeDesc": "Claude Code를 위한 스킬 공유 및 지식 관리 플랫폼",
+    "letsStart": "시작하기",
+    "roleQuestion": "당신의 역할은?",
+    "roles": {
+      "backend": "백엔드",
+      "frontend": "프론트엔드",
+      "devops": "DevOps",
+      "fullstack": "풀스택",
+      "data": "데이터",
+      "mobile": "모바일"
+    },
+    "next": "다음",
+    "allSet": "준비 완료!",
+    "allSetDesc": "플랫폼을 탐색해 보세요",
+    "browseSkills": "스킬 둘러보기",
+    "startPath": "학습 경로 시작",
+    "exploreKnowledge": "지식 탐색",
+    "startExploring": "탐색 시작"
   }
 }

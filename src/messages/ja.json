@@ -1097,6 +1097,14 @@
     "viewAll": "すべて見る",
     "notFound": "ユーザーが見つかりません。お探しのプロフィールは存在しません。"
   },
+  "social": {
+    "follow": "フォロー",
+    "following": "フォロー中",
+    "unfollow": "フォロー解除",
+    "followers": "フォロワー",
+    "followersCount": "{count}人のフォロワー",
+    "followingCount": "{count}人をフォロー中"
+  },
   "notifications": {
     "title": "通知",
     "subtitle": "アクティビティの最新情報を確認しましょう",
@@ -1530,5 +1538,34 @@
     "completed": "完了済み",
     "notCompleted": "未完了",
     "none": "前提スキルなし"
+  },
+  "gamification": {
+    "streak": "{count}日連続",
+    "achievements": {
+      "firstSkill": { "title": "はじめてのスキル！", "desc": "最初のスキルを登録しました" },
+      "knowledgeSeeker": { "title": "知識の探求者！", "desc": "最初のナレッジを閲覧しました" },
+      "conversationStarter": { "title": "会話のきっかけ！", "desc": "最初のコメントを投稿しました" }
+    }
+  },
+  "onboarding": {
+    "welcome": "AI Guideへようこそ！",
+    "welcomeDesc": "Claude Codeのスキル共有・ナレッジ管理プラットフォーム",
+    "letsStart": "始めましょう",
+    "roleQuestion": "あなたの役割は？",
+    "roles": {
+      "backend": "バックエンド",
+      "frontend": "フロントエンド",
+      "devops": "DevOps",
+      "fullstack": "フルスタック",
+      "data": "データ",
+      "mobile": "モバイル"
+    },
+    "next": "次へ",
+    "allSet": "準備完了！",
+    "allSetDesc": "さっそく探索を始めましょう",
+    "browseSkills": "スキルを探す",
+    "startPath": "学習パスを始める",
+    "exploreKnowledge": "ナレッジを見る",
+    "startExploring": "探索を始める"
   }
 }

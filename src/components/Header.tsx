@@ -8,6 +8,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import MobileDrawer from "./MobileDrawer";
 import NotificationBell from "./NotificationBell";
 import SearchBar from "./SearchBar";
+import StreakBadge from "./StreakBadge";
 import { useAuth } from "@/hooks/useAuth";
 
 function ThemeToggle() {
@@ -87,6 +88,7 @@ export default function Header() {
             <div className="hidden sm:block">
               <LanguageSwitcher />
             </div>
+            {user && <StreakBadge />}
             {user && <NotificationBell userId={user.id} />}
             <AuthButton />
           </div>

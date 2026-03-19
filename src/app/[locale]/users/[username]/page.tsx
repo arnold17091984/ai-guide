@@ -5,6 +5,11 @@ import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
 import { getUserByUsername, getUserStats } from "@/lib/db/queries/users";
 import { getUserAchievementsForProfile } from "./actions";
+import {
+  isFollowing,
+  getFollowerCount,
+  getFollowingCount,
+} from "@/lib/social/follow-actions";
 import PageHeader from "@/components/PageHeader";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import ReputationBadge from "@/components/ReputationBadge";
@@ -12,6 +17,7 @@ import ProfileStats from "./ProfileStats";
 import ProfileProgressRing from "./ProfileProgressRing";
 import AchievementShowcase from "./AchievementShowcase";
 import ProfileSkillBadges from "@/components/ProfileSkillBadges";
+import FollowButton from "@/components/FollowButton";
 
 // ============================================================
 // Public user profile page — Server Component
@@ -34,7 +40,10 @@ export default async function PublicProfilePage({
   params: Promise<{ locale: string; username: string }>;
 }) {
   const { locale, username } = await params;
-  const t = await getTranslations({ locale, namespace: "users" });
+  const [t, tSocial] = await Promise.all([
+    getTranslations({ locale, namespace: "users" }),
+    getTranslations({ locale, namespace: "social" }),
+  ]);
 
   const profile = await getUserByUsername(username);
   if (!profile) {
@@ -48,6 +57,12 @@ export default async function PublicProfilePage({
   ]);
 
   const isOwnProfile = currentUser?.id === profile.id;
+
+  const [followerCount, followingCount, viewerIsFollowing] = await Promise.all([
+    getFollowerCount(profile.id),
+    getFollowingCount(profile.id),
+    isOwnProfile || !currentUser ? Promise.resolve(false) : isFollowing(profile.id),
+  ]);
   const roleClass = roleBadgeClass[profile.role] ?? roleBadgeClass.viewer;
 
   const memberSince = new Date(profile.createdAt).toLocaleDateString(locale, {
@@ -143,6 +158,28 @@ export default async function PublicProfilePage({
                     </span>
                     <ReputationBadge reputation={profile.reputation} showScore />
                   </div>
+
+                  {/* Follower / Following counts */}
+                  <div className="mb-3 flex items-center gap-4 text-sm text-(--text-2)">
+                    <span>
+                      <span className="font-semibold text-(--text-1)">{followerCount}</span>{" "}
+                      {tSocial("followers")}
+                    </span>
+                    <span>
+                      <span className="font-semibold text-(--text-1)">{followingCount}</span>{" "}
+                      {tSocial("following")}
+                    </span>
+                  </div>
+
+                  {/* Follow button — only shown to other logged-in users */}
+                  {!isOwnProfile && currentUser && (
+                    <div className="mb-3">
+                      <FollowButton
+                        targetUserId={profile.id}
+                        initialIsFollowing={viewerIsFollowing}
+                      />
+                    </div>
+                  )}
 
                   {/* Bio */}
                   {profile.bio && (

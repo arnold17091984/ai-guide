@@ -1097,6 +1097,14 @@
     "viewAll": "View all",
     "notFound": "User not found. The profile you are looking for does not exist."
   },
+  "social": {
+    "follow": "Follow",
+    "following": "Following",
+    "unfollow": "Unfollow",
+    "followers": "Followers",
+    "followersCount": "{count} followers",
+    "followingCount": "{count} following"
+  },
   "notifications": {
     "title": "Notifications",
     "subtitle": "Stay up to date with your activity",
@@ -1525,10 +1533,39 @@
     "detail": { "overview": "Overview", "steps": "Steps", "yourProgress": "Your Progress" },
     "unenroll": "Unenroll"
   },
+  "gamification": {
+    "streak": "{count} day streak",
+    "achievements": {
+      "firstSkill": { "title": "First Skill!", "desc": "You registered your first skill" },
+      "knowledgeSeeker": { "title": "Knowledge Seeker!", "desc": "You read your first knowledge entry" },
+      "conversationStarter": { "title": "Conversation Starter!", "desc": "You posted your first comment" }
+    }
+  },
   "prerequisites": {
     "title": "Prerequisites",
     "completed": "Completed",
     "notCompleted": "Not completed",
     "none": "No prerequisites"
+  },
+  "onboarding": {
+    "welcome": "Welcome to AI Guide!",
+    "welcomeDesc": "The skill-sharing and knowledge platform for Claude Code",
+    "letsStart": "Let's get started",
+    "roleQuestion": "What's your role?",
+    "roles": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "devops": "DevOps",
+      "fullstack": "Fullstack",
+      "data": "Data",
+      "mobile": "Mobile"
+    },
+    "next": "Next",
+    "allSet": "You're all set!",
+    "allSetDesc": "Start exploring the platform",
+    "browseSkills": "Browse Skills",
+    "startPath": "Start a Learning Path",
+    "exploreKnowledge": "Explore Knowledge",
+    "startExploring": "Start Exploring"
   }
 }

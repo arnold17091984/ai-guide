@@ -173,6 +173,39 @@ export const bookmarks = pgTable(
   ],
 );
 
+// ============================================================
+// follows
+// ============================================================
+// Directed edge: follower → following.
+// Unique constraint prevents duplicate follow rows.
+// Cascade deletes clean up when either user is removed.
+
+export const follows = pgTable(
+  "follows",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+
+    followerId: uuid("follower_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+
+    followingId: uuid("following_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .default(sql`now()`),
+  },
+  (t) => [
+    uniqueIndex("follows_uk").on(t.followerId, t.followingId),
+    index("follows_follower_idx").on(t.followerId),
+    index("follows_following_idx").on(t.followingId),
+  ],
+);
+
 export type Vote = typeof votes.$inferSelect;
 export type NewVote = typeof votes.$inferInsert;
 export type Comment = typeof comments.$inferSelect;
@@ -180,3 +213,5 @@ export type NewComment = typeof comments.$inferInsert;
 export type EditSuggestion = typeof editSuggestions.$inferSelect;
 export type NewEditSuggestion = typeof editSuggestions.$inferInsert;
 export type Bookmark = typeof bookmarks.$inferSelect;
+export type Follow = typeof follows.$inferSelect;
+export type NewFollow = typeof follows.$inferInsert;
