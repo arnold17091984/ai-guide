@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { syncUser } from "@/lib/auth/sync-user";
 import { type NextRequest, NextResponse } from "next/server";
 
 const VALID_LOCALES = ["ko", "en", "ja"] as const;
@@ -44,6 +45,21 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(
         `${homeUrl}?error=${encodeURIComponent(error.message)}`,
       );
+    }
+
+    // Upsert the public.users row so getCurrentUser() never returns null
+    // for a freshly authenticated user. Errors are non-fatal — the session
+    // is already valid, so we log and continue rather than blocking the redirect.
+    try {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) {
+        console.error("[auth/callback] getUser error:", userError.message);
+      } else if (user) {
+        const acceptLanguage = request.headers.get("accept-language") ?? undefined;
+        await syncUser(user, { acceptLanguage });
+      }
+    } catch (syncErr) {
+      console.error("[auth/callback] syncUser error:", syncErr);
     }
 
     return NextResponse.redirect(homeUrl);

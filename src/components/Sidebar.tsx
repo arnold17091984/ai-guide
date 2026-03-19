@@ -80,8 +80,8 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="hidden w-60 shrink-0 lg:block">
-      <nav className="sticky top-20 bg-(--bg-base) border-r border-(--border) py-4 px-3">
+    <aside className="hidden w-60 shrink-0 border-r border-(--border) lg:block">
+      <nav className="sticky top-20 py-4 px-3">
         {/* Progress bar */}
         <div className="mb-4 px-2">
           <div className="flex items-center justify-between text-xs text-(--text-3) font-mono mb-1.5">
