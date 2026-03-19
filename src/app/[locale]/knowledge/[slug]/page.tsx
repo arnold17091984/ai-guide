@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getEntryBySlug } from "@/lib/db/queries/knowledge";
 import { renderMarkdown } from "@/lib/markdown";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
+import KnowledgeAiQA from "@/components/KnowledgeAiQA";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -325,8 +326,10 @@ export default async function KnowledgeDetailPage({ params }: PageProps) {
               </Link>
             </div>
 
-            {/* Vote / Comment placeholders */}
+            {/* AI Q&A + Vote / Comment */}
             <div className="mt-8 space-y-8">
+              <KnowledgeAiQA slug={entry.slug} />
+
               {/* VoteButton — component assumed to exist */}
               {/* <VoteButton targetType="knowledge_entry" targetId={entry.id} /> */}
 

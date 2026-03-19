@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
 import MySkillsClient from "./MySkillsClient";
 import SkillRecommendations from "./SkillRecommendations";
+import AiLearningRecommendations from "@/components/AiLearningRecommendations";
 
 // ---------------------------------------------------------------------------
 // Icons
@@ -100,9 +101,14 @@ export default async function MySkillsPage() {
           <MySkillsClient skills={skills} locale={locale} />
         </ScrollFadeIn>
 
-        {/* Recommendations */}
+        {/* AI Learning Recommendations */}
+        <ScrollFadeIn delay={0.1}>
+          <AiLearningRecommendations />
+        </ScrollFadeIn>
+
+        {/* DB-based Recommendations */}
         {recommendations.length > 0 && (
-          <ScrollFadeIn delay={0.1}>
+          <ScrollFadeIn delay={0.15}>
             <SkillRecommendations
               recommendations={recommendations}
               locale={locale}
