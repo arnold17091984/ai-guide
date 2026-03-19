@@ -2,10 +2,13 @@
 
 import { eq, and, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 import { db } from "@/lib/db/client";
 import { skills, votes } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
 import { rateLimit } from "@/lib/rate-limit";
+
+const uuidSchema = z.string().uuid();
 
 // ============================================================
 // Skill Server Actions
@@ -26,6 +29,10 @@ export interface StarSkillResult {
 }
 
 export async function starSkill(skillId: string): Promise<StarSkillResult> {
+  if (!uuidSchema.safeParse(skillId).success) {
+    return { success: false, starred: false, newCount: 0, error: "invalid skillId" };
+  }
+
   const user = await getCurrentUser();
   if (!user) {
     return { success: false, starred: false, newCount: 0, error: "unauthenticated" };
@@ -110,6 +117,10 @@ export interface IncrementDownloadResult {
 export async function incrementDownload(
   skillId: string,
 ): Promise<IncrementDownloadResult> {
+  if (!uuidSchema.safeParse(skillId).success) {
+    return { success: false, newCount: 0, error: "invalid skillId" };
+  }
+
   // Rate limit by userId+skillId when authenticated (10 req/min).
   // Server actions already require a valid session cookie to invoke,
   // so unauthenticated abuse is limited by default.

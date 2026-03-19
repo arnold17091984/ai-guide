@@ -259,6 +259,7 @@ export default function SearchBar() {
             transition={{ duration: DURATION.fast, ease: EASE_APPLE }}
             id="search-listbox"
             role="listbox"
+            aria-live="polite"
             className="absolute right-0 top-full z-50 mt-2 w-80 max-h-80 overflow-y-auto rounded-lg border border-(--border) bg-(--bg-surface) p-2 shadow-lg"
           >
             {suggestions.map((item, idx) => (

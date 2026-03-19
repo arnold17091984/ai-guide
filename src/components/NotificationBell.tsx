@@ -200,6 +200,16 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
     return () => { cancelled = true; };
   }, [open, userId]);
 
+  // Close on Escape key
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
+
   // Close on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

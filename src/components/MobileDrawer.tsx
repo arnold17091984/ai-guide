@@ -90,6 +90,15 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -110,6 +119,8 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: DURATION.normal, ease: EASE_APPLE }}
+            role="dialog"
+            aria-modal="true"
             className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-(--bg-base) border-r border-(--border) py-4 px-3 lg:hidden"
           >
             {/* Header */}

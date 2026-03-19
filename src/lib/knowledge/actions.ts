@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { eq, inArray } from "drizzle-orm";
+import { z } from "zod";
 import { db } from "@/lib/db/client";
 import { knowledgeEntries, knowledgeEntryTags } from "@/lib/db/schema/knowledge";
 import { tags } from "@/lib/db/schema/taxonomy";
@@ -27,6 +28,18 @@ export type ActionResult = {
 
 type DifficultyLevel = "beginner" | "intermediate" | "advanced";
 type ContentType = "article" | "tip" | "workflow" | "tutorial";
+
+// ============================================================
+// Validation schemas
+// ============================================================
+
+const createEntrySchema = z.object({
+  titleKo: z.string().min(1).max(200),
+  contentType: z.enum(["article", "tip", "workflow", "tutorial"]),
+  difficulty: z.enum(["beginner", "intermediate", "advanced"]).optional(),
+  bodyKo: z.string().min(1),
+  tags: z.string().optional(),
+});
 
 // ============================================================
 // Helpers
@@ -110,28 +123,30 @@ export async function createEntry(formData: FormData): Promise<ActionResult> {
     return { success: false, error: "insufficient permissions" };
   }
 
-  const titleKo = (formData.get("titleKo") as string | null)?.trim() ?? "";
+  const parsed = createEntrySchema.safeParse({
+    titleKo: (formData.get("titleKo") as string | null)?.trim() ?? "",
+    contentType: (formData.get("contentType") as string | null)?.trim() ?? "article",
+    difficulty: (formData.get("difficulty") as string | null)?.trim() || undefined,
+    bodyKo: (formData.get("bodyKo") as string | null)?.trim() ?? "",
+    tags: (formData.get("tags") as string | null) ?? undefined,
+  });
+
+  if (!parsed.success) {
+    const message = parsed.error.issues[0]?.message ?? "invalid input";
+    return { success: false, error: message };
+  }
+
+  const titleKo = parsed.data.titleKo;
+  const contentType = parsed.data.contentType as ContentType;
+  const difficulty = parsed.data.difficulty as DifficultyLevel | undefined;
+  const tagsRaw = parsed.data.tags ?? "";
+
   const titleEn = (formData.get("titleEn") as string | null)?.trim() ?? undefined;
   const titleJa = (formData.get("titleJa") as string | null)?.trim() ?? undefined;
-
-  const bodyKo = (formData.get("bodyKo") as string | null)?.trim() ?? "";
+  const bodyKo = parsed.data.bodyKo;
   const bodyEn = (formData.get("bodyEn") as string | null)?.trim() ?? undefined;
   const bodyJa = (formData.get("bodyJa") as string | null)?.trim() ?? undefined;
-
   const categoryId = (formData.get("categoryId") as string | null)?.trim() ?? "";
-  const difficulty = (formData.get("difficulty") as string | null)?.trim() as DifficultyLevel | undefined;
-  const contentType = ((formData.get("contentType") as string | null)?.trim() ?? "article") as ContentType;
-  const tagsRaw = (formData.get("tags") as string | null) ?? "";
-
-  const VALID_DIFFICULTIES: DifficultyLevel[] = ["beginner", "intermediate", "advanced"];
-  const VALID_CONTENT_TYPES: ContentType[] = ["article", "tip", "workflow", "tutorial"];
-
-  if (difficulty && !VALID_DIFFICULTIES.includes(difficulty)) {
-    return { success: false, error: "invalid difficulty level" };
-  }
-  if (!VALID_CONTENT_TYPES.includes(contentType)) {
-    return { success: false, error: "invalid content type" };
-  }
 
   const validationError = validateFields({ titleKo, bodyKo, categoryId });
   if (validationError) {

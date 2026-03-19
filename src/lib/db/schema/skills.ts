@@ -93,6 +93,7 @@ export const skills = pgTable(
     index("skills_author_idx").on(t.authorId),
     index("skills_status_idx").on(t.status),
     index("skills_category_idx").on(t.categoryId),
+    index("skills_status_downloads_idx").on(t.status, t.downloads),
     // GIN indexes on triggers, tags, and search_vec: applied in raw SQL migration
   ],
 );

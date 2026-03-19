@@ -91,6 +91,7 @@ export const knowledgeEntries = pgTable(
     index("knowledge_entries_author_idx").on(t.authorId),
     index("knowledge_entries_category_idx").on(t.categoryId),
     index("knowledge_entries_published_idx").on(t.publishedAt),
+    index("ke_status_published_idx").on(t.status, t.publishedAt),
     // GIN indexes on search_* are applied in raw SQL migration (0012_indexes.sql)
   ],
 );
