@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db/client";
 import { skills, votes } from "@/lib/db/schema";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
+import { rateLimit } from "@/lib/rate-limit";
 
 // ============================================================
 // Skill Server Actions
@@ -109,6 +110,17 @@ export interface IncrementDownloadResult {
 export async function incrementDownload(
   skillId: string,
 ): Promise<IncrementDownloadResult> {
+  // Rate limit by userId+skillId when authenticated (10 req/min).
+  // Server actions already require a valid session cookie to invoke,
+  // so unauthenticated abuse is limited by default.
+  const user = await getCurrentUser();
+  if (user) {
+    const { allowed } = rateLimit(`download:${user.id}:${skillId}`, 10);
+    if (!allowed) {
+      return { success: false, newCount: 0, error: "rate limited" };
+    }
+  }
+
   try {
     const [updatedRow] = await db
       .update(skills)

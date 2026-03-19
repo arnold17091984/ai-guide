@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { globalSearch } from "@/lib/search/actions";
 import type { SearchResultType } from "@/lib/search/actions";
+import { rateLimit } from "@/lib/rate-limit";
 
 // ============================================================
 // GET /api/search — Global search API
@@ -21,6 +22,19 @@ const MAX_LIMIT = 20;
 const DEFAULT_LIMIT = 5;
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
+  // --- Rate limiting: 30 req/min per IP ---
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "anonymous";
+  const { allowed, remaining } = rateLimit(`search:${ip}`, 30);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      {
+        status: 429,
+        headers: { "Retry-After": "60", "X-RateLimit-Remaining": "0" },
+      },
+    );
+  }
+
   const { searchParams } = request.nextUrl;
 
   const q = searchParams.get("q")?.trim() ?? "";
@@ -58,6 +72,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       headers: {
         // Short cache — suggestions should feel fresh but not hammer DB
         "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+        "X-RateLimit-Remaining": String(remaining),
       },
     });
   } catch {

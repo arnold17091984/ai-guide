@@ -1,6 +1,12 @@
 node_modules
 .next
 .git
-*.md
-.env*
-!.env.local.example
+*.env*
+*.png
+tasks/
+.claude/
+.improve/
+PRODUCT_ANALYSIS.md
+COMMUNITY_ENGAGEMENT_ANALYSIS.md
+ACCESSIBILITY_AUDIT.md
+AUDIT_SUMMARY.txt

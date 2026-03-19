@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { db } from "@/lib/db/client";
-import { knowledgeEntries, skills, caseStudies } from "@/lib/db/schema";
+import { knowledgeEntries, skills, caseStudies, learningPaths } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 const SITE_URL =
@@ -21,6 +21,8 @@ const STATIC_PATHS = [
   "/case-studies",
   "/teams",
   "/knowledge/debt",
+  "/learning-paths",
+  "/profile",
 ] as const;
 
 function makeUrl(
@@ -43,9 +45,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let knowledgeSlugs: { slug: string; updatedAt: Date | null }[] = [];
   let skillSlugs: { slug: string; updatedAt: Date | null }[] = [];
   let caseSlugs: { slug: string; updatedAt: Date | null }[] = [];
+  let learningPathIds: { id: string; updatedAt: Date }[] = [];
 
   try {
-    [knowledgeSlugs, skillSlugs, caseSlugs] = await Promise.all([
+    [knowledgeSlugs, skillSlugs, caseSlugs, learningPathIds] = await Promise.all([
       db
         .select({
           slug: knowledgeEntries.slug,
@@ -66,6 +69,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .from(caseStudies)
         .where(eq(caseStudies.status, "published"))
         .catch(() => [] as { slug: string; updatedAt: Date | null }[]),
+
+      db
+        .select({ id: learningPaths.id, updatedAt: learningPaths.updatedAt })
+        .from(learningPaths)
+        .where(eq(learningPaths.status, "published"))
+        .catch(() => [] as { id: string; updatedAt: Date }[]),
     ]);
   } catch {
     // DATABASE_URL missing or connection failed — return only static routes
@@ -112,6 +121,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: updatedAt ?? new Date(),
         changeFrequency: "monthly",
         priority: 0.6,
+      });
+    }
+  }
+
+  // Dynamic learning paths
+  for (const locale of LOCALES) {
+    for (const { id, updatedAt } of learningPathIds) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/learning-paths/${id}`,
+        lastModified: updatedAt ?? new Date(),
+        changeFrequency: "weekly",
+        priority: 0.7,
       });
     }
   }

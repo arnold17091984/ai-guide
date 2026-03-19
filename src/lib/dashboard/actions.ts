@@ -1,5 +1,6 @@
 "use server";
 
+import { cache } from "react";
 import { desc, eq, count } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import {
@@ -12,9 +13,11 @@ import {
 
 // ============================================================
 // getDashboardStats — aggregate totals for hero banner
+// Wrapped with React cache() so multiple callers within the
+// same server request share a single DB round-trip.
 // ============================================================
 
-export async function getDashboardStats() {
+export const getDashboardStats = cache(async function getDashboardStats() {
   try {
     const [entriesCount] = await db
       .select({ value: count() })
@@ -43,7 +46,7 @@ export async function getDashboardStats() {
   } catch {
     return { totalEntries: 0, totalSkills: 0, totalUsers: 0, totalVotes: 0 };
   }
-}
+});
 
 // ============================================================
 // getRecentEntries — latest published knowledge entries

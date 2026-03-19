@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 import { getLearningPathById, getUserPathProgress } from "@/lib/learning-paths/queries";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
@@ -13,6 +14,35 @@ import PathStepList from "./PathStepList";
 
 interface PageProps {
   params: Promise<{ locale: string; id: string }>;
+}
+
+// ---------------------------------------------------------------------------
+// Metadata
+// ---------------------------------------------------------------------------
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale, id } = await params;
+  const path = await getLearningPathById(id, locale);
+
+  if (!path) return {};
+
+  const title = `${path.title} | AI Guide Learning`;
+  const description = (path.description ?? "").slice(0, 160);
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
 }
 
 // ---------------------------------------------------------------------------

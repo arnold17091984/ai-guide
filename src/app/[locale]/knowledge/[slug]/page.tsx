@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 import { getEntryBySlug } from "@/lib/db/queries/knowledge";
 import { renderMarkdown } from "@/lib/markdown";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
@@ -11,6 +12,37 @@ import ScrollFadeIn from "@/components/ScrollFadeIn";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+// ---------------------------------------------------------------------------
+// Metadata
+// ---------------------------------------------------------------------------
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const safeLocale = isValidLocale(locale) ? locale : "ko";
+  const entry = await getEntryBySlug(slug, safeLocale);
+
+  if (!entry) return {};
+
+  const title = `${entry.title} | AI Guide`;
+  const description = (entry.summary ?? "").slice(0, 160);
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      locale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
 }
 
 // ---------------------------------------------------------------------------

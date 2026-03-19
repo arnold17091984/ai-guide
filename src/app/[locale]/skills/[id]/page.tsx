@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 import { getSkillBySlug, getSkillStarStatus } from "@/lib/db/queries/skills";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
@@ -19,6 +20,35 @@ import type { ClaudeCodeVersion } from "@/lib/skill-registry/types";
 
 interface PageProps {
   params: Promise<{ locale: string; id: string }>;
+}
+
+// ---------------------------------------------------------------------------
+// Metadata
+// ---------------------------------------------------------------------------
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const skill = await getSkillBySlug(id);
+
+  if (!skill) return {};
+
+  const title = `${skill.name} | AI Guide Skills`;
+  const description = (skill.description ?? "").slice(0, 160);
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
 }
 
 // ---------------------------------------------------------------------------

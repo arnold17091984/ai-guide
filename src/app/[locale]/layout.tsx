@@ -20,6 +20,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AI Guide - Claude Code Platform",
   description: "Collaborative AI knowledge platform for Claude Code",
+  openGraph: {
+    title: "AI Guide - Claude Code Platform",
+    description: "Collaborative AI knowledge platform for Claude Code",
+    type: "website",
+    siteName: "AI Guide",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Guide - Claude Code Platform",
+    description: "Collaborative AI knowledge platform for Claude Code",
+  },
 };
 
 export default async function LocaleLayout({
